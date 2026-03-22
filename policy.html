@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storm OS | Legal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020305;
+            --bg2: #050810;
+            --card: #080c14;
+            --card2: #0c1220;
+            --border: #131d30;
+            --border2: #1c2a42;
+            --accent: #3b82f6;
+            --purple: #8b5cf6;
+            --green: #10b981;
+            --red: #ef4444;
+            --amber: #f59e0b;
+            --text: #f0f4ff;
+            --text2: #7a90b8;
+            --text3: #2d3f60;
+            --grad: linear-gradient(135deg, var(--accent), var(--purple));
+            --head: 'Orbitron', sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+            --body: 'Rajdhani', sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--body);
+            overflow-x: hidden;
+            cursor: none
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: .3;
+            pointer-events: none;
+            z-index: 9998
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, .04) 3px, rgba(0, 0, 0, .04) 4px);
+            pointer-events: none;
+            z-index: 9997
+        }
+
+        #cur {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen
+        }
+
+        #cur-r {
+            position: fixed;
+            width: 28px;
+            height: 28px;
+            border: 1px solid rgba(59, 130, 246, .4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%)
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(59, 130, 246, .03) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, .03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gd 25s linear infinite;
+            pointer-events: none;
+            z-index: 0
+        }
+
+        @keyframes gd {
+            0% {
+                background-position: 0 0
+            }
+
+            100% {
+                background-position: 60px 60px
+            }
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0
+        }
+
+        .o1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(59, 130, 246, .05);
+            top: -150px;
+            left: -100px
+        }
+
+        .o2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(139, 92, 246, .04);
+            bottom: -150px;
+            right: -100px
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all .4s
+        }
+
+        nav.sc {
+            background: rgba(2, 3, 5, .88);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .logo {
+            font-family: var(--head);
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            color: var(--text);
+            text-decoration: none
+        }
+
+        .logo span {
+            color: var(--accent)
+        }
+
+        .nl {
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .nl a {
+            font-family: var(--mono);
+            font-size: .68rem;
+            color: var(--text2);
+            text-decoration: none;
+            padding: 6px 12px;
+            letter-spacing: .08em;
+            transition: color .2s;
+            border-radius: 4px
+        }
+
+        .nl a:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, .04)
+        }
+
+        .nav-btns {
+            display: flex;
+            gap: 8px
+        }
+
+        .btn-o {
+            font-family: var(--mono);
+            font-size: .65rem;
+            letter-spacing: .1em;
+            padding: 8px 18px;
+            border-radius: 4px;
+            text-decoration: none;
+            background: transparent;
+            border: 1px solid var(--border2);
+            color: var(--text2);
+            transition: all .2s
+        }
+
+        .btn-o:hover {
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        .btn-p {
+            font-family: var(--mono);
+            font-size: .65rem;
+            letter-spacing: .1em;
+            padding: 8px 18px;
+            border-radius: 4px;
+            text-decoration: none;
+            background: var(--grad);
+            color: #fff;
+            border: none;
+            transition: all .2s
+        }
+
+        .btn-p:hover {
+            opacity: .88
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1
+        }
+
+        /* TAB NAV */
+        .page-hero {
+            padding: 140px 0 40px;
+            text-align: center
+        }
+
+        .page-hero h1 {
+            font-family: var(--head);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -.02em;
+            margin-bottom: 12px
+        }
+
+        .grad {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .page-hero p {
+            font-size: .95rem;
+            color: var(--text2);
+            max-width: 480px;
+            margin: 0 auto 32px;
+            line-height: 1.7
+        }
+
+        .policy-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap
+        }
+
+        .ptab {
+            font-family: var(--mono);
+            font-size: .65rem;
+            letter-spacing: .1em;
+            padding: 9px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all .2s;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text2)
+        }
+
+        .ptab:hover {
+            border-color: var(--border2);
+            color: var(--text)
+        }
+
+        .ptab.active {
+            background: rgba(59, 130, 246, .1);
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        /* POLICY SECTIONS */
+        .policy-section {
+            display: none;
+            padding: 60px 0 80px
+        }
+
+        .policy-section.active {
+            display: block
+        }
+
+        /* DOC CARD */
+        .doc-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden
+        }
+
+        .doc-header {
+            padding: 28px 32px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--card2)
+        }
+
+        .doc-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: rgba(59, 130, 246, .1);
+            border: 1px solid rgba(59, 130, 246, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0
+        }
+
+        .doc-title {
+            font-family: var(--head);
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            margin-bottom: 4px
+        }
+
+        .doc-meta {
+            font-family: var(--mono);
+            font-size: .6rem;
+            color: var(--text3);
+            letter-spacing: .08em
+        }
+
+        .doc-body {
+            padding: 32px
+        }
+
+        /* PROSE */
+        .policy-h2 {
+            font-family: var(--head);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            color: var(--text);
+            margin: 28px 0 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .policy-h2:first-child {
+            margin-top: 0
+        }
+
+        .policy-p {
+            font-size: .95rem;
+            color: var(--text2);
+            line-height: 1.8;
+            margin-bottom: 12px
+        }
+
+        .policy-p a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        .policy-p a:hover {
+            text-decoration: underline
+        }
+
+        .policy-ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 14px
+        }
+
+        .policy-ul li {
+            font-family: var(--mono);
+            font-size: .7rem;
+            color: var(--text2);
+            line-height: 1.6;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            letter-spacing: .02em
+        }
+
+        .policy-ul li::before {
+            content: '›';
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 1px
+        }
+
+        .notice {
+            background: rgba(239, 68, 68, .07);
+            border: 1px solid rgba(239, 68, 68, .2);
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin: 16px 0
+        }
+
+        .notice p {
+            font-family: var(--mono);
+            font-size: .68rem;
+            color: #fca5a5;
+            line-height: 1.6;
+            letter-spacing: .02em
+        }
+
+        .notice.amber-n {
+            background: rgba(245, 158, 11, .07);
+            border-color: rgba(245, 158, 11, .2)
+        }
+
+        .notice.amber-n p {
+            color: #fcd34d
+        }
+
+        .notice.green-n {
+            background: rgba(16, 185, 129, .07);
+            border-color: rgba(16, 185, 129, .2)
+        }
+
+        .notice.green-n p {
+            color: #6ee7b7
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 48px 0;
+            position: relative;
+            z-index: 1
+        }
+
+        .fi {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem
+        }
+
+        .fl {
+            font-family: var(--head);
+            font-size: 1.1rem;
+            font-weight: 900;
+            letter-spacing: .12em
+        }
+
+        .flinks {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .flinks a {
+            font-family: var(--mono);
+            font-size: .6rem;
+            color: var(--text3);
+            text-decoration: none;
+            padding: 5px 10px;
+            letter-spacing: .08em;
+            transition: color .2s;
+            border-radius: 4px
+        }
+
+        .flinks a:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, .04)
+        }
+
+        .fm {
+            font-family: var(--mono);
+            font-size: .57rem;
+            color: var(--text3);
+            text-align: right;
+            line-height: 2;
+            letter-spacing: .06em
+        }
+
+        @media(max-width:700px) {
+            .nl {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cur"></div>
+    <div id="cur-r"></div>
+    <div class="grid-bg"></div>
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">STORM<span>_</span></a>
+            <div class="nl">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="index.html#pricing">Pricing</a>
+            </div>
+            <div class="nav-btns">
+                <a href="login.html" class="btn-o">LOGIN</a>
+                <a href="signup.html" class="btn-p">GET STARTED</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="page-hero">
+        <div class="container">
+            <div
+                style="font-family:var(--mono);font-size:.62rem;color:var(--accent);letter-spacing:.15em;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px">
+                <span style="width:20px;height:1px;background:var(--accent);display:inline-block"></span>STORM OS //
+                LEGAL
+            </div>
+            <h1>Policies &<br><span class="grad">Legal Docs</span></h1>
+            <p>Everything you need to know about how we handle your data, what you agree to, and our refund policy.</p>
+            <div class="policy-tabs">
+                <button class="ptab active" onclick="showPolicy('privacy')">🔒 Privacy Policy</button>
+                <button class="ptab" onclick="showPolicy('terms')" id="tab-terms">📋 Terms of Service</button>
+                <button class="ptab" onclick="showPolicy('refund')" id="tab-refund">💳 Refund Policy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ PRIVACY POLICY ═══ -->
+    <div class="policy-section active" id="sec-privacy">
+        <div class="container">
+            <div class="doc-card">
+                <div class="doc-header">
+                    <div class="doc-icon">🔒</div>
+                    <div>
+                        <div class="doc-title">PRIVACY POLICY</div>
+                        <div class="doc-meta">LAST UPDATED: MARCH 2026 // STORM OS // EGYPT</div>
+                    </div>
+                </div>
+                <div class="doc-body">
+                    <h3 class="policy-h2">1. INTRODUCTION</h3>
+                    <p class="policy-p">Storm OS ("we", "us", "our") is operated by Martin, based in Egypt. This Privacy
+                        Policy explains how we collect, use, and protect your information when you use the Storm OS
+                        platform at any of our domains or deployments.</p>
+                    <p class="policy-p">By using Storm OS, you agree to the collection and use of information in
+                        accordance with this policy. We take your privacy seriously and will never sell your personal
+                        data to third parties.</p>
+
+                    <h3 class="policy-h2">2. INFORMATION WE COLLECT</h3>
+                    <p class="policy-p">We collect the following categories of information:</p>
+                    <ul class="policy-ul">
+                        <li><strong>Account Data:</strong> Your name and email address when you register.</li>
+                        <li><strong>Payment Data:</strong> Billing information processed by Paddle (our payment
+                            provider). We do not store card numbers — Paddle handles all payment data under their own
+                            PCI-compliant systems.</li>
+                        <li><strong>Usage Data:</strong> Your subscription status and payment confirmation stored in our
+                            Supabase database.</li>
+                        <li><strong>Local Data:</strong> All dashboard activity (tasks, habits, sessions, journal
+                            entries, analytics) is stored locally in your browser's localStorage and never transmitted
+                            to our servers.</li>
+                        <li><strong>Technical Data:</strong> Basic server logs (IP address, browser type, timestamps)
+                            for security and debugging purposes.</li>
+                    </ul>
+
+                    <h3 class="policy-h2">3. HOW WE USE YOUR DATA</h3>
+                    <ul class="policy-ul">
+                        <li>To authenticate your account and verify your subscription status.</li>
+                        <li>To process your payment and grant dashboard access upon confirmation.</li>
+                        <li>To send transactional emails (payment receipts, account confirmation) via Supabase Auth.
+                        </li>
+                        <li>To maintain the security of our platform and prevent fraud.</li>
+                        <li>We do NOT use your data for advertising, profiling, or sell it to any third parties.</li>
+                    </ul>
+
+                    <h3 class="policy-h2">4. DATA STORAGE & SECURITY</h3>
+                    <p class="policy-p">Your account data (name, email, subscription status) is stored in Supabase, a
+                        SOC 2 compliant cloud database. All data is encrypted in transit using TLS and at rest. Payment
+                        processing is handled exclusively by Paddle, a PCI-DSS Level 1 certified provider.</p>
+                    <p class="policy-p">Your productivity data (tasks, habits, sessions, journal entries, goals,
+                        analytics) is stored exclusively in your browser's localStorage on your own device. We cannot
+                        access this data. Clearing your browser storage will permanently delete this data.</p>
+
+                    <h3 class="policy-h2">5. THIRD-PARTY SERVICES</h3>
+                    <ul class="policy-ul">
+                        <li><strong>Supabase:</strong> Authentication and user profile database. Privacy policy at
+                            supabase.com/privacy.</li>
+                        <li><strong>Paddle:</strong> Payment processing. Privacy policy at paddle.com/legal/privacy.
+                        </li>
+                        <li><strong>OneCompiler:</strong> In-browser code execution via embedded iframe. Privacy policy
+                            at onecompiler.com. No code you write is stored by us.</li>
+                        <li><strong>Google Fonts:</strong> Typography delivery. Privacy policy at
+                            policies.google.com/privacy.</li>
+                    </ul>
+
+                    <h3 class="policy-h2">6. YOUR RIGHTS</h3>
+                    <ul class="policy-ul">
+                        <li>Request access to the personal data we hold about you.</li>
+                        <li>Request correction of inaccurate data.</li>
+                        <li>Request deletion of your account and associated data.</li>
+                        <li>Withdraw consent at any time by cancelling your subscription and deleting your account.</li>
+                    </ul>
+                    <p class="policy-p">To exercise any of these rights, contact us at <a
+                            href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a>.</p>
+
+                    <h3 class="policy-h2">7. COOKIES</h3>
+                    <p class="policy-p">Storm OS does not use tracking cookies. We use browser localStorage to maintain
+                        your dashboard data and Supabase Auth session tokens for authentication purposes only. No
+                        advertising or analytics cookies are used.</p>
+
+                    <h3 class="policy-h2">8. CHILDREN'S PRIVACY</h3>
+                    <p class="policy-p">Storm OS is not directed at anyone under the age of 16. We do not knowingly
+                        collect personal information from children. If you believe a child has provided us with personal
+                        data, contact us immediately.</p>
+
+                    <h3 class="policy-h2">9. CHANGES TO THIS POLICY</h3>
+                    <p class="policy-p">We may update this Privacy Policy from time to time. We will notify users of
+                        significant changes by email or by posting a notice on the platform. Continued use of Storm OS
+                        after changes constitutes acceptance of the updated policy.</p>
+
+                    <h3 class="policy-h2">10. CONTACT</h3>
+                    <p class="policy-p">For privacy concerns or data requests, contact Martin at:<br><a
+                            href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ TERMS OF SERVICE ═══ -->
+    <div class="policy-section" id="sec-terms">
+        <div class="container">
+            <div class="doc-card">
+                <div class="doc-header">
+                    <div class="doc-icon">📋</div>
+                    <div>
+                        <div class="doc-title">TERMS OF SERVICE</div>
+                        <div class="doc-meta">LAST UPDATED: MARCH 2026 // STORM OS // EGYPT</div>
+                    </div>
+                </div>
+                <div class="doc-body">
+                    <div class="notice amber-n">
+                        <p>⚠ BY CREATING AN ACCOUNT OR ACCESSING THE STORM OS DASHBOARD, YOU AGREE TO THESE TERMS IN
+                            FULL. IF YOU DO NOT AGREE, DO NOT USE THE SERVICE.</p>
+                    </div>
+
+                    <h3 class="policy-h2">1. ACCEPTANCE OF TERMS</h3>
+                    <p class="policy-p">These Terms of Service ("Terms") govern your access to and use of Storm OS,
+                        operated by Martin ("Operator", "we", "us") from Egypt. By registering an account, completing a
+                        payment, or accessing the dashboard, you confirm that you have read, understood, and agree to be
+                        bound by these Terms.</p>
+
+                    <h3 class="policy-h2">2. THE SERVICE</h3>
+                    <p class="policy-p">Storm OS is a web-based productivity platform providing seven integrated tools:
+                        Deep Work Engine, Focus Pulse Timer, Habit Matrix, Weekly Ops Dashboard, 90-Day Analytics, Field
+                        Notes, and an Online Compiler. Access to the dashboard requires a paid subscription.</p>
+                    <ul class="policy-ul">
+                        <li>Access is granted upon successful payment processing via Paddle.</li>
+                        <li>The platform is provided "as is" and "as available".</li>
+                        <li>We reserve the right to modify, update, or discontinue features with reasonable notice.</li>
+                        <li>We do not guarantee 100% uptime and are not liable for downtime outside our control.</li>
+                    </ul>
+
+                    <h3 class="policy-h2">3. ACCOUNT REGISTRATION</h3>
+                    <ul class="policy-ul">
+                        <li>You must provide accurate and complete information when creating your account.</li>
+                        <li>You are responsible for maintaining the confidentiality of your login credentials.</li>
+                        <li>You are responsible for all activity that occurs under your account.</li>
+                        <li>One account per user. Sharing accounts is not permitted.</li>
+                        <li>You must be at least 16 years old to register.</li>
+                    </ul>
+
+                    <h3 class="policy-h2">4. SUBSCRIPTION & PAYMENT</h3>
+                    <ul class="policy-ul">
+                        <li>The Operator plan costs $19/month, billed monthly through Paddle.</li>
+                        <li>Payment is required before accessing the dashboard. No free trial is offered.</li>
+                        <li>Subscriptions renew automatically each month until cancelled.</li>
+                        <li>You may cancel your subscription at any time through Paddle's customer portal.</li>
+                        <li>Cancellation takes effect at the end of the current billing period.</li>
+                        <li>All prices are in USD and exclude applicable taxes where required.</li>
+                    </ul>
+
+                    <h3 class="policy-h2">5. ACCEPTABLE USE</h3>
+                    <p class="policy-p">You agree not to:</p>
+                    <ul class="policy-ul">
+                        <li>Use the platform for any unlawful purpose or in violation of any applicable laws.</li>
+                        <li>Attempt to gain unauthorized access to any part of the platform or other users' accounts.
+                        </li>
+                        <li>Reverse engineer, decompile, or attempt to extract the source code of the platform.</li>
+                        <li>Use automated scripts, bots, or scrapers to access the platform.</li>
+                        <li>Resell or sublicense access to the platform.</li>
+                        <li>Upload or transmit malicious code, viruses, or harmful content.</li>
+                        <li>Use the compiler to execute malicious, illegal, or harmful code targeting external systems.
+                        </li>
+                    </ul>
+
+                    <h3 class="policy-h2">6. INTELLECTUAL PROPERTY</h3>
+                    <p class="policy-p">All content, design, code, branding, and materials comprising Storm OS are the
+                        intellectual property of the Operator and are protected by applicable copyright and trademark
+                        laws. You may not reproduce, distribute, or create derivative works from Storm OS without
+                        explicit written permission.</p>
+                    <p class="policy-p">Your personal data (tasks, journal entries, habits, notes) stored in your
+                        browser's localStorage remains your own property. We have no access to it.</p>
+
+                    <h3 class="policy-h2">7. DISCLAIMER OF WARRANTIES</h3>
+                    <p class="policy-p">STORM OS IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
+                        WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR THAT ANY DEFECTS WILL
+                        BE CORRECTED. YOUR USE OF THE SERVICE IS AT YOUR SOLE RISK.</p>
+
+                    <h3 class="policy-h2">8. LIMITATION OF LIABILITY</h3>
+                    <p class="policy-p">TO THE FULLEST EXTENT PERMITTED BY LAW, STORM OS AND ITS OPERATOR SHALL NOT BE
+                        LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS
+                        OF DATA, REVENUE, OR PROFITS, ARISING FROM YOUR USE OF THE SERVICE.</p>
+                    <p class="policy-p">OUR TOTAL LIABILITY TO YOU SHALL NOT EXCEED THE AMOUNT PAID BY YOU IN THE 30
+                        DAYS PRECEDING THE CLAIM.</p>
+
+                    <h3 class="policy-h2">9. TERMINATION</h3>
+                    <ul class="policy-ul">
+                        <li>You may cancel your subscription and close your account at any time.</li>
+                        <li>We reserve the right to suspend or terminate accounts that violate these Terms.</li>
+                        <li>Upon termination, your access to the dashboard will cease immediately.</li>
+                        <li>Data stored in your browser's localStorage remains on your device after termination.</li>
+                    </ul>
+
+                    <h3 class="policy-h2">10. GOVERNING LAW</h3>
+                    <p class="policy-p">These Terms are governed by and construed in accordance with the laws of Egypt.
+                        Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the
+                        courts of Egypt.</p>
+
+                    <h3 class="policy-h2">11. CHANGES TO TERMS</h3>
+                    <p class="policy-p">We reserve the right to update these Terms at any time. Continued use of Storm
+                        OS after changes constitutes acceptance of the new Terms. We will provide reasonable notice of
+                        material changes via email or platform notification.</p>
+
+                    <h3 class="policy-h2">12. CONTACT</h3>
+                    <p class="policy-p">For questions about these Terms, contact: <a
+                            href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ REFUND POLICY ═══ -->
+    <div class="policy-section" id="sec-refund">
+        <div class="container">
+            <div class="doc-card">
+                <div class="doc-header">
+                    <div class="doc-icon">💳</div>
+                    <div>
+                        <div class="doc-title">REFUND POLICY</div>
+                        <div class="doc-meta">LAST UPDATED: MARCH 2026 // STORM OS // EGYPT</div>
+                    </div>
+                </div>
+                <div class="doc-body">
+                    <div class="notice">
+                        <p>🔴 IMPORTANT: STORM OS OPERATES A STRICT NO-REFUND POLICY. ALL SALES ARE FINAL. BY COMPLETING
+                            YOUR PURCHASE, YOU ACKNOWLEDGE AND ACCEPT THIS POLICY IN FULL.</p>
+                    </div>
+
+                    <h3 class="policy-h2">1. NO REFUND POLICY</h3>
+                    <p class="policy-p">Due to the digital and immediate-access nature of the Storm OS platform, all
+                        purchases are final and non-refundable. Once payment is processed and dashboard access is
+                        granted, no refunds will be issued under any circumstances.</p>
+                    <p class="policy-p">This policy applies to:</p>
+                    <ul class="policy-ul">
+                        <li>Monthly subscription charges.</li>
+                        <li>All past and future billing cycles.</li>
+                        <li>Situations where you did not use the service after payment.</li>
+                        <li>Situations where you forgot to cancel before the renewal date.</li>
+                        <li>Situations where you were dissatisfied with the service after access was granted.</li>
+                        <li>Partial month refunds when cancelling mid-cycle.</li>
+                    </ul>
+
+                    <h3 class="policy-h2">2. CANCELLATION</h3>
+                    <p class="policy-p">You may cancel your subscription at any time through your Paddle customer
+                        portal. Your subscription and access will remain active until the end of the current billing
+                        period. No partial refunds are issued for unused days in the billing cycle.</p>
+                    <p class="policy-p">To cancel: log into your Paddle account, navigate to "Subscriptions", and select
+                        "Cancel". If you need assistance finding your Paddle portal, email us at <a
+                            href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a>.</p>
+
+                    <h3 class="policy-h2">3. EXCEPTIONS</h3>
+                    <div class="notice green-n">
+                        <p>✓ The only exception to this policy is in the case of a verifiable duplicate charge or
+                            billing error caused by a technical fault on our side or by Paddle's payment system. In such
+                            cases, contact us within 7 days of the charge with evidence.</p>
+                    </div>
+                    <p class="policy-p">We do not accept claims of "I didn't know", "I forgot to cancel", "I didn't use
+                        it", or "it didn't work as expected" as grounds for a refund. We encourage all prospective users
+                        to review the full service description on our landing page before purchasing.</p>
+
+                    <h3 class="policy-h2">4. CHARGEBACKS</h3>
+                    <p class="policy-p">Initiating a chargeback or payment dispute with your bank or card issuer without
+                        first contacting us is a violation of these Terms. If you initiate a chargeback, we reserve the
+                        right to immediately terminate your account and contest the dispute with evidence of service
+                        delivery.</p>
+
+                    <h3 class="policy-h2">5. TECHNICAL ISSUES</h3>
+                    <p class="policy-p">If you experience a genuine technical issue preventing you from accessing the
+                        dashboard after payment, contact us at <a
+                            href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a> within 48 hours. We will
+                        work to resolve the issue promptly. Technical issues do not automatically entitle you to a
+                        refund; they entitle you to support and resolution.</p>
+
+                    <h3 class="policy-h2">6. HOW TO REQUEST SUPPORT</h3>
+                    <ul class="policy-ul">
+                        <li>Email: <a href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a></li>
+                        <li>Include your account email and a description of the issue.</li>
+                        <li>For billing errors only: include your Paddle transaction ID and the date of charge.</li>
+                        <li>Response time: 1–3 business days.</li>
+                    </ul>
+
+                    <h3 class="policy-h2">7. GOVERNING LAW</h3>
+                    <p class="policy-p">This Refund Policy is governed by the laws of Egypt. By purchasing a Storm OS
+                        subscription, you acknowledge that you have read and accepted this policy in its entirety.</p>
+
+                    <div class="notice amber-n" style="margin-top:24px">
+                        <p>⚠ BY CLICKING "GET STARTED NOW" AND COMPLETING PAYMENT, YOU CONFIRM THAT YOU HAVE READ AND
+                            AGREE TO THIS NO-REFUND POLICY.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="fi">
+            <div>
+                <div class="fl">STORM<span style="color:var(--accent)">_</span></div>
+                <div
+                    style="font-family:var(--mono);font-size:.57rem;color:var(--text3);margin-top:6px;letter-spacing:.08em">
+                    LOCK IN. LEVEL UP.</div>
+            </div>
+            <div class="flinks">
+                <a href="index.html">Home</a><a href="services.html">Services</a><a
+                    href="index.html#pricing">Pricing</a>
+                <a href="policy.html">Privacy</a><a href="policy.html#terms">Terms</a><a
+                    href="policy.html#refund">Refund</a>
+                <a href="login.html">Login</a><a href="signup.html">Register</a>
+            </div>
+            <div class="fm">
+                <div>STORM OS // v1.0.26</div>
+                <div>© 2026 STORM. ALL RIGHTS RESERVED.</div>
+                <div>BUILT IN EGYPT 🇪🇬</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cursor
+        const cur = document.getElementById('cur'), cr = document.getElementById('cur-r');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        (function a() { rx += (mx - rx) * .15; ry += (my - ry) * .15; cur.style.left = mx + 'px'; cur.style.top = my + 'px'; cr.style.left = rx + 'px'; cr.style.top = ry + 'px'; requestAnimationFrame(a); })();
+
+        // Nav scroll
+        window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('sc', window.scrollY > 40));
+
+        // Tab switching
+        function showPolicy(tab) {
+            document.querySelectorAll('.policy-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+            document.getElementById('sec-' + tab).classList.add('active');
+            event.currentTarget.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Handle hash navigation
+        function handleHash() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash === 'terms') { document.querySelector('[onclick*="terms"]').click(); }
+            else if (hash === 'refund') { document.querySelector('[onclick*="refund"]').click(); }
+            else if (hash === 'privacy') { document.querySelector('[onclick*="privacy"]').click(); }
+        }
+        window.addEventListener('hashchange', handleHash);
+        if (window.location.hash) handleHash();
+    </script>
+</body>
+
+</html>

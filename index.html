@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storm | Lock In. Level Up.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #020305;
+            --bg2: #050810;
+            --card: #080c14;
+            --card2: #0c1220;
+            --border: #131d30;
+            --border2: #1c2a42;
+            --accent: #3b82f6;
+            --accent2: #6366f1;
+            --accent-glow: rgba(59, 130, 246, 0.2);
+            --purple: #8b5cf6;
+            --cyan: #06b6d4;
+            --green: #10b981;
+            --red: #ef4444;
+            --amber: #f59e0b;
+            --text: #f0f4ff;
+            --text2: #7a90b8;
+            --text3: #2d3f60;
+            --grad: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            --head: 'Orbitron', sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+            --body: 'Rajdhani', sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--body);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ── CUSTOM CURSOR ── */
+        #cursor {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            mix-blend-mode: screen;
+        }
+
+        #cursor-ring {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: all 0.12s ease;
+        }
+
+        body:has(a:hover) #cursor {
+            width: 16px;
+            height: 16px;
+            background: var(--purple);
+        }
+
+        body:has(.btn:hover) #cursor-ring {
+            width: 50px;
+            height: 50px;
+            border-color: var(--purple);
+        }
+
+        /* ── NOISE TEXTURE OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* ── SCANLINES ── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg,
+                    transparent, transparent 3px,
+                    rgba(0, 0, 0, 0.05) 3px, rgba(0, 0, 0, 0.05) 4px);
+            pointer-events: none;
+            z-index: 9997;
+        }
+
+        /* ── ANIMATED BG GRID ── */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridDrift 25s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridDrift {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 60px 60px;
+            }
+        }
+
+        /* ── AMBIENT ORBS ── */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            animation: orbFloat 12s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: rgba(59, 130, 246, 0.07);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: rgba(99, 102, 241, 0.07);
+            bottom: -200px;
+            right: -200px;
+            animation-delay: 6s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: rgba(139, 92, 246, 0.05);
+            top: 40%;
+            left: 40%;
+            animation-delay: 3s;
+        }
+
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(30px, -30px) scale(1.05);
+            }
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(2, 3, 5, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--head);
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .logo-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background: var(--accent);
+            margin-left: 3px;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text2);
+            text-decoration: none;
+            padding: 6px 14px;
+            letter-spacing: 0.1em;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 14px;
+            right: 14px;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-status {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: var(--green);
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .nav-status .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 4px rgba(16, 185, 129, 0);
+            }
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            font-family: var(--head);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            padding: 11px 24px;
+            border-radius: 5px;
+            border: none;
+            cursor: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: var(--grad);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), 0 8px 24px rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text2);
+            border: 1px solid var(--border2);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        .btn-lg {
+            font-size: 0.72rem;
+            padding: 15px 36px;
+            letter-spacing: 0.18em;
+        }
+
+        /* ── CONTAINER ── */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── SECTION LABEL ── */
+        .section-tag {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--text2);
+            letter-spacing: 0.15em;
+            border: 1px solid var(--border2);
+            padding: 7px 16px;
+            border-radius: 20px;
+            margin-bottom: 32px;
+            background: rgba(8, 12, 20, 0.8);
+            opacity: 0;
+            animation: heroFadeIn 0.8s 0.2s ease both;
+        }
+
+        .hero-eyebrow .pulse {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: var(--head);
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: heroFadeIn 0.8s 0.4s ease both;
+        }
+
+        .hero h1 .grad-text {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        /* Glitch effect on heading */
+        .hero h1 .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1 .glitch::before,
+        .hero h1 .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 .glitch::before {
+            left: 2px;
+            animation: glitch1 4s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        }
+
+        .hero h1 .glitch::after {
+            left: -2px;
+            animation: glitch2 4s infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitch1 {
+
+            0%,
+            94%,
+            100% {
+                transform: translate(0);
+                opacity: 0;
+            }
+
+            95% {
+                transform: translate(-2px, 1px);
+                opacity: 0.7;
+            }
+
+            97% {
+                transform: translate(2px, -1px);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes glitch2 {
+
+            0%,
+            94%,
+            100% {
+                transform: translate(0);
+                opacity: 0;
+            }
+
+            95% {
+                transform: translate(2px, 1px);
+                opacity: 0.7;
+            }
+
+            97% {
+                transform: translate(-2px, -1px);
+                opacity: 0.7;
+            }
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text2);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            opacity: 0;
+            animation: heroFadeIn 0.8s 0.6s ease both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: heroFadeIn 0.8s 0.8s ease both;
+        }
+
+        /* ── HERO STATS ROW ── */
+        .hero-stats {
+            display: flex;
+            gap: 0;
+            justify-content: center;
+            margin-top: 64px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--card);
+            overflow: hidden;
+            opacity: 0;
+            animation: heroFadeIn 0.8s 1s ease both;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stat {
+            flex: 1;
+            padding: 20px 24px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
+
+        .hero-stat:last-child {
+            border-right: none;
+        }
+
+        .hero-stat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--grad);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .hero-stat:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-num {
+            font-family: var(--head);
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--text);
+            line-height: 1;
+            display: block;
+        }
+
+        .stat-label {
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            color: var(--text3);
+            letter-spacing: 0.12em;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* ── UI PREVIEW ── */
+        .preview-wrap {
+            position: relative;
+            max-width: 1000px;
+            margin: 80px auto 0;
+            opacity: 0;
+            animation: heroFadeIn 1s 1.2s ease both;
+        }
+
+        .preview-frame {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--border2);
+            overflow: hidden;
+            position: relative;
+            box-shadow:
+                0 0 0 1px rgba(59, 130, 246, 0.1),
+                0 40px 80px rgba(0, 0, 0, 0.7),
+                0 0 80px rgba(59, 130, 246, 0.08);
+        }
+
+        /* Gradient fade at top and bottom of preview */
+        .preview-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(to bottom, rgba(2, 3, 5, 0.8), transparent);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .preview-bar {
+            background: var(--card2);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .preview-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .preview-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .pd-r {
+            background: #ef4444;
+        }
+
+        .pd-y {
+            background: #f59e0b;
+        }
+
+        .pd-g {
+            background: #10b981;
+        }
+
+        .preview-url {
+            flex: 1;
+            text-align: center;
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: var(--text3);
+            letter-spacing: 0.06em;
+        }
+
+        .preview-img {
+            width: 100%;
+            display: block;
+            background: #050810;
+            min-height: 400px;
+            object-fit: cover;
+        }
+
+        /* Scan line over preview */
+        .preview-scan {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), transparent);
+            top: 0;
+            pointer-events: none;
+            z-index: 3;
+            animation: scanDown 5s linear infinite;
+        }
+
+        @keyframes scanDown {
+            0% {
+                top: 42px;
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: calc(100% - 2px);
+                opacity: 0;
+            }
+        }
+
+        /* Floating labels on preview */
+        .preview-badge {
+            position: absolute;
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            padding: 5px 12px;
+            border-radius: 4px;
+            border: 1px solid;
+            backdrop-filter: blur(8px);
+            animation: badgeFloat 4s ease-in-out infinite;
+            z-index: 4;
+        }
+
+        @keyframes badgeFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .badge-green {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: var(--green);
+            bottom: 20%;
+            left: -40px;
+            animation-delay: 0s;
+        }
+
+        .badge-blue {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: var(--accent);
+            top: 20%;
+            right: -30px;
+            animation-delay: 2s;
+        }
+
+        /* ── SECTION BASE ── */
+        section {
+            padding: 120px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── SECTION HEADINGS ── */
+        .section-heading {
+            font-family: var(--head);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -0.01em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        /* ── FEATURE CARDS ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: var(--card);
+            padding: 40px 32px;
+            position: relative;
+            transition: background 0.3s;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--grad);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            background: var(--card2);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-num {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text3);
+            letter-spacing: 0.15em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-num::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border2);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            border-color: var(--accent);
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        .feature-title {
+            font-family: var(--head);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--text2);
+            line-height: 1.6;
+        }
+
+        /* ── RESULTS / BENEFITS ── */
+        #benefits {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .result-item {
+            display: flex;
+            gap: 20px;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-item:hover {
+            padding-left: 8px;
+        }
+
+        .result-num {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            flex-shrink: 0;
+            padding-top: 3px;
+        }
+
+        .result-content h4 {
+            font-family: var(--head);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .result-content p {
+            font-size: 0.9rem;
+            color: var(--text2);
+            line-height: 1.6;
+        }
+
+        /* ── METRICS VISUAL ── */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .metric-card {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .metric-card:hover {
+            border-color: var(--border2);
+            transform: translateY(-2px);
+        }
+
+        .metric-val {
+            font-family: var(--head);
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .metric-val.blue {
+            color: var(--accent);
+        }
+
+        .metric-val.purple {
+            color: var(--purple);
+        }
+
+        .metric-val.green {
+            color: var(--green);
+        }
+
+        .metric-val.cyan {
+            color: var(--cyan);
+        }
+
+        .metric-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text3);
+            letter-spacing: 0.1em;
+        }
+
+        .metric-bar {
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: var(--grad);
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .metric-bar-fill.green {
+            background: var(--green);
+        }
+
+        .metric-bar-fill.purple {
+            background: var(--purple);
+        }
+
+        .metric-bar-fill.cyan {
+            background: var(--cyan);
+        }
+
+        /* ── PRICING ── */
+        .pricing-wrap {
+            max-width: 480px;
+            margin: 60px auto 0;
+        }
+
+        .pricing-card {
+            background: var(--card);
+            border: 1px solid var(--border2);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transition: box-shadow 0.4s;
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 0 60px rgba(59, 130, 246, 0.15), 0 40px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .pricing-top-border {
+            height: 2px;
+            background: var(--grad);
+        }
+
+        .pricing-body {
+            padding: 40px;
+        }
+
+        .pricing-badge {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.14em;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+
+        .pricing-price {
+            font-family: var(--head);
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .pricing-dollar {
+            font-size: 1.5rem;
+            color: var(--text2);
+            margin-top: 10px;
+        }
+
+        .pricing-period {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text3);
+            align-self: flex-end;
+            margin-bottom: 6px;
+            letter-spacing: 0.08em;
+        }
+
+        .pricing-desc {
+            font-size: 0.9rem;
+            color: var(--text2);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .pricing-divider {
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 28px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--text2);
+            letter-spacing: 0.04em;
+        }
+
+        .pricing-features li .check {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--green);
+            font-size: 0.7rem;
+        }
+
+        /* ── REVEAL ANIMATION ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Delay helpers */
+        .d1 {
+            transition-delay: 0.1s;
+        }
+
+        .d2 {
+            transition-delay: 0.2s;
+        }
+
+        .d3 {
+            transition-delay: 0.3s;
+        }
+
+        .d4 {
+            transition-delay: 0.4s;
+        }
+
+        .d5 {
+            transition-delay: 0.5s;
+        }
+
+        /* ── MARQUEE ── */
+        .marquee-wrap {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            overflow: hidden;
+            background: var(--card);
+            position: relative;
+            z-index: 1;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 60px;
+            width: max-content;
+            animation: marqueeScroll 20s linear infinite;
+        }
+
+        @keyframes marqueeScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .marquee-item {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--text3);
+            letter-spacing: 0.15em;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .marquee-item span {
+            color: var(--accent);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 48px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            font-family: var(--head);
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-meta {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: var(--text3);
+            letter-spacing: 0.1em;
+            line-height: 1.8;
+            text-align: right;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: var(--text3);
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ── CTA SECTION ── */
+        .cta-section {
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-section h2 {
+            font-family: var(--head);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .cta-section p {
+            font-size: 1.05rem;
+            color: var(--text2);
+            max-width: 480px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        /* ── COUNTER ANIMATION ── */
+        .count-up {
+            display: inline-block;
+        }
+
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-badge {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links a:not(.btn) {
+                display: none;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+            }
+
+            .hero-stat {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .hero-stat:last-child {
+                border-bottom: none;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CURSOR -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- BACKGROUND -->
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- ═══════════ NAV ═══════════ -->
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">STORM<span class="logo-cursor"></span></a>
+            <div class="nav-links">
+                <a href="#os">System</a>
+                <a href="#services">Services</a>
+                <a href="#benefits">Results</a>
+                <a href="#pricing">Pricing</a>
+                <a href="services.html">Full Docs</a>
+                <div class="nav-status">
+                    <div class="dot"></div>OPERATIONAL
+                </div>
+                <a href="login.html" class="btn btn-outline" style="margin-left:4px">LOGIN</a>
+                <a href="signup.html" class="btn btn-primary" style="margin-left:4px">GET STARTED</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <div class="pulse"></div>
+                    STATUS: SYSTEM ACTIVE // v1.0.26
+                </div>
+
+                <h1>
+                    STOP DRIFTING.<br>
+                    START <span class="grad-text glitch" data-text="LOCKING IN.">LOCKING IN.</span>
+                </h1>
+
+                <p>The high-performance operating system for tech professionals. Build discipline, track deep work, and
+                    level up your career through structural consistency.</p>
+
+                <div class="hero-cta">
+                    <button onclick="openCheckout()" class="btn btn-primary btn-lg">START LOCKING IN
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                    <a href="#os" class="btn btn-ghost btn-lg">SEE THE SYSTEM</a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-num" data-target="2400">0</span>
+                        <span class="stat-label">OPERATORS ACTIVE</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-num" data-target="94">0</span><span class="stat-num"
+                            style="font-size:1rem;color:var(--text2)">%</span>
+                        <span class="stat-label">CONSISTENCY RATE</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-num" data-target="6">0</span><span class="stat-num"
+                            style="font-size:1rem;color:var(--text2)">h</span>
+                        <span class="stat-label">AVG DAILY FOCUS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UI PREVIEW -->
+            <div class="preview-wrap reveal">
+                <div class="preview-frame">
+                    <div class="preview-bar">
+                        <div class="preview-dots">
+                            <div class="preview-dot pd-r"></div>
+                            <div class="preview-dot pd-y"></div>
+                            <div class="preview-dot pd-g"></div>
+                        </div>
+                        <div class="preview-url">storm-os.app/dashboard</div>
+                    </div>
+                    <!-- Dashboard Mock — STATIC, no JS needed -->
+                    <div
+                        style="background:#050810;padding:20px;height:360px;display:flex;flex-direction:column;gap:12px;overflow:hidden;">
+                        <!-- Top Row -->
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <div
+                                style="font-family:var(--head);font-size:0.85rem;font-weight:900;letter-spacing:0.12em;">
+                                OPERATOR COMMAND</div>
+                            <div
+                                style="font-family:var(--mono);font-size:0.6rem;color:var(--green);border:1px solid rgba(16,185,129,0.3);padding:3px 10px;border-radius:3px;">
+                                ACTIVE_OS</div>
+                        </div>
+                        <!-- Cards Row -->
+                        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;">
+                            <div
+                                style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
+                                <div
+                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;margin-bottom:6px;">
+                                    TASKS DONE</div>
+                                <div
+                                    style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--green);">
+                                    7</div>
+                            </div>
+                            <div
+                                style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
+                                <div
+                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;margin-bottom:6px;">
+                                    FOCUSED</div>
+                                <div
+                                    style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--accent);">
+                                    4.5h</div>
+                            </div>
+                            <div
+                                style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
+                                <div
+                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;margin-bottom:6px;">
+                                    STREAK</div>
+                                <div
+                                    style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--amber);">
+                                    14d&#x1F525;</div>
+                            </div>
+                            <div
+                                style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
+                                <div
+                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;margin-bottom:6px;">
+                                    DAY SCORE</div>
+                                <div
+                                    style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--cyan);">
+                                    91%</div>
+                            </div>
+                        </div>
+                        <!-- Bottom Row -->
+                        <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;flex:1;min-height:0;">
+                            <!-- Heatmap STATIC -->
+                            <div
+                                style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:14px;overflow:hidden;">
+                                <div
+                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;margin-bottom:10px;">
+                                    90-DAY ACTIVITY</div>
+                                <div style="display:flex;gap:2px;flex-wrap:wrap;overflow:hidden;max-height:120px;">
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.2)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.2)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.2)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.2)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Timer -->
+                            <div
+                                style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+                                <div
+                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;">
+                                    FOCUS PULSE</div>
+                                <div style="font-family:var(--head);font-size:2.2rem;font-weight:900;color:var(--accent2);text-shadow:0 0 20px rgba(99,102,241,0.5);"
+                                    id="mock-timer">24:58</div>
+                                <div style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);">ACTIVE
+                                    SESSION</div>
+                                <div
+                                    style="width:60px;height:3px;background:var(--border);border-radius:2px;overflow:hidden;">
+                                    <div style="height:100%;width:65%;background:var(--accent2);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-scan"></div>
+                </div>
+                <div class="preview-badge badge-green">✓ STREAK ACTIVE: 14 DAYS</div>
+                <div class="preview-badge badge-blue">▶ FOCUS SESSION RUNNING</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════ MARQUEE ═══════════ -->
+    <div class="marquee-wrap">
+        <div class="marquee-track">
+            <div class="marquee-item"><span>✦</span> DEEP WORK ENGINE</div>
+            <div class="marquee-item"><span>✦</span> HABIT MATRIX</div>
+            <div class="marquee-item"><span>✦</span> FOCUS PULSE TIMER</div>
+            <div class="marquee-item"><span>✦</span> WEEKLY OPS DASHBOARD</div>
+            <div class="marquee-item"><span>✦</span> 90-DAY ANALYTICS</div>
+            <div class="marquee-item"><span>✦</span> CONSISTENCY TRACKING</div>
+            <div class="marquee-item"><span>✦</span> FIELD NOTES</div>
+            <div class="marquee-item"><span>✦</span> STREAK SYSTEM</div>
+            <!-- duplicate for seamless loop -->
+            <div class="marquee-item"><span>✦</span> DEEP WORK ENGINE</div>
+            <div class="marquee-item"><span>✦</span> HABIT MATRIX</div>
+            <div class="marquee-item"><span>✦</span> FOCUS PULSE TIMER</div>
+            <div class="marquee-item"><span>✦</span> WEEKLY OPS DASHBOARD</div>
+            <div class="marquee-item"><span>✦</span> 90-DAY ANALYTICS</div>
+            <div class="marquee-item"><span>✦</span> CONSISTENCY TRACKING</div>
+            <div class="marquee-item"><span>✦</span> FIELD NOTES</div>
+            <div class="marquee-item"><span>✦</span> STREAK SYSTEM</div>
+        </div>
+    </div>
+
+    <!-- ═══════════ FEATURES ═══════════ -->
+    <section id="os">
+        <div class="container">
+            <div class="reveal">
+                <div class="section-tag">01 // THE SYSTEM</div>
+                <h2 class="section-heading">What is Storm OS?</h2>
+                <p style="color:var(--text2);max-width:540px;font-size:1rem;line-height:1.7;margin-top:12px;">
+                    It's more than a habit tracker. It's a full productivity operating system engineered for the tech
+                    mindset — built on the principles of deep work, consistency, and measurable output.
+                </p>
+            </div>
+
+            <div class="features-grid reveal d1">
+                <div class="feature-card">
+                    <div class="feature-num">01</div>
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">DEEP WORK ENGINE</div>
+                    <p class="feature-desc">Plan and measure high-intensity focus sessions with precision. Stop counting
+                        hours; start counting output. Integrated timer with session logging.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-num">02</div>
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-title">TECH GROWTH SYSTEM</div>
+                    <p class="feature-desc">Track your journey through AI, Cloud, or Software Engineering with
+                        structured learning path templates and milestone tracking.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-num">03</div>
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">PERFORMANCE DASHBOARD</div>
+                    <p class="feature-desc">Hard data on your consistency. Visualize habits, focus time, and discipline
+                        trends across a 90-day activity graph.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ BENEFITS ═══════════ -->
+    <section id="benefits">
+        <div class="container">
+            <div class="results-grid">
+
+                <div class="reveal-left">
+                    <div class="section-tag">02 // RESULTS</div>
+                    <h2 class="section-heading">Built for the<br>Ambitious</h2>
+                    <p style="color:var(--text2);font-size:0.95rem;line-height:1.7;margin-top:16px;margin-bottom:40px;">
+                        Every feature is engineered for one outcome: making you perform at the highest level, every
+                        single day.
+                    </p>
+
+                    <div class="result-item">
+                        <div class="result-num">01</div>
+                        <div class="result-content">
+                            <h4>CONSISTENCY ENGINE</h4>
+                            <p>Never lose momentum again. The streak system and daily check-ins ensure you show up every
+                                single day without exception.</p>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-num">02</div>
+                        <div class="result-content">
+                            <h4>DISTRACTION ELIMINATION</h4>
+                            <p>Kill distractions. The OS is designed to facilitate deep work and flow states through
+                                structured focus blocks.</p>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-num">03</div>
+                        <div class="result-content">
+                            <h4>CAREER ACCELERATION</h4>
+                            <p>Measure your progress and build the discipline required for senior-level roles in tech
+                                through consistent daily execution.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-right" style="display:flex;flex-direction:column;gap:16px;">
+                    <!-- Metrics -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-val blue count-up" data-target="94">0</div>
+                            <div class="metric-label">% CONSISTENCY</div>
+                            <div class="metric-bar">
+                                <div class="metric-bar-fill" data-width="94"></div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val purple count-up" data-target="6">0</div>
+                            <div class="metric-label">H AVG DEEP WORK</div>
+                            <div class="metric-bar">
+                                <div class="metric-bar-fill purple" data-width="75"></div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val green count-up" data-target="47">0</div>
+                            <div class="metric-label">DAY BEST STREAK</div>
+                            <div class="metric-bar">
+                                <div class="metric-bar-fill green" data-width="60"></div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-val cyan count-up" data-target="2400">0</div>
+                            <div class="metric-label">OPERATORS ACTIVE</div>
+                            <div class="metric-bar">
+                                <div class="metric-bar-fill cyan" data-width="85"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ PRICING ═══════════ -->
+    <section id="pricing">
+        <div class="container">
+            <div style="text-align:center;" class="reveal">
+                <div class="section-tag" style="justify-content:center;margin-bottom:14px;">03 // PRICING</div>
+                <h2 class="section-heading">Commit to Excellence</h2>
+                <p style="color:var(--text2);font-size:0.95rem;margin-top:12px;">One plan. Everything you need to
+                    operate at maximum capacity.</p>
+            </div>
+
+            <div class="pricing-wrap reveal d2">
+                <div class="pricing-card">
+                    <div class="pricing-top-border"></div>
+                    <div class="pricing-body">
+                        <div class="pricing-badge">FULL OPERATOR ACCESS</div>
+                        <div class="pricing-price">
+                            <span class="pricing-dollar">$</span>
+                            <span class="count-up" data-target="19">0</span>
+                            <span class="pricing-period">/MO</span>
+                        </div>
+                        <p class="pricing-desc">Everything you need to lock in and build the discipline required to
+                            reach the top 1% of tech professionals.</p>
+
+                        <div class="pricing-divider"></div>
+
+                        <ul class="pricing-features">
+                            <li>
+                                <div class="check">✓</div> Full Lock In OS Access
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Tech Growth Learning Tracks
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Deep Work Performance Analytics
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Premium Productivity Templates
+                            </li>
+                            <li>
+                                <div class="check">✓</div> 90-Day Consistency Graph
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Weekly Execution Dashboard
+                            </li>
+                        </ul>
+
+                        <button onclick="openCheckout()" class="btn btn-primary"
+                            style="width:100%;justify-content:center;padding:15px;border:none;cursor:pointer;">
+                            GET STARTED NOW
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+
+                        <p
+                            style="text-align:center;font-family:var(--mono);font-size:0.6rem;color:var(--text3);margin-top:14px;letter-spacing:0.08em;">
+                            NO COMMITMENT // CANCEL ANYTIME</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ CTA ═══════════ -->
+    <section class="cta-section">
+        <div class="cta-glow"></div>
+        <div class="container">
+            <div class="reveal">
+                <h2>Ready to<br><span class="grad-text">Stop Drifting?</span></h2>
+                <p>Join 2,400+ operators who chose to lock in. Your system is waiting.</p>
+                <button onclick="openCheckout()" class="btn btn-primary btn-lg">DEPLOY YOUR OS TODAY
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                    </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div>
+                    <div class="footer-logo">STORM<span style="color:var(--accent)">_</span></div>
+                    <div
+                        style="font-family:var(--mono);font-size:0.6rem;color:var(--text3);margin-top:6px;letter-spacing:0.08em;">
+                        LOCK IN. LEVEL UP.</div>
+                </div>
+                <div class="footer-links">
+                    <a href="#os">System</a>
+                    <a href="#services">Services</a>
+                    <a href="#benefits">Results</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="services.html">Docs</a>
+                    <a href="policy.html">Privacy</a>
+                    <a href="policy.html#terms">Terms</a>
+                    <a href="policy.html#refund">Refund</a>
+                    <a href="login.html">Login</a>
+                    <a href="signup.html">Register</a>
+                </div>
+                <div class="footer-meta">
+                    <div>SYSTEM_VERSION: 1.0.26 // STORM OS</div>
+                    <div>© 2026 STORM. ALL RIGHTS RESERVED.</div>
+                    <div>BUILT IN EGYPT 🇪🇬 // martinsamer91@gmail.com</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        @keyframes progressShimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <script>
+        // ── PADDLE ──
+        const PADDLE_CLIENT_TOKEN = 'live_b978c685c872729dcde58410fec';
+        const PADDLE_PRICE_ID = 'pri_01km9k8z59mvjdvny2fwcn109q';
+        const SUPA_URL = 'https://mryishzprrgpxauoccmr.supabase.co';
+        const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
+
+        try {
+            Paddle.Environment.set('production');
+            Paddle.Initialize({
+                token: PADDLE_CLIENT_TOKEN,
+                eventCallback: async function (ev) {
+                    if (ev.name === 'checkout.completed') {
+                        try {
+                            const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
+                            const { data: s } = await sb.auth.getSession();
+                            if (s && s.session && s.session.user) {
+                                await sb.from('profiles').upsert({
+                                    id: s.session.user.id,
+                                    is_paid: true,
+                                    subscription_status: 'active',
+                                    paid_at: new Date().toISOString()
+                                });
+                                window.location.href = 'dashboard.html';
+                            } else {
+                                window.location.href = 'signup.html';
+                            }
+                        } catch (e) { window.location.href = 'signup.html'; }
+                    }
+                }
+            });
+        } catch (e) { }
+
+        function openCheckout() {
+            Paddle.Checkout.open({
+                items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }],
+                settings: { displayMode: 'overlay', theme: 'dark' }
+            });
+        }
+
+        // ── CURSOR ──
+        const cursor = document.getElementById('cursor');
+        const cursorRing = document.getElementById('cursor-ring');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        (function animateCursor() {
+            rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+            cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+            cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
+            requestAnimationFrame(animateCursor);
+        })();
+
+        // ── NAV + PROGRESS BAR ──
+        const nav = document.getElementById('nav');
+        const pgLine = document.getElementById('pg-line');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+            const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            pgLine.style.transform = 'scaleX(' + p + ')';
+        });
+
+        // ── MOCK TIMER ──
+        let ms = 24 * 60 + 58;
+        setInterval(() => {
+            ms = ms > 0 ? ms - 1 : 25 * 60;
+            const el = document.getElementById('mock-timer');
+            if (el) el.textContent = String(Math.floor(ms / 60)).padStart(2, '0') + ':' + String(ms % 60).padStart(2, '0');
+        }, 1000);
+
+        // ── COUNT UP ──
+        function countUp(el, target, dur = 1500) {
+            if (el.dataset.counted) return;
+            el.dataset.counted = '1';
+            const s = performance.now();
+            function upd(now) {
+                const e = Math.min(now - s, dur), p = 1 - Math.pow(1 - e / dur, 3), v = Math.round(p * target);
+                el.textContent = v >= 1000 ? v.toLocaleString() : v;
+                if (e < dur) requestAnimationFrame(upd);
+                else el.textContent = target >= 1000 ? target.toLocaleString() : target;
+            }
+            requestAnimationFrame(upd);
+        }
+        function triggerCountUps(c) {
+            (c.classList.contains('count-up') ? [c] : c.querySelectorAll('.count-up')).forEach(el => {
+                const t = parseFloat(el.dataset.target);
+                if (!isNaN(t)) countUp(el, t);
+            });
+        }
+        function triggerBarFills(c) {
+            c.querySelectorAll('.metric-bar-fill[data-width]').forEach(b => {
+                if (b.dataset.filled) return;
+                b.dataset.filled = '1';
+                setTimeout(() => { b.style.width = b.dataset.width + '%'; }, 200);
+            });
+        }
+
+        // ── REVEAL ──
+        const obs = new IntersectionObserver(entries => entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('active');
+                triggerCountUps(e.target);
+                triggerBarFills(e.target);
+            }
+        }), { threshold: 0.1 });
+        document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
+
+        // Hero stats trigger after animation
+        setTimeout(() => {
+            document.querySelectorAll('.hero-stats .count-up[data-target]').forEach(el => {
+                countUp(el, parseFloat(el.dataset.target));
+            });
+        }, 1200);
+
+        // ── PARALLAX ──
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            document.querySelectorAll('.orb').forEach((o, i) => {
+                o.style.transform = 'translate(0,' + y * (i + 1) * 0.12 + 'px) scale(1)';
+            });
+        });
+    </script>
+</body>
+
+</html>
