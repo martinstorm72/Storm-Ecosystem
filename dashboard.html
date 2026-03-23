@@ -29,6 +29,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OPERATOR COMMAND // STORM OS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap"
         rel="stylesheet">
@@ -56,9 +58,7 @@
             --body: 'Rajdhani', sans-serif;
         }
 
-        *,
-        *::before,
-        *::after {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box
@@ -70,15 +70,6 @@
             font-family: var(--body);
             min-height: 100vh;
             overflow-x: hidden
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, .03) 2px, rgba(0, 0, 0, .03) 4px);
-            pointer-events: none;
-            z-index: 9999
         }
 
         .grid-bg {
@@ -220,7 +211,6 @@
             background: rgba(255, 71, 87, .2)
         }
 
-        /* TABS */
         .nav-tabs {
             display: flex;
             gap: 4px;
@@ -277,7 +267,6 @@
             }
         }
 
-        /* CARD */
         .card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -322,7 +311,6 @@
             letter-spacing: .08em
         }
 
-        /* LAYOUTS */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -359,7 +347,6 @@
             }
         }
 
-        /* INPUTS */
         input[type=text],
         input[type=number],
         textarea,
@@ -372,7 +359,7 @@
             font-size: .78rem;
             padding: 10px 14px;
             outline: none;
-            transition: border .2s, box-shadow .2s;
+            transition: all .2s;
             width: 100%
         }
 
@@ -383,21 +370,6 @@
             box-shadow: 0 0 0 3px var(--accent-glow)
         }
 
-        input::placeholder,
-        textarea::placeholder {
-            color: var(--text3)
-        }
-
-        select option {
-            background: var(--card2)
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px
-        }
-
-        /* BUTTONS */
         .btn {
             font-family: var(--head);
             font-weight: 700;
@@ -438,10 +410,6 @@
             border: 1px solid rgba(255, 71, 87, .25)
         }
 
-        .btn-danger:hover {
-            background: rgba(255, 71, 87, .22)
-        }
-
         .btn-sm {
             padding: 6px 13px;
             font-size: .6rem
@@ -451,7 +419,6 @@
             width: 100%
         }
 
-        /* TASK */
         .task-list {
             display: flex;
             flex-direction: column;
@@ -491,8 +458,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
-            transition: all .2s
+            flex-shrink: 0
         }
 
         .task-check.checked {
@@ -548,13 +514,12 @@
             color: var(--red)
         }
 
-        /* TIMER */
         .timer-display {
             text-align: center;
             padding: 24px 0 20px
         }
 
-        #panel-timer .timer-digits {
+        .timer-digits {
             font-family: var(--head);
             font-size: clamp(5rem, 12vw, 9rem);
             font-weight: 900;
@@ -562,54 +527,7 @@
             color: var(--text);
             line-height: 1;
             text-shadow: 0 0 40px rgba(108, 99, 255, .4);
-            transition: color .3s, text-shadow .3s
-        }
-
-        #panel-planner .timer-digits {
-            font-family: var(--head);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 900;
-            letter-spacing: .05em;
-            color: var(--text);
-            line-height: 1;
-            text-shadow: 0 0 30px rgba(108, 99, 255, .3);
-            transition: color .3s
-        }
-
-        .timer-digits.running {
-            color: var(--accent2);
-            text-shadow: 0 0 60px rgba(139, 132, 255, .7);
-            animation: timerPulse 1s ease-in-out infinite
-        }
-
-        .timer-digits.warning {
-            color: var(--amber);
-            text-shadow: 0 0 50px rgba(255, 179, 71, .7)
-        }
-
-        .timer-digits.done {
-            color: var(--green);
-            text-shadow: 0 0 80px rgba(57, 211, 83, .8)
-        }
-
-        @keyframes timerPulse {
-
-            0%,
-            100% {
-                opacity: 1
-            }
-
-            50% {
-                opacity: .85
-            }
-        }
-
-        .timer-label {
-            font-family: var(--mono);
-            font-size: .7rem;
-            color: var(--text3);
-            letter-spacing: .15em;
-            margin-top: 8px
+            transition: all .3s
         }
 
         .timer-controls {
@@ -635,8 +553,7 @@
             border: 1px solid var(--border2);
             border-radius: 4px;
             color: var(--text2);
-            cursor: pointer;
-            transition: all .2s
+            cursor: pointer
         }
 
         .preset-btn:hover,
@@ -646,7 +563,6 @@
             background: var(--accent-glow)
         }
 
-        /* SESSION LOG */
         .session-log {
             margin-top: 16px;
             border-top: 1px solid var(--border);
@@ -663,43 +579,12 @@
             font-size: .7rem
         }
 
-        .session-entry:last-child {
-            border-bottom: none
-        }
-
-        .session-time {
-            color: var(--text3)
-        }
-
-        .session-task {
-            color: var(--text);
-            flex: 1;
-            margin: 0 10px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis
-        }
-
-        .session-dur {
-            color: var(--cyan)
-        }
-
-        /* HABITS */
         .habit-row {
             display: flex;
             align-items: center;
             gap: 12px;
             padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-            transition: padding .2s
-        }
-
-        .habit-row:hover {
-            padding-left: 6px
-        }
-
-        .habit-row:last-child {
-            border-bottom: none
+            border-bottom: 1px solid var(--border)
         }
 
         .habit-name {
@@ -729,13 +614,11 @@
             background: var(--bg2);
             border: 1px solid var(--border2);
             cursor: pointer;
-            transition: all .15s;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: .6rem;
-            color: var(--text3);
-            font-family: var(--mono)
+            color: var(--text3)
         }
 
         .habit-day.done {
@@ -749,45 +632,11 @@
             font-weight: 900
         }
 
-        .habit-day:hover {
-            border-color: var(--accent)
-        }
-
-        .habit-del {
-            color: var(--text3);
-            cursor: pointer;
-            font-size: .8rem;
-            transition: color .2s
-        }
-
-        .habit-del:hover {
-            color: var(--red)
-        }
-
-        /* WEEKLY */
         .week-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 8px;
             margin-bottom: 20px
-        }
-
-        .week-day-col {
-            display: flex;
-            flex-direction: column;
-            gap: 5px
-        }
-
-        .week-day-label {
-            font-family: var(--mono);
-            font-size: .6rem;
-            color: var(--text3);
-            letter-spacing: .08em;
-            text-align: center
-        }
-
-        .week-day-label.today {
-            color: var(--accent2)
         }
 
         .week-score-bar {
@@ -805,19 +654,9 @@
             left: 0;
             right: 0;
             background: linear-gradient(180deg, var(--accent), rgba(108, 99, 255, .4));
-            border-radius: 3px 3px 0 0;
             transition: height .8s cubic-bezier(.34, 1.56, .64, 1)
         }
 
-        .week-score-num {
-            font-family: var(--mono);
-            font-size: .6rem;
-            color: var(--text2);
-            text-align: center;
-            margin-top: 3px
-        }
-
-        /* STATS */
         .stats-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -837,8 +676,7 @@
             border-radius: 6px;
             padding: 16px;
             text-align: center;
-            transition: all .3s;
-            cursor: default
+            transition: all .3s
         }
 
         .stat-card:hover {
@@ -879,11 +717,9 @@
             margin-top: 6px
         }
 
-        /* CONTRIBUTION GRAPH */
         .contrib-graph {
             display: flex;
             gap: 3px;
-            flex-wrap: nowrap;
             overflow-x: auto;
             padding-bottom: 6px
         }
@@ -900,46 +736,31 @@
             border-radius: 2px;
             background: var(--bg2);
             border: 1px solid var(--border);
-            cursor: pointer;
-            transition: transform .15s
-        }
-
-        .contrib-cell:hover {
-            transform: scale(1.6);
-            box-shadow: 0 0 8px var(--accent)
+            cursor: pointer
         }
 
         .contrib-cell.l1 {
-            background: var(--green-dim);
-            border-color: var(--green-dim)
+            background: var(--green-dim)
         }
 
         .contrib-cell.l2 {
-            background: #2ea043;
-            border-color: #2ea043
+            background: #2ea043
         }
 
         .contrib-cell.l3 {
-            background: var(--green);
-            border-color: var(--green)
+            background: var(--green)
         }
 
         .contrib-cell.l4 {
-            background: #7ee787;
-            border-color: #7ee787
+            background: #7ee787
         }
 
-        /* JOURNAL */
         .journal-entry {
             display: flex;
             flex-direction: column;
             gap: 8px;
             padding: 12px 0;
             border-bottom: 1px solid var(--border)
-        }
-
-        .journal-entry:last-child {
-            border-bottom: none
         }
 
         .journal-meta {
@@ -958,7 +779,6 @@
             line-height: 1.5
         }
 
-        /* PROGRESS */
         .progress-bar {
             height: 4px;
             background: var(--bg2);
@@ -970,11 +790,47 @@
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--accent), var(--cyan));
-            border-radius: 2px;
             transition: width .5s ease
         }
 
-        /* TOAST */
+        .inline-row {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 16px
+        }
+
+        .inline-row>* {
+            flex: 1;
+            min-width: 120px
+        }
+
+        .inline-row .btn {
+            flex: 0 0 auto
+        }
+
+        .mt-10 {
+            margin-top: 10px
+        }
+
+        .mt-16 {
+            margin-top: 16px
+        }
+
+        .mb-16 {
+            margin-bottom: 16px
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 28px;
+            font-family: var(--mono);
+            font-size: .7rem;
+            color: var(--text3);
+            letter-spacing: .06em
+        }
+
         #toast {
             position: fixed;
             bottom: 28px;
@@ -986,13 +842,11 @@
             font-family: var(--mono);
             font-size: .72rem;
             color: var(--accent2);
-            letter-spacing: .06em;
             transform: translateY(60px);
             opacity: 0;
             transition: all .3s;
             z-index: 1000;
-            box-shadow: 0 0 24px var(--accent-glow);
-            max-width: 300px
+            box-shadow: 0 0 24px var(--accent-glow)
         }
 
         #toast.show {
@@ -1000,7 +854,6 @@
             opacity: 1
         }
 
-        /* SETUP MODAL */
         #setup-modal {
             position: fixed;
             inset: 0;
@@ -1022,22 +875,6 @@
             box-shadow: 0 0 60px var(--accent-glow)
         }
 
-        .setup-box h2 {
-            font-family: var(--head);
-            font-size: 1rem;
-            font-weight: 900;
-            letter-spacing: .14em;
-            margin-bottom: 6px
-        }
-
-        .setup-box p {
-            font-family: var(--mono);
-            font-size: .7rem;
-            color: var(--text3);
-            margin-bottom: 28px;
-            letter-spacing: .05em
-        }
-
         .form-group {
             margin-bottom: 16px;
             display: flex;
@@ -1052,86 +889,244 @@
             letter-spacing: .12em
         }
 
-        /* MISC */
+        #shortcuts-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 10, 12, .92);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            padding: 24px
+        }
+
+        #shortcuts-modal.open {
+            display: flex
+        }
+
+        .shortcuts-box {
+            background: var(--card);
+            border: 1px solid var(--border2);
+            border-radius: 10px;
+            padding: 32px;
+            max-width: 560px;
+            max-height: 80vh;
+            overflow-y: auto
+        }
+
+        .shortcut-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-family: var(--mono);
+            font-size: .72rem
+        }
+
+        .kbd {
+            background: var(--card2);
+            border: 1px solid var(--border2);
+            border-radius: 4px;
+            padding: 2px 8px;
+            color: var(--accent2)
+        }
+
+        .energy-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--border2);
+            background: var(--bg2);
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .energy-btn:hover,
+        .energy-btn.active {
+            border-color: var(--accent);
+            transform: scale(1.15);
+            box-shadow: 0 0 12px var(--accent-glow)
+        }
+
+        .distraction-count {
+            font-family: var(--head);
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--red);
+            text-align: center;
+            line-height: 1;
+            text-shadow: 0 0 30px rgba(255, 71, 87, .4)
+        }
+
+        .tool-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap
+        }
+
+        .tool-tab {
+            font-family: var(--mono);
+            font-size: .68rem;
+            padding: 8px 16px;
+            background: none;
+            border: none;
+            color: var(--text3);
+            cursor: pointer;
+            border-bottom: 2px solid transparent
+        }
+
+        .tool-tab:hover {
+            color: var(--text2)
+        }
+
+        .tool-tab.active {
+            color: var(--accent2);
+            border-bottom-color: var(--accent)
+        }
+
+        .tool-panel {
+            display: none
+        }
+
+        .tool-panel.active {
+            display: block;
+            animation: panelIn .3s ease
+        }
+
+        .json-viewer {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 12px;
+            font-family: var(--mono);
+            font-size: .7rem;
+            max-height: 300px;
+            overflow: auto;
+            white-space: pre-wrap
+        }
+
+        .color-preview {
+            width: 100%;
+            height: 100px;
+            border-radius: 4px;
+            border: 1px solid var(--border2);
+            margin-bottom: 16px
+        }
+
+        .regex-flags {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 8px
+        }
+
+        .regex-flag {
+            font-family: var(--mono);
+            font-size: .65rem;
+            padding: 4px 8px;
+            background: var(--card2);
+            border: 1px solid var(--border2);
+            border-radius: 3px;
+            cursor: pointer
+        }
+
+        .regex-flag.active {
+            background: var(--accent-glow);
+            border-color: var(--accent);
+            color: var(--accent2)
+        }
+
+        .markdown-preview {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            font-family: var(--body);
+            font-size: .85rem;
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto
+        }
+
+        .markdown-preview h1,
+        .markdown-preview h2,
+        .markdown-preview h3 {
+            color: var(--accent2);
+            margin-top: 16px;
+            margin-bottom: 8px
+        }
+
+        .markdown-preview code {
+            background: var(--card);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: var(--mono)
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 4px;
+            margin-top: 8px
+        }
+
+        .collection-item {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            font-family: var(--mono);
+            font-size: .7rem
+        }
+
+        .collection-item:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow)
+        }
+
+        .snippet-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 8px
+        }
+
         .flex-row {
             display: flex;
             gap: 10px;
             align-items: center
         }
 
-        .inline-row {
-            display: flex;
-            gap: 8px;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            margin-bottom: 16px
-        }
-
-        .inline-row>* {
-            flex: 1;
-            min-width: 120px
-        }
-
-        .inline-row .btn {
-            flex: 0 0 auto;
-            white-space: nowrap
-        }
-
-        .mt-10 {
-            margin-top: 10px
-        }
-
-        .mt-16 {
-            margin-top: 16px
-        }
-
-        .mb-16 {
-            margin-bottom: 16px
-        }
-
-        .tag {
-            font-family: var(--mono);
-            font-size: .6rem;
-            padding: 2px 8px;
-            border-radius: 3px;
-            letter-spacing: .06em
-        }
-
-        .tag-accent {
-            background: var(--accent-glow);
-            color: var(--accent2);
-            border: 1px solid rgba(108, 99, 255, .3)
-        }
-
         .divider {
-            border: none;
             border-top: 1px solid var(--border);
             margin: 16px 0
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 28px;
-            font-family: var(--mono);
-            font-size: .7rem;
-            color: var(--text3);
-            letter-spacing: .06em
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px
         }
 
-        /* FIX: goal item done state */
-        .goal-item.done .task-text {
-            text-decoration: line-through;
-            color: var(--text3)
+        ::-webkit-scrollbar-track {
+            background: var(--bg2)
         }
 
-        .goal-item.done {
-            opacity: .5;
-            border-color: var(--green-dim)
+        ::-webkit-scrollbar-thumb {
+            background: var(--border2);
+            border-radius: 3px
         }
 
-        .goal-item.done .task-check {
-            background: var(--green);
-            border-color: var(--green)
+        .hljs {
+            background: transparent !important;
+            padding: 0 !important
         }
     </style>
 </head>
@@ -1139,18 +1134,18 @@
 <body>
     <div class="grid-bg"></div>
 
-    <!-- SETUP MODAL -->
     <div id="setup-modal">
         <div class="setup-box">
             <h2>OPERATOR COMMAND</h2>
             <p>// INITIALIZE YOUR EXECUTION OS</p>
             <div class="form-group">
                 <div class="form-label">OPERATOR CALLSIGN</div>
-                <input type="text" id="setup-name" placeholder="Your name or alias" />
+                <input type="text" id="setup-name" placeholder="Your name or alias" value="Alex Chen" />
             </div>
             <div class="form-group">
                 <div class="form-label">PRIMARY OBJECTIVE</div>
-                <input type="text" id="setup-role" placeholder="e.g. SaaS Founder · Engineer · Creator" />
+                <input type="text" id="setup-role" placeholder="e.g. SaaS Founder · Engineer · Creator"
+                    value="Full Stack Developer" />
             </div>
             <div class="form-group">
                 <div class="form-label">DEFAULT FOCUS BLOCK (minutes)</div>
@@ -1165,7 +1160,30 @@
                 <div class="form-label">DAILY DEEP WORK TARGET (hours)</div>
                 <input type="number" id="setup-target" value="6" min="1" max="16" />
             </div>
-            <button class="btn btn-primary btn-full" onclick="initUser()" style="margin-top:8px">ENGAGE SYSTEM</button>
+            <button class="btn btn-primary btn-full" onclick="initUser()">ENGAGE SYSTEM</button>
+        </div>
+    </div>
+
+    <div id="shortcuts-modal" onclick="if(event.target===this)closeShortcuts()">
+        <div class="shortcuts-box">
+            <h2>⌨ KEYBOARD SHORTCUTS</h2>
+            <div class="shortcut-row"><span>Toggle active timer</span>
+                <div class="shortcut-keys"><span class="kbd">Space</span></div>
+            </div>
+            <div class="shortcut-row"><span>Show this panel</span>
+                <div class="shortcut-keys"><span class="kbd">?</span></div>
+            </div>
+            <div class="shortcut-row"><span>Switch tabs</span>
+                <div class="shortcut-keys"><span class="kbd">1</span><span class="kbd">-</span><span
+                        class="kbd">8</span></div>
+            </div>
+            <div class="shortcut-row"><span>Log distraction</span>
+                <div class="shortcut-keys"><span class="kbd">Alt</span><span class="kbd">D</span></div>
+            </div>
+            <div class="shortcut-row"><span>Export data</span>
+                <div class="shortcut-keys"><span class="kbd">Alt</span><span class="kbd">E</span></div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="closeShortcuts()">CLOSE</button>
         </div>
     </div>
 
@@ -1176,25 +1194,22 @@
                 <div class="sub">Welcome back, <span id="user-name">OPERATOR</span>. System: <span
                         style="color:var(--green)">ACTIVE_OS</span></div>
             </div>
-            <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
-                <div class="sys-info">
-                    <div class="sys-badge">
-                        <div class="dot"></div>
-                        <span id="streak-badge">STREAK: 0d</span>
-                    </div>
-                    <div class="sys-badge">
-                        <div class="dot red" id="focus-dot" style="display:none"></div>
-                        <span id="focus-status">IDLE</span>
-                    </div>
-                    <div class="clock-display" id="live-clock">--:--:--</div>
+            <div class="sys-info">
+                <div class="sys-badge">
+                    <div class="dot"></div><span id="streak-badge">STREAK: 0d</span>
                 </div>
-                <div class="header-actions">
-                    <a href="index.html"
-                        style="font-family:var(--mono);font-size:.6rem;color:var(--text3);text-decoration:none;padding:6px 10px;border:1px solid var(--border);border-radius:4px;letter-spacing:.08em;transition:all .2s"
-                        onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent2)'"
-                        onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">← HOME</a>
-                    <button class="btn-logout" onclick="doLogout()">LOGOUT</button>
+                <div class="sys-badge">
+                    <div class="dot red" id="focus-dot" style="display:none"></div><span id="focus-status">IDLE</span>
                 </div>
+                <div class="sys-badge" style="color:var(--red);cursor:pointer" onclick="logDistraction()">⚡ <span
+                        id="dist-header-count">0</span></div>
+                <div class="clock-display" id="live-clock">--:--:--</div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-ghost btn-sm" onclick="showShortcuts()">⌨</button>
+                <button class="btn btn-ghost btn-sm" onclick="exportData()">⬇ EXPORT</button>
+                <a href="index.html" class="btn-logout" style="text-decoration:none;color:var(--red)">← HOME</a>
+                <button class="btn-logout" onclick="doLogout()">LOGOUT</button>
             </div>
         </header>
 
@@ -1205,12 +1220,14 @@
             <button class="nav-tab" onclick="switchTab('dashboard')">WEEKLY OPS</button>
             <button class="nav-tab" onclick="switchTab('analytics')">ANALYTICS</button>
             <button class="nav-tab" onclick="switchTab('journal')">FIELD NOTES</button>
+            <button class="nav-tab" onclick="switchTab('devtools')">DEV TOOLS</button>
+            <button class="nav-tab" onclick="switchTab('help')">? HELP</button>
         </div>
 
-        <!-- ═══ DEEP WORK PLANNER ═══ -->
+        <!-- DEEP WORK PLANNER -->
         <div class="panel active" id="panel-planner">
             <div class="grid-main">
-                <div style="display:flex;flex-direction:column;gap:16px">
+                <div>
                     <div class="card">
                         <div class="card-title">DEEP WORK PLANNER <span class="card-badge">> ACTIVE</span></div>
                         <div class="inline-row">
@@ -1229,26 +1246,19 @@
                         <div class="progress-bar mt-16">
                             <div class="progress-fill" id="task-progress" style="width:0%"></div>
                         </div>
-                        <div
-                            style="display:flex;justify-content:space-between;margin-top:6px;font-family:var(--mono);font-size:.62rem;color:var(--text3)">
-                            <span id="task-count-lbl">0 / 0 tasks</span>
-                            <span id="task-time-lbl">0h / <span id="tgt-lbl">6</span>h target</span>
-                        </div>
                     </div>
                     <div class="card">
-                        <div class="card-title">COMPLETED <span class="card-badge" id="done-count">> 0
-                                DONE</span><button class="btn btn-ghost btn-sm" onclick="clearDone()"
-                                style="font-size:.55rem;padding:3px 8px;letter-spacing:.06em">CLEAR ALL</button></div>
+                        <div class="card-title">COMPLETED <span class="card-badge" id="done-count">> 0 DONE</span></div>
                         <div class="task-list" id="done-list">
                             <div class="empty-state">// COMPLETE TASKS TO SEE THEM HERE</div>
                         </div>
                     </div>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:16px">
+                <div>
                     <div class="card">
                         <div class="card-title">FOCUS PULSE <span class="card-badge" id="mini-badge">> STANDBY</span>
                         </div>
-                        <div class="timer-display" style="padding:16px 0 12px">
+                        <div class="timer-display">
                             <div class="timer-digits" id="timer-mini">45:00</div>
                             <div class="timer-label" id="mini-lbl">SELECT DURATION</div>
                         </div>
@@ -1258,14 +1268,13 @@
                             <div class="preset-btn" onclick="setMini(60)">60m</div>
                             <div class="preset-btn" onclick="setMini(90)">90m</div>
                         </div>
-                        <div class="timer-controls">
-                            <button class="btn btn-primary" id="mini-btn" onclick="toggleMini()">START</button>
-                            <button class="btn btn-ghost" onclick="resetMini()">RESET</button>
-                        </div>
+                        <div class="timer-controls"><button class="btn btn-primary" id="mini-btn"
+                                onclick="toggleMini()">START</button><button class="btn btn-ghost"
+                                onclick="resetMini()">RESET</button></div>
                     </div>
                     <div class="card">
                         <div class="card-title">TODAY'S EXECUTION</div>
-                        <div class="stats-row" style="grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0">
+                        <div class="stats-row" style="grid-template-columns:1fr 1fr;gap:10px">
                             <div class="stat-card">
                                 <div class="stat-val green" id="today-tasks">0</div>
                                 <div class="stat-label">TASKS DONE</div>
@@ -1283,16 +1292,37 @@
                                 <div class="stat-label">DAY SCORE</div>
                             </div>
                         </div>
+                        <div>
+                            <div style="font-family:var(--mono);font-size:.6rem;margin-bottom:10px">ENERGY LEVEL</div>
+                            <div style="display:flex;gap:8px;justify-content:center" id="energy-btns">
+                                <div class="energy-btn" onclick="setEnergy(1)" title="Exhausted">😴</div>
+                                <div class="energy-btn" onclick="setEnergy(2)" title="Low">😑</div>
+                                <div class="energy-btn" onclick="setEnergy(3)" title="Okay">😐</div>
+                                <div class="energy-btn" onclick="setEnergy(4)" title="Good">😊</div>
+                                <div class="energy-btn" onclick="setEnergy(5)" title="Peak">🔥</div>
+                            </div>
+                            <div id="energy-label" style="text-align:center;font-size:.62rem;margin-top:8px">NOT SET
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">DISTRACTION LOG <span class="card-badge" id="dist-badge">> 0
+                                TODAY</span></div>
+                        <div class="distraction-count" id="dist-display">0</div>
+                        <div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-danger"
+                                onclick="logDistraction()" style="flex:1">+ LOG DISTRACTION</button><button
+                                class="btn btn-ghost btn-sm" onclick="undoDistraction()">UNDO</button></div>
+                        <div id="dist-tally" style="margin-top:12px;min-height:32px;display:flex;flex-wrap:wrap"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ═══ FOCUS TIMER ═══ -->
+        <!-- FOCUS TIMER -->
         <div class="panel" id="panel-timer">
             <div class="grid-2">
-                <div class="card" style="text-align:center">
-                    <div class="card-title" style="justify-content:center">FOCUS PULSE TIMER</div>
+                <div class="card">
+                    <div class="card-title">FOCUS PULSE TIMER</div>
                     <div class="timer-display">
                         <div class="timer-digits" id="main-timer">45:00</div>
                         <div class="timer-label" id="main-lbl">READY TO DEPLOY</div>
@@ -1303,20 +1333,12 @@
                         <div class="preset-btn active" onclick="setMain(45)">45m</div>
                         <div class="preset-btn" onclick="setMain(60)">60m</div>
                         <div class="preset-btn" onclick="setMain(90)">90m</div>
-                        <div class="preset-btn" onclick="setMain(120)">120m</div>
                     </div>
-                    <div style="margin:14px auto;max-width:260px">
-                        <input type="text" id="sess-task" placeholder="Session directive (optional)" />
-                    </div>
-                    <div class="timer-controls">
-                        <button class="btn btn-primary" id="main-btn" onclick="toggleMain()"
-                            style="min-width:90px">START</button>
-                        <button class="btn btn-ghost" onclick="resetMain()">RESET</button>
-                        <button class="btn btn-ghost btn-sm" onclick="skipTimer()">SKIP</button>
-                    </div>
-                    <div style="margin-top:16px;font-family:var(--mono);font-size:.68rem;color:var(--text3)">
-                        SESSION <span id="sess-num" style="color:var(--accent2)">1</span> / 4 → LONG BREAK
-                    </div>
+                    <div><input type="text" id="sess-task" placeholder="Session directive" /></div>
+                    <div class="timer-controls"><button class="btn btn-primary" id="main-btn"
+                            onclick="toggleMain()">START</button><button class="btn btn-ghost"
+                            onclick="resetMain()">RESET</button><button class="btn btn-ghost btn-sm"
+                            onclick="skipTimer()">SKIP</button></div>
                 </div>
                 <div class="card">
                     <div class="card-title">SESSION LOG <span class="card-badge" id="sess-count-badge">> 0 TODAY</span>
@@ -1328,22 +1350,18 @@
             </div>
         </div>
 
-        <!-- ═══ HABITS ═══ -->
+        <!-- HABITS -->
         <div class="panel" id="panel-habits">
             <div class="grid-2">
                 <div class="card">
-                    <div class="card-title">HABIT MATRIX <span class="card-badge">> CONSISTENCY ENGINE</span></div>
-                    <div class="inline-row">
-                        <input type="text" id="habit-input" placeholder="New habit..." />
-                        <button class="btn btn-primary btn-sm" onclick="addHabit()">ADD</button>
-                    </div>
-                    <div id="habit-list">
-                        <div class="empty-state">// NO HABITS — ADD YOUR FIRST SYSTEM</div>
-                    </div>
+                    <div class="card-title">HABIT MATRIX</div>
+                    <div class="inline-row"><input type="text" id="habit-input" placeholder="New habit..." /><button
+                            class="btn btn-primary btn-sm" onclick="addHabit()">ADD</button></div>
+                    <div id="habit-list"></div>
                 </div>
                 <div class="card">
                     <div class="card-title">HABIT ANALYTICS</div>
-                    <div class="stats-row" style="grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+                    <div class="stats-row">
                         <div class="stat-card">
                             <div class="stat-val green" id="h-total">0</div>
                             <div class="stat-label">ACTIVE</div>
@@ -1361,32 +1379,13 @@
                             <div class="stat-label">WEEK RATE</div>
                         </div>
                     </div>
-                    <div class="card-title">SUGGESTED</div>
-                    <div style="display:flex;flex-wrap:wrap;gap:7px">
-                        <span class="tag tag-accent" style="cursor:pointer"
-                            onclick="quickHabit('Morning Pages')">Morning Pages</span>
-                        <span class="tag tag-accent" style="cursor:pointer" onclick="quickHabit('Cold Shower')">Cold
-                            Shower</span>
-                        <span class="tag tag-accent" style="cursor:pointer"
-                            onclick="quickHabit('Exercise')">Exercise</span>
-                        <span class="tag tag-accent" style="cursor:pointer" onclick="quickHabit('No Social Media')">No
-                            Social Media</span>
-                        <span class="tag tag-accent" style="cursor:pointer" onclick="quickHabit('Read 30 min')">Read 30
-                            min</span>
-                        <span class="tag tag-accent" style="cursor:pointer"
-                            onclick="quickHabit('Meditate')">Meditate</span>
-                        <span class="tag tag-accent" style="cursor:pointer" onclick="quickHabit('Review Goals')">Review
-                            Goals</span>
-                        <span class="tag tag-accent" style="cursor:pointer" onclick="quickHabit('No Alcohol')">No
-                            Alcohol</span>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- ═══ WEEKLY OPS ═══ -->
+        <!-- WEEKLY OPS -->
         <div class="panel" id="panel-dashboard">
-            <div class="stats-row mb-16">
+            <div class="stats-row">
                 <div class="stat-card">
                     <div class="stat-val green" id="w-tasks">0</div>
                     <div class="stat-label">TASKS THIS WEEK</div>
@@ -1411,24 +1410,20 @@
             <div class="grid-2">
                 <div class="card">
                     <div class="card-title">WEEKLY GOALS</div>
-                    <div class="inline-row" style="margin-bottom:12px">
-                        <input type="text" id="goal-input" placeholder="Weekly goal..." />
-                        <button class="btn btn-primary btn-sm" onclick="addGoal()">ADD</button>
-                    </div>
-                    <div id="goal-list">
-                        <div class="empty-state">// NO WEEKLY GOALS</div>
-                    </div>
+                    <div class="inline-row"><input type="text" id="goal-input" placeholder="Weekly goal..." /><button
+                            class="btn btn-primary btn-sm" onclick="addGoal()">ADD</button></div>
+                    <div id="goal-list"></div>
                 </div>
                 <div class="card">
                     <div class="card-title">EXECUTION RATE BY DAY</div>
-                    <div id="day-breakdown" style="display:flex;flex-direction:column;gap:8px"></div>
+                    <div id="day-breakdown"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ═══ ANALYTICS ═══ -->
+        <!-- ANALYTICS -->
         <div class="panel" id="panel-analytics">
-            <div class="stats-row mb-16">
+            <div class="stats-row">
                 <div class="stat-card">
                     <div class="stat-val green" id="a-tasks">0</div>
                     <div class="stat-label">TOTAL TASKS</div>
@@ -1447,137 +1442,243 @@
                 </div>
             </div>
             <div class="card mb-16">
-                <div class="card-title">90-DAY ACTIVITY GRAPH <span class="card-badge">> CONSISTENCY MATRIX</span></div>
+                <div class="card-title">90-DAY ACTIVITY GRAPH</div>
                 <div class="contrib-graph" id="contrib-graph"></div>
-                <div
-                    style="display:flex;gap:6px;align-items:center;margin-top:10px;font-family:var(--mono);font-size:.6rem;color:var(--text3)">
-                    <span>LESS</span>
-                    <div class="contrib-cell"></div>
-                    <div class="contrib-cell l1"></div>
-                    <div class="contrib-cell l2"></div>
-                    <div class="contrib-cell l3"></div>
-                    <div class="contrib-cell l4"></div>
-                    <span>MORE</span>
-                </div>
             </div>
-            <div class="grid-2">
+            <div class="grid-3">
                 <div class="card">
                     <div class="card-title">PERFORMANCE INSIGHTS</div>
-                    <div id="insights"
-                        style="display:flex;flex-direction:column;gap:10px;font-family:var(--mono);font-size:.73rem;color:var(--text2);line-height:1.6">
-                        <div class="empty-state">// COMPLETE SESSIONS TO UNLOCK INSIGHTS</div>
-                    </div>
+                    <div id="insights"></div>
                 </div>
                 <div class="card">
-                    <div class="card-title">DAILY BREAKDOWN</div>
-                    <div id="analytics-days" style="display:flex;flex-direction:column;gap:8px"></div>
+                    <div class="card-title">PEAK PERFORMANCE HOURS</div>
+                    <div id="peak-hours-chart" style="display:flex;align-items:flex-end;gap:2px;height:80px"></div>
+                    <div id="peak-insight"></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">TASK ESTIMATION ACCURACY</div>
+                    <div id="estimation-stats"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ═══ FIELD NOTES ═══ -->
+        <!-- FIELD NOTES -->
         <div class="panel" id="panel-journal">
             <div class="grid-2">
                 <div class="card">
-                    <div class="card-title">FIELD NOTES <span class="card-badge">> OPERATOR LOG</span></div>
-                    <div class="form-group" style="margin-bottom:10px">
-                        <textarea id="journal-input" placeholder="Log wins, blockers, insights..." rows="4"></textarea>
-                    </div>
-                    <div class="flex-row">
-                        <select id="journal-tag" style="max-width:130px">
+                    <div class="card-title">FIELD NOTES</div><textarea id="journal-input" rows="4"
+                        placeholder="Log wins, blockers, insights..."></textarea>
+                    <div class="flex-row mt-10"><select id="journal-tag">
                             <option value="win">🟢 WIN</option>
                             <option value="blocker">🔴 BLOCKER</option>
                             <option value="insight">🔵 INSIGHT</option>
-                            <option value="plan">🟡 PLAN</option>
-                            <option value="note">⚪ NOTE</option>
-                        </select>
-                        <button class="btn btn-primary" onclick="addJournal()" style="flex:1">LOG ENTRY</button>
-                    </div>
-                    <hr class="divider">
-                    <div id="journal-list">
-                        <div class="empty-state">// NO FIELD NOTES YET</div>
-                    </div>
+                        </select><button class="btn btn-primary" onclick="addJournal()">LOG ENTRY</button></div>
+                    <div id="journal-list"></div>
                 </div>
                 <div class="card">
-                    <div class="card-title">DAILY REFLECTION PROMPTS</div>
-                    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px" id="prompts-list"></div>
-                    <hr class="divider">
-                    <div class="card-title mt-10">QUICK WINS LOG</div>
-                    <div class="inline-row mt-10">
-                        <input type="text" id="win-input" placeholder="Log a quick win..." />
-                        <button class="btn btn-primary btn-sm" onclick="addWin()">LOG</button>
-                    </div>
-                    <div id="wins-list" style="margin-top:10px;display:flex;flex-direction:column;gap:6px"></div>
+                    <div class="card-title">QUICK WINS</div>
+                    <div class="inline-row"><input type="text" id="win-input" placeholder="Quick win..." /><button
+                            class="btn btn-primary btn-sm" onclick="addWin()">LOG</button></div>
+                    <div id="wins-list"></div>
                 </div>
             </div>
         </div>
 
-    </div><!-- /wrapper -->
+        <!-- DEV TOOLS - ENHANCED -->
+        <div class="panel" id="panel-devtools">
+            <div class="tool-tabs">
+                <button class="tool-tab active" onclick="switchToolTab('snippets')">📝 SNIPPETS</button>
+                <button class="tool-tab" onclick="switchToolTab('api')">🌐 API TESTER</button>
+                <button class="tool-tab" onclick="switchToolTab('regex')">🔍 REGEX TESTER</button>
+                <button class="tool-tab" onclick="switchToolTab('color')">🎨 COLOR PICKER</button>
+                <button class="tool-tab" onclick="switchToolTab('image')">🖼️ IMAGE OPTIMIZER</button>
+                <button class="tool-tab" onclick="switchToolTab('markdown')">📝 MARKDOWN</button>
+                <button class="tool-tab" onclick="switchToolTab('json')">📋 JSON TOOL</button>
+                <button class="tool-tab" onclick="switchToolTab('collections')">📚 COLLECTIONS</button>
+            </div>
+
+            <div class="tool-panel active" id="snippets-panel">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-title">SAVE SNIPPET</div><input type="text" id="snip-title" placeholder="Title"
+                            class="mb-16" /><select id="snip-lang" class="mb-16">
+                            <option value="javascript">JavaScript</option>
+                            <option value="python">Python</option>
+                            <option value="bash">Bash</option>
+                            <option value="sql">SQL</option>
+                        </select><textarea id="snip-code" placeholder="Paste your code..." rows="8"></textarea><button
+                            class="btn btn-primary btn-full mt-10" onclick="addSnippet()">SAVE</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">MY SNIPPETS</div><input type="text" id="snip-search"
+                            placeholder="Search..." oninput="renderSnippets()" class="mb-16" />
+                        <div id="snippet-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-panel" id="api-panel">
+                <div class="card">
+                    <div class="card-title">REST API TESTER</div>
+                    <div class="inline-row"><select id="api-method" style="max-width:100px">
+                            <option>GET</option>
+                            <option>POST</option>
+                            <option>PUT</option>
+                            <option>DELETE</option>
+                        </select><input type="text" id="api-url" placeholder="https://api.example.com/endpoint" /></div>
+                    <textarea id="api-body" placeholder="Request body (JSON)..." rows="4"
+                        class="mb-16"></textarea><input type="text" id="api-headers"
+                        placeholder="Headers: key:value,key2:value2" class="mb-16" /><button class="btn btn-primary"
+                        onclick="testAPI()">SEND REQUEST</button>
+                    <div id="api-response" class="json-viewer mt-16" style="display:none"></div>
+                </div>
+            </div>
+
+            <div class="tool-panel" id="regex-panel">
+                <div class="card">
+                    <div class="card-title">REGEX TESTER</div><input type="text" id="regex-pattern"
+                        placeholder="Regular expression (e.g., \d{3}-\d{2}-\d{4})" class="mb-16" />
+                    <div class="regex-flags"><span class="regex-flag" data-flag="g"
+                            onclick="toggleRegexFlag('g')">global</span><span class="regex-flag" data-flag="i"
+                            onclick="toggleRegexFlag('i')">ignore case</span><span class="regex-flag" data-flag="m"
+                            onclick="toggleRegexFlag('m')">multiline</span></div><textarea id="regex-test-text"
+                        placeholder="Test text to match against..." rows="6" class="mt-16"></textarea>
+                    <div id="regex-results" class="json-viewer mt-16"></div>
+                </div>
+            </div>
+
+            <div class="tool-panel" id="color-panel">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-title">COLOR PICKER</div><input type="color" id="color-input" value="#6c63ff"
+                            onchange="updateColor()" style="width:100%;height:50px" />
+                        <div id="color-preview" class="color-preview mt-16" style="background:#6c63ff"></div>
+                        <div class="inline-row"><input type="text" id="color-hex" value="#6c63ff"
+                                onchange="updateFromHex()" /><input type="text" id="color-rgb" placeholder="RGB"
+                                onchange="updateFromRGB()" /></div><button class="btn btn-primary btn-full mt-10"
+                            onclick="copyColor()">COPY COLOR</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">COLOR SCHEMES</div><button class="btn btn-ghost btn-full mb-10"
+                            onclick="generatePalette()">GENERATE PALETTE</button>
+                        <div id="palette-output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-panel" id="image-panel">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-title">IMAGE OPTIMIZER</div><input type="file" id="image-input"
+                            accept="image/*" onchange="previewImage()" /><img id="image-preview" class="image-preview"
+                            style="display:none" />
+                        <div class="inline-row mt-16"><select id="image-quality">
+                                <option value="0.9">High (90%)</option>
+                                <option value="0.7" selected>Medium (70%)</option>
+                                <option value="0.5">Low (50%)</option>
+                            </select><button class="btn btn-primary" onclick="optimizeImage()">OPTIMIZE</button></div>
+                        <div id="image-info" class="json-viewer mt-16"></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">OPTIMIZED PREVIEW</div>
+                        <div id="image-compare"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-panel" id="markdown-panel">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-title">MARKDOWN EDITOR</div><textarea id="markdown-input" rows="15"
+                            class="mb-16"># Daily Standup
+
+## Yesterday
+- Completed API integration
+- Fixed login bug
+
+## Today
+- Write documentation
+- Review pull requests
+
+## Blockers
+- Waiting for design assets</textarea><button class="btn btn-primary btn-full"
+                            onclick="renderMarkdown()">PREVIEW</button><button class="btn btn-ghost btn-full mt-10"
+                            onclick="exportMarkdown()">EXPORT AS HTML</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">PREVIEW</div>
+                        <div id="markdown-preview" class="markdown-preview"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-panel" id="json-panel">
+                <div class="card">
+                    <div class="card-title">JSON FORMATTER & VALIDATOR</div><textarea id="json-input" rows="8"
+                        class="mb-16">{"name":"Operator","version":"1.0","features":["task tracking","focus timer"]}</textarea>
+                    <div class="inline-row"><button class="btn btn-primary"
+                            onclick="formatJSON()">FORMAT</button><button class="btn btn-primary"
+                            onclick="minifyJSON()">MINIFY</button><button class="btn btn-ghost"
+                            onclick="validateJSON()">VALIDATE</button></div>
+                    <div id="json-output" class="json-viewer mt-16"></div>
+                </div>
+            </div>
+
+            <div class="tool-panel" id="collections-panel">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-title">COLLECTIONS</div><input type="text" id="collection-name"
+                            placeholder="Collection name" class="mb-16" /><textarea id="collection-data"
+                            placeholder="JSON data..." rows="6" class="mb-16"></textarea><button
+                            class="btn btn-primary btn-full" onclick="saveCollection()">SAVE COLLECTION</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">SAVED COLLECTIONS</div>
+                        <div id="collections-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HELP -->
+        <div class="panel" id="panel-help">
+            <div class="card">
+                <div class="card-title">OPERATOR COMMAND v2.0</div>
+                <div class="empty-state">Full documentation available in the dev tools section.<br />Use keyboard
+                    shortcuts for faster navigation.</div>
+            </div>
+        </div>
+    </div>
     <div id="toast"></div>
 
     <script>
-        // ══════════════════════════════════════
-        // STATE + PERSISTENCE
-        // ══════════════════════════════════════
+        // ============================================
+        // FULL DASHBOARD IMPLEMENTATION
+        // ============================================
+
         const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-        const todayKey = getTodayKey();
-
-        function dKey(d) {
-            // Use local date parts to avoid UTC midnight timezone shift
-            if (!(d instanceof Date)) return d;
-            const y = d.getFullYear();
-            const m = String(d.getMonth() + 1).padStart(2, '0');
-            const dy = String(d.getDate()).padStart(2, '0');
-            return `${y}-${m}-${dy}`;
-        }
-
-        // Also fix todayKey to use local date
-        function getTodayKey() {
-            const d = new Date();
-            return dKey(d);
-        }
+        function getTodayKey() { const d = new Date(); return d.toISOString().split('T')[0]; }
+        let todayKey = getTodayKey();
 
         let S = {
             user: { name: '', role: '', focus: 45, target: 6 },
             tasks: [], habits: [], sessions: [], journal: [], wins: [], goals: [],
+            snippets: [], urls: [], distractions: [], collections: [],
+            energy: {},
             analytics: { totalMin: 0, totalSess: 0, totalTasks: 0, maxStreak: 0, curStreak: 0, daily: {} }
         };
 
-        // ── Timer state — declared here so boot() can access them before they appear below ──
         let miniSecs = 45 * 60, miniTotal = 45 * 60, miniInt = null, miniRun = false;
         let mainSecs = 45 * 60, mainTotal = 45 * 60, mainInt = null, mainRun = false, sessCount = 1;
+        let regexFlags = ['g'];
 
-        function save() {
-            try { localStorage.setItem('storm_os', JSON.stringify(S)); } catch (e) { }
-        }
-
-        function load() {
-            try {
-                const d = localStorage.getItem('storm_os');
-                if (d) S = JSON.parse(d);
-            } catch (e) { }
-        }
-
+        function save() { try { localStorage.setItem('storm_os', JSON.stringify(S)); } catch (e) { } }
+        function load() { try { const d = localStorage.getItem('storm_os'); if (d) S = JSON.parse(d); } catch (e) { } }
         load();
-
-        // Merge operator name from Supabase when available
-        setTimeout(() => {
-            if (window._operatorName && S.user.name === window._operatorName) return;
-            if (window._operatorName && !S.user.name) {
-                S.user.name = window._operatorName; save();
-                const el = document.getElementById('user-name');
-                if (el) el.textContent = S.user.name.toUpperCase();
-            }
-        }, 1000);
-
-        if (S.user.name) {
-            document.getElementById('setup-modal').style.display = 'none';
-            boot();
-        }
 
         function initUser() {
             const n = document.getElementById('setup-name').value.trim();
-            if (!n) { showToast('// CALLSIGN REQUIRED'); return; }
+            if (!n) { showToast('Callsign required'); return; }
             S.user = {
                 name: n,
                 role: document.getElementById('setup-role').value.trim(),
@@ -1590,32 +1691,20 @@
         }
 
         function boot() {
-            // Guard all arrays — handle old localStorage data missing fields
-            if (!S.analytics) S.analytics = { totalMin: 0, totalSess: 0, totalTasks: 0, maxStreak: 0, curStreak: 0, daily: {} };
             if (!S.analytics.daily) S.analytics.daily = {};
             if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
-            if (!Array.isArray(S.goals)) S.goals = [];
-            if (!Array.isArray(S.wins)) S.wins = [];
-            if (!Array.isArray(S.journal)) S.journal = [];
+            if (!Array.isArray(S.tasks)) S.tasks = [];
             if (!Array.isArray(S.habits)) S.habits = [];
             if (!Array.isArray(S.sessions)) S.sessions = [];
-            if (!Array.isArray(S.tasks)) S.tasks = [];
+            if (!Array.isArray(S.journal)) S.journal = [];
+            if (!Array.isArray(S.wins)) S.wins = [];
+            if (!Array.isArray(S.goals)) S.goals = [];
+            if (!Array.isArray(S.snippets)) S.snippets = [];
+            if (!Array.isArray(S.collections)) S.collections = [];
+            if (!Array.isArray(S.distractions)) S.distractions = [];
+            if (!S.energy) S.energy = {};
 
-            // Re-derive totalMin and totalSess from sessions array (fixes drift from old bugs)
-            S.analytics.totalMin = S.sessions.reduce((a, s) => a + (s.mins || 0), 0);
-            S.analytics.totalSess = S.sessions.length;
-
-            // Trim unbounded arrays to prevent localStorage bloat and slow rendering
-            // Keep tasks from last 60 days only (completed ones older than 60 days are archived)
-            const cutoff60 = dKey(new Date(Date.now() - 60 * 864e5));
-            S.tasks = S.tasks.filter(t => !t.done || t.date >= cutoff60 || t.date === todayKey);
-            S.sessions = S.sessions.slice(-500);   // keep last 500 sessions
-            S.journal = S.journal.slice(0, 200);  // keep latest 200 entries
-            S.wins = S.wins.slice(0, 100);     // keep latest 100 wins
-
-            document.getElementById('user-name').textContent = (window._operatorName || S.user.name || 'OPERATOR').toUpperCase();
-            document.getElementById('tgt-lbl').textContent = S.user.target;
-
+            document.getElementById('user-name').textContent = (S.user.name || 'OPERATOR').toUpperCase();
             miniTotal = miniSecs = S.user.focus * 60;
             mainTotal = mainSecs = S.user.focus * 60;
             document.getElementById('timer-mini').textContent = fmt(miniSecs);
@@ -1623,288 +1712,142 @@
 
             renderAll();
             startClock();
-            buildContrib();
+            renderSnippets();
+            renderCollections();
         }
+
+        if (S.user.name) { document.getElementById('setup-modal').style.display = 'none'; boot(); }
 
         function renderAll() {
-            renderTasks();
-            renderHabits();
-            renderWeekBars();
-            renderGoals();
-            renderJournal();
-            renderWins();
-            renderSessLog();
-            renderAnalytics();
-            renderDayBreak();
-            renderPrompts();
-            updateStreak();
+            renderTasks(); renderHabits(); renderWeekBars(); renderGoals(); renderJournal(); renderWins();
+            renderSessLog(); renderAnalytics(); renderDayBreak(); updateStreak(); renderEnergyButtons();
+            renderDistractions(); buildContrib();
         }
 
-        // ══════════════════════════════════════
-        // CLOCK
-        // ══════════════════════════════════════
-        function startClock() {
-            setInterval(() => {
-                document.getElementById('live-clock').textContent = new Date().toTimeString().slice(0, 8);
-            }, 1000);
-        }
+        function startClock() { setInterval(() => { document.getElementById('live-clock').textContent = new Date().toTimeString().slice(0, 8); }, 1000); }
 
-        // ══════════════════════════════════════
-        // TABS
-        // ══════════════════════════════════════
         function switchTab(id) {
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
             document.getElementById('panel-' + id).classList.add('active');
-            const names = ['planner', 'timer', 'habits', 'dashboard', 'analytics', 'journal'];
-            const tabs = document.querySelectorAll('.nav-tab');
-            const idx = names.indexOf(id);
-            if (idx >= 0 && tabs[idx]) tabs[idx].classList.add('active');
             if (id === 'analytics') { buildContrib(); renderAnalytics(); }
-            if (id === 'dashboard') { renderWeekBars(); renderDayBreak(); renderGoals(); }
+            if (id === 'dashboard') { renderWeekBars(); renderDayBreak(); }
+            if (id === 'devtools') { renderSnippets(); renderCollections(); }
         }
 
-        // ══════════════════════════════════════
+        function switchToolTab(id) {
+            document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(id + '-panel').classList.add('active');
+            event.target.classList.add('active');
+        }
+
         // TASKS
-        // ══════════════════════════════════════
-        function clearDone() {
-            const done = S.tasks.filter(t => t.date === todayKey && t.done);
-            if (!done.length) return;
-            S.tasks = S.tasks.filter(t => !(t.date === todayKey && t.done));
-            renderTasks();
-            updateScore();
-            showToast('// ' + done.length + ' COMPLETED TASKS CLEARED');
-        }
-
         function addTask() {
             const v = document.getElementById('task-input').value.trim();
-            if (!v) { showToast('// ENTER A DIRECTIVE'); return; }
+            if (!v) { showToast('Enter a directive'); return; }
             const pri = document.getElementById('task-priority').value;
-            const minsRaw = parseInt(document.getElementById('task-mins').value);
-            const mins = (!isNaN(minsRaw) && minsRaw > 0) ? minsRaw : 30;
-            S.tasks.push({ id: Date.now(), text: v, priority: pri, mins, done: false, date: todayKey });
+            const mins = parseInt(document.getElementById('task-mins').value) || 30;
+            S.tasks.push({ id: Date.now(), text: v, priority: pri, mins, estMins: mins, done: false, date: todayKey, actualMins: null });
             document.getElementById('task-input').value = '';
             document.getElementById('task-mins').value = '';
-            save(); renderTasks(); updateScore(); showToast('// LOGGED: ' + v.toUpperCase());
+            save(); renderTasks(); updateScore();
+            showToast('Task added: ' + v);
         }
 
         function toggleTask(id) {
             const t = S.tasks.find(t => t.id == id);
-            if (!t) return;
-            t.done = !t.done;
-            renderTasks();
-            updateScore(); // updateScore calls save()
+            if (t) { t.done = !t.done; renderTasks(); updateScore(); save(); }
         }
 
-        function deleteTask(id) {
-            S.tasks = S.tasks.filter(t => t.id != id);
-            renderTasks();
-            updateScore();
-        }
+        function deleteTask(id) { S.tasks = S.tasks.filter(t => t.id != id); renderTasks(); updateScore(); save(); }
 
         function renderTasks() {
             const act = S.tasks.filter(t => t.date === todayKey && !t.done);
             const done = S.tasks.filter(t => t.date === todayKey && t.done);
-            const all = S.tasks.filter(t => t.date === todayKey);
-
-            document.getElementById('task-list').innerHTML = act.length
-                ? act.map(taskHTML).join('')
-                : '<div class="empty-state">// NO ACTIVE DIRECTIVES</div>';
-
-            document.getElementById('done-list').innerHTML = done.length
-                ? done.map(taskHTML).join('')
-                : '<div class="empty-state">// COMPLETE TASKS TO SEE THEM HERE</div>';
-
+            document.getElementById('task-list').innerHTML = act.length ? act.map(taskHTML).join('') : '<div class="empty-state">// NO ACTIVE DIRECTIVES</div>';
+            document.getElementById('done-list').innerHTML = done.length ? done.map(taskHTML).join('') : '<div class="empty-state">// COMPLETE TASKS TO SEE THEM HERE</div>';
             document.getElementById('done-count').textContent = '> ' + done.length + ' DONE';
-
-            const pct = all.length ? Math.round(done.length / all.length * 100) : 0;
-            document.getElementById('task-progress').style.width = pct + '%';
-            document.getElementById('task-count-lbl').textContent = done.length + ' / ' + all.length + ' tasks';
-
-            const doneMin = done.reduce((s, t) => s + (t.mins || 0), 0);
-            document.getElementById('task-time-lbl').innerHTML =
-                Math.round(doneMin / 60 * 10) / 10 + 'h / <span id="tgt-lbl">' + S.user.target + '</span>h target';
-
             document.getElementById('today-tasks').textContent = done.length;
-
-            // Sync analytics bucket — single source of truth
+            const pct = (act.length + done.length) ? Math.round(done.length / (act.length + done.length) * 100) : 0;
+            document.getElementById('task-progress').style.width = pct + '%';
             if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
             S.analytics.daily[todayKey].tasks = done.length;
-            S.analytics.totalTasks = S.tasks.filter(t => t.done).length;
-            // Note: callers (toggleTask/deleteTask/addTask) handle save() and updateScore()
         }
 
         function taskHTML(t) {
             return `<div class="task-item${t.done ? ' done' : ''}">
-  <div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div>
-  <div class="task-text">${escHtml(t.text)}</div>
-  <span class="task-priority priority-${t.priority}">${t.priority.toUpperCase()}</span>
-  <span style="font-family:var(--mono);font-size:.62rem;color:var(--text3)">${t.mins}m</span>
-  <span class="task-del" onclick="deleteTask(${t.id})">✕</span>
-</div>`;
+                <div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div>
+                <div class="task-text">${escHtml(t.text)}</div>
+                <span class="task-priority priority-${t.priority}">${t.priority.toUpperCase()}</span>
+                <span style="font-size:.62rem">${t.mins}m</span>
+                <span class="task-del" onclick="deleteTask(${t.id})">✕</span>
+            </div>`;
         }
 
-        // ══════════════════════════════════════
-        // MINI TIMER
-        // ══════════════════════════════════════
-
-        function setMini(m) {
-            if (miniRun) return;
-            miniSecs = miniTotal = m * 60;
-            document.getElementById('timer-mini').textContent = fmt(miniSecs);
-            document.querySelectorAll('#panel-planner .preset-btn').forEach(b => {
-                b.classList.toggle('active', b.textContent === m + 'm');
-            });
-        }
-
+        // TIMER FUNCTIONS
+        function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+        function setMini(m) { if (!miniRun) { miniSecs = miniTotal = m * 60; document.getElementById('timer-mini').textContent = fmt(miniSecs); } }
         function toggleMini() {
             if (miniRun) {
                 clearInterval(miniInt); miniRun = false;
                 document.getElementById('mini-btn').textContent = 'START';
                 document.getElementById('mini-badge').textContent = '> PAUSED';
-                document.getElementById('mini-lbl').textContent = 'PAUSED — CLICK START TO RESUME';
                 document.getElementById('focus-dot').style.display = 'none';
                 document.getElementById('focus-status').textContent = 'IDLE';
-                document.getElementById('timer-mini').classList.remove('running', 'warning');
             } else {
                 miniRun = true;
                 document.getElementById('mini-btn').textContent = 'PAUSE';
                 document.getElementById('mini-badge').textContent = '> ACTIVE';
-                document.getElementById('mini-lbl').textContent = 'FOCUS SESSION ACTIVE';
                 document.getElementById('focus-dot').style.display = 'block';
                 document.getElementById('focus-status').textContent = 'FOCUS ACTIVE';
-                document.getElementById('timer-mini').classList.add('running');
                 miniInt = setInterval(() => {
                     miniSecs--;
-                    const mins = Math.floor(miniSecs / 60);
-                    const secs = miniSecs % 60;
-                    if (miniSecs <= 60) document.getElementById('timer-mini').classList.add('warning');
                     document.getElementById('timer-mini').textContent = fmt(miniSecs);
-                    document.getElementById('mini-lbl').textContent = mins > 0
-                        ? mins + 'm ' + String(secs).padStart(2, '0') + 's REMAINING'
-                        : secs + 's REMAINING';
                     if (miniSecs <= 0) {
                         clearInterval(miniInt); miniRun = false;
                         document.getElementById('mini-btn').textContent = 'START';
-                        document.getElementById('timer-mini').textContent = 'DONE';
-                        document.getElementById('timer-mini').classList.remove('running', 'warning');
-                        document.getElementById('timer-mini').classList.add('done');
-                        document.getElementById('mini-lbl').textContent = 'SESSION COMPLETE ✓';
-                        document.getElementById('mini-badge').textContent = '> COMPLETE';
-                        document.getElementById('focus-dot').style.display = 'none';
-                        document.getElementById('focus-status').textContent = 'IDLE';
+                        playDone();
                         logSess(Math.round(miniTotal / 60));
-                        showToast('// FOCUS SESSION COMPLETE ✓');
+                        showToast('Focus session complete!');
                     }
                 }, 1000);
             }
         }
-
-        function resetMini() {
-            clearInterval(miniInt); miniRun = false;
-            document.getElementById('mini-btn').textContent = 'START';
-            document.getElementById('timer-mini').textContent = fmt(miniTotal);
-            document.getElementById('timer-mini').className = 'timer-digits';
-            document.getElementById('mini-badge').textContent = '> STANDBY';
-            document.getElementById('mini-lbl').textContent = 'SELECT DURATION';
-            document.getElementById('focus-dot').style.display = 'none';
-            document.getElementById('focus-status').textContent = 'IDLE';
-        }
-
-        // ══════════════════════════════════════
-        // MAIN TIMER
-        // ══════════════════════════════════════
-
-        function setMain(m) {
-            if (mainRun) return;
-            mainSecs = mainTotal = m * 60;
-            document.getElementById('main-timer').textContent = fmt(mainSecs);
-            document.querySelectorAll('#panel-timer .preset-btn').forEach(b => {
-                b.classList.toggle('active', b.textContent === m + 'm');
-            });
-        }
-
+        function resetMini() { clearInterval(miniInt); miniRun = false; miniSecs = miniTotal; document.getElementById('timer-mini').textContent = fmt(miniSecs); document.getElementById('mini-btn').textContent = 'START'; }
+        function setMain(m) { if (!mainRun) { mainSecs = mainTotal = m * 60; document.getElementById('main-timer').textContent = fmt(mainSecs); } }
         function toggleMain() {
             if (mainRun) {
                 clearInterval(mainInt); mainRun = false;
                 document.getElementById('main-btn').textContent = 'START';
-                document.getElementById('main-lbl').textContent = 'PAUSED — CLICK START TO RESUME';
-                document.getElementById('main-timer').classList.remove('running', 'warning');
             } else {
                 mainRun = true;
                 document.getElementById('main-btn').textContent = 'PAUSE';
-                document.getElementById('main-timer').classList.add('running');
                 mainInt = setInterval(() => {
                     mainSecs--;
-                    if (mainSecs <= 60) document.getElementById('main-timer').classList.add('warning');
                     document.getElementById('main-timer').textContent = fmt(mainSecs);
-                    const mins = Math.floor(mainSecs / 60);
-                    const secs = mainSecs % 60;
-                    document.getElementById('main-lbl').textContent = 'SESSION ' + sessCount + ' — '
-                        + (mins > 0 ? mins + 'm ' + String(secs).padStart(2, '0') + 's' : secs + 's') + ' LEFT';
                     if (mainSecs <= 0) {
                         clearInterval(mainInt); mainRun = false;
                         document.getElementById('main-btn').textContent = 'START';
-                        document.getElementById('main-timer').textContent = '00:00';
-                        document.getElementById('main-timer').classList.remove('running', 'warning');
-                        document.getElementById('main-timer').classList.add('done');
-                        document.getElementById('main-lbl').textContent = 'SESSION ' + sessCount + ' COMPLETE ✓';
+                        playDone();
                         logSess(Math.round(mainTotal / 60));
-                        if (sessCount >= 4) {
-                            sessCount = 1;
-                            showToast('// 4 SESSIONS DONE — TAKE A LONG BREAK');
-                        } else {
-                            sessCount++;
-                            showToast('// SESSION ' + (sessCount - 1) + ' COMPLETE ✓');
-                        }
-                        document.getElementById('sess-num').textContent = sessCount;
+                        sessCount = sessCount >= 4 ? 1 : sessCount + 1;
+                        showToast('Session complete!');
                     }
                 }, 1000);
             }
         }
-
-        function resetMain() {
-            clearInterval(mainInt); mainRun = false;
-            document.getElementById('main-btn').textContent = 'START';
-            document.getElementById('main-timer').textContent = fmt(mainTotal);
-            document.getElementById('main-timer').className = 'timer-digits';
-            document.getElementById('main-lbl').textContent = 'READY TO DEPLOY';
-        }
-
-        function skipTimer() {
-            if (mainRun) { clearInterval(mainInt); mainRun = false; }
-            const elapsed = Math.round((mainTotal - mainSecs) / 60);
-            if (elapsed > 0) {
-                logSess(elapsed);
-                showToast('// ' + elapsed + 'M LOGGED — SESSION SKIPPED');
-            } else {
-                showToast('// SESSION SKIPPED');
-            }
-            resetMain();
-            sessCount = sessCount >= 4 ? 1 : sessCount + 1;
-            document.getElementById('sess-num').textContent = sessCount;
-        }
+        function resetMain() { clearInterval(mainInt); mainRun = false; mainSecs = mainTotal; document.getElementById('main-timer').textContent = fmt(mainSecs); document.getElementById('main-btn').textContent = 'START'; }
+        function skipTimer() { if (mainRun) clearInterval(mainInt); resetMain(); }
 
         function logSess(mins) {
             if (mins <= 0) return;
-            const taskEl = document.getElementById('sess-task');
-            const task = taskEl ? taskEl.value.trim() : '';
-            S.sessions.push({
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                task: task || '(no directive)',
-                mins,
-                date: todayKey
-            });
-            S.analytics.totalSess++;
-            S.analytics.totalMin += mins;
+            const task = document.getElementById('sess-task')?.value || '';
+            S.sessions.push({ time: new Date().toLocaleTimeString(), task: task || 'Focus session', mins, date: todayKey, hour: new Date().getHours() });
+            S.analytics.totalSess++; S.analytics.totalMin += mins;
             if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
-            S.analytics.daily[todayKey].sess++;
-            S.analytics.daily[todayKey].min += mins;
-            updateScore(); // handles save()
-            renderSessLog();
-            // Only update weekly OPS panels if they exist in the DOM (may be hidden but still exist)
-            if (document.getElementById('week-bars')) renderWeekBars();
-            if (document.getElementById('day-breakdown')) renderDayBreak();
+            S.analytics.daily[todayKey].sess++; S.analytics.daily[todayKey].min += mins;
+            updateScore(); renderSessLog(); renderWeekBars(); save();
         }
 
         function renderSessLog() {
@@ -1912,559 +1855,366 @@
             document.getElementById('sess-count-badge').textContent = '> ' + ts.length + ' TODAY';
             document.getElementById('today-sess').textContent = ts.length;
             const tot = ts.reduce((a, s) => a + s.mins, 0);
-            document.getElementById('today-mins').textContent = tot >= 60
-                ? Math.round(tot / 60 * 10) / 10 + 'h'
-                : tot + 'm';
-            document.getElementById('sess-log').innerHTML = ts.length
-                ? [...ts].reverse().map(s =>
-                    `<div class="session-entry">
-    <span class="session-time">${s.time}</span>
-    <span class="session-task">${escHtml(s.task)}</span>
-    <span class="session-dur">${s.mins}m</span>
-  </div>`).join('')
-                : '<div class="empty-state">// NO SESSIONS TODAY</div>';
+            document.getElementById('today-mins').textContent = tot >= 60 ? (tot / 60).toFixed(1) + 'h' : tot + 'm';
+            document.getElementById('sess-log').innerHTML = ts.length ? ts.slice(-5).reverse().map(s => `<div class="session-entry"><span>${s.time}</span><span>${escHtml(s.task)}</span><span>${s.mins}m</span></div>`).join('') : '<div class="empty-state">// NO SESSIONS TODAY</div>';
         }
 
-        // ══════════════════════════════════════
-        // HABITS — FIXED
-        // ══════════════════════════════════════
-        function addHabit(name) {
-            const v = name || document.getElementById('habit-input').value.trim();
-            if (!v) { showToast('// ENTER HABIT NAME'); return; }
-            if (S.habits.find(h => h.name.toLowerCase() === v.toLowerCase())) {
-                showToast('// HABIT EXISTS'); return;
-            }
-            // FIX: store id as string to avoid JSON parse type drift
-            S.habits.push({ id: String(Date.now()), name: v, streak: 0, best: 0, days: {} });
-            if (!name) document.getElementById('habit-input').value = '';
-            save(); renderHabits(); showToast('// HABIT: ' + v.toUpperCase());
+        // HABITS
+        function addHabit() {
+            const v = document.getElementById('habit-input').value.trim();
+            if (!v) return;
+            S.habits.push({ id: Date.now(), name: v, streak: 0, best: 0, days: {} });
+            document.getElementById('habit-input').value = '';
+            save(); renderHabits();
         }
-
-        function quickHabit(n) { addHabit(n); }
 
         function toggleHabit(id, dateKey) {
-            const h = S.habits.find(h => String(h.id) === String(id));
+            const h = S.habits.find(h => h.id == id);
             if (!h) return;
             const key = dateKey || todayKey;
-
-            if (h.days[key]) {
-                delete h.days[key];
-            } else {
-                h.days[key] = true;
-            }
-
-            // Recalculate streak from today backwards
-            let str = 0;
-            const d = new Date();
-            for (let i = 0; i < 365; i++) {
-                const k = dKey(d);
-                if (h.days[k]) { str++; d.setDate(d.getDate() - 1); }
-                else break;
-            }
-            h.streak = str;
-            h.best = Math.max(h.best || 0, str);
-
+            if (h.days[key]) delete h.days[key];
+            else h.days[key] = true;
+            let str = 0; const d = new Date();
+            for (let i = 0; i < 365; i++) { const k = d.toISOString().split('T')[0]; if (h.days[k]) str++; else break; d.setDate(d.getDate() - 1); }
+            h.streak = str; h.best = Math.max(h.best || 0, str);
             save(); renderHabits();
         }
 
-        function deleteHabit(id) {
-            S.habits = S.habits.filter(h => String(h.id) !== String(id));
-            save(); renderHabits();
-        }
+        function deleteHabit(id) { S.habits = S.habits.filter(h => h.id != id); save(); renderHabits(); }
 
         function renderHabits() {
             const labels = [];
-            for (let i = 6; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                labels.push({ key: dKey(d), lbl: DAYS[d.getDay()], isToday: i === 0 });
-            }
-
-            document.getElementById('habit-list').innerHTML = S.habits.length
-                ? S.habits.map(h =>
-                    `<div class="habit-row">
-  <div class="habit-name">${escHtml(h.name)}</div>
-  <div class="habit-days">${labels.map(d =>
-                        `<div class="habit-day${h.days[d.key] ? ' done' : ''}"
-      onclick="toggleHabit('${h.id}','${d.key}')"
-      title="${d.lbl}${d.isToday ? ' (TODAY)' : ''}">${h.days[d.key] ? '' : d.lbl[0]}</div>`
-                    ).join('')}</div>
-  <div class="habit-streak">${h.streak}🔥</div>
-  <span class="habit-del" onclick="deleteHabit('${h.id}')">✕</span>
-</div>`).join('')
-                : '<div class="empty-state">// NO HABITS — ADD YOUR FIRST SYSTEM</div>';
-
+            for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); labels.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()] }); }
+            document.getElementById('habit-list').innerHTML = S.habits.length ? S.habits.map(h => `<div class="habit-row"><div class="habit-name">${escHtml(h.name)}</div><div class="habit-days">${labels.map(d => `<div class="habit-day${h.days[d.key] ? ' done' : ''}" onclick="toggleHabit(${h.id},'${d.key}')">${h.days[d.key] ? '' : d.lbl[0]}</div>`).join('')}</div><div class="habit-streak">${h.streak}🔥</div><span class="task-del" onclick="deleteHabit(${h.id})">✕</span></div>`).join('') : '<div class="empty-state">// NO HABITS</div>';
             document.getElementById('h-total').textContent = S.habits.length;
-            document.getElementById('h-best').textContent =
-                S.habits.reduce((m, h) => Math.max(m, h.best || 0), 0) + 'd';
-
-            const td = S.habits.filter(h => h.days[todayKey]).length;
-            document.getElementById('h-today').textContent =
-                S.habits.length ? Math.round(td / S.habits.length * 100) + '%' : '0%';
-
-            let wt = 0, wd = 0;
-            for (let i = 0; i < 7; i++) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                const k = dKey(d);
-                wt += S.habits.length;
-                wd += S.habits.filter(h => h.days[k]).length;
-            }
-            document.getElementById('h-week').textContent = wt ? Math.round(wd / wt * 100) + '%' : '0%';
+            document.getElementById('h-best').textContent = Math.max(...S.habits.map(h => h.best), 0) + 'd';
+            document.getElementById('h-today').textContent = S.habits.length ? Math.round(S.habits.filter(h => h.days[todayKey]).length / S.habits.length * 100) + '%' : '0%';
         }
 
-        // ══════════════════════════════════════
-        // WEEKLY BARS
-        // ══════════════════════════════════════
-
-        // Get comprehensive daily stats — merges task data + session data
+        // WEEKLY
         function getDayStats(dateKey) {
-            const daily = S.analytics.daily[dateKey] || { min: 0, sess: 0 };
-            // Tasks done on this day
+            const daily = S.analytics.daily[dateKey] || { min: 0 };
             const doneTasks = S.tasks.filter(t => t.date === dateKey && t.done);
             const allTasks = S.tasks.filter(t => t.date === dateKey);
-            const taskMins = doneTasks.reduce((s, t) => s + (t.mins || 0), 0);
-            // Focus minutes = timer session minutes (most accurate) OR estimated from tasks
-            const focusMins = (daily.min || 0);
-            const totalMins = Math.max(focusMins, taskMins); // use whichever is larger
-            // Score: blend task completion % + focus %
+            const focusMins = daily.min || 0;
             const tPct = allTasks.length ? (doneTasks.length / allTasks.length * 100) : 0;
-            const mPct = S.user.target > 0 ? Math.min(totalMins / (S.user.target * 60) * 100, 100) : 0;
-            const score = allTasks.length > 0 ? Math.round((tPct + mPct) / 2) : Math.round(mPct);
-            return {
-                tasks: doneTasks.length,
-                totalTasks: allTasks.length,
-                min: totalMins,
-                sess: daily.sess || 0,
-                score: Math.min(score, 100)
-            };
+            const mPct = S.user.target ? Math.min(focusMins / (S.user.target * 60) * 100, 100) : 0;
+            const score = allTasks.length ? Math.round((tPct + mPct) / 2) : Math.round(mPct);
+            return { tasks: doneTasks.length, totalTasks: allTasks.length, min: focusMins, score: Math.min(score, 100) };
         }
 
         function renderWeekBars() {
             const days = [];
-            for (let i = 6; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                days.push({ key: dKey(d), lbl: DAYS[d.getDay()], isToday: i === 0 });
-            }
-
+            for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); days.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()], isToday: i === 0 }); }
             const stats = days.map(d => ({ ...d, ...getDayStats(d.key) }));
             const maxM = Math.max(...stats.map(s => s.min), 1);
-
-            document.getElementById('week-bars').innerHTML = stats.map(s => {
-                const h = Math.round(s.min / maxM * 100);
-                const scoreColor = s.score >= 80 ? 'var(--green)' : s.score >= 50 ? 'var(--amber)' : 'var(--accent)';
-                return `<div class="week-day-col">
-  <div class="week-day-label${s.isToday ? ' today' : ''}">${s.lbl}</div>
-  <div class="week-score-bar" title="${s.lbl}: ${s.tasks}/${s.totalTasks} tasks · ${s.min}m focus · ${s.score}%">
-    <div class="week-score-fill" style="height:${h}%;background:linear-gradient(180deg,${scoreColor},rgba(108,99,255,.3))"></div>
-  </div>
-  <div class="week-score-num" style="color:${s.score > 0 ? scoreColor : 'var(--text3)'}">${s.min > 0 ? s.min + 'm' : '—'}</div>
-</div>`;
-            }).join('');
-
-            // Header stats — all derived from live task array
-            const weekTasks = stats.reduce((a, s) => a + s.tasks, 0);
-            const weekMins = stats.reduce((a, s) => a + s.min, 0);
-            const activeDays = stats.filter(s => s.score > 0);
-            const weekScore = activeDays.length
-                ? Math.round(activeDays.reduce((a, s) => a + s.score, 0) / activeDays.length)
-                : 0;
-
-            document.getElementById('w-tasks').textContent = weekTasks;
-            document.getElementById('w-focus').textContent = weekMins >= 60
-                ? Math.round(weekMins / 60 * 10) / 10 + 'h'
-                : weekMins + 'm';
+            document.getElementById('week-bars').innerHTML = stats.map(s => `<div class="week-day-col"><div class="week-day-label">${s.lbl}</div><div class="week-score-bar"><div class="week-score-fill" style="height:${Math.round(s.min / maxM * 100)}%"></div></div><div class="week-score-num">${s.min > 0 ? s.min + 'm' : '—'}</div></div>`).join('');
+            document.getElementById('w-tasks').textContent = stats.reduce((a, s) => a + s.tasks, 0);
+            document.getElementById('w-focus').textContent = (stats.reduce((a, s) => a + s.min, 0) / 60).toFixed(1) + 'h';
             document.getElementById('w-streak').textContent = (S.analytics.curStreak || 0) + 'd';
-            document.getElementById('w-score').textContent = weekScore + '%';
         }
 
         function renderDayBreak() {
             const days = [];
-            for (let i = 6; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                days.push({ key: dKey(d), lbl: DAYS[d.getDay()], isToday: i === 0 });
-            }
-            document.getElementById('day-breakdown').innerHTML = days.map(d => {
-                const s = getDayStats(d.key);
-                const pct = s.score;
-                const barColor = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--accent)';
-                const dayLabel = d.isToday ? `<span style="color:var(--accent2)">${d.lbl} ◀</span>` : `<span style="color:var(--text3)">${d.lbl}</span>`;
-                return `<div>
-  <div style="display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.62rem;margin-bottom:4px">
-    ${dayLabel}
-    <span style="color:var(--text2)">${s.tasks}/${s.totalTasks}t · ${s.min}m</span>
-    <span style="color:${pct > 0 ? barColor : 'var(--text3)'};font-weight:700">${pct}%</span>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:linear-gradient(90deg,${barColor},${barColor}88)"></div></div>
-</div>`;
-            }).join('');
+            for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); days.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()] }); }
+            document.getElementById('day-breakdown').innerHTML = days.map(d => { const s = getDayStats(d.key); return `<div><div style="display:flex;justify-content:space-between"><span>${d.lbl}</span><span>${s.score}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${s.score}%"></div></div></div>`; }).join('');
         }
 
-        // ══════════════════════════════════════
-        // GOALS — full rewrite
-        // ══════════════════════════════════════
-        function getWeekKey() {
-            // ISO week identifier: YYYY-Www
-            const d = new Date();
-            const day = d.getDay() || 7;
-            d.setDate(d.getDate() + 4 - day);
-            const yr = d.getFullYear();
-            const wk = Math.ceil(((d - new Date(yr, 0, 1)) / 86400000 + 1) / 7);
-            return yr + '-W' + String(wk).padStart(2, '0');
-        }
-
+        // GOALS
         function addGoal() {
             const v = document.getElementById('goal-input').value.trim();
-            if (!v) { showToast('// ENTER A GOAL'); return; }
-            S.goals.push({ id: String(Date.now()), text: v, done: false, week: getWeekKey(), created: todayKey });
+            if (!v) return;
+            S.goals.push({ id: Date.now(), text: v, done: false, week: getWeekKey() });
             document.getElementById('goal-input').value = '';
-            save(); renderGoals(); showToast('// GOAL ADDED');
-        }
-
-        function toggleGoal(id) {
-            const g = S.goals.find(g => String(g.id) === String(id));
-            if (!g) return;
-            g.done = !g.done;
-            g.completedDate = g.done ? todayKey : null;
-            save(); renderGoals();
-            showToast(g.done ? '// GOAL COMPLETE ✓' : '// GOAL REOPENED');
-        }
-
-        function deleteGoal(id) {
-            S.goals = S.goals.filter(g => String(g.id) !== String(id));
             save(); renderGoals();
         }
-
+        function getWeekKey() { const d = new Date(); const day = d.getDay() || 7; d.setDate(d.getDate() + 4 - day); const yr = d.getFullYear(); const wk = Math.ceil(((d - new Date(yr, 0, 1)) / 86400000 + 1) / 7); return yr + '-W' + String(wk).padStart(2, '0'); }
+        function toggleGoal(id) { const g = S.goals.find(g => g.id == id); if (g) { g.done = !g.done; save(); renderGoals(); } }
+        function deleteGoal(id) { S.goals = S.goals.filter(g => g.id != id); save(); renderGoals(); }
         function renderGoals() {
-            const thisWeek = getWeekKey();
-            // Show this week's goals; if none yet also show undated legacy goals
-            let goals = S.goals.filter(g => !g.week || g.week === thisWeek);
-            // Fall back: show all if none tagged this week
-            if (!goals.length && S.goals.length) goals = S.goals;
-
-            const done = goals.filter(g => g.done).length;
-            const total = goals.length;
-            const pct = total ? Math.round(done / total * 100) : 0;
-
-            const container = document.getElementById('goal-list');
-            if (!goals.length) {
-                container.innerHTML = '<div class="empty-state">// NO GOALS THIS WEEK — ADD YOUR FIRST</div>';
-                return;
-            }
-
-            // Sort: incomplete first, then complete
-            const sorted = [...goals].sort((a, b) => a.done - b.done);
-
-            container.innerHTML = `
-<div style="display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.62rem;color:var(--text3);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)">
-  <span>WEEK PROGRESS</span>
-  <span style="color:${pct === 100 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--accent2)'}">
-    ${done}/${total} GOALS · ${pct}%
-  </span>
-</div>
-<div style="margin-bottom:12px">
-  <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:linear-gradient(90deg,${pct === 100 ? 'var(--green)' : 'var(--accent)'},var(--cyan))"></div></div>
-</div>
-${sorted.map(g => `
-<div class="task-item goal-item${g.done ? ' done' : ''}" style="margin-bottom:6px;transition:all .25s;${g.done ? 'border-color:var(--green-dim);' : ''}">
-  <div class="task-check${g.done ? ' checked' : ''}" onclick="toggleGoal('${g.id}')" style="cursor:pointer;flex-shrink:0"></div>
-  <div class="task-text" style="${g.done ? 'text-decoration:line-through;color:var(--text3)' : ''}">${escHtml(g.text)}</div>
-  ${g.done
-                    ? `<span style="font-family:var(--mono);font-size:.58rem;color:var(--green);letter-spacing:.05em;white-space:nowrap">✓ DONE</span>`
-                    : `<span style="font-family:var(--mono);font-size:.58rem;color:var(--text3);letter-spacing:.05em;cursor:pointer;padding:2px 6px;border:1px solid var(--border2);border-radius:3px" onclick="toggleGoal('${g.id}')">MARK DONE</span>`
-                }
-  <span class="task-del" onclick="deleteGoal('${g.id}')">✕</span>
-</div>`).join('')}`;
+            const goals = S.goals.filter(g => g.week === getWeekKey());
+            document.getElementById('goal-list').innerHTML = goals.length ? goals.map(g => `<div class="task-item${g.done ? ' done' : ''}"><div class="task-check${g.done ? ' checked' : ''}" onclick="toggleGoal(${g.id})"></div><div class="task-text">${escHtml(g.text)}</div><span class="task-del" onclick="deleteGoal(${g.id})">✕</span></div>`).join('') : '<div class="empty-state">// NO GOALS THIS WEEK</div>';
         }
 
-        // ══════════════════════════════════════
         // JOURNAL
-        // ══════════════════════════════════════
         function addJournal() {
             const t = document.getElementById('journal-input').value.trim();
-            if (!t) { showToast('// ENTER A NOTE'); return; }
+            if (!t) return;
             const tag = document.getElementById('journal-tag').value;
-            S.journal.unshift({
-                id: String(Date.now()),
-                text: t, tag, date: todayKey,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            });
+            S.journal.unshift({ id: Date.now(), text: t, tag, date: todayKey, time: new Date().toLocaleTimeString() });
             document.getElementById('journal-input').value = '';
-            save(); renderJournal(); showToast('// ENTRY LOGGED');
-        }
-
-        function deleteJournal(id) {
-            S.journal = S.journal.filter(j => String(j.id) !== String(id));
             save(); renderJournal();
         }
-
         function renderJournal() {
-            const tl = { win: '🟢 WIN', blocker: '🔴 BLOCKER', insight: '🔵 INSIGHT', plan: '🟡 PLAN', note: '⚪ NOTE' };
-            document.getElementById('journal-list').innerHTML = S.journal.length
-                ? S.journal.slice(0, 20).map(j =>
-                    `<div class="journal-entry">
-  <div class="journal-meta">
-    <span>${j.date} · ${j.time}</span>
-    <span>${tl[j.tag] || j.tag}</span>
-    <span class="task-del" onclick="deleteJournal('${j.id}')">✕</span>
-  </div>
-  <div class="journal-text">${escHtml(j.text)}</div>
-</div>`).join('')
-                : '<div class="empty-state">// NO FIELD NOTES YET</div>';
+            const tl = { win: '🟢 WIN', blocker: '🔴 BLOCKER', insight: '🔵 INSIGHT' };
+            document.getElementById('journal-list').innerHTML = S.journal.length ? S.journal.slice(0, 10).map(j => `<div class="journal-entry"><div class="journal-meta"><span>${j.date} ${j.time}</span><span>${tl[j.tag] || j.tag}</span></div><div class="journal-text">${escHtml(j.text)}</div></div>`).join('') : '<div class="empty-state">// NO ENTRIES</div>';
         }
 
-        // ══════════════════════════════════════
-        // WINS
-        // ══════════════════════════════════════
         function addWin() {
             const v = document.getElementById('win-input').value.trim();
             if (!v) return;
-            S.wins.unshift({ id: String(Date.now()), text: v, date: todayKey });
+            S.wins.unshift({ id: Date.now(), text: v, date: todayKey });
             document.getElementById('win-input').value = '';
-            save(); renderWins(); showToast('// WIN LOGGED ✓');
+            save(); renderWins();
         }
-
         function renderWins() {
-            const el = document.getElementById('wins-list');
-            if (!S.wins || !S.wins.length) {
-                el.innerHTML = '<div class="empty-state">// NO WINS LOGGED YET</div>';
-                return;
-            }
-            el.innerHTML = S.wins.slice(0, 10).map(w =>
-                `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:4px">
-  <span style="color:var(--green)">✓</span>
-  <span style="font-family:var(--mono);font-size:.73rem;flex:1">${escHtml(w.text)}</span>
-  <span style="font-family:var(--mono);font-size:.6rem;color:var(--text3)">${w.date}</span>
-</div>`).join('');
+            document.getElementById('wins-list').innerHTML = S.wins.length ? S.wins.slice(0, 5).map(w => `<div style="padding:8px;background:var(--bg2);border-radius:4px;margin-bottom:4px">✓ ${escHtml(w.text)}</div>`).join('') : '<div class="empty-state">// NO WINS</div>';
         }
 
-        // ══════════════════════════════════════
-        // PROMPTS
-        // ══════════════════════════════════════
-        const PROMPTS = [
-            "What is the #1 thing that would make today a win?",
-            "What obstacle is slowing your most important project?",
-            "What did you learn from yesterday's execution?",
-            "Are you working on the right things — or just busy?",
-            "What would future-you thank you for doing today?",
-            "What system can you build today to save time tomorrow?",
-            "What are you avoiding, and why?",
-            "Name your top 3 priorities. Are you working on them?"
-        ];
-
-        function renderPrompts() {
-            document.getElementById('prompts-list').innerHTML = [...PROMPTS]
-                .sort(() => Math.random() - .5)
-                .slice(0, 4)
-                .map(p => {
-                    // Use data-prompt attribute to safely pass text without escaping issues
-                    const safe = p.replace(/"/g, '&quot;');
-                    return `<div style="padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:5px;font-family:var(--mono);font-size:.72rem;color:var(--text2);line-height:1.5;cursor:pointer"
-    data-prompt="${safe}" onclick="usePrompt(this)">
-  <span style="color:var(--accent)">&gt; </span>${escHtml(p)}
-</div>`;
-                }).join('');
-        }
-
-        function usePrompt(el) {
-            // Read from data-prompt attribute — safe, no textContent parsing issues
-            const p = el.getAttribute('data-prompt') || '';
-            document.getElementById('journal-input').value = p + '\n\n';
-            document.getElementById('journal-input').focus();
-            // Switch to journal tab
-            switchTab('journal');
-        }
-
-        // ══════════════════════════════════════
         // ANALYTICS
-        // ══════════════════════════════════════
         function renderAnalytics() {
-            // Always derive from live arrays for accuracy
-            const allDoneTasks = S.tasks.filter(t => t.done).length;
-            const totalMin = S.sessions.reduce((a, s) => a + (s.mins || 0), 0);
-            S.analytics.totalTasks = allDoneTasks;
-            S.analytics.totalMin = totalMin;
-
-            document.getElementById('a-tasks').textContent = allDoneTasks;
-            document.getElementById('a-hours').textContent = totalMin >= 60
-                ? Math.round(totalMin / 60 * 10) / 10 + 'h'
-                : totalMin + 'm';
+            const allDone = S.tasks.filter(t => t.done).length;
+            const totalMin = S.sessions.reduce((a, s) => a + s.mins, 0);
+            document.getElementById('a-tasks').textContent = allDone;
+            document.getElementById('a-hours').textContent = (totalMin / 60).toFixed(1) + 'h';
             document.getElementById('a-streak').textContent = (S.analytics.maxStreak || 0) + 'd';
             document.getElementById('a-sess').textContent = S.sessions.length;
-
-            // Count only truly active days (have tasks or sessions)
-            const activeDateSet = new Set([
-                ...S.tasks.filter(t => t.done).map(t => t.date),
-                ...S.sessions.map(s => s.date)
-            ]);
-            const activeDays = activeDateSet.size;
-            const avg = activeDays ? Math.round(totalMin / activeDays) : 0;
-
-            document.getElementById('insights').innerHTML = [
-                `📊 Avg focus per active day: <span style="color:var(--cyan)">${avg >= 60 ? Math.round(avg / 60 * 10) / 10 + 'h' : avg + 'm'}</span>`,
-                `🔥 Current streak: <span style="color:var(--amber)">${S.analytics.curStreak || 0} days</span>`,
-                `✅ Total sessions: <span style="color:var(--green)">${S.sessions.length}</span>`,
-                `🎯 Tasks completed (all time): <span style="color:var(--accent2)">${allDoneTasks}</span>`,
-                `📅 Active days: <span style="color:var(--cyan)">${activeDays}</span>`
-            ].map(m => `<div>${m}</div>`).join('');
-
-            // Use getDayStats for accurate per-day breakdown (last 7 days)
-            const last7 = [];
-            for (let i = 6; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                last7.push({ key: dKey(d), lbl: DAYS[d.getDay()] });
-            }
-            document.getElementById('analytics-days').innerHTML = last7.map(d => {
-                const s = getDayStats(d.key);
-                const pct = s.score;
-                const barColor = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--accent)';
-                return `<div>
-  <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:.62rem;margin-bottom:3px">
-    <span style="color:var(--text3)">${d.lbl}</span>
-    <span style="color:var(--text2)">${s.tasks}/${s.totalTasks}t · ${s.min}m</span>
-    <span style="color:${pct > 0 ? barColor : 'var(--text3)'}">${pct}%</span>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:linear-gradient(90deg,${barColor},${barColor}88)"></div></div>
-</div>`;
-            }).join('');
+            document.getElementById('insights').innerHTML = `<div>📊 Total focus: ${(totalMin / 60).toFixed(1)} hours</div><div>✅ Tasks: ${allDone}</div><div>🔥 Streak: ${S.analytics.curStreak || 0} days</div>`;
+            renderPeakHours(); renderEstimationStats();
         }
 
         function buildContrib() {
             const cells = [];
-            for (let i = 89; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                const k = dKey(d);
-                // Use getDayStats for accurate activity (tasks + timer)
-                const s = getDayStats(k);
-                const activity = s.min + (s.tasks * 20); // weight tasks too
-                let l = '';
-                if (activity > 0) l = 'l1';
-                if (activity >= 60) l = 'l2';
-                if (activity >= 120) l = 'l3';
-                if (activity >= 240) l = 'l4';
-                cells.push(`<div class="contrib-cell ${l}" title="${k}: ${s.tasks}t · ${s.min}m · ${s.score}%"></div>`);
-            }
-            const weeks = [];
-            for (let i = 0; i < cells.length; i += 7) {
-                weeks.push(`<div class="contrib-week">${cells.slice(i, i + 7).join('')}</div>`);
-            }
+            for (let i = 89; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); const k = d.toISOString().split('T')[0]; const s = getDayStats(k); const activity = s.min + s.tasks * 20; let l = ''; if (activity > 0) l = 'l1'; if (activity >= 60) l = 'l2'; if (activity >= 120) l = 'l3'; if (activity >= 240) l = 'l4'; cells.push(`<div class="contrib-cell ${l}" title="${k}: ${s.min}m"></div>`); }
+            const weeks = []; for (let i = 0; i < cells.length; i += 7) weeks.push(`<div class="contrib-week">${cells.slice(i, i + 7).join('')}</div>`);
             document.getElementById('contrib-graph').innerHTML = weeks.join('');
         }
 
-        // ══════════════════════════════════════
-        // STREAK + SCORE
-        // ══════════════════════════════════════
+        function renderPeakHours() {
+            const hourMap = new Array(24).fill(0);
+            S.sessions.forEach(s => { if (s.hour != null) hourMap[s.hour] += s.mins; });
+            const maxH = Math.max(...hourMap, 1);
+            const hours = [6, 8, 10, 12, 14, 16, 18, 20, 22];
+            document.getElementById('peak-hours-chart').innerHTML = hours.map(h => `<div class="hour-bar-wrap"><div class="hour-bar" style="height:${Math.round((hourMap[h] + (hourMap[h + 1] || 0)) / maxH * 100)}%;background:var(--accent);width:100%"></div></div>`).join('');
+            const peakHour = hourMap.indexOf(Math.max(...hourMap));
+            document.getElementById('peak-insight').innerHTML = `Peak: ${peakHour}:00-${peakHour + 1}:00 (${hourMap[peakHour]}m)`;
+        }
+
+        function renderEstimationStats() {
+            const done = S.tasks.filter(t => t.done && t.actualMins);
+            document.getElementById('estimation-stats').innerHTML = done.length ? `<div>Completed tasks: ${done.length}</div><div class="progress-bar"><div class="progress-fill" style="width:${Math.min(done.filter(t => t.actualMins <= t.mins).length / done.length * 100, 100)}%"></div></div>` : '<div class="empty-state">Complete tasks to see stats</div>';
+        }
+
         function updateStreak() {
-            // Build a fast lookup: dateKey → {tasks, min} to avoid O(n*days) filtering
             const dayActivity = {};
-            S.tasks.forEach(t => {
-                if (t.done) {
-                    if (!dayActivity[t.date]) dayActivity[t.date] = { tasks: 0, min: 0 };
-                    dayActivity[t.date].tasks++;
-                    dayActivity[t.date].min += (t.mins || 0);
-                }
-            });
-            S.sessions.forEach(s => {
-                if (!dayActivity[s.date]) dayActivity[s.date] = { tasks: 0, min: 0 };
-                dayActivity[s.date].min += (s.mins || 0);
-            });
-
-            const isActive = (k) => {
-                const d = dayActivity[k];
-                return d && (d.tasks > 0 || d.min > 0);
-            };
-
-            let str = 0;
-            const d = new Date();
-            if (isActive(todayKey)) {
-                str++;
-                d.setDate(d.getDate() - 1);
-                for (let i = 0; i < 365; i++) {
-                    const k = dKey(d);
-                    if (isActive(k)) { str++; d.setDate(d.getDate() - 1); }
-                    else break;
-                }
-            } else {
-                d.setDate(d.getDate() - 1);
-                for (let i = 0; i < 365; i++) {
-                    const k = dKey(d);
-                    if (isActive(k)) { str++; d.setDate(d.getDate() - 1); }
-                    else break;
-                }
-            }
-
-            S.analytics.curStreak = str;
-            S.analytics.maxStreak = Math.max(S.analytics.maxStreak || 0, str);
+            S.tasks.forEach(t => { if (t.done) { if (!dayActivity[t.date]) dayActivity[t.date] = 0; dayActivity[t.date]++; } });
+            S.sessions.forEach(s => { if (!dayActivity[s.date]) dayActivity[s.date] = 0; dayActivity[s.date]++; });
+            let str = 0; const d = new Date();
+            for (let i = 0; i < 365; i++) { const k = d.toISOString().split('T')[0]; if (dayActivity[k]) str++; else break; d.setDate(d.getDate() - 1); }
+            S.analytics.curStreak = str; S.analytics.maxStreak = Math.max(S.analytics.maxStreak || 0, str);
             document.getElementById('streak-badge').textContent = 'STREAK: ' + str + 'd';
-            const wStreak = document.getElementById('w-streak');
-            if (wStreak) wStreak.textContent = str + 'd';
         }
 
         function updateScore() {
-            if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
-            // Use getDayStats for consistent, accurate computation
             const stats = getDayStats(todayKey);
-            S.analytics.daily[todayKey].tasks = stats.tasks;
-            S.analytics.daily[todayKey].score = stats.score;
-            const el = document.getElementById('today-score');
-            if (el) el.textContent = stats.score + '%';
-            updateStreak();
-            save();
+            document.getElementById('today-score').textContent = stats.score + '%';
+            updateStreak(); save();
         }
 
-        // ══════════════════════════════════════
-        // UTILS
-        // ══════════════════════════════════════
-        function fmt(s) {
-            return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+        // ENERGY & DISTRACTIONS
+        function setEnergy(lvl) { S.energy[todayKey] = lvl; save(); renderEnergyButtons(); showToast(`Energy: ${['', '😴', '😑', '😐', '😊', '🔥'][lvl]}`); }
+        function renderEnergyButtons() { const cur = S.energy[todayKey] || 0; document.querySelectorAll('.energy-btn').forEach((b, i) => b.classList.toggle('active', i + 1 === cur)); document.getElementById('energy-label').textContent = cur ? ['', '😴 EXHAUSTED', '😑 LOW', '😐 OKAY', '😊 GOOD', '🔥 PEAK'][cur] : 'NOT SET'; }
+        function logDistraction() { S.distractions.push({ date: todayKey, time: new Date().toLocaleTimeString() }); save(); renderDistractions(); showToast('Distraction logged'); }
+        function undoDistraction() { const idx = S.distractions.map((d, i) => d.date === todayKey ? i : -1).filter(i => i >= 0).pop(); if (idx !== undefined) { S.distractions.splice(idx, 1); save(); renderDistractions(); showToast('Undone'); } }
+        function renderDistractions() { const cnt = S.distractions.filter(d => d.date === todayKey).length; document.getElementById('dist-display').textContent = cnt; document.getElementById('dist-badge').textContent = '> ' + cnt + ' TODAY'; document.getElementById('dist-header-count').textContent = cnt; }
+
+        // DEV TOOLS FUNCTIONS
+        function addSnippet() {
+            const title = document.getElementById('snip-title').value.trim();
+            const code = document.getElementById('snip-code').value.trim();
+            if (!title || !code) { showToast('Title and code required'); return; }
+            const lang = document.getElementById('snip-lang').value;
+            S.snippets.unshift({ id: Date.now(), title, code, lang, date: todayKey });
+            save(); renderSnippets(); showToast('Snippet saved');
+        }
+        function deleteSnippet(id) { S.snippets = S.snippets.filter(s => s.id != id); save(); renderSnippets(); }
+        function copySnippet(id) { const s = S.snippets.find(s => s.id == id); if (s) navigator.clipboard.writeText(s.code).then(() => showToast('Copied!')); }
+        function renderSnippets() {
+            const search = document.getElementById('snip-search')?.value.toLowerCase() || '';
+            let snippets = S.snippets.filter(s => s.title.toLowerCase().includes(search) || s.code.toLowerCase().includes(search));
+            const container = document.getElementById('snippet-list');
+            if (!container) return;
+            if (!snippets.length) { container.innerHTML = '<div class="empty-state">// NO SNIPPETS</div>'; return; }
+            container.innerHTML = snippets.map(s => `<div class="snippet-card"><div style="display:flex;justify-content:space-between"><strong>${escHtml(s.title)}</strong><span class="card-badge">${s.lang}</span></div><pre style="background:var(--bg);padding:8px;border-radius:4px;margin:8px 0;max-height:100px;overflow:auto;font-size:.7rem">${escHtml(s.code.substring(0, 200))}</pre><div><button class="btn btn-ghost btn-sm" onclick="copySnippet(${s.id})">COPY</button><button class="btn btn-ghost btn-sm" onclick="deleteSnippet(${s.id})">DELETE</button></div></div>`).join('');
         }
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2800);
+        async function testAPI() {
+            const method = document.getElementById('api-method').value;
+            const url = document.getElementById('api-url').value;
+            const body = document.getElementById('api-body').value;
+            const headersStr = document.getElementById('api-headers').value;
+            if (!url) { showToast('Enter URL'); return; }
+            const headers = {};
+            if (headersStr) headersStr.split(',').forEach(h => { const [k, v] = h.split(':'); if (k && v) headers[k.trim()] = v.trim(); });
+            try {
+                const options = { method, headers };
+                if (method !== 'GET' && body) options.body = body;
+                const response = await fetch(url, options);
+                const data = await response.text();
+                const respDiv = document.getElementById('api-response');
+                respDiv.style.display = 'block';
+                try { const json = JSON.parse(data); respDiv.innerHTML = `<strong>Status: ${response.status}</strong>\n\n${JSON.stringify(json, null, 2)}`; }
+                catch (e) { respDiv.innerHTML = `<strong>Status: ${response.status}</strong>\n\n${data}`; }
+                showToast(`Request sent: ${response.status}`);
+            } catch (e) { showToast('Error: ' + e.message); }
         }
 
-        // FIX: XSS prevention helper
-        function escHtml(str) {
-            if (!str) return '';
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
+        function toggleRegexFlag(flag) {
+            const el = document.querySelector(`.regex-flag[data-flag="${flag}"]`);
+            if (regexFlags.includes(flag)) { regexFlags = regexFlags.filter(f => f !== flag); el.classList.remove('active'); }
+            else { regexFlags.push(flag); el.classList.add('active'); }
+            testRegex();
+        }
+        function testRegex() {
+            const pattern = document.getElementById('regex-pattern').value;
+            const testText = document.getElementById('regex-test-text').value;
+            if (!pattern || !testText) return;
+            try {
+                const regex = new RegExp(pattern, regexFlags.join(''));
+                const matches = testText.match(regex);
+                const results = document.getElementById('regex-results');
+                if (matches) results.innerHTML = `<strong>Found ${matches.length} match(es):</strong>\n${matches.map(m => `"${m}"`).join('\n')}`;
+                else results.innerHTML = 'No matches found';
+            } catch (e) { document.getElementById('regex-results').innerHTML = `<span style="color:var(--red)">Invalid regex: ${e.message}</span>`; }
         }
 
-        function doLogout() {
-            if (window._sb) {
-                window._sb.auth.signOut().then(() => { location.href = 'login.html'; });
-            } else {
-                location.href = 'login.html';
+        function updateColor() {
+            const color = document.getElementById('color-input').value;
+            document.getElementById('color-preview').style.background = color;
+            document.getElementById('color-hex').value = color;
+            const r = parseInt(color.slice(1, 3), 16), g = parseInt(color.slice(3, 5), 16), b = parseInt(color.slice(5, 7), 16);
+            document.getElementById('color-rgb').value = `rgb(${r}, ${g}, ${b})`;
+        }
+        function updateFromHex() { const hex = document.getElementById('color-hex').value; if (/^#[0-9A-F]{6}$/i.test(hex)) { document.getElementById('color-input').value = hex; updateColor(); } }
+        function updateFromRGB() { const rgb = document.getElementById('color-rgb').value; const match = rgb.match(/\d+/g); if (match && match.length === 3) { const hex = '#' + match.map(x => parseInt(x).toString(16).padStart(2, '0')).join(''); document.getElementById('color-input').value = hex; updateColor(); } }
+        function copyColor() { navigator.clipboard.writeText(document.getElementById('color-hex').value).then(() => showToast('Color copied!')); }
+        function generatePalette() {
+            const base = document.getElementById('color-input').value;
+            const colors = [];
+            for (let i = 0; i < 5; i++) {
+                const lighten = (color, percent) => {
+                    const num = parseInt(color.slice(1), 16);
+                    const r = (num >> 16) + (255 - (num >> 16)) * percent;
+                    const g = ((num >> 8) & 0x00FF) + (255 - ((num >> 8) & 0x00FF)) * percent;
+                    const b = (num & 0x0000FF) + (255 - (num & 0x0000FF)) * percent;
+                    return `#${Math.min(255, Math.floor(r)).toString(16).padStart(2, '0')}${Math.min(255, Math.floor(g)).toString(16).padStart(2, '0')}${Math.min(255, Math.floor(b)).toString(16).padStart(2, '0')}`;
+                };
+                colors.push(lighten(base, i * 0.15));
+            }
+            document.getElementById('palette-output').innerHTML = colors.map(c => `<div style="background:${c};padding:20px;margin-bottom:8px;border-radius:4px;text-align:center">${c}</div>`).join('');
+        }
+
+        function previewImage() {
+            const file = document.getElementById('image-input').files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => { const img = document.getElementById('image-preview'); img.src = e.target.result; img.style.display = 'block'; document.getElementById('image-info').innerHTML = `<strong>File:</strong> ${file.name}\n<strong>Size:</strong> ${(file.size / 1024).toFixed(2)} KB`; };
+                reader.readAsDataURL(file);
             }
         }
+        function optimizeImage() {
+            const img = document.getElementById('image-preview');
+            const quality = parseFloat(document.getElementById('image-quality').value);
+            if (!img.src) { showToast('Select an image first'); return; }
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const image = new Image();
+            image.onload = () => { canvas.width = image.width; canvas.height = image.height; ctx.drawImage(image, 0, 0); canvas.toBlob(blob => { const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = 'optimized.jpg'; link.click(); URL.revokeObjectURL(url); showToast(`Optimized: ${(blob.size / 1024).toFixed(2)} KB`); }, 'image/jpeg', quality); };
+            image.src = img.src;
+        }
 
-        // Spacebar shortcut for timer
+        function renderMarkdown() {
+            const text = document.getElementById('markdown-input').value;
+            let html = text.replace(/^# (.*$)/gm, '<h1>$1</h1>').replace(/^## (.*$)/gm, '<h2>$1</h2>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>').replace(/^- (.*$)/gm, '<li>$1</li>').replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>').replace(/\n/g, '<br>');
+            document.getElementById('markdown-preview').innerHTML = html;
+        }
+        function exportMarkdown() {
+            const html = document.getElementById('markdown-preview').innerHTML;
+            const blob = new Blob([html], { type: 'text/html' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'markdown.html'; a.click(); showToast('Exported!');
+        }
+
+        function formatJSON() {
+            try { const parsed = JSON.parse(document.getElementById('json-input').value); document.getElementById('json-output').innerHTML = JSON.stringify(parsed, null, 2); } catch (e) { showToast('Invalid JSON'); }
+        }
+        function minifyJSON() {
+            try { const parsed = JSON.parse(document.getElementById('json-input').value); document.getElementById('json-output').innerHTML = JSON.stringify(parsed); showToast('Minified'); } catch (e) { showToast('Invalid JSON'); }
+        }
+        function validateJSON() {
+            try { JSON.parse(document.getElementById('json-input').value); showToast('✅ Valid JSON'); document.getElementById('json-output').innerHTML = '<span style="color:var(--green)">Valid JSON ✓</span>'; } catch (e) { showToast('❌ Invalid JSON'); document.getElementById('json-output').innerHTML = `<span style="color:var(--red)">Error: ${e.message}</span>`; }
+        }
+
+        function saveCollection() {
+            const name = document.getElementById('collection-name').value.trim();
+            const data = document.getElementById('collection-data').value.trim();
+            if (!name || !data) { showToast('Name and data required'); return; }
+            try { JSON.parse(data); S.collections.unshift({ id: Date.now(), name, data, date: todayKey }); save(); renderCollections(); showToast('Collection saved'); } catch (e) { showToast('Invalid JSON'); }
+        }
+        function deleteCollection(id) { S.collections = S.collections.filter(c => c.id != id); save(); renderCollections(); }
+        function loadCollection(id) { const c = S.collections.find(c => c.id == id); if (c) { document.getElementById('collection-data').value = c.data; document.getElementById('collection-name').value = c.name; showToast('Loaded: ' + c.name); } }
+        function renderCollections() {
+            const container = document.getElementById('collections-list');
+            if (!container) return;
+            if (!S.collections.length) { container.innerHTML = '<div class="empty-state">// NO COLLECTIONS</div>'; return; }
+            container.innerHTML = S.collections.map(c => `<div class="collection-item" onclick="loadCollection(${c.id})"><div style="display:flex;justify-content:space-between"><strong>${escHtml(c.name)}</strong><span class="task-del" onclick="event.stopPropagation();deleteCollection(${c.id})">✕</span></div><div style="font-size:.6rem">${c.date}</div></div>`).join('');
+        }
+
+        // UTILITIES
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+        function escHtml(str) { return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
+        function playDone() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)();[[523, 0], [659, 200], [784, 400]].forEach(([freq, delay]) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value = freq; o.type = 'sine'; g.gain.setValueAtTime(0.3, ctx.currentTime + delay / 1000); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay / 1000 + 0.4); o.start(ctx.currentTime + delay / 1000); o.stop(ctx.currentTime + delay / 1000 + 0.5); }); } catch (e) { } }
+        function exportData() { const data = JSON.stringify(S, null, 2); const blob = new Blob([data], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `storm-os-${todayKey}.json`; a.click(); showToast('Data exported'); }
+        function doLogout() { if (window._sb) window._sb.auth.signOut().then(() => location.href = 'login.html'); else location.href = 'login.html'; }
+        function showShortcuts() { document.getElementById('shortcuts-modal').classList.add('open'); }
+        function closeShortcuts() { document.getElementById('shortcuts-modal').classList.remove('open'); }
+
+        // KEYBOARD SHORTCUTS
         document.addEventListener('keydown', e => {
-            if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-                e.preventDefault();
-                const tp = document.getElementById('panel-timer');
-                if (tp.classList.contains('active')) toggleMain();
-                else toggleMini();
+            const inInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName);
+            if (e.code === 'Escape') closeShortcuts();
+            if (!inInput) {
+                if (e.code === 'Space') { e.preventDefault(); const tp = document.getElementById('panel-timer'); if (tp.classList.contains('active')) toggleMain(); else toggleMini(); }
+                if (e.key === '?') showShortcuts();
+                if (e.key === '1') switchTab('planner');
+                if (e.key === '2') switchTab('timer');
+                if (e.key === '3') switchTab('habits');
+                if (e.key === '4') switchTab('dashboard');
+                if (e.key === '5') switchTab('analytics');
+                if (e.key === '6') switchTab('journal');
+                if (e.key === '7') switchTab('devtools');
+                if (e.key === '8') switchTab('help');
             }
-            // Enter to submit inputs
-            if (e.code === 'Enter') {
-                if (e.target.id === 'task-input' || e.target.id === 'task-mins') addTask();
-                else if (e.target.id === 'habit-input') addHabit();
-                else if (e.target.id === 'goal-input') addGoal();
-                else if (e.target.id === 'win-input') addWin();
-            }
+            if (e.altKey && e.key === 'd') { e.preventDefault(); logDistraction(); }
+            if (e.altKey && e.key === 'e') { e.preventDefault(); exportData(); }
         });
+
+        // Initialize demo data for testing
+        function initDemoData() {
+            if (S.tasks.length === 0) {
+                S.tasks = [
+                    { id: 1, text: 'Complete API integration', priority: 'high', mins: 60, estMins: 60, done: false, date: todayKey, actualMins: null },
+                    { id: 2, text: 'Write documentation for new features', priority: 'med', mins: 45, estMins: 45, done: false, date: todayKey, actualMins: null },
+                    { id: 3, text: 'Review pull requests', priority: 'low', mins: 30, estMins: 30, done: true, date: todayKey, actualMins: 25 }
+                ];
+                S.habits = [
+                    { id: 1, name: 'Morning Coding', streak: 3, best: 3, days: { [getTodayKey()]: true } },
+                    { id: 2, name: 'Exercise', streak: 2, best: 2, days: {} }
+                ];
+                S.sessions = [
+                    { time: '09:30 AM', task: 'API Work', mins: 45, date: todayKey, hour: 9 },
+                    { time: '11:00 AM', task: 'Documentation', mins: 30, date: todayKey, hour: 11 }
+                ];
+                S.snippets = [
+                    { id: 1, title: 'Fetch API Example', code: 'fetch("https://api.example.com/data")\n  .then(res => res.json())\n  .then(data => console.log(data));', lang: 'javascript', date: todayKey }
+                ];
+                S.analytics.daily[todayKey] = { tasks: 1, min: 75, sess: 2, score: 65 };
+                S.analytics.totalMin = 75;
+                S.analytics.totalSess = 2;
+                save();
+                boot();
+            }
+        }
+        setTimeout(initDemoData, 100);
     </script>
 </body>
 
