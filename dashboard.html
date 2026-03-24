@@ -2,38 +2,10 @@
 <html lang="en">
 
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const _SU = 'https://mryishzprrgpxauoccmr.supabase.co';
-        const _SK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
-        document.write('<div id="ag" style="position:fixed;inset:0;background:#080a0c;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;font-family:monospace;color:#484f58;font-size:0.75rem;letter-spacing:0.1em"><div style="width:32px;height:32px;border:2px solid #1e2530;border-top-color:#6c63ff;border-radius:50%;animation:sp 0.8s linear infinite"></div><div id="agm">VERIFYING ACCESS...</div><style>@keyframes sp{to{transform:rotate(360deg)}}</style></div>');
-        (async () => {
-            const sb = supabase.createClient(_SU, _SK);
-            window._sb = sb;
-            function setMsg(t) { const e = document.getElementById('agm'); if (e) e.textContent = t; }
-            function removeGuard() { const e = document.getElementById('ag'); if (e) e.remove(); }
-            try {
-                setMsg('CHECKING SESSION...');
-                const { data: { session } } = await sb.auth.getSession();
-                if (!session) { setMsg('NO SESSION — REDIRECTING...'); setTimeout(() => location.href = 'login.html', 800); return; }
-                setMsg('VERIFYING SUBSCRIPTION...');
-                const { data: profile } = await sb.from('profiles').select('is_paid,subscription_status,full_name').eq('id', session.user.id).single();
-                const isPaid = profile && (profile.is_paid === true || profile.subscription_status === 'active');
-                if (!isPaid) { setMsg('NO SUBSCRIPTION — REDIRECTING...'); setTimeout(() => location.href = 'index.html#pricing', 800); return; }
-                window._operatorName = profile?.full_name || session.user.user_metadata?.full_name || session.user.email.split('@')[0];
-                setMsg('ACCESS GRANTED ✓');
-                setTimeout(() => removeGuard(), 400);
-            } catch (e) { setMsg('ERROR — REDIRECTING...'); setTimeout(() => location.href = 'login.html', 800); }
-        })();
-    </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPERATOR COMMAND // STORM OS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>OPERATOR COMMAND // EXECUTION OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #080a0c;
@@ -58,37 +30,71 @@
             --body: 'Rajdhani', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             background: var(--bg);
             color: var(--text);
             font-family: var(--body);
             min-height: 100vh;
-            overflow-x: hidden
+            overflow-x: hidden;
         }
-
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px var(--accent); }
+            50% { box-shadow: 0 0 20px var(--accent); }
+        }
+        
+        @keyframes borderFlow {
+            0% { background-position: 0 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
         .grid-bg {
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(rgba(108, 99, 255, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(108, 99, 255, .04) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(108, 99, 255, .04) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(108, 99, 255, .04) 1px, transparent 1px);
             background-size: 48px 48px;
             pointer-events: none;
-            z-index: 0
+            z-index: 0;
         }
-
+        
         .wrapper {
             position: relative;
             z-index: 1;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 24px 80px
+            padding: 0 24px 80px;
+            animation: slideUp 0.6s ease;
         }
-
+        
         header {
             display: flex;
             align-items: center;
@@ -98,9 +104,9 @@
             margin-bottom: 28px;
             flex-wrap: wrap;
             gap: 12px;
-            position: relative
+            position: relative;
         }
-
+        
         header::after {
             content: '';
             position: absolute;
@@ -111,89 +117,75 @@
             background: linear-gradient(90deg, transparent, var(--accent), var(--cyan), var(--accent), transparent);
             background-size: 200% 100%;
             animation: borderFlow 4s linear infinite;
-            opacity: .4
+            opacity: .4;
         }
-
-        @keyframes borderFlow {
-            0% {
-                background-position: 0 0
-            }
-
-            100% {
-                background-position: 200% 0
-            }
-        }
-
+        
         .brand h1 {
             font-family: var(--head);
             font-size: clamp(1.4rem, 3vw, 2.1rem);
             font-weight: 900;
-            letter-spacing: .08em
+            letter-spacing: .08em;
+            background: linear-gradient(135deg, #fff, var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
+        
         .brand .sub {
             font-family: var(--mono);
             font-size: .72rem;
             color: var(--green);
             letter-spacing: .1em;
-            margin-top: 4px
+            margin-top: 4px;
         }
-
+        
         .sys-info {
             display: flex;
             align-items: center;
             gap: 20px;
             font-family: var(--mono);
-            font-size: .72rem
+            font-size: .72rem;
         }
-
+        
         .sys-badge {
             display: flex;
             align-items: center;
             gap: 6px;
             color: var(--text2);
-            letter-spacing: .08em
+            letter-spacing: .08em;
+            transition: all 0.3s;
         }
-
+        
+        .sys-badge:hover {
+            transform: translateY(-2px);
+        }
+        
         .dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
             background: var(--green);
             box-shadow: 0 0 8px var(--green);
-            animation: pulse 2s infinite
+            animation: pulse 2s infinite;
         }
-
+        
         .dot.red {
             background: var(--red);
-            box-shadow: 0 0 8px var(--red)
+            box-shadow: 0 0 8px var(--red);
         }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1
-            }
-
-            50% {
-                opacity: .4
-            }
-        }
-
+        
         .clock-display {
             font-family: var(--mono);
             font-size: .75rem;
             color: var(--cyan);
-            letter-spacing: .1em
+            letter-spacing: .1em;
         }
-
+        
         .header-actions {
             display: flex;
             gap: 10px;
-            align-items: center
+            align-items: center;
         }
-
+        
         .btn-logout {
             font-family: var(--mono);
             font-size: .62rem;
@@ -204,21 +196,22 @@
             color: var(--red);
             cursor: pointer;
             letter-spacing: .08em;
-            transition: all .2s
+            transition: all .2s;
         }
-
+        
         .btn-logout:hover {
-            background: rgba(255, 71, 87, .2)
+            background: rgba(255, 71, 87, .2);
+            transform: translateY(-2px);
         }
-
+        
         .nav-tabs {
             display: flex;
             gap: 4px;
             margin-bottom: 28px;
             border-bottom: 1px solid var(--border);
-            flex-wrap: wrap
+            flex-wrap: wrap;
         }
-
+        
         .nav-tab {
             font-family: var(--head);
             font-size: .62rem;
@@ -228,45 +221,32 @@
             padding: 10px 16px;
             cursor: pointer;
             border-bottom: 2px solid transparent;
-            transition: all .2s;
+            transition: all 0.3s;
             background: none;
-            border-top: none;
-            border-left: none;
-            border-right: none;
+            border: none;
             position: relative;
-            top: 1px
+            top: 1px;
         }
-
+        
         .nav-tab:hover {
-            color: var(--text2)
+            color: var(--text2);
+            transform: translateY(-2px);
         }
-
+        
         .nav-tab.active {
             color: var(--accent2);
-            border-bottom-color: var(--accent)
+            border-bottom-color: var(--accent);
         }
-
+        
         .panel {
-            display: none
+            display: none;
         }
-
+        
         .panel.active {
             display: block;
-            animation: panelIn .35s ease both
+            animation: slideUp 0.4s ease;
         }
-
-        @keyframes panelIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px)
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0)
-            }
-        }
-
+        
         .card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -274,9 +254,10 @@
             padding: 22px;
             position: relative;
             overflow: hidden;
-            transition: border-color .2s
+            transition: all 0.3s;
+            animation: slideInLeft 0.5s ease;
         }
-
+        
         .card::before {
             content: '';
             position: absolute;
@@ -285,13 +266,15 @@
             right: 0;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            opacity: .5
+            opacity: .5;
         }
-
+        
         .card:hover {
-            border-color: var(--border2)
+            border-color: var(--border2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
-
+        
         .card-title {
             font-family: var(--head);
             font-size: .62rem;
@@ -301,56 +284,39 @@
             margin-bottom: 18px;
             display: flex;
             align-items: center;
-            justify-content: space-between
+            justify-content: space-between;
         }
-
+        
         .card-badge {
             font-family: var(--mono);
             font-size: .6rem;
             color: var(--green);
-            letter-spacing: .08em
+            letter-spacing: .08em;
         }
-
+        
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px
+            gap: 16px;
         }
-
+        
         .grid-3 {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
-
+        
         .grid-main {
             display: grid;
             grid-template-columns: 1fr 360px;
-            gap: 16px
+            gap: 16px;
         }
-
-        @media(max-width:900px) {
-
-            .grid-2,
-            .grid-main {
-                grid-template-columns: 1fr
-            }
-
-            .grid-3 {
-                grid-template-columns: 1fr 1fr
-            }
+        
+        @media (max-width: 900px) {
+            .grid-2, .grid-main, .grid-3 { grid-template-columns: 1fr; }
         }
-
-        @media(max-width:600px) {
-            .grid-3 {
-                grid-template-columns: 1fr
-            }
-        }
-
-        input[type=text],
-        input[type=number],
-        textarea,
-        select {
+        
+        input, textarea, select {
             background: var(--bg2);
             border: 1px solid var(--border2);
             border-radius: 5px;
@@ -359,17 +325,15 @@
             font-size: .78rem;
             padding: 10px 14px;
             outline: none;
-            transition: all .2s;
-            width: 100%
+            transition: all 0.2s;
+            width: 100%;
         }
-
-        input:focus,
-        textarea:focus,
-        select:focus {
+        
+        input:focus, textarea:focus, select:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-glow)
+            box-shadow: 0 0 0 3px var(--accent-glow);
         }
-
+        
         .btn {
             font-family: var(--head);
             font-weight: 700;
@@ -379,52 +343,53 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: all .2s
+            transition: all 0.3s;
         }
-
+        
         .btn-primary {
-            background: var(--accent);
-            color: #fff
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
         }
-
+        
         .btn-primary:hover {
-            background: var(--accent2);
-            box-shadow: 0 0 16px var(--accent-glow);
-            transform: translateY(-1px)
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px var(--accent-glow);
         }
-
+        
         .btn-ghost {
             background: var(--card2);
             color: var(--text2);
-            border: 1px solid var(--border2)
+            border: 1px solid var(--border2);
         }
-
+        
         .btn-ghost:hover {
             border-color: var(--accent);
-            color: var(--accent2)
+            color: var(--accent2);
+            transform: translateY(-2px);
         }
-
+        
         .btn-danger {
             background: rgba(255, 71, 87, .12);
             color: var(--red);
-            border: 1px solid rgba(255, 71, 87, .25)
+            border: 1px solid rgba(255, 71, 87, .25);
         }
-
+        
+        .btn-danger:hover {
+            background: rgba(255, 71, 87, .25);
+            transform: translateY(-2px);
+        }
+        
         .btn-sm {
             padding: 6px 13px;
-            font-size: .6rem
+            font-size: .6rem;
         }
-
-        .btn-full {
-            width: 100%
-        }
-
+        
         .task-list {
             display: flex;
             flex-direction: column;
-            gap: 8px
+            gap: 8px;
         }
-
+        
         .task-item {
             display: flex;
             align-items: center;
@@ -433,118 +398,109 @@
             background: var(--bg2);
             border: 1px solid var(--border);
             border-radius: 5px;
-            transition: all .2s
+            transition: all 0.3s;
+            animation: slideInLeft 0.3s ease;
         }
-
+        
         .task-item:hover {
             border-color: var(--border2);
-            transform: translateX(3px)
+            transform: translateX(5px);
         }
-
+        
         .task-item.done {
-            opacity: .4
+            opacity: .5;
         }
-
+        
         .task-item.done .task-text {
-            text-decoration: line-through
+            text-decoration: line-through;
         }
-
+        
         .task-check {
             width: 16px;
             height: 16px;
             border: 1px solid var(--border2);
             border-radius: 3px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
+            transition: all 0.2s;
         }
-
+        
         .task-check.checked {
             background: var(--green);
-            border-color: var(--green)
+            border-color: var(--green);
         }
-
+        
         .task-check.checked::after {
             content: '✓';
+            display: block;
             color: #000;
             font-size: .65rem;
-            font-weight: 900
+            font-weight: 900;
+            text-align: center;
+            line-height: 14px;
         }
-
+        
         .task-text {
             flex: 1;
             font-family: var(--mono);
-            font-size: .78rem
+            font-size: .78rem;
         }
-
+        
         .task-priority {
             font-family: var(--mono);
             font-size: .6rem;
             letter-spacing: .08em;
             padding: 2px 7px;
-            border-radius: 3px
+            border-radius: 3px;
         }
-
-        .priority-high {
-            background: rgba(255, 71, 87, .15);
-            color: var(--red)
-        }
-
-        .priority-med {
-            background: rgba(255, 179, 71, .15);
-            color: var(--amber)
-        }
-
-        .priority-low {
-            background: rgba(57, 211, 83, .15);
-            color: var(--green)
-        }
-
+        
+        .priority-high { background: rgba(255, 71, 87, .15); color: var(--red); }
+        .priority-med { background: rgba(255, 179, 71, .15); color: var(--amber); }
+        .priority-low { background: rgba(57, 211, 83, .15); color: var(--green); }
+        
         .task-del {
             color: var(--text3);
             cursor: pointer;
             font-size: .8rem;
             padding: 2px 6px;
-            transition: color .2s
+            transition: color .2s;
         }
-
+        
         .task-del:hover {
-            color: var(--red)
+            color: var(--red);
+            transform: scale(1.1);
         }
-
+        
         .timer-display {
             text-align: center;
-            padding: 24px 0 20px
+            padding: 15px 0;
         }
-
+        
         .timer-digits {
             font-family: var(--head);
-            font-size: clamp(5rem, 12vw, 9rem);
+            font-size: 3.5rem;
             font-weight: 900;
             letter-spacing: .06em;
             color: var(--text);
             line-height: 1;
-            text-shadow: 0 0 40px rgba(108, 99, 255, .4);
-            transition: all .3s
+            text-shadow: 0 0 30px rgba(108, 99, 255, .4);
+            transition: all 0.3s;
         }
-
+        
         .timer-controls {
             display: flex;
             gap: 10px;
             justify-content: center;
-            margin-top: 16px
+            margin-top: 16px;
         }
-
+        
         .timer-presets {
             display: flex;
             gap: 8px;
             justify-content: center;
             margin-top: 12px;
-            flex-wrap: wrap
+            flex-wrap: wrap;
         }
-
+        
         .preset-btn {
             font-family: var(--mono);
             font-size: .65rem;
@@ -553,22 +509,24 @@
             border: 1px solid var(--border2);
             border-radius: 4px;
             color: var(--text2);
-            cursor: pointer
+            cursor: pointer;
+            transition: all 0.3s;
         }
-
+        
         .preset-btn:hover,
         .preset-btn.active {
             border-color: var(--accent);
             color: var(--accent2);
-            background: var(--accent-glow)
+            background: var(--accent-glow);
+            transform: scale(1.05);
         }
-
+        
         .session-log {
             margin-top: 16px;
             border-top: 1px solid var(--border);
-            padding-top: 14px
+            padding-top: 14px;
         }
-
+        
         .session-entry {
             display: flex;
             align-items: center;
@@ -576,37 +534,38 @@
             padding: 7px 0;
             border-bottom: 1px solid var(--border);
             font-family: var(--mono);
-            font-size: .7rem
+            font-size: .7rem;
         }
-
+        
         .habit-row {
             display: flex;
             align-items: center;
             gap: 12px;
             padding: 10px 0;
-            border-bottom: 1px solid var(--border)
+            border-bottom: 1px solid var(--border);
+            animation: slideInLeft 0.3s ease;
         }
-
+        
         .habit-name {
             flex: 1;
             font-family: var(--body);
             font-weight: 600;
-            font-size: .95rem
+            font-size: .95rem;
         }
-
+        
         .habit-streak {
             font-family: var(--mono);
             font-size: .7rem;
             color: var(--amber);
             min-width: 44px;
-            text-align: right
+            text-align: right;
         }
-
+        
         .habit-days {
             display: flex;
-            gap: 4px
+            gap: 4px;
         }
-
+        
         .habit-day {
             width: 22px;
             height: 22px;
@@ -618,219 +577,406 @@
             align-items: center;
             justify-content: center;
             font-size: .6rem;
-            color: var(--text3)
+            color: var(--text3);
+            transition: all 0.2s;
         }
-
+        
         .habit-day.done {
             background: var(--green);
             border-color: var(--green);
-            color: #000
+            color: #000;
+            animation: pulse 0.3s ease;
         }
-
-        .habit-day.done::after {
-            content: '✓';
-            font-weight: 900
-        }
-
+        
         .week-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 8px;
-            margin-bottom: 20px
         }
-
+        
         .week-score-bar {
             height: 80px;
             background: var(--bg2);
             border: 1px solid var(--border);
             border-radius: 4px;
             position: relative;
-            overflow: hidden
+            overflow: hidden;
         }
-
+        
         .week-score-fill {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             background: linear-gradient(180deg, var(--accent), rgba(108, 99, 255, .4));
-            transition: height .8s cubic-bezier(.34, 1.56, .64, 1)
+            transition: height 0.8s cubic-bezier(.34, 1.56, .64, 1);
         }
-
+        
         .stats-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 12px;
-            margin-bottom: 20px
+            margin-bottom: 20px;
         }
-
-        @media(max-width:700px) {
-            .stats-row {
-                grid-template-columns: 1fr 1fr
-            }
+        
+        @media (max-width: 700px) {
+            .stats-row { grid-template-columns: 1fr 1fr; }
         }
-
+        
         .stat-card {
             background: var(--card2);
             border: 1px solid var(--border);
             border-radius: 6px;
             padding: 16px;
             text-align: center;
-            transition: all .3s
+            transition: all 0.3s;
         }
-
+        
         .stat-card:hover {
             border-color: var(--border2);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, .3)
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
-
+        
         .stat-val {
             font-family: var(--head);
             font-size: 1.8rem;
             font-weight: 900;
-            color: var(--text);
-            line-height: 1
+            line-height: 1;
         }
-
-        .stat-val.green {
-            color: var(--green)
-        }
-
-        .stat-val.accent {
-            color: var(--accent2)
-        }
-
-        .stat-val.amber {
-            color: var(--amber)
-        }
-
-        .stat-val.cyan {
-            color: var(--cyan)
-        }
-
+        
+        .stat-val.green { color: var(--green); }
+        .stat-val.accent { color: var(--accent2); }
+        .stat-val.amber { color: var(--amber); }
+        .stat-val.cyan { color: var(--cyan); }
+        
         .stat-label {
             font-family: var(--mono);
             font-size: .58rem;
             color: var(--text3);
             letter-spacing: .1em;
-            margin-top: 6px
+            margin-top: 6px;
         }
-
-        .contrib-graph {
-            display: flex;
-            gap: 3px;
-            overflow-x: auto;
-            padding-bottom: 6px
-        }
-
-        .contrib-week {
-            display: flex;
-            flex-direction: column;
-            gap: 3px
-        }
-
-        .contrib-cell {
-            width: 12px;
-            height: 12px;
-            border-radius: 2px;
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            cursor: pointer
-        }
-
-        .contrib-cell.l1 {
-            background: var(--green-dim)
-        }
-
-        .contrib-cell.l2 {
-            background: #2ea043
-        }
-
-        .contrib-cell.l3 {
-            background: var(--green)
-        }
-
-        .contrib-cell.l4 {
-            background: #7ee787
-        }
-
-        .journal-entry {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border)
-        }
-
-        .journal-meta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-family: var(--mono);
-            font-size: .65rem;
-            color: var(--text3)
-        }
-
-        .journal-text {
-            font-family: var(--body);
-            font-size: .9rem;
-            color: var(--text2);
-            line-height: 1.5
-        }
-
+        
         .progress-bar {
             height: 4px;
             background: var(--bg2);
             border-radius: 2px;
             overflow: hidden;
-            margin-top: 8px
+            margin-top: 8px;
         }
-
+        
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--accent), var(--cyan));
-            transition: width .5s ease
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-
+        
         .inline-row {
             display: flex;
             gap: 8px;
-            align-items: flex-end;
+            margin-bottom: 16px;
             flex-wrap: wrap;
-            margin-bottom: 16px
         }
-
-        .inline-row>* {
+        
+        .inline-row > * {
             flex: 1;
-            min-width: 120px
+            min-width: 120px;
         }
-
+        
         .inline-row .btn {
-            flex: 0 0 auto
+            flex: 0 0 auto;
         }
-
-        .mt-10 {
-            margin-top: 10px
+        
+        .flex-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
-
-        .mt-16 {
-            margin-top: 16px
-        }
-
-        .mb-16 {
-            margin-bottom: 16px
-        }
-
+        
+        .mt-10 { margin-top: 10px; }
+        .mt-16 { margin-top: 16px; }
+        .mb-16 { margin-bottom: 16px; }
+        
         .empty-state {
             text-align: center;
             padding: 28px;
             font-family: var(--mono);
             font-size: .7rem;
             color: var(--text3);
-            letter-spacing: .06em
+            letter-spacing: .06em;
         }
-
+        
+        /* Journal Entry Styles */
+        .journal-entry {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+            animation: slideInLeft 0.3s ease;
+            background: var(--bg2);
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+        
+        .journal-entry:hover {
+            background: var(--card);
+            transform: translateX(5px);
+        }
+        
+        .journal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .journal-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--mono);
+            font-size: .65rem;
+            color: var(--text3);
+        }
+        
+        .journal-delete {
+            background: none;
+            border: none;
+            color: var(--text3);
+            cursor: pointer;
+            padding: 4px 8px;
+            font-size: .7rem;
+            transition: all 0.2s;
+            opacity: 0.6;
+            border-radius: 4px;
+        }
+        
+        .journal-entry:hover .journal-delete {
+            opacity: 1;
+        }
+        
+        .journal-delete:hover {
+            color: var(--red);
+            transform: scale(1.1);
+            background: rgba(255, 71, 87, .1);
+        }
+        
+        .journal-text {
+            font-family: var(--body);
+            font-size: .9rem;
+            color: var(--text2);
+            line-height: 1.5;
+            word-break: break-word;
+        }
+        
+        .energy-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--border2);
+            background: var(--bg2);
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .energy-btn:hover,
+        .energy-btn.active {
+            border-color: var(--accent);
+            transform: scale(1.15);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+        
+        .distraction-count {
+            font-family: var(--head);
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--red);
+            text-align: center;
+            line-height: 1;
+            text-shadow: 0 0 30px rgba(255, 71, 87, .4);
+        }
+        
+        .contrib-graph {
+            display: flex;
+            gap: 3px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+        }
+        
+        .contrib-week {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        
+        .contrib-cell {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .contrib-cell:hover {
+            transform: scale(1.2);
+        }
+        
+        .contrib-cell.l1 { background: var(--green-dim); }
+        .contrib-cell.l2 { background: #2ea043; }
+        .contrib-cell.l3 { background: var(--green); }
+        .contrib-cell.l4 { background: #7ee787; }
+        
+        /* Dev Tools Styles */
+        .tool-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        
+        .tool-tab {
+            font-family: var(--mono);
+            font-size: .68rem;
+            padding: 8px 16px;
+            background: none;
+            border: none;
+            color: var(--text3);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .tool-tab:hover {
+            color: var(--text2);
+        }
+        
+        .tool-tab.active {
+            color: var(--accent2);
+            border-bottom-color: var(--accent);
+        }
+        
+        .tool-panel {
+            display: none;
+        }
+        
+        .tool-panel.active {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+        
+        .snippet-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 8px;
+            transition: all 0.3s;
+        }
+        
+        .snippet-card:hover {
+            border-color: var(--accent);
+            transform: translateX(3px);
+        }
+        
+        .json-viewer {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 12px;
+            font-family: var(--mono);
+            font-size: .7rem;
+            max-height: 200px;
+            overflow: auto;
+            white-space: pre-wrap;
+        }
+        
+        .collection-item {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            font-family: var(--mono);
+            font-size: .7rem;
+            transition: all 0.2s;
+        }
+        
+        .collection-item:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            transform: translateX(3px);
+        }
+        
+        .color-preview {
+            width: 100%;
+            height: 100px;
+            border-radius: 4px;
+            border: 1px solid var(--border2);
+            margin-bottom: 16px;
+        }
+        
+        .regex-flags {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 8px;
+        }
+        
+        .regex-flag {
+            font-family: var(--mono);
+            font-size: .65rem;
+            padding: 4px 8px;
+            background: var(--card2);
+            border: 1px solid var(--border2);
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .regex-flag.active {
+            background: var(--accent-glow);
+            border-color: var(--accent);
+            color: var(--accent2);
+        }
+        
+        .markdown-preview {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            font-family: var(--body);
+            font-size: .85rem;
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .week-day-label {
+            font-family: var(--mono);
+            font-size: .6rem;
+            text-align: center;
+            color: var(--text3);
+            margin-bottom: 4px;
+        }
+        
+        .week-score-num {
+            text-align: center;
+            font-size: .55rem;
+            margin-top: 4px;
+            color: var(--text2);
+        }
+        
         #toast {
             position: fixed;
             bottom: 28px;
@@ -844,51 +990,17 @@
             color: var(--accent2);
             transform: translateY(60px);
             opacity: 0;
-            transition: all .3s;
+            transition: all 0.3s;
             z-index: 1000;
-            box-shadow: 0 0 24px var(--accent-glow)
+            box-shadow: 0 0 24px var(--accent-glow);
         }
-
+        
         #toast.show {
             transform: translateY(0);
-            opacity: 1
+            opacity: 1;
+            animation: shake 0.3s ease;
         }
-
-        #setup-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(8, 10, 12, .97);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 500;
-            padding: 24px
-        }
-
-        .setup-box {
-            background: var(--card);
-            border: 1px solid var(--border2);
-            border-radius: 10px;
-            padding: 40px 36px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 0 60px var(--accent-glow)
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px
-        }
-
-        .form-label {
-            font-family: var(--mono);
-            font-size: .62rem;
-            color: var(--text3);
-            letter-spacing: .12em
-        }
-
+        
         #shortcuts-modal {
             position: fixed;
             inset: 0;
@@ -897,13 +1009,14 @@
             align-items: center;
             justify-content: center;
             z-index: 5000;
-            padding: 24px
+            padding: 24px;
         }
-
+        
         #shortcuts-modal.open {
-            display: flex
+            display: flex;
+            animation: fadeIn 0.3s ease;
         }
-
+        
         .shortcuts-box {
             background: var(--card);
             border: 1px solid var(--border2);
@@ -911,305 +1024,65 @@
             padding: 32px;
             max-width: 560px;
             max-height: 80vh;
-            overflow-y: auto
+            overflow-y: auto;
         }
-
+        
         .shortcut-row {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
             border-bottom: 1px solid var(--border);
             font-family: var(--mono);
-            font-size: .72rem
+            font-size: .72rem;
         }
-
+        
         .kbd {
             background: var(--card2);
             border: 1px solid var(--border2);
             border-radius: 4px;
             padding: 2px 8px;
-            color: var(--accent2)
-        }
-
-        .energy-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 2px solid var(--border2);
-            background: var(--bg2);
-            cursor: pointer;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center
-        }
-
-        .energy-btn:hover,
-        .energy-btn.active {
-            border-color: var(--accent);
-            transform: scale(1.15);
-            box-shadow: 0 0 12px var(--accent-glow)
-        }
-
-        .distraction-count {
-            font-family: var(--head);
-            font-size: 4rem;
-            font-weight: 900;
-            color: var(--red);
-            text-align: center;
-            line-height: 1;
-            text-shadow: 0 0 30px rgba(255, 71, 87, .4)
-        }
-
-        .tool-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-            flex-wrap: wrap
-        }
-
-        .tool-tab {
-            font-family: var(--mono);
-            font-size: .68rem;
-            padding: 8px 16px;
-            background: none;
-            border: none;
-            color: var(--text3);
-            cursor: pointer;
-            border-bottom: 2px solid transparent
-        }
-
-        .tool-tab:hover {
-            color: var(--text2)
-        }
-
-        .tool-tab.active {
             color: var(--accent2);
-            border-bottom-color: var(--accent)
         }
-
-        .tool-panel {
-            display: none
-        }
-
-        .tool-panel.active {
-            display: block;
-            animation: panelIn .3s ease
-        }
-
-        .json-viewer {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 12px;
-            font-family: var(--mono);
-            font-size: .7rem;
-            max-height: 300px;
-            overflow: auto;
-            white-space: pre-wrap
-        }
-
-        .color-preview {
-            width: 100%;
-            height: 100px;
-            border-radius: 4px;
-            border: 1px solid var(--border2);
-            margin-bottom: 16px
-        }
-
-        .regex-flags {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            margin-top: 8px
-        }
-
-        .regex-flag {
-            font-family: var(--mono);
-            font-size: .65rem;
-            padding: 4px 8px;
-            background: var(--card2);
-            border: 1px solid var(--border2);
-            border-radius: 3px;
-            cursor: pointer
-        }
-
-        .regex-flag.active {
-            background: var(--accent-glow);
-            border-color: var(--accent);
-            color: var(--accent2)
-        }
-
-        .markdown-preview {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 16px;
-            font-family: var(--body);
-            font-size: .85rem;
-            line-height: 1.6;
-            max-height: 400px;
-            overflow-y: auto
-        }
-
-        .markdown-preview h1,
-        .markdown-preview h2,
-        .markdown-preview h3 {
-            color: var(--accent2);
-            margin-top: 16px;
-            margin-bottom: 8px
-        }
-
-        .markdown-preview code {
-            background: var(--card);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: var(--mono)
-        }
-
-        .image-preview {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 4px;
-            margin-top: 8px
-        }
-
-        .collection-item {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 8px 12px;
-            margin-bottom: 6px;
-            cursor: pointer;
-            font-family: var(--mono);
-            font-size: .7rem
-        }
-
-        .collection-item:hover {
-            border-color: var(--accent);
-            background: var(--accent-glow)
-        }
-
-        .snippet-card {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 8px
-        }
-
-        .flex-row {
-            display: flex;
-            gap: 10px;
-            align-items: center
-        }
-
-        .divider {
-            border-top: 1px solid var(--border);
-            margin: 16px 0
-        }
-
+        
         ::-webkit-scrollbar {
             width: 6px;
-            height: 6px
+            height: 6px;
         }
-
+        
         ::-webkit-scrollbar-track {
-            background: var(--bg2)
+            background: var(--bg2);
         }
-
+        
         ::-webkit-scrollbar-thumb {
             background: var(--border2);
-            border-radius: 3px
+            border-radius: 3px;
         }
-
-        .hljs {
-            background: transparent !important;
-            padding: 0 !important
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
         }
     </style>
 </head>
 
 <body>
     <div class="grid-bg"></div>
-
-    <div id="setup-modal">
-        <div class="setup-box">
-            <h2>OPERATOR COMMAND</h2>
-            <p>// INITIALIZE YOUR EXECUTION OS</p>
-            <div class="form-group">
-                <div class="form-label">OPERATOR CALLSIGN</div>
-                <input type="text" id="setup-name" placeholder="Your name or alias" value="Alex Chen" />
-            </div>
-            <div class="form-group">
-                <div class="form-label">PRIMARY OBJECTIVE</div>
-                <input type="text" id="setup-role" placeholder="e.g. SaaS Founder · Engineer · Creator"
-                    value="Full Stack Developer" />
-            </div>
-            <div class="form-group">
-                <div class="form-label">DEFAULT FOCUS BLOCK (minutes)</div>
-                <select id="setup-focus">
-                    <option value="25">25 — Pomodoro</option>
-                    <option value="45" selected>45 — Deep Work</option>
-                    <option value="60">60 — Flow State</option>
-                    <option value="90">90 — Ultra Block</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <div class="form-label">DAILY DEEP WORK TARGET (hours)</div>
-                <input type="number" id="setup-target" value="6" min="1" max="16" />
-            </div>
-            <button class="btn btn-primary btn-full" onclick="initUser()">ENGAGE SYSTEM</button>
-        </div>
-    </div>
-
-    <div id="shortcuts-modal" onclick="if(event.target===this)closeShortcuts()">
-        <div class="shortcuts-box">
-            <h2>⌨ KEYBOARD SHORTCUTS</h2>
-            <div class="shortcut-row"><span>Toggle active timer</span>
-                <div class="shortcut-keys"><span class="kbd">Space</span></div>
-            </div>
-            <div class="shortcut-row"><span>Show this panel</span>
-                <div class="shortcut-keys"><span class="kbd">?</span></div>
-            </div>
-            <div class="shortcut-row"><span>Switch tabs</span>
-                <div class="shortcut-keys"><span class="kbd">1</span><span class="kbd">-</span><span
-                        class="kbd">8</span></div>
-            </div>
-            <div class="shortcut-row"><span>Log distraction</span>
-                <div class="shortcut-keys"><span class="kbd">Alt</span><span class="kbd">D</span></div>
-            </div>
-            <div class="shortcut-row"><span>Export data</span>
-                <div class="shortcut-keys"><span class="kbd">Alt</span><span class="kbd">E</span></div>
-            </div>
-            <button class="btn btn-ghost btn-sm" onclick="closeShortcuts()">CLOSE</button>
-        </div>
-    </div>
-
+    
     <div class="wrapper">
         <header>
             <div class="brand">
-                <h1>OPERATOR COMMAND</h1>
-                <div class="sub">Welcome back, <span id="user-name">OPERATOR</span>. System: <span
-                        style="color:var(--green)">ACTIVE_OS</span></div>
+                <h1>⚡ OPERATOR COMMAND</h1>
+                <div class="sub">Welcome back, <span id="user-name">OPERATOR</span>. System: <span style="color:var(--green)">ACTIVE_OS</span></div>
             </div>
             <div class="sys-info">
-                <div class="sys-badge">
-                    <div class="dot"></div><span id="streak-badge">STREAK: 0d</span>
-                </div>
-                <div class="sys-badge">
-                    <div class="dot red" id="focus-dot" style="display:none"></div><span id="focus-status">IDLE</span>
-                </div>
-                <div class="sys-badge" style="color:var(--red);cursor:pointer" onclick="logDistraction()">⚡ <span
-                        id="dist-header-count">0</span></div>
+                <div class="sys-badge"><div class="dot"></div><span id="streak-badge">STREAK: 0d</span></div>
+                <div class="sys-badge"><div class="dot red" id="focus-dot" style="display:none"></div><span id="focus-status">IDLE</span></div>
+                <div class="sys-badge" style="color:var(--red);cursor:pointer" onclick="logDistraction()">⚡ <span id="dist-header-count">0</span></div>
                 <div class="clock-display" id="live-clock">--:--:--</div>
             </div>
             <div class="header-actions">
                 <button class="btn btn-ghost btn-sm" onclick="showShortcuts()">⌨</button>
                 <button class="btn btn-ghost btn-sm" onclick="exportData()">⬇ EXPORT</button>
-                <a href="index.html" class="btn-logout" style="text-decoration:none;color:var(--red)">← HOME</a>
-                <button class="btn-logout" onclick="doLogout()">LOGOUT</button>
+                <button class="btn btn-ghost btn-sm" onclick="clearData()">🗑 RESET</button>
             </div>
         </header>
 
@@ -1240,27 +1113,20 @@
                             <input type="number" id="task-mins" placeholder="Min" min="1" style="max-width:72px" />
                             <button class="btn btn-primary btn-sm" onclick="addTask()">+ LOG</button>
                         </div>
-                        <div class="task-list" id="task-list">
-                            <div class="empty-state">// NO DIRECTIVES — ADD YOUR FIRST TASK</div>
-                        </div>
-                        <div class="progress-bar mt-16">
-                            <div class="progress-fill" id="task-progress" style="width:0%"></div>
-                        </div>
+                        <div class="task-list" id="task-list"></div>
+                        <div class="progress-bar mt-16"><div class="progress-fill" id="task-progress" style="width:0%"></div></div>
                     </div>
                     <div class="card">
                         <div class="card-title">COMPLETED <span class="card-badge" id="done-count">> 0 DONE</span></div>
-                        <div class="task-list" id="done-list">
-                            <div class="empty-state">// COMPLETE TASKS TO SEE THEM HERE</div>
-                        </div>
+                        <div class="task-list" id="done-list"></div>
                     </div>
                 </div>
                 <div>
                     <div class="card">
-                        <div class="card-title">FOCUS PULSE <span class="card-badge" id="mini-badge">> STANDBY</span>
-                        </div>
+                        <div class="card-title">FOCUS PULSE <span class="card-badge" id="mini-badge">> STANDBY</span></div>
                         <div class="timer-display">
                             <div class="timer-digits" id="timer-mini">45:00</div>
-                            <div class="timer-label" id="mini-lbl">SELECT DURATION</div>
+                            <div class="timer-label">SELECT DURATION</div>
                         </div>
                         <div class="timer-presets">
                             <div class="preset-btn" onclick="setMini(25)">25m</div>
@@ -1268,51 +1134,38 @@
                             <div class="preset-btn" onclick="setMini(60)">60m</div>
                             <div class="preset-btn" onclick="setMini(90)">90m</div>
                         </div>
-                        <div class="timer-controls"><button class="btn btn-primary" id="mini-btn"
-                                onclick="toggleMini()">START</button><button class="btn btn-ghost"
-                                onclick="resetMini()">RESET</button></div>
+                        <div class="timer-controls">
+                            <button class="btn btn-primary" id="mini-btn" onclick="toggleMini()">START</button>
+                            <button class="btn btn-ghost" onclick="resetMini()">RESET</button>
+                        </div>
                     </div>
                     <div class="card">
                         <div class="card-title">TODAY'S EXECUTION</div>
                         <div class="stats-row" style="grid-template-columns:1fr 1fr;gap:10px">
-                            <div class="stat-card">
-                                <div class="stat-val green" id="today-tasks">0</div>
-                                <div class="stat-label">TASKS DONE</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-val accent" id="today-mins">0m</div>
-                                <div class="stat-label">FOCUSED</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-val amber" id="today-sess">0</div>
-                                <div class="stat-label">SESSIONS</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-val cyan" id="today-score">0%</div>
-                                <div class="stat-label">DAY SCORE</div>
-                            </div>
+                            <div class="stat-card"><div class="stat-val green" id="today-tasks">0</div><div class="stat-label">TASKS DONE</div></div>
+                            <div class="stat-card"><div class="stat-val accent" id="today-mins">0m</div><div class="stat-label">FOCUSED</div></div>
+                            <div class="stat-card"><div class="stat-val amber" id="today-sess">0</div><div class="stat-label">SESSIONS</div></div>
+                            <div class="stat-card"><div class="stat-val cyan" id="today-score">0%</div><div class="stat-label">DAY SCORE</div></div>
                         </div>
                         <div>
                             <div style="font-family:var(--mono);font-size:.6rem;margin-bottom:10px">ENERGY LEVEL</div>
                             <div style="display:flex;gap:8px;justify-content:center" id="energy-btns">
-                                <div class="energy-btn" onclick="setEnergy(1)" title="Exhausted">😴</div>
-                                <div class="energy-btn" onclick="setEnergy(2)" title="Low">😑</div>
-                                <div class="energy-btn" onclick="setEnergy(3)" title="Okay">😐</div>
-                                <div class="energy-btn" onclick="setEnergy(4)" title="Good">😊</div>
-                                <div class="energy-btn" onclick="setEnergy(5)" title="Peak">🔥</div>
+                                <div class="energy-btn" onclick="setEnergy(1)">😴</div>
+                                <div class="energy-btn" onclick="setEnergy(2)">😑</div>
+                                <div class="energy-btn" onclick="setEnergy(3)">😐</div>
+                                <div class="energy-btn" onclick="setEnergy(4)">😊</div>
+                                <div class="energy-btn" onclick="setEnergy(5)">🔥</div>
                             </div>
-                            <div id="energy-label" style="text-align:center;font-size:.62rem;margin-top:8px">NOT SET
-                            </div>
+                            <div id="energy-label" style="text-align:center;font-size:.62rem;margin-top:8px">NOT SET</div>
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-title">DISTRACTION LOG <span class="card-badge" id="dist-badge">> 0
-                                TODAY</span></div>
+                        <div class="card-title">DISTRACTION LOG <span class="card-badge" id="dist-badge">> 0 TODAY</span></div>
                         <div class="distraction-count" id="dist-display">0</div>
-                        <div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-danger"
-                                onclick="logDistraction()" style="flex:1">+ LOG DISTRACTION</button><button
-                                class="btn btn-ghost btn-sm" onclick="undoDistraction()">UNDO</button></div>
-                        <div id="dist-tally" style="margin-top:12px;min-height:32px;display:flex;flex-wrap:wrap"></div>
+                        <div style="display:flex;gap:8px;margin-top:14px">
+                            <button class="btn btn-danger" onclick="logDistraction()" style="flex:1">+ LOG DISTRACTION</button>
+                            <button class="btn btn-ghost btn-sm" onclick="undoDistraction()">UNDO</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1325,7 +1178,7 @@
                     <div class="card-title">FOCUS PULSE TIMER</div>
                     <div class="timer-display">
                         <div class="timer-digits" id="main-timer">45:00</div>
-                        <div class="timer-label" id="main-lbl">READY TO DEPLOY</div>
+                        <div class="timer-label">READY TO DEPLOY</div>
                     </div>
                     <div class="timer-presets">
                         <div class="preset-btn" onclick="setMain(15)">15m</div>
@@ -1335,73 +1188,46 @@
                         <div class="preset-btn" onclick="setMain(90)">90m</div>
                     </div>
                     <div><input type="text" id="sess-task" placeholder="Session directive" /></div>
-                    <div class="timer-controls"><button class="btn btn-primary" id="main-btn"
-                            onclick="toggleMain()">START</button><button class="btn btn-ghost"
-                            onclick="resetMain()">RESET</button><button class="btn btn-ghost btn-sm"
-                            onclick="skipTimer()">SKIP</button></div>
+                    <div class="timer-controls">
+                        <button class="btn btn-primary" id="main-btn" onclick="toggleMain()">START</button>
+                        <button class="btn btn-ghost" onclick="resetMain()">RESET</button>
+                        <button class="btn btn-ghost btn-sm" onclick="skipTimer()">SKIP</button>
+                    </div>
                 </div>
                 <div class="card">
-                    <div class="card-title">SESSION LOG <span class="card-badge" id="sess-count-badge">> 0 TODAY</span>
-                    </div>
-                    <div class="session-log" id="sess-log">
-                        <div class="empty-state">// NO SESSIONS LOGGED TODAY</div>
-                    </div>
+                    <div class="card-title">SESSION LOG <span class="card-badge" id="sess-count-badge">> 0 TODAY</span></div>
+                    <div class="session-log" id="sess-log"></div>
                 </div>
             </div>
         </div>
 
-        <!-- HABITS -->
+        <!-- HABIT MATRIX -->
         <div class="panel" id="panel-habits">
             <div class="grid-2">
                 <div class="card">
                     <div class="card-title">HABIT MATRIX</div>
-                    <div class="inline-row"><input type="text" id="habit-input" placeholder="New habit..." /><button
-                            class="btn btn-primary btn-sm" onclick="addHabit()">ADD</button></div>
+                    <div class="inline-row"><input type="text" id="habit-input" placeholder="New habit..." /><button class="btn btn-primary btn-sm" onclick="addHabit()">ADD</button></div>
                     <div id="habit-list"></div>
                 </div>
                 <div class="card">
                     <div class="card-title">HABIT ANALYTICS</div>
-                    <div class="stats-row">
-                        <div class="stat-card">
-                            <div class="stat-val green" id="h-total">0</div>
-                            <div class="stat-label">ACTIVE</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-val amber" id="h-best">0d</div>
-                            <div class="stat-label">BEST STREAK</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-val accent" id="h-today">0%</div>
-                            <div class="stat-label">TODAY</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-val cyan" id="h-week">0%</div>
-                            <div class="stat-label">WEEK RATE</div>
-                        </div>
+                    <div class="stats-row" style="grid-template-columns:repeat(2,1fr)">
+                        <div class="stat-card"><div class="stat-val green" id="h-total">0</div><div class="stat-label">ACTIVE</div></div>
+                        <div class="stat-card"><div class="stat-val amber" id="h-best">0d</div><div class="stat-label">BEST STREAK</div></div>
+                        <div class="stat-card"><div class="stat-val accent" id="h-today">0%</div><div class="stat-label">TODAY</div></div>
+                        <div class="stat-card"><div class="stat-val cyan" id="h-week">0%</div><div class="stat-label">WEEK RATE</div></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- WEEKLY OPS -->
+        <!-- WEEKLY OPS with Weekly Goals -->
         <div class="panel" id="panel-dashboard">
             <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-val green" id="w-tasks">0</div>
-                    <div class="stat-label">TASKS THIS WEEK</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-val accent" id="w-focus">0h</div>
-                    <div class="stat-label">FOCUS HOURS</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-val amber" id="w-streak">0d</div>
-                    <div class="stat-label">STREAK</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-val cyan" id="w-score">0%</div>
-                    <div class="stat-label">WEEK SCORE</div>
-                </div>
+                <div class="stat-card"><div class="stat-val green" id="w-tasks">0</div><div class="stat-label">TASKS THIS WEEK</div></div>
+                <div class="stat-card"><div class="stat-val accent" id="w-focus">0h</div><div class="stat-label">FOCUS HOURS</div></div>
+                <div class="stat-card"><div class="stat-val amber" id="w-streak">0d</div><div class="stat-label">STREAK</div></div>
+                <div class="stat-card"><div class="stat-val cyan" id="w-score">0%</div><div class="stat-label">WEEK SCORE</div></div>
             </div>
             <div class="card mb-16">
                 <div class="card-title">7-DAY EXECUTION BARS</div>
@@ -1410,8 +1236,7 @@
             <div class="grid-2">
                 <div class="card">
                     <div class="card-title">WEEKLY GOALS</div>
-                    <div class="inline-row"><input type="text" id="goal-input" placeholder="Weekly goal..." /><button
-                            class="btn btn-primary btn-sm" onclick="addGoal()">ADD</button></div>
+                    <div class="inline-row"><input type="text" id="goal-input" placeholder="Weekly goal..." /><button class="btn btn-primary btn-sm" onclick="addGoal()">ADD</button></div>
                     <div id="goal-list"></div>
                 </div>
                 <div class="card">
@@ -1421,25 +1246,13 @@
             </div>
         </div>
 
-        <!-- ANALYTICS -->
+        <!-- ANALYTICS with Enhanced Stats -->
         <div class="panel" id="panel-analytics">
             <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-val green" id="a-tasks">0</div>
-                    <div class="stat-label">TOTAL TASKS</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-val accent" id="a-hours">0h</div>
-                    <div class="stat-label">TOTAL FOCUS</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-val amber" id="a-streak">0d</div>
-                    <div class="stat-label">MAX STREAK</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-val cyan" id="a-sess">0</div>
-                    <div class="stat-label">SESSIONS</div>
-                </div>
+                <div class="stat-card"><div class="stat-val green" id="a-tasks">0</div><div class="stat-label">TOTAL TASKS</div></div>
+                <div class="stat-card"><div class="stat-val accent" id="a-hours">0h</div><div class="stat-label">TOTAL FOCUS</div></div>
+                <div class="stat-card"><div class="stat-val amber" id="a-streak">0d</div><div class="stat-label">MAX STREAK</div></div>
+                <div class="stat-card"><div class="stat-val cyan" id="a-sess">0</div><div class="stat-label">SESSIONS</div></div>
             </div>
             <div class="card mb-16">
                 <div class="card-title">90-DAY ACTIVITY GRAPH</div>
@@ -1452,46 +1265,47 @@
                 </div>
                 <div class="card">
                     <div class="card-title">PEAK PERFORMANCE HOURS</div>
-                    <div id="peak-hours-chart" style="display:flex;align-items:flex-end;gap:2px;height:80px"></div>
-                    <div id="peak-insight"></div>
+                    <div id="peak-hours-chart" style="display:flex;align-items:flex-end;gap:8px;height:100px;justify-content:center"></div>
+                    <div id="peak-insight" style="margin-top:12px;text-align:center;font-size:.7rem"></div>
                 </div>
                 <div class="card">
-                    <div class="card-title">TASK ESTIMATION ACCURACY</div>
-                    <div id="estimation-stats"></div>
+                    <div class="card-title">PRODUCTIVITY METRICS</div>
+                    <div id="productivity-metrics"></div>
                 </div>
             </div>
         </div>
 
-        <!-- FIELD NOTES -->
+        <!-- FIELD NOTES with Delete Button -->
         <div class="panel" id="panel-journal">
             <div class="grid-2">
                 <div class="card">
-                    <div class="card-title">FIELD NOTES</div><textarea id="journal-input" rows="4"
-                        placeholder="Log wins, blockers, insights..."></textarea>
-                    <div class="flex-row mt-10"><select id="journal-tag">
+                    <div class="card-title">FIELD NOTES</div>
+                    <textarea id="journal-input" rows="4" placeholder="Log wins, blockers, insights..."></textarea>
+                    <div class="flex-row mt-10">
+                        <select id="journal-tag" style="flex:1">
                             <option value="win">🟢 WIN</option>
                             <option value="blocker">🔴 BLOCKER</option>
                             <option value="insight">🔵 INSIGHT</option>
-                        </select><button class="btn btn-primary" onclick="addJournal()">LOG ENTRY</button></div>
+                        </select>
+                        <button class="btn btn-primary" onclick="addJournal()">LOG ENTRY</button>
+                    </div>
                     <div id="journal-list"></div>
                 </div>
                 <div class="card">
                     <div class="card-title">QUICK WINS</div>
-                    <div class="inline-row"><input type="text" id="win-input" placeholder="Quick win..." /><button
-                            class="btn btn-primary btn-sm" onclick="addWin()">LOG</button></div>
+                    <div class="inline-row"><input type="text" id="win-input" placeholder="Quick win..." /><button class="btn btn-primary btn-sm" onclick="addWin()">LOG</button></div>
                     <div id="wins-list"></div>
                 </div>
             </div>
         </div>
 
-        <!-- DEV TOOLS - ENHANCED -->
+        <!-- DEV TOOLS - Complete Suite -->
         <div class="panel" id="panel-devtools">
             <div class="tool-tabs">
                 <button class="tool-tab active" onclick="switchToolTab('snippets')">📝 SNIPPETS</button>
                 <button class="tool-tab" onclick="switchToolTab('api')">🌐 API TESTER</button>
                 <button class="tool-tab" onclick="switchToolTab('regex')">🔍 REGEX TESTER</button>
                 <button class="tool-tab" onclick="switchToolTab('color')">🎨 COLOR PICKER</button>
-                <button class="tool-tab" onclick="switchToolTab('image')">🖼️ IMAGE OPTIMIZER</button>
                 <button class="tool-tab" onclick="switchToolTab('markdown')">📝 MARKDOWN</button>
                 <button class="tool-tab" onclick="switchToolTab('json')">📋 JSON TOOL</button>
                 <button class="tool-tab" onclick="switchToolTab('collections')">📚 COLLECTIONS</button>
@@ -1500,18 +1314,20 @@
             <div class="tool-panel active" id="snippets-panel">
                 <div class="grid-2">
                     <div class="card">
-                        <div class="card-title">SAVE SNIPPET</div><input type="text" id="snip-title" placeholder="Title"
-                            class="mb-16" /><select id="snip-lang" class="mb-16">
+                        <div class="card-title">SAVE SNIPPET</div>
+                        <input type="text" id="snip-title" placeholder="Title" class="mb-16" />
+                        <select id="snip-lang" class="mb-16">
                             <option value="javascript">JavaScript</option>
                             <option value="python">Python</option>
                             <option value="bash">Bash</option>
                             <option value="sql">SQL</option>
-                        </select><textarea id="snip-code" placeholder="Paste your code..." rows="8"></textarea><button
-                            class="btn btn-primary btn-full mt-10" onclick="addSnippet()">SAVE</button>
+                        </select>
+                        <textarea id="snip-code" placeholder="Paste your code..." rows="8"></textarea>
+                        <button class="btn btn-primary btn-full mt-10" onclick="addSnippet()">SAVE</button>
                     </div>
                     <div class="card">
-                        <div class="card-title">MY SNIPPETS</div><input type="text" id="snip-search"
-                            placeholder="Search..." oninput="renderSnippets()" class="mb-16" />
+                        <div class="card-title">MY SNIPPETS</div>
+                        <input type="text" id="snip-search" placeholder="Search..." oninput="renderSnippets()" class="mb-16" />
                         <div id="snippet-list"></div>
                     </div>
                 </div>
@@ -1520,29 +1336,27 @@
             <div class="tool-panel" id="api-panel">
                 <div class="card">
                     <div class="card-title">REST API TESTER</div>
-                    <div class="inline-row"><select id="api-method" style="max-width:100px">
-                            <option>GET</option>
-                            <option>POST</option>
-                            <option>PUT</option>
-                            <option>DELETE</option>
-                        </select><input type="text" id="api-url" placeholder="https://api.example.com/endpoint" /></div>
-                    <textarea id="api-body" placeholder="Request body (JSON)..." rows="4"
-                        class="mb-16"></textarea><input type="text" id="api-headers"
-                        placeholder="Headers: key:value,key2:value2" class="mb-16" /><button class="btn btn-primary"
-                        onclick="testAPI()">SEND REQUEST</button>
+                    <div class="inline-row">
+                        <select id="api-method" style="max-width:100px"><option>GET</option><option>POST</option><option>PUT</option><option>DELETE</option></select>
+                        <input type="text" id="api-url" placeholder="https://api.example.com/endpoint" />
+                    </div>
+                    <textarea id="api-body" placeholder="Request body (JSON)..." rows="4" class="mb-16"></textarea>
+                    <input type="text" id="api-headers" placeholder="Headers: key:value,key2:value2" class="mb-16" />
+                    <button class="btn btn-primary" onclick="testAPI()">SEND REQUEST</button>
                     <div id="api-response" class="json-viewer mt-16" style="display:none"></div>
                 </div>
             </div>
 
             <div class="tool-panel" id="regex-panel">
                 <div class="card">
-                    <div class="card-title">REGEX TESTER</div><input type="text" id="regex-pattern"
-                        placeholder="Regular expression (e.g., \d{3}-\d{2}-\d{4})" class="mb-16" />
-                    <div class="regex-flags"><span class="regex-flag" data-flag="g"
-                            onclick="toggleRegexFlag('g')">global</span><span class="regex-flag" data-flag="i"
-                            onclick="toggleRegexFlag('i')">ignore case</span><span class="regex-flag" data-flag="m"
-                            onclick="toggleRegexFlag('m')">multiline</span></div><textarea id="regex-test-text"
-                        placeholder="Test text to match against..." rows="6" class="mt-16"></textarea>
+                    <div class="card-title">REGEX TESTER</div>
+                    <input type="text" id="regex-pattern" placeholder="Regular expression" class="mb-16" />
+                    <div class="regex-flags">
+                        <span class="regex-flag" data-flag="g" onclick="toggleRegexFlag('g')">global</span>
+                        <span class="regex-flag" data-flag="i" onclick="toggleRegexFlag('i')">ignore case</span>
+                        <span class="regex-flag" data-flag="m" onclick="toggleRegexFlag('m')">multiline</span>
+                    </div>
+                    <textarea id="regex-test-text" placeholder="Test text..." rows="6" class="mt-16"></textarea>
                     <div id="regex-results" class="json-viewer mt-16"></div>
                 </div>
             </div>
@@ -1550,38 +1364,19 @@
             <div class="tool-panel" id="color-panel">
                 <div class="grid-2">
                     <div class="card">
-                        <div class="card-title">COLOR PICKER</div><input type="color" id="color-input" value="#6c63ff"
-                            onchange="updateColor()" style="width:100%;height:50px" />
+                        <div class="card-title">COLOR PICKER</div>
+                        <input type="color" id="color-input" value="#6c63ff" onchange="updateColor()" style="width:100%;height:50px" />
                         <div id="color-preview" class="color-preview mt-16" style="background:#6c63ff"></div>
-                        <div class="inline-row"><input type="text" id="color-hex" value="#6c63ff"
-                                onchange="updateFromHex()" /><input type="text" id="color-rgb" placeholder="RGB"
-                                onchange="updateFromRGB()" /></div><button class="btn btn-primary btn-full mt-10"
-                            onclick="copyColor()">COPY COLOR</button>
+                        <div class="inline-row">
+                            <input type="text" id="color-hex" value="#6c63ff" onchange="updateFromHex()" />
+                            <input type="text" id="color-rgb" placeholder="RGB" onchange="updateFromRGB()" />
+                        </div>
+                        <button class="btn btn-primary btn-full mt-10" onclick="copyColor()">COPY COLOR</button>
                     </div>
                     <div class="card">
-                        <div class="card-title">COLOR SCHEMES</div><button class="btn btn-ghost btn-full mb-10"
-                            onclick="generatePalette()">GENERATE PALETTE</button>
+                        <div class="card-title">COLOR SCHEMES</div>
+                        <button class="btn btn-ghost btn-full mb-10" onclick="generatePalette()">GENERATE PALETTE</button>
                         <div id="palette-output"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-panel" id="image-panel">
-                <div class="grid-2">
-                    <div class="card">
-                        <div class="card-title">IMAGE OPTIMIZER</div><input type="file" id="image-input"
-                            accept="image/*" onchange="previewImage()" /><img id="image-preview" class="image-preview"
-                            style="display:none" />
-                        <div class="inline-row mt-16"><select id="image-quality">
-                                <option value="0.9">High (90%)</option>
-                                <option value="0.7" selected>Medium (70%)</option>
-                                <option value="0.5">Low (50%)</option>
-                            </select><button class="btn btn-primary" onclick="optimizeImage()">OPTIMIZE</button></div>
-                        <div id="image-info" class="json-viewer mt-16"></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">OPTIMIZED PREVIEW</div>
-                        <div id="image-compare"></div>
                     </div>
                 </div>
             </div>
@@ -1589,8 +1384,8 @@
             <div class="tool-panel" id="markdown-panel">
                 <div class="grid-2">
                     <div class="card">
-                        <div class="card-title">MARKDOWN EDITOR</div><textarea id="markdown-input" rows="15"
-                            class="mb-16"># Daily Standup
+                        <div class="card-title">MARKDOWN EDITOR</div>
+                        <textarea id="markdown-input" rows="15" class="mb-16"># Daily Standup
 
 ## Yesterday
 - Completed API integration
@@ -1598,12 +1393,9 @@
 
 ## Today
 - Write documentation
-- Review pull requests
-
-## Blockers
-- Waiting for design assets</textarea><button class="btn btn-primary btn-full"
-                            onclick="renderMarkdown()">PREVIEW</button><button class="btn btn-ghost btn-full mt-10"
-                            onclick="exportMarkdown()">EXPORT AS HTML</button>
+- Review pull requests</textarea>
+                        <button class="btn btn-primary btn-full" onclick="renderMarkdown()">PREVIEW</button>
+                        <button class="btn btn-ghost btn-full mt-10" onclick="exportMarkdown()">EXPORT HTML</button>
                     </div>
                     <div class="card">
                         <div class="card-title">PREVIEW</div>
@@ -1614,12 +1406,13 @@
 
             <div class="tool-panel" id="json-panel">
                 <div class="card">
-                    <div class="card-title">JSON FORMATTER & VALIDATOR</div><textarea id="json-input" rows="8"
-                        class="mb-16">{"name":"Operator","version":"1.0","features":["task tracking","focus timer"]}</textarea>
-                    <div class="inline-row"><button class="btn btn-primary"
-                            onclick="formatJSON()">FORMAT</button><button class="btn btn-primary"
-                            onclick="minifyJSON()">MINIFY</button><button class="btn btn-ghost"
-                            onclick="validateJSON()">VALIDATE</button></div>
+                    <div class="card-title">JSON FORMATTER & VALIDATOR</div>
+                    <textarea id="json-input" rows="8" class="mb-16">{"name":"Operator","version":"1.0"}</textarea>
+                    <div class="inline-row">
+                        <button class="btn btn-primary" onclick="formatJSON()">FORMAT</button>
+                        <button class="btn btn-primary" onclick="minifyJSON()">MINIFY</button>
+                        <button class="btn btn-ghost" onclick="validateJSON()">VALIDATE</button>
+                    </div>
                     <div id="json-output" class="json-viewer mt-16"></div>
                 </div>
             </div>
@@ -1627,10 +1420,10 @@
             <div class="tool-panel" id="collections-panel">
                 <div class="grid-2">
                     <div class="card">
-                        <div class="card-title">COLLECTIONS</div><input type="text" id="collection-name"
-                            placeholder="Collection name" class="mb-16" /><textarea id="collection-data"
-                            placeholder="JSON data..." rows="6" class="mb-16"></textarea><button
-                            class="btn btn-primary btn-full" onclick="saveCollection()">SAVE COLLECTION</button>
+                        <div class="card-title">COLLECTIONS</div>
+                        <input type="text" id="collection-name" placeholder="Collection name" class="mb-16" />
+                        <textarea id="collection-data" placeholder="JSON data..." rows="6" class="mb-16"></textarea>
+                        <button class="btn btn-primary btn-full" onclick="saveCollection()">SAVE COLLECTION</button>
                     </div>
                     <div class="card">
                         <div class="card-title">SAVED COLLECTIONS</div>
@@ -1643,156 +1436,179 @@
         <!-- HELP -->
         <div class="panel" id="panel-help">
             <div class="card">
-                <div class="card-title">OPERATOR COMMAND v2.0</div>
-                <div class="empty-state">Full documentation available in the dev tools section.<br />Use keyboard
-                    shortcuts for faster navigation.</div>
+                <div class="card-title">OPERATOR COMMAND v4.0</div>
+                <div class="empty-state">
+                    <strong>🎯 PRODUCTIVITY OS - COMPLETE SUITE</strong><br /><br />
+                    <strong>📋 DEEP WORK</strong><br />
+                    • Track tasks with priorities (High/Med/Low)<br />
+                    • Log estimated minutes for each task<br />
+                    • Mark tasks complete with visual feedback<br />
+                    • Progress bar shows completion rate<br /><br />
+                    
+                    <strong>⏱️ FOCUS PULSE</strong><br />
+                    • Two timers: Quick Focus & Full Timer<br />
+                    • Preset durations: 15, 25, 45, 60, 90 minutes<br />
+                    • Session logging with task association<br />
+                    • Audio notification on completion<br /><br />
+                    
+                    <strong>💪 HABIT MATRIX</strong><br />
+                    • Create and track daily habits<br />
+                    • 7-day streak tracking<br />
+                    • Visual habit completion calendar<br />
+                    • Best streak tracking<br /><br />
+                    
+                    <strong>📊 WEEKLY OPS</strong><br />
+                    • 7-day execution bars visualization<br />
+                    • Weekly goals tracking<br />
+                    • Day-by-day performance breakdown<br />
+                    • Weekly score calculation<br /><br />
+                    
+                    <strong>📈 ANALYTICS</strong><br />
+                    • Total tasks completed<br />
+                    • Total focus hours<br />
+                    • Longest streak tracking<br />
+                    • Peak performance hours analysis<br />
+                    • 90-day activity graph<br />
+                    • Productivity metrics<br /><br />
+                    
+                    <strong>📝 FIELD NOTES</strong><br />
+                    • Log wins, blockers, and insights<br />
+                    • Delete entries with one click<br />
+                    • Quick wins tracker<br />
+                    • Persistent storage<br /><br />
+                    
+                    <strong>🛠️ DEV TOOLS</strong><br />
+                    • Code Snippets with search<br />
+                    • REST API Tester<br />
+                    • Regex Tester with flags<br />
+                    • Color Picker with palette generator<br />
+                    • Markdown Editor with preview<br />
+                    • JSON Formatter & Validator<br />
+                    • Collections for data storage<br /><br />
+                    
+                    <strong>⌨️ KEYBOARD SHORTCUTS</strong><br />
+                    • Space: Toggle active timer<br />
+                    • ? : Show shortcuts panel<br />
+                    • 1-8: Switch between tabs<br />
+                    • Alt+D: Log distraction<br />
+                    • Alt+E: Export all data<br /><br />
+                    
+                    <strong>💾 DATA PERSISTENCE</strong><br />
+                    • All data auto-saves to localStorage<br />
+                    • Export/Import functionality<br />
+                    • Reset option available<br /><br />
+                    
+                    <strong>🎨 ANIMATIONS & FEEDBACK</strong><br />
+                    • Smooth slide-in animations<br />
+                    • Hover effects on all cards<br />
+                    • Toast notifications for actions<br />
+                    • Sound effects on timer completion<br />
+                    • Visual feedback on task completion<br />
+                </div>
             </div>
         </div>
     </div>
+
+    <div id="shortcuts-modal" onclick="if(event.target===this)closeShortcuts()">
+        <div class="shortcuts-box">
+            <h2>⌨ KEYBOARD SHORTCUTS</h2>
+            <div class="shortcut-row"><span>Toggle active timer</span><div class="shortcut-keys"><span class="kbd">Space</span></div></div>
+            <div class="shortcut-row"><span>Show this panel</span><div class="shortcut-keys"><span class="kbd">?</span></div></div>
+            <div class="shortcut-row"><span>Switch tabs</span><div class="shortcut-keys"><span class="kbd">1</span><span class="kbd">-</span><span class="kbd">8</span></div></div>
+            <div class="shortcut-row"><span>Log distraction</span><div class="shortcut-keys"><span class="kbd">Alt</span><span class="kbd">D</span></div></div>
+            <div class="shortcut-row"><span>Export data</span><div class="shortcut-keys"><span class="kbd">Alt</span><span class="kbd">E</span></div></div>
+            <button class="btn btn-ghost btn-sm" onclick="closeShortcuts()">CLOSE</button>
+        </div>
+    </div>
+
     <div id="toast"></div>
 
     <script>
         // ============================================
         // FULL DASHBOARD IMPLEMENTATION
         // ============================================
-
+        
         const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
         function getTodayKey() { const d = new Date(); return d.toISOString().split('T')[0]; }
         let todayKey = getTodayKey();
 
         let S = {
-            user: { name: '', role: '', focus: 45, target: 6 },
+            user: { name: 'OPERATOR', focus: 45, target: 6 },
             tasks: [], habits: [], sessions: [], journal: [], wins: [], goals: [],
-            snippets: [], urls: [], distractions: [], collections: [],
-            energy: {},
+            snippets: [], collections: [],
+            distractions: [], energy: {},
             analytics: { totalMin: 0, totalSess: 0, totalTasks: 0, maxStreak: 0, curStreak: 0, daily: {} }
         };
 
         let miniSecs = 45 * 60, miniTotal = 45 * 60, miniInt = null, miniRun = false;
-        let mainSecs = 45 * 60, mainTotal = 45 * 60, mainInt = null, mainRun = false, sessCount = 1;
+        let mainSecs = 45 * 60, mainTotal = 45 * 60, mainInt = null, mainRun = false;
         let regexFlags = ['g'];
 
-        function save() { try { localStorage.setItem('storm_os', JSON.stringify(S)); } catch (e) { } }
-        function load() { try { const d = localStorage.getItem('storm_os'); if (d) S = JSON.parse(d); } catch (e) { } }
+        function save() { try { localStorage.setItem('storm_os_v4', JSON.stringify(S)); } catch(e) {} }
+        function load() { try { const d = localStorage.getItem('storm_os_v4'); if(d) S = JSON.parse(d); } catch(e) {} }
         load();
 
-        function initUser() {
-            const n = document.getElementById('setup-name').value.trim();
-            if (!n) { showToast('Callsign required'); return; }
-            S.user = {
-                name: n,
-                role: document.getElementById('setup-role').value.trim(),
-                focus: parseInt(document.getElementById('setup-focus').value),
-                target: parseInt(document.getElementById('setup-target').value) || 6
-            };
-            save();
-            document.getElementById('setup-modal').style.display = 'none';
-            boot();
-        }
-
         function boot() {
-            if (!S.analytics.daily) S.analytics.daily = {};
-            if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
-            if (!Array.isArray(S.tasks)) S.tasks = [];
-            if (!Array.isArray(S.habits)) S.habits = [];
-            if (!Array.isArray(S.sessions)) S.sessions = [];
-            if (!Array.isArray(S.journal)) S.journal = [];
-            if (!Array.isArray(S.wins)) S.wins = [];
-            if (!Array.isArray(S.goals)) S.goals = [];
-            if (!Array.isArray(S.snippets)) S.snippets = [];
-            if (!Array.isArray(S.collections)) S.collections = [];
-            if (!Array.isArray(S.distractions)) S.distractions = [];
-            if (!S.energy) S.energy = {};
-
+            if(!S.analytics.daily) S.analytics.daily = {};
+            if(!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
+            if(!Array.isArray(S.tasks)) S.tasks = [];
+            if(!Array.isArray(S.habits)) S.habits = [];
+            if(!Array.isArray(S.sessions)) S.sessions = [];
+            if(!Array.isArray(S.journal)) S.journal = [];
+            if(!Array.isArray(S.wins)) S.wins = [];
+            if(!Array.isArray(S.goals)) S.goals = [];
+            if(!Array.isArray(S.snippets)) S.snippets = [];
+            if(!Array.isArray(S.collections)) S.collections = [];
+            if(!Array.isArray(S.distractions)) S.distractions = [];
+            if(!S.energy) S.energy = {};
+            
             document.getElementById('user-name').textContent = (S.user.name || 'OPERATOR').toUpperCase();
             miniTotal = miniSecs = S.user.focus * 60;
             mainTotal = mainSecs = S.user.focus * 60;
             document.getElementById('timer-mini').textContent = fmt(miniSecs);
             document.getElementById('main-timer').textContent = fmt(mainSecs);
-
+            
             renderAll();
             startClock();
             renderSnippets();
             renderCollections();
         }
-
-        if (S.user.name) { document.getElementById('setup-modal').style.display = 'none'; boot(); }
+        
+        boot();
 
         function renderAll() {
             renderTasks(); renderHabits(); renderWeekBars(); renderGoals(); renderJournal(); renderWins();
             renderSessLog(); renderAnalytics(); renderDayBreak(); updateStreak(); renderEnergyButtons();
-            renderDistractions(); buildContrib();
+            renderDistractions(); buildContrib(); renderPeakHours(); renderProductivityMetrics();
         }
 
-        function startClock() { setInterval(() => { document.getElementById('live-clock').textContent = new Date().toTimeString().slice(0, 8); }, 1000); }
-
+        function startClock() { setInterval(() => { document.getElementById('live-clock').textContent = new Date().toTimeString().slice(0,8); }, 1000); }
+        
         function switchTab(id) {
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
             document.getElementById('panel-' + id).classList.add('active');
-            if (id === 'analytics') { buildContrib(); renderAnalytics(); }
-            if (id === 'dashboard') { renderWeekBars(); renderDayBreak(); }
-            if (id === 'devtools') { renderSnippets(); renderCollections(); }
+            if(event && event.target) event.target.classList.add('active');
+            if(id === 'analytics') { buildContrib(); renderAnalytics(); renderPeakHours(); renderProductivityMetrics(); }
+            if(id === 'dashboard') { renderWeekBars(); renderDayBreak(); }
+            if(id === 'devtools') { renderSnippets(); renderCollections(); }
         }
 
         function switchToolTab(id) {
             document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
             document.getElementById(id + '-panel').classList.add('active');
-            event.target.classList.add('active');
+            if(event && event.target) event.target.classList.add('active');
         }
 
-        // TASKS
-        function addTask() {
-            const v = document.getElementById('task-input').value.trim();
-            if (!v) { showToast('Enter a directive'); return; }
-            const pri = document.getElementById('task-priority').value;
-            const mins = parseInt(document.getElementById('task-mins').value) || 30;
-            S.tasks.push({ id: Date.now(), text: v, priority: pri, mins, estMins: mins, done: false, date: todayKey, actualMins: null });
-            document.getElementById('task-input').value = '';
-            document.getElementById('task-mins').value = '';
-            save(); renderTasks(); updateScore();
-            showToast('Task added: ' + v);
-        }
-
-        function toggleTask(id) {
-            const t = S.tasks.find(t => t.id == id);
-            if (t) { t.done = !t.done; renderTasks(); updateScore(); save(); }
-        }
-
-        function deleteTask(id) { S.tasks = S.tasks.filter(t => t.id != id); renderTasks(); updateScore(); save(); }
-
-        function renderTasks() {
-            const act = S.tasks.filter(t => t.date === todayKey && !t.done);
-            const done = S.tasks.filter(t => t.date === todayKey && t.done);
-            document.getElementById('task-list').innerHTML = act.length ? act.map(taskHTML).join('') : '<div class="empty-state">// NO ACTIVE DIRECTIVES</div>';
-            document.getElementById('done-list').innerHTML = done.length ? done.map(taskHTML).join('') : '<div class="empty-state">// COMPLETE TASKS TO SEE THEM HERE</div>';
-            document.getElementById('done-count').textContent = '> ' + done.length + ' DONE';
-            document.getElementById('today-tasks').textContent = done.length;
-            const pct = (act.length + done.length) ? Math.round(done.length / (act.length + done.length) * 100) : 0;
-            document.getElementById('task-progress').style.width = pct + '%';
-            if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
-            S.analytics.daily[todayKey].tasks = done.length;
-        }
-
-        function taskHTML(t) {
-            return `<div class="task-item${t.done ? ' done' : ''}">
-                <div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div>
-                <div class="task-text">${escHtml(t.text)}</div>
-                <span class="task-priority priority-${t.priority}">${t.priority.toUpperCase()}</span>
-                <span style="font-size:.62rem">${t.mins}m</span>
-                <span class="task-del" onclick="deleteTask(${t.id})">✕</span>
-            </div>`;
-        }
-
-        // TIMER FUNCTIONS
-        function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
-        function setMini(m) { if (!miniRun) { miniSecs = miniTotal = m * 60; document.getElementById('timer-mini').textContent = fmt(miniSecs); } }
+        function fmt(s) { return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+        
+        function setMini(m) { if(!miniRun) { miniSecs = m * 60; miniTotal = m * 60; document.getElementById('timer-mini').textContent = fmt(miniSecs); updatePresetActive('planner', m); } }
         function toggleMini() {
-            if (miniRun) {
+            if(miniRun) {
                 clearInterval(miniInt); miniRun = false;
                 document.getElementById('mini-btn').textContent = 'START';
-                document.getElementById('mini-badge').textContent = '> PAUSED';
+                document.getElementById('mini-badge').textContent = '> STANDBY';
                 document.getElementById('focus-dot').style.display = 'none';
                 document.getElementById('focus-status').textContent = 'IDLE';
             } else {
@@ -1802,327 +1618,405 @@
                 document.getElementById('focus-dot').style.display = 'block';
                 document.getElementById('focus-status').textContent = 'FOCUS ACTIVE';
                 miniInt = setInterval(() => {
-                    miniSecs--;
-                    document.getElementById('timer-mini').textContent = fmt(miniSecs);
-                    if (miniSecs <= 0) {
-                        clearInterval(miniInt); miniRun = false;
-                        document.getElementById('mini-btn').textContent = 'START';
-                        playDone();
-                        logSess(Math.round(miniTotal / 60));
-                        showToast('Focus session complete!');
+                    if(miniSecs > 0) {
+                        miniSecs--;
+                        document.getElementById('timer-mini').textContent = fmt(miniSecs);
+                        if(miniSecs <= 0) {
+                            clearInterval(miniInt); miniRun = false;
+                            document.getElementById('mini-btn').textContent = 'START';
+                            playDone();
+                            logSess(Math.round(miniTotal/60));
+                            showToast('Focus session complete!');
+                        }
                     }
                 }, 1000);
             }
         }
         function resetMini() { clearInterval(miniInt); miniRun = false; miniSecs = miniTotal; document.getElementById('timer-mini').textContent = fmt(miniSecs); document.getElementById('mini-btn').textContent = 'START'; }
-        function setMain(m) { if (!mainRun) { mainSecs = mainTotal = m * 60; document.getElementById('main-timer').textContent = fmt(mainSecs); } }
+        
+        function setMain(m) { if(!mainRun) { mainSecs = m * 60; mainTotal = m * 60; document.getElementById('main-timer').textContent = fmt(mainSecs); updatePresetActive('timer', m); } }
         function toggleMain() {
-            if (mainRun) {
+            if(mainRun) {
                 clearInterval(mainInt); mainRun = false;
                 document.getElementById('main-btn').textContent = 'START';
             } else {
                 mainRun = true;
                 document.getElementById('main-btn').textContent = 'PAUSE';
                 mainInt = setInterval(() => {
-                    mainSecs--;
-                    document.getElementById('main-timer').textContent = fmt(mainSecs);
-                    if (mainSecs <= 0) {
-                        clearInterval(mainInt); mainRun = false;
-                        document.getElementById('main-btn').textContent = 'START';
-                        playDone();
-                        logSess(Math.round(mainTotal / 60));
-                        sessCount = sessCount >= 4 ? 1 : sessCount + 1;
-                        showToast('Session complete!');
+                    if(mainSecs > 0) {
+                        mainSecs--;
+                        document.getElementById('main-timer').textContent = fmt(mainSecs);
+                        if(mainSecs <= 0) {
+                            clearInterval(mainInt); mainRun = false;
+                            document.getElementById('main-btn').textContent = 'START';
+                            playDone();
+                            logSess(Math.round(mainTotal/60));
+                            showToast('Session complete!');
+                        }
                     }
                 }, 1000);
             }
         }
         function resetMain() { clearInterval(mainInt); mainRun = false; mainSecs = mainTotal; document.getElementById('main-timer').textContent = fmt(mainSecs); document.getElementById('main-btn').textContent = 'START'; }
-        function skipTimer() { if (mainRun) clearInterval(mainInt); resetMain(); }
-
+        function skipTimer() { if(mainRun) clearInterval(mainInt); resetMain(); }
+        
+        function updatePresetActive(panel, mins) {
+            const selector = panel === 'planner' ? '#panel-planner .preset-btn' : '#panel-timer .preset-btn';
+            document.querySelectorAll(selector).forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.textContent === mins + 'm') btn.classList.add('active');
+            });
+        }
+        
         function logSess(mins) {
-            if (mins <= 0) return;
+            if(mins <= 0) return;
             const task = document.getElementById('sess-task')?.value || '';
             S.sessions.push({ time: new Date().toLocaleTimeString(), task: task || 'Focus session', mins, date: todayKey, hour: new Date().getHours() });
             S.analytics.totalSess++; S.analytics.totalMin += mins;
-            if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
+            if(!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
             S.analytics.daily[todayKey].sess++; S.analytics.daily[todayKey].min += mins;
             updateScore(); renderSessLog(); renderWeekBars(); save();
+            showToast(`✓ Session logged: ${mins} minutes`);
         }
-
+        
         function renderSessLog() {
             const ts = S.sessions.filter(s => s.date === todayKey);
             document.getElementById('sess-count-badge').textContent = '> ' + ts.length + ' TODAY';
             document.getElementById('today-sess').textContent = ts.length;
-            const tot = ts.reduce((a, s) => a + s.mins, 0);
-            document.getElementById('today-mins').textContent = tot >= 60 ? (tot / 60).toFixed(1) + 'h' : tot + 'm';
+            const tot = ts.reduce((a,s) => a + s.mins, 0);
+            document.getElementById('today-mins').textContent = tot >= 60 ? (tot/60).toFixed(1) + 'h' : tot + 'm';
             document.getElementById('sess-log').innerHTML = ts.length ? ts.slice(-5).reverse().map(s => `<div class="session-entry"><span>${s.time}</span><span>${escHtml(s.task)}</span><span>${s.mins}m</span></div>`).join('') : '<div class="empty-state">// NO SESSIONS TODAY</div>';
         }
-
-        // HABITS
+        
+        function addTask() {
+            const v = document.getElementById('task-input').value.trim();
+            if(!v) { showToast('Enter a directive'); return; }
+            const pri = document.getElementById('task-priority').value;
+            const mins = parseInt(document.getElementById('task-mins').value) || 30;
+            S.tasks.push({ id: Date.now(), text: v, priority: pri, mins, done: false, date: todayKey });
+            document.getElementById('task-input').value = '';
+            document.getElementById('task-mins').value = '';
+            save(); renderTasks(); updateScore();
+            showToast('Task added: ' + v);
+        }
+        
+        function toggleTask(id) {
+            const t = S.tasks.find(t => t.id == id);
+            if(t) { t.done = !t.done; renderTasks(); updateScore(); save(); showToast(t.done ? 'Task completed! 🎉' : 'Task reopened'); }
+        }
+        
+        function deleteTask(id) { S.tasks = S.tasks.filter(t => t.id != id); renderTasks(); updateScore(); save(); showToast('Task deleted'); }
+        
+        function renderTasks() {
+            const act = S.tasks.filter(t => t.date === todayKey && !t.done);
+            const done = S.tasks.filter(t => t.date === todayKey && t.done);
+            document.getElementById('task-list').innerHTML = act.length ? act.map(taskHTML).join('') : '<div class="empty-state">// NO ACTIVE DIRECTIVES</div>';
+            document.getElementById('done-list').innerHTML = done.length ? done.map(taskHTML).join('') : '<div class="empty-state">// COMPLETE TASKS TO SEE THEM HERE</div>';
+            document.getElementById('done-count').textContent = '> ' + done.length + ' DONE';
+            document.getElementById('today-tasks').textContent = done.length;
+            const pct = (act.length + done.length) ? Math.round(done.length/(act.length+done.length)*100) : 0;
+            document.getElementById('task-progress').style.width = pct + '%';
+            if(!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
+            S.analytics.daily[todayKey].tasks = done.length;
+        }
+        
+        function taskHTML(t) {
+            return `<div class="task-item${t.done ? ' done' : ''}">
+                <div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div>
+                <div class="task-text">${escHtml(t.text)}</div>
+                <span class="task-priority priority-${t.priority}">${t.priority.toUpperCase()}</span>
+                <span style="font-size:.62rem">${t.mins}m</span>
+                <span class="task-del" onclick="deleteTask(${t.id})">✕</span>
+            </div>`;
+        }
+        
         function addHabit() {
             const v = document.getElementById('habit-input').value.trim();
-            if (!v) return;
+            if(!v) return;
             S.habits.push({ id: Date.now(), name: v, streak: 0, best: 0, days: {} });
             document.getElementById('habit-input').value = '';
             save(); renderHabits();
+            showToast('Habit added: ' + v);
         }
-
+        
         function toggleHabit(id, dateKey) {
             const h = S.habits.find(h => h.id == id);
-            if (!h) return;
+            if(!h) return;
             const key = dateKey || todayKey;
-            if (h.days[key]) delete h.days[key];
+            if(h.days[key]) delete h.days[key];
             else h.days[key] = true;
             let str = 0; const d = new Date();
-            for (let i = 0; i < 365; i++) { const k = d.toISOString().split('T')[0]; if (h.days[k]) str++; else break; d.setDate(d.getDate() - 1); }
+            for(let i=0; i<365; i++) { const k = d.toISOString().split('T')[0]; if(h.days[k]) str++; else break; d.setDate(d.getDate()-1); }
             h.streak = str; h.best = Math.max(h.best || 0, str);
             save(); renderHabits();
+            showToast(h.days[key] ? '✓ Habit completed!' : 'Habit unmarked');
         }
-
-        function deleteHabit(id) { S.habits = S.habits.filter(h => h.id != id); save(); renderHabits(); }
-
+        
+        function deleteHabit(id) { S.habits = S.habits.filter(h => h.id != id); save(); renderHabits(); showToast('Habit deleted'); }
+        
         function renderHabits() {
             const labels = [];
-            for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); labels.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()] }); }
+            for(let i=6; i>=0; i--) { const d = new Date(); d.setDate(d.getDate()-i); labels.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()] }); }
             document.getElementById('habit-list').innerHTML = S.habits.length ? S.habits.map(h => `<div class="habit-row"><div class="habit-name">${escHtml(h.name)}</div><div class="habit-days">${labels.map(d => `<div class="habit-day${h.days[d.key] ? ' done' : ''}" onclick="toggleHabit(${h.id},'${d.key}')">${h.days[d.key] ? '' : d.lbl[0]}</div>`).join('')}</div><div class="habit-streak">${h.streak}🔥</div><span class="task-del" onclick="deleteHabit(${h.id})">✕</span></div>`).join('') : '<div class="empty-state">// NO HABITS</div>';
             document.getElementById('h-total').textContent = S.habits.length;
-            document.getElementById('h-best').textContent = Math.max(...S.habits.map(h => h.best), 0) + 'd';
+            document.getElementById('h-best').textContent = Math.max(...S.habits.map(h => h.best),0) + 'd';
             document.getElementById('h-today').textContent = S.habits.length ? Math.round(S.habits.filter(h => h.days[todayKey]).length / S.habits.length * 100) + '%' : '0%';
         }
-
-        // WEEKLY
+        
         function getDayStats(dateKey) {
             const daily = S.analytics.daily[dateKey] || { min: 0 };
             const doneTasks = S.tasks.filter(t => t.date === dateKey && t.done);
             const allTasks = S.tasks.filter(t => t.date === dateKey);
             const focusMins = daily.min || 0;
-            const tPct = allTasks.length ? (doneTasks.length / allTasks.length * 100) : 0;
-            const mPct = S.user.target ? Math.min(focusMins / (S.user.target * 60) * 100, 100) : 0;
-            const score = allTasks.length ? Math.round((tPct + mPct) / 2) : Math.round(mPct);
-            return { tasks: doneTasks.length, totalTasks: allTasks.length, min: focusMins, score: Math.min(score, 100) };
+            const tPct = allTasks.length ? (doneTasks.length/allTasks.length*100) : 0;
+            const mPct = S.user.target ? Math.min(focusMins/(S.user.target*60)*100,100) : 0;
+            const score = allTasks.length ? Math.round((tPct + mPct)/2) : Math.round(mPct);
+            return { tasks: doneTasks.length, totalTasks: allTasks.length, min: focusMins, score: Math.min(score,100) };
         }
-
+        
         function renderWeekBars() {
             const days = [];
-            for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); days.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()], isToday: i === 0 }); }
+            for(let i=6; i>=0; i--) { const d = new Date(); d.setDate(d.getDate()-i); days.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()] }); }
             const stats = days.map(d => ({ ...d, ...getDayStats(d.key) }));
             const maxM = Math.max(...stats.map(s => s.min), 1);
-            document.getElementById('week-bars').innerHTML = stats.map(s => `<div class="week-day-col"><div class="week-day-label">${s.lbl}</div><div class="week-score-bar"><div class="week-score-fill" style="height:${Math.round(s.min / maxM * 100)}%"></div></div><div class="week-score-num">${s.min > 0 ? s.min + 'm' : '—'}</div></div>`).join('');
-            document.getElementById('w-tasks').textContent = stats.reduce((a, s) => a + s.tasks, 0);
-            document.getElementById('w-focus').textContent = (stats.reduce((a, s) => a + s.min, 0) / 60).toFixed(1) + 'h';
+            document.getElementById('week-bars').innerHTML = stats.map(s => `<div><div class="week-day-label">${s.lbl}</div><div class="week-score-bar"><div class="week-score-fill" style="height:${Math.round(s.min/maxM*100)}%"></div></div><div class="week-score-num">${s.min>0?s.min+'m':'—'}</div></div>`).join('');
+            document.getElementById('w-tasks').textContent = stats.reduce((a,s) => a + s.tasks,0);
+            document.getElementById('w-focus').textContent = (stats.reduce((a,s) => a + s.min,0)/60).toFixed(1) + 'h';
             document.getElementById('w-streak').textContent = (S.analytics.curStreak || 0) + 'd';
         }
-
+        
         function renderDayBreak() {
             const days = [];
-            for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); days.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()] }); }
+            for(let i=6; i>=0; i--) { const d = new Date(); d.setDate(d.getDate()-i); days.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()] }); }
             document.getElementById('day-breakdown').innerHTML = days.map(d => { const s = getDayStats(d.key); return `<div><div style="display:flex;justify-content:space-between"><span>${d.lbl}</span><span>${s.score}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${s.score}%"></div></div></div>`; }).join('');
         }
-
-        // GOALS
+        
         function addGoal() {
             const v = document.getElementById('goal-input').value.trim();
-            if (!v) return;
+            if(!v) return;
             S.goals.push({ id: Date.now(), text: v, done: false, week: getWeekKey() });
             document.getElementById('goal-input').value = '';
             save(); renderGoals();
+            showToast('Goal added');
         }
-        function getWeekKey() { const d = new Date(); const day = d.getDay() || 7; d.setDate(d.getDate() + 4 - day); const yr = d.getFullYear(); const wk = Math.ceil(((d - new Date(yr, 0, 1)) / 86400000 + 1) / 7); return yr + '-W' + String(wk).padStart(2, '0'); }
-        function toggleGoal(id) { const g = S.goals.find(g => g.id == id); if (g) { g.done = !g.done; save(); renderGoals(); } }
-        function deleteGoal(id) { S.goals = S.goals.filter(g => g.id != id); save(); renderGoals(); }
+        
+        function getWeekKey() { const d = new Date(); const day = d.getDay() || 7; d.setDate(d.getDate() + 4 - day); const yr = d.getFullYear(); const wk = Math.ceil(((d - new Date(yr,0,1)) / 86400000 + 1) / 7); return yr + '-W' + String(wk).padStart(2,'0'); }
+        function toggleGoal(id) { const g = S.goals.find(g => g.id == id); if(g) { g.done = !g.done; save(); renderGoals(); showToast(g.done ? 'Goal completed! 🎯' : 'Goal reopened'); } }
+        function deleteGoal(id) { S.goals = S.goals.filter(g => g.id != id); save(); renderGoals(); showToast('Goal deleted'); }
+        
         function renderGoals() {
             const goals = S.goals.filter(g => g.week === getWeekKey());
             document.getElementById('goal-list').innerHTML = goals.length ? goals.map(g => `<div class="task-item${g.done ? ' done' : ''}"><div class="task-check${g.done ? ' checked' : ''}" onclick="toggleGoal(${g.id})"></div><div class="task-text">${escHtml(g.text)}</div><span class="task-del" onclick="deleteGoal(${g.id})">✕</span></div>`).join('') : '<div class="empty-state">// NO GOALS THIS WEEK</div>';
         }
-
-        // JOURNAL
+        
         function addJournal() {
             const t = document.getElementById('journal-input').value.trim();
-            if (!t) return;
+            if(!t) return;
             const tag = document.getElementById('journal-tag').value;
             S.journal.unshift({ id: Date.now(), text: t, tag, date: todayKey, time: new Date().toLocaleTimeString() });
             document.getElementById('journal-input').value = '';
             save(); renderJournal();
+            showToast('Entry logged');
         }
+        
+        function deleteJournalEntry(id) {
+            S.journal = S.journal.filter(j => j.id != id);
+            save();
+            renderJournal();
+            showToast('Entry deleted');
+        }
+        
         function renderJournal() {
             const tl = { win: '🟢 WIN', blocker: '🔴 BLOCKER', insight: '🔵 INSIGHT' };
-            document.getElementById('journal-list').innerHTML = S.journal.length ? S.journal.slice(0, 10).map(j => `<div class="journal-entry"><div class="journal-meta"><span>${j.date} ${j.time}</span><span>${tl[j.tag] || j.tag}</span></div><div class="journal-text">${escHtml(j.text)}</div></div>`).join('') : '<div class="empty-state">// NO ENTRIES</div>';
+            document.getElementById('journal-list').innerHTML = S.journal.length ? S.journal.slice(0,10).map(j => `
+                <div class="journal-entry">
+                    <div class="journal-header">
+                        <div class="journal-meta"><span>${j.date} ${j.time}</span><span>${tl[j.tag] || j.tag}</span></div>
+                        <button class="journal-delete" onclick="deleteJournalEntry(${j.id})">🗑 DELETE</button>
+                    </div>
+                    <div class="journal-text">${escHtml(j.text)}</div>
+                </div>
+            `).join('') : '<div class="empty-state">// NO ENTRIES</div>';
         }
-
+        
         function addWin() {
             const v = document.getElementById('win-input').value.trim();
-            if (!v) return;
+            if(!v) return;
             S.wins.unshift({ id: Date.now(), text: v, date: todayKey });
             document.getElementById('win-input').value = '';
             save(); renderWins();
+            showToast('Win logged! 🎉');
         }
+        
         function renderWins() {
-            document.getElementById('wins-list').innerHTML = S.wins.length ? S.wins.slice(0, 5).map(w => `<div style="padding:8px;background:var(--bg2);border-radius:4px;margin-bottom:4px">✓ ${escHtml(w.text)}</div>`).join('') : '<div class="empty-state">// NO WINS</div>';
+            document.getElementById('wins-list').innerHTML = S.wins.length ? S.wins.slice(0,5).map(w => `<div style="padding:8px;background:var(--bg2);border-radius:4px;margin-bottom:4px;animation:slideInLeft 0.3s">✓ ${escHtml(w.text)}</div>`).join('') : '<div class="empty-state">// NO WINS</div>';
         }
-
-        // ANALYTICS
+        
         function renderAnalytics() {
             const allDone = S.tasks.filter(t => t.done).length;
-            const totalMin = S.sessions.reduce((a, s) => a + s.mins, 0);
+            const totalMin = S.sessions.reduce((a,s) => a + s.mins,0);
             document.getElementById('a-tasks').textContent = allDone;
-            document.getElementById('a-hours').textContent = (totalMin / 60).toFixed(1) + 'h';
+            document.getElementById('a-hours').textContent = (totalMin/60).toFixed(1) + 'h';
             document.getElementById('a-streak').textContent = (S.analytics.maxStreak || 0) + 'd';
             document.getElementById('a-sess').textContent = S.sessions.length;
-            document.getElementById('insights').innerHTML = `<div>📊 Total focus: ${(totalMin / 60).toFixed(1)} hours</div><div>✅ Tasks: ${allDone}</div><div>🔥 Streak: ${S.analytics.curStreak || 0} days</div>`;
-            renderPeakHours(); renderEstimationStats();
+            document.getElementById('insights').innerHTML = `
+                <div style="display:grid;gap:12px">
+                    <div>📊 Total focus: ${(totalMin/60).toFixed(1)} hours</div>
+                    <div>✅ Tasks completed: ${allDone}</div>
+                    <div>🔥 Current streak: ${S.analytics.curStreak || 0} days</div>
+                    <div>💪 Active habits: ${S.habits.length}</div>
+                    <div>🎯 Session count: ${S.sessions.length}</div>
+                    <div>⭐ Weekly goals: ${S.goals.filter(g => g.week === getWeekKey() && g.done).length}/${S.goals.filter(g => g.week === getWeekKey()).length}</div>
+                </div>
+            `;
         }
-
-        function buildContrib() {
-            const cells = [];
-            for (let i = 89; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); const k = d.toISOString().split('T')[0]; const s = getDayStats(k); const activity = s.min + s.tasks * 20; let l = ''; if (activity > 0) l = 'l1'; if (activity >= 60) l = 'l2'; if (activity >= 120) l = 'l3'; if (activity >= 240) l = 'l4'; cells.push(`<div class="contrib-cell ${l}" title="${k}: ${s.min}m"></div>`); }
-            const weeks = []; for (let i = 0; i < cells.length; i += 7) weeks.push(`<div class="contrib-week">${cells.slice(i, i + 7).join('')}</div>`);
-            document.getElementById('contrib-graph').innerHTML = weeks.join('');
-        }
-
+        
         function renderPeakHours() {
             const hourMap = new Array(24).fill(0);
-            S.sessions.forEach(s => { if (s.hour != null) hourMap[s.hour] += s.mins; });
+            S.sessions.forEach(s => { if(s.hour != null) hourMap[s.hour] += s.mins; });
             const maxH = Math.max(...hourMap, 1);
-            const hours = [6, 8, 10, 12, 14, 16, 18, 20, 22];
-            document.getElementById('peak-hours-chart').innerHTML = hours.map(h => `<div class="hour-bar-wrap"><div class="hour-bar" style="height:${Math.round((hourMap[h] + (hourMap[h + 1] || 0)) / maxH * 100)}%;background:var(--accent);width:100%"></div></div>`).join('');
+            const hours = [6,8,10,12,14,16,18,20,22];
+            document.getElementById('peak-hours-chart').innerHTML = hours.map(h => `
+                <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+                    <div style="height:${Math.max(30, (hourMap[h] / maxH) * 80)}px;width:32px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:4px 4px 0 0;transition:height 0.5s"></div>
+                    <div style="font-size:.6rem">${h}:00</div>
+                </div>
+            `).join('');
             const peakHour = hourMap.indexOf(Math.max(...hourMap));
-            document.getElementById('peak-insight').innerHTML = `Peak: ${peakHour}:00-${peakHour + 1}:00 (${hourMap[peakHour]}m)`;
+            document.getElementById('peak-insight').innerHTML = `Peak performance: ${peakHour}:00 - ${peakHour+1}:00 (${hourMap[peakHour]} minutes)`;
         }
-
-        function renderEstimationStats() {
-            const done = S.tasks.filter(t => t.done && t.actualMins);
-            document.getElementById('estimation-stats').innerHTML = done.length ? `<div>Completed tasks: ${done.length}</div><div class="progress-bar"><div class="progress-fill" style="width:${Math.min(done.filter(t => t.actualMins <= t.mins).length / done.length * 100, 100)}%"></div></div>` : '<div class="empty-state">Complete tasks to see stats</div>';
+        
+        function renderProductivityMetrics() {
+            const totalSessions = S.sessions.length;
+            const avgSessionLength = totalSessions > 0 ? Math.round(S.analytics.totalMin / totalSessions) : 0;
+            const completionRate = S.tasks.length > 0 ? Math.round((S.tasks.filter(t => t.done).length / S.tasks.length) * 100) : 0;
+            document.getElementById('productivity-metrics').innerHTML = `
+                <div style="display:grid;gap:12px">
+                    <div>📈 Completion Rate: ${completionRate}%</div>
+                    <div>⏱️ Avg Session: ${avgSessionLength} min</div>
+                    <div>📅 Active Days: ${Object.keys(S.analytics.daily).filter(d => S.analytics.daily[d]?.min > 0).length}</div>
+                    <div>🎯 Goal Achievement: ${S.goals.filter(g => g.week === getWeekKey() && g.done).length}/${S.goals.filter(g => g.week === getWeekKey()).length || 1}</div>
+                </div>
+            `;
         }
-
+        
+        function buildContrib() {
+            const cells = [];
+            for(let i=89; i>=0; i--) { const d = new Date(); d.setDate(d.getDate()-i); const k = d.toISOString().split('T')[0]; const s = getDayStats(k); const activity = s.min + s.tasks * 20; let l = ''; if(activity > 0) l = 'l1'; if(activity >= 60) l = 'l2'; if(activity >= 120) l = 'l3'; if(activity >= 240) l = 'l4'; cells.push(`<div class="contrib-cell ${l}" title="${k}: ${s.min}m focus, ${s.tasks} tasks"></div>`); }
+            const weeks = []; for(let i=0; i<cells.length; i+=7) weeks.push(`<div class="contrib-week">${cells.slice(i,i+7).join('')}</div>`);
+            document.getElementById('contrib-graph').innerHTML = weeks.join('');
+        }
+        
         function updateStreak() {
             const dayActivity = {};
-            S.tasks.forEach(t => { if (t.done) { if (!dayActivity[t.date]) dayActivity[t.date] = 0; dayActivity[t.date]++; } });
-            S.sessions.forEach(s => { if (!dayActivity[s.date]) dayActivity[s.date] = 0; dayActivity[s.date]++; });
+            S.tasks.forEach(t => { if(t.done) { if(!dayActivity[t.date]) dayActivity[t.date]=0; dayActivity[t.date]++; } });
+            S.sessions.forEach(s => { if(!dayActivity[s.date]) dayActivity[s.date]=0; dayActivity[s.date]++; });
             let str = 0; const d = new Date();
-            for (let i = 0; i < 365; i++) { const k = d.toISOString().split('T')[0]; if (dayActivity[k]) str++; else break; d.setDate(d.getDate() - 1); }
+            for(let i=0; i<365; i++) { const k = d.toISOString().split('T')[0]; if(dayActivity[k]) str++; else break; d.setDate(d.getDate()-1); }
             S.analytics.curStreak = str; S.analytics.maxStreak = Math.max(S.analytics.maxStreak || 0, str);
             document.getElementById('streak-badge').textContent = 'STREAK: ' + str + 'd';
         }
-
+        
         function updateScore() {
             const stats = getDayStats(todayKey);
             document.getElementById('today-score').textContent = stats.score + '%';
             updateStreak(); save();
         }
-
-        // ENERGY & DISTRACTIONS
-        function setEnergy(lvl) { S.energy[todayKey] = lvl; save(); renderEnergyButtons(); showToast(`Energy: ${['', '😴', '😑', '😐', '😊', '🔥'][lvl]}`); }
-        function renderEnergyButtons() { const cur = S.energy[todayKey] || 0; document.querySelectorAll('.energy-btn').forEach((b, i) => b.classList.toggle('active', i + 1 === cur)); document.getElementById('energy-label').textContent = cur ? ['', '😴 EXHAUSTED', '😑 LOW', '😐 OKAY', '😊 GOOD', '🔥 PEAK'][cur] : 'NOT SET'; }
+        
+        function setEnergy(lvl) { S.energy[todayKey] = lvl; save(); renderEnergyButtons(); showToast(`Energy: ${['','😴','😑','😐','😊','🔥'][lvl]}`); }
+        function renderEnergyButtons() { const cur = S.energy[todayKey] || 0; document.querySelectorAll('.energy-btn').forEach((b,i) => b.classList.toggle('active', i+1 === cur)); document.getElementById('energy-label').textContent = cur ? ['','😴 EXHAUSTED','😑 LOW','😐 OKAY','😊 GOOD','🔥 PEAK'][cur] : 'NOT SET'; }
         function logDistraction() { S.distractions.push({ date: todayKey, time: new Date().toLocaleTimeString() }); save(); renderDistractions(); showToast('Distraction logged'); }
-        function undoDistraction() { const idx = S.distractions.map((d, i) => d.date === todayKey ? i : -1).filter(i => i >= 0).pop(); if (idx !== undefined) { S.distractions.splice(idx, 1); save(); renderDistractions(); showToast('Undone'); } }
+        function undoDistraction() { const idx = S.distractions.map((d,i) => d.date === todayKey ? i : -1).filter(i => i>=0).pop(); if(idx !== undefined) { S.distractions.splice(idx,1); save(); renderDistractions(); showToast('Undone'); } }
         function renderDistractions() { const cnt = S.distractions.filter(d => d.date === todayKey).length; document.getElementById('dist-display').textContent = cnt; document.getElementById('dist-badge').textContent = '> ' + cnt + ' TODAY'; document.getElementById('dist-header-count').textContent = cnt; }
-
-        // DEV TOOLS FUNCTIONS
+        
+        // Dev Tools Functions
         function addSnippet() {
             const title = document.getElementById('snip-title').value.trim();
             const code = document.getElementById('snip-code').value.trim();
-            if (!title || !code) { showToast('Title and code required'); return; }
+            if(!title || !code) { showToast('Title and code required'); return; }
             const lang = document.getElementById('snip-lang').value;
             S.snippets.unshift({ id: Date.now(), title, code, lang, date: todayKey });
             save(); renderSnippets(); showToast('Snippet saved');
+            document.getElementById('snip-title').value = '';
+            document.getElementById('snip-code').value = '';
         }
-        function deleteSnippet(id) { S.snippets = S.snippets.filter(s => s.id != id); save(); renderSnippets(); }
-        function copySnippet(id) { const s = S.snippets.find(s => s.id == id); if (s) navigator.clipboard.writeText(s.code).then(() => showToast('Copied!')); }
+        function deleteSnippet(id) { S.snippets = S.snippets.filter(s => s.id != id); save(); renderSnippets(); showToast('Snippet deleted'); }
+        function copySnippet(id) { const s = S.snippets.find(s => s.id == id); if(s) { navigator.clipboard.writeText(s.code); showToast('Copied!'); } }
         function renderSnippets() {
             const search = document.getElementById('snip-search')?.value.toLowerCase() || '';
             let snippets = S.snippets.filter(s => s.title.toLowerCase().includes(search) || s.code.toLowerCase().includes(search));
             const container = document.getElementById('snippet-list');
-            if (!container) return;
-            if (!snippets.length) { container.innerHTML = '<div class="empty-state">// NO SNIPPETS</div>'; return; }
-            container.innerHTML = snippets.map(s => `<div class="snippet-card"><div style="display:flex;justify-content:space-between"><strong>${escHtml(s.title)}</strong><span class="card-badge">${s.lang}</span></div><pre style="background:var(--bg);padding:8px;border-radius:4px;margin:8px 0;max-height:100px;overflow:auto;font-size:.7rem">${escHtml(s.code.substring(0, 200))}</pre><div><button class="btn btn-ghost btn-sm" onclick="copySnippet(${s.id})">COPY</button><button class="btn btn-ghost btn-sm" onclick="deleteSnippet(${s.id})">DELETE</button></div></div>`).join('');
+            if(!container) return;
+            if(!snippets.length) { container.innerHTML = '<div class="empty-state">// NO SNIPPETS</div>'; return; }
+            container.innerHTML = snippets.map(s => `<div class="snippet-card"><div style="display:flex;justify-content:space-between"><strong>${escHtml(s.title)}</strong><span class="card-badge">${s.lang}</span></div><pre style="background:var(--bg);padding:8px;border-radius:4px;margin:8px 0;max-height:100px;overflow:auto;font-size:.7rem">${escHtml(s.code.substring(0,200))}</pre><div><button class="btn btn-ghost btn-sm" onclick="copySnippet(${s.id})">COPY</button><button class="btn btn-ghost btn-sm" onclick="deleteSnippet(${s.id})">DELETE</button></div></div>`).join('');
         }
-
+        
         async function testAPI() {
             const method = document.getElementById('api-method').value;
             const url = document.getElementById('api-url').value;
             const body = document.getElementById('api-body').value;
             const headersStr = document.getElementById('api-headers').value;
-            if (!url) { showToast('Enter URL'); return; }
+            if(!url) { showToast('Enter URL'); return; }
             const headers = {};
-            if (headersStr) headersStr.split(',').forEach(h => { const [k, v] = h.split(':'); if (k && v) headers[k.trim()] = v.trim(); });
+            if(headersStr) headersStr.split(',').forEach(h => { const [k,v] = h.split(':'); if(k && v) headers[k.trim()] = v.trim(); });
             try {
                 const options = { method, headers };
-                if (method !== 'GET' && body) options.body = body;
+                if(method !== 'GET' && body) options.body = body;
                 const response = await fetch(url, options);
                 const data = await response.text();
                 const respDiv = document.getElementById('api-response');
                 respDiv.style.display = 'block';
-                try { const json = JSON.parse(data); respDiv.innerHTML = `<strong>Status: ${response.status}</strong>\n\n${JSON.stringify(json, null, 2)}`; }
-                catch (e) { respDiv.innerHTML = `<strong>Status: ${response.status}</strong>\n\n${data}`; }
+                try { const json = JSON.parse(data); respDiv.innerHTML = `<strong>Status: ${response.status}</strong>\n\n${JSON.stringify(json,null,2)}`; }
+                catch(e) { respDiv.innerHTML = `<strong>Status: ${response.status}</strong>\n\n${data}`; }
                 showToast(`Request sent: ${response.status}`);
-            } catch (e) { showToast('Error: ' + e.message); }
+            } catch(e) { showToast('Error: ' + e.message); }
         }
-
+        
         function toggleRegexFlag(flag) {
             const el = document.querySelector(`.regex-flag[data-flag="${flag}"]`);
-            if (regexFlags.includes(flag)) { regexFlags = regexFlags.filter(f => f !== flag); el.classList.remove('active'); }
+            if(regexFlags.includes(flag)) { regexFlags = regexFlags.filter(f => f !== flag); el.classList.remove('active'); }
             else { regexFlags.push(flag); el.classList.add('active'); }
             testRegex();
         }
         function testRegex() {
             const pattern = document.getElementById('regex-pattern').value;
             const testText = document.getElementById('regex-test-text').value;
-            if (!pattern || !testText) return;
+            if(!pattern || !testText) return;
             try {
                 const regex = new RegExp(pattern, regexFlags.join(''));
                 const matches = testText.match(regex);
                 const results = document.getElementById('regex-results');
-                if (matches) results.innerHTML = `<strong>Found ${matches.length} match(es):</strong>\n${matches.map(m => `"${m}"`).join('\n')}`;
+                if(matches) results.innerHTML = `<strong>Found ${matches.length} match(es):</strong>\n${matches.map(m => `"${m}"`).join('\n')}`;
                 else results.innerHTML = 'No matches found';
-            } catch (e) { document.getElementById('regex-results').innerHTML = `<span style="color:var(--red)">Invalid regex: ${e.message}</span>`; }
+            } catch(e) { document.getElementById('regex-results').innerHTML = `<span style="color:var(--red)">Invalid regex: ${e.message}</span>`; }
         }
-
+        
         function updateColor() {
             const color = document.getElementById('color-input').value;
             document.getElementById('color-preview').style.background = color;
             document.getElementById('color-hex').value = color;
-            const r = parseInt(color.slice(1, 3), 16), g = parseInt(color.slice(3, 5), 16), b = parseInt(color.slice(5, 7), 16);
+            const r = parseInt(color.slice(1,3),16), g = parseInt(color.slice(3,5),16), b = parseInt(color.slice(5,7),16);
             document.getElementById('color-rgb').value = `rgb(${r}, ${g}, ${b})`;
         }
-        function updateFromHex() { const hex = document.getElementById('color-hex').value; if (/^#[0-9A-F]{6}$/i.test(hex)) { document.getElementById('color-input').value = hex; updateColor(); } }
-        function updateFromRGB() { const rgb = document.getElementById('color-rgb').value; const match = rgb.match(/\d+/g); if (match && match.length === 3) { const hex = '#' + match.map(x => parseInt(x).toString(16).padStart(2, '0')).join(''); document.getElementById('color-input').value = hex; updateColor(); } }
+        function updateFromHex() { const hex = document.getElementById('color-hex').value; if(/^#[0-9A-F]{6}$/i.test(hex)) { document.getElementById('color-input').value = hex; updateColor(); } }
+        function updateFromRGB() { const rgb = document.getElementById('color-rgb').value; const match = rgb.match(/\d+/g); if(match && match.length === 3) { const hex = '#' + match.map(x => parseInt(x).toString(16).padStart(2,'0')).join(''); document.getElementById('color-input').value = hex; updateColor(); } }
         function copyColor() { navigator.clipboard.writeText(document.getElementById('color-hex').value).then(() => showToast('Color copied!')); }
         function generatePalette() {
             const base = document.getElementById('color-input').value;
             const colors = [];
-            for (let i = 0; i < 5; i++) {
+            for(let i=0; i<5; i++) {
                 const lighten = (color, percent) => {
-                    const num = parseInt(color.slice(1), 16);
+                    const num = parseInt(color.slice(1),16);
                     const r = (num >> 16) + (255 - (num >> 16)) * percent;
                     const g = ((num >> 8) & 0x00FF) + (255 - ((num >> 8) & 0x00FF)) * percent;
                     const b = (num & 0x0000FF) + (255 - (num & 0x0000FF)) * percent;
-                    return `#${Math.min(255, Math.floor(r)).toString(16).padStart(2, '0')}${Math.min(255, Math.floor(g)).toString(16).padStart(2, '0')}${Math.min(255, Math.floor(b)).toString(16).padStart(2, '0')}`;
+                    return `#${Math.min(255,Math.floor(r)).toString(16).padStart(2,'0')}${Math.min(255,Math.floor(g)).toString(16).padStart(2,'0')}${Math.min(255,Math.floor(b)).toString(16).padStart(2,'0')}`;
                 };
                 colors.push(lighten(base, i * 0.15));
             }
-            document.getElementById('palette-output').innerHTML = colors.map(c => `<div style="background:${c};padding:20px;margin-bottom:8px;border-radius:4px;text-align:center">${c}</div>`).join('');
+            document.getElementById('palette-output').innerHTML = colors.map(c => `<div style="background:${c};padding:12px;margin-bottom:8px;border-radius:4px;text-align:center">${c}</div>`).join('');
         }
-
-        function previewImage() {
-            const file = document.getElementById('image-input').files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => { const img = document.getElementById('image-preview'); img.src = e.target.result; img.style.display = 'block'; document.getElementById('image-info').innerHTML = `<strong>File:</strong> ${file.name}\n<strong>Size:</strong> ${(file.size / 1024).toFixed(2)} KB`; };
-                reader.readAsDataURL(file);
-            }
-        }
-        function optimizeImage() {
-            const img = document.getElementById('image-preview');
-            const quality = parseFloat(document.getElementById('image-quality').value);
-            if (!img.src) { showToast('Select an image first'); return; }
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            const image = new Image();
-            image.onload = () => { canvas.width = image.width; canvas.height = image.height; ctx.drawImage(image, 0, 0); canvas.toBlob(blob => { const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = 'optimized.jpg'; link.click(); URL.revokeObjectURL(url); showToast(`Optimized: ${(blob.size / 1024).toFixed(2)} KB`); }, 'image/jpeg', quality); };
-            image.src = img.src;
-        }
-
+        
         function renderMarkdown() {
             const text = document.getElementById('markdown-input').value;
             let html = text.replace(/^# (.*$)/gm, '<h1>$1</h1>').replace(/^## (.*$)/gm, '<h2>$1</h2>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>').replace(/^- (.*$)/gm, '<li>$1</li>').replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>').replace(/\n/g, '<br>');
@@ -2133,68 +2027,72 @@
             const blob = new Blob([html], { type: 'text/html' });
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'markdown.html'; a.click(); showToast('Exported!');
         }
-
+        
         function formatJSON() {
-            try { const parsed = JSON.parse(document.getElementById('json-input').value); document.getElementById('json-output').innerHTML = JSON.stringify(parsed, null, 2); } catch (e) { showToast('Invalid JSON'); }
+            try { const parsed = JSON.parse(document.getElementById('json-input').value); document.getElementById('json-output').innerHTML = JSON.stringify(parsed,null,2); showToast('Formatted'); }
+            catch(e) { showToast('Invalid JSON'); }
         }
         function minifyJSON() {
-            try { const parsed = JSON.parse(document.getElementById('json-input').value); document.getElementById('json-output').innerHTML = JSON.stringify(parsed); showToast('Minified'); } catch (e) { showToast('Invalid JSON'); }
+            try { const parsed = JSON.parse(document.getElementById('json-input').value); document.getElementById('json-output').innerHTML = JSON.stringify(parsed); showToast('Minified'); }
+            catch(e) { showToast('Invalid JSON'); }
         }
         function validateJSON() {
-            try { JSON.parse(document.getElementById('json-input').value); showToast('✅ Valid JSON'); document.getElementById('json-output').innerHTML = '<span style="color:var(--green)">Valid JSON ✓</span>'; } catch (e) { showToast('❌ Invalid JSON'); document.getElementById('json-output').innerHTML = `<span style="color:var(--red)">Error: ${e.message}</span>`; }
+            try { JSON.parse(document.getElementById('json-input').value); showToast('✅ Valid JSON'); document.getElementById('json-output').innerHTML = '<span style="color:var(--green)">Valid JSON ✓</span>'; }
+            catch(e) { showToast('❌ Invalid JSON'); document.getElementById('json-output').innerHTML = `<span style="color:var(--red)">Error: ${e.message}</span>`; }
         }
-
+        
         function saveCollection() {
             const name = document.getElementById('collection-name').value.trim();
             const data = document.getElementById('collection-data').value.trim();
-            if (!name || !data) { showToast('Name and data required'); return; }
-            try { JSON.parse(data); S.collections.unshift({ id: Date.now(), name, data, date: todayKey }); save(); renderCollections(); showToast('Collection saved'); } catch (e) { showToast('Invalid JSON'); }
+            if(!name || !data) { showToast('Name and data required'); return; }
+            try { JSON.parse(data); S.collections.unshift({ id: Date.now(), name, data, date: todayKey }); save(); renderCollections(); showToast('Collection saved'); } catch(e) { showToast('Invalid JSON'); }
         }
-        function deleteCollection(id) { S.collections = S.collections.filter(c => c.id != id); save(); renderCollections(); }
-        function loadCollection(id) { const c = S.collections.find(c => c.id == id); if (c) { document.getElementById('collection-data').value = c.data; document.getElementById('collection-name').value = c.name; showToast('Loaded: ' + c.name); } }
+        function deleteCollection(id) { S.collections = S.collections.filter(c => c.id != id); save(); renderCollections(); showToast('Collection deleted'); }
+        function loadCollection(id) { const c = S.collections.find(c => c.id == id); if(c) { document.getElementById('collection-data').value = c.data; document.getElementById('collection-name').value = c.name; showToast('Loaded: ' + c.name); } }
         function renderCollections() {
             const container = document.getElementById('collections-list');
-            if (!container) return;
-            if (!S.collections.length) { container.innerHTML = '<div class="empty-state">// NO COLLECTIONS</div>'; return; }
+            if(!container) return;
+            if(!S.collections.length) { container.innerHTML = '<div class="empty-state">// NO COLLECTIONS</div>'; return; }
             container.innerHTML = S.collections.map(c => `<div class="collection-item" onclick="loadCollection(${c.id})"><div style="display:flex;justify-content:space-between"><strong>${escHtml(c.name)}</strong><span class="task-del" onclick="event.stopPropagation();deleteCollection(${c.id})">✕</span></div><div style="font-size:.6rem">${c.date}</div></div>`).join('');
         }
-
-        // UTILITIES
+        
+        function exportData() { const data = JSON.stringify(S, null, 2); const blob = new Blob([data], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `storm-os-${todayKey}.json`; a.click(); showToast('Data exported'); }
+        function clearData() { if(confirm('⚠️ RESET ALL DATA? This cannot be undone.')) { localStorage.clear(); location.reload(); } }
+        
         function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
         function escHtml(str) { return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
-        function playDone() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)();[[523, 0], [659, 200], [784, 400]].forEach(([freq, delay]) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value = freq; o.type = 'sine'; g.gain.setValueAtTime(0.3, ctx.currentTime + delay / 1000); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay / 1000 + 0.4); o.start(ctx.currentTime + delay / 1000); o.stop(ctx.currentTime + delay / 1000 + 0.5); }); } catch (e) { } }
-        function exportData() { const data = JSON.stringify(S, null, 2); const blob = new Blob([data], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `storm-os-${todayKey}.json`; a.click(); showToast('Data exported'); }
-        function doLogout() { if (window._sb) window._sb.auth.signOut().then(() => location.href = 'login.html'); else location.href = 'login.html'; }
+        function playDone() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); [[523,0],[659,200],[784,400]].forEach(([freq,delay]) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value = freq; o.type = 'sine'; g.gain.setValueAtTime(0.3, ctx.currentTime + delay/1000); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay/1000 + 0.4); o.start(ctx.currentTime + delay/1000); o.stop(ctx.currentTime + delay/1000 + 0.5); }); } catch(e) {} }
+        
         function showShortcuts() { document.getElementById('shortcuts-modal').classList.add('open'); }
         function closeShortcuts() { document.getElementById('shortcuts-modal').classList.remove('open'); }
-
-        // KEYBOARD SHORTCUTS
+        
+        // Keyboard shortcuts
         document.addEventListener('keydown', e => {
             const inInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName);
-            if (e.code === 'Escape') closeShortcuts();
-            if (!inInput) {
-                if (e.code === 'Space') { e.preventDefault(); const tp = document.getElementById('panel-timer'); if (tp.classList.contains('active')) toggleMain(); else toggleMini(); }
-                if (e.key === '?') showShortcuts();
-                if (e.key === '1') switchTab('planner');
-                if (e.key === '2') switchTab('timer');
-                if (e.key === '3') switchTab('habits');
-                if (e.key === '4') switchTab('dashboard');
-                if (e.key === '5') switchTab('analytics');
-                if (e.key === '6') switchTab('journal');
-                if (e.key === '7') switchTab('devtools');
-                if (e.key === '8') switchTab('help');
+            if(e.code === 'Escape') closeShortcuts();
+            if(!inInput) {
+                if(e.code === 'Space') { e.preventDefault(); const tp = document.getElementById('panel-timer'); if(tp.classList.contains('active')) toggleMain(); else toggleMini(); }
+                if(e.key === '?') showShortcuts();
+                if(e.key === '1') switchTab('planner');
+                if(e.key === '2') switchTab('timer');
+                if(e.key === '3') switchTab('habits');
+                if(e.key === '4') switchTab('dashboard');
+                if(e.key === '5') switchTab('analytics');
+                if(e.key === '6') switchTab('journal');
+                if(e.key === '7') switchTab('devtools');
+                if(e.key === '8') switchTab('help');
             }
-            if (e.altKey && e.key === 'd') { e.preventDefault(); logDistraction(); }
-            if (e.altKey && e.key === 'e') { e.preventDefault(); exportData(); }
+            if(e.altKey && e.key === 'd') { e.preventDefault(); logDistraction(); }
+            if(e.altKey && e.key === 'e') { e.preventDefault(); exportData(); }
         });
-
-        // Initialize demo data for testing
-        function initDemoData() {
-            if (S.tasks.length === 0) {
+        
+        // Initialize demo data
+        setTimeout(() => {
+            if(S.tasks.length === 0) {
                 S.tasks = [
-                    { id: 1, text: 'Complete API integration', priority: 'high', mins: 60, estMins: 60, done: false, date: todayKey, actualMins: null },
-                    { id: 2, text: 'Write documentation for new features', priority: 'med', mins: 45, estMins: 45, done: false, date: todayKey, actualMins: null },
-                    { id: 3, text: 'Review pull requests', priority: 'low', mins: 30, estMins: 30, done: true, date: todayKey, actualMins: 25 }
+                    { id: 1, text: 'Complete API integration', priority: 'high', mins: 60, done: false, date: todayKey },
+                    { id: 2, text: 'Write documentation', priority: 'med', mins: 45, done: true, date: todayKey },
+                    { id: 3, text: 'Review pull requests', priority: 'low', mins: 30, done: false, date: todayKey }
                 ];
                 S.habits = [
                     { id: 1, name: 'Morning Coding', streak: 3, best: 3, days: { [getTodayKey()]: true } },
@@ -2204,17 +2102,29 @@
                     { time: '09:30 AM', task: 'API Work', mins: 45, date: todayKey, hour: 9 },
                     { time: '11:00 AM', task: 'Documentation', mins: 30, date: todayKey, hour: 11 }
                 ];
+                S.goals = [
+                    { id: 1, text: 'Launch MVP', done: false, week: getWeekKey() },
+                    { id: 2, text: 'Write 5 blog posts', done: true, week: getWeekKey() }
+                ];
+                S.journal = [
+                    { id: 999, text: 'Fixed critical bug in authentication flow', tag: 'win', date: '2026-03-23', time: '02:22 AM' },
+                    { id: 998, text: 'Discovered performance bottleneck in database queries', tag: 'insight', date: '2026-03-23', time: '02:22 AM' },
+                    { id: 997, text: 'Team meeting ran 30 mins over', tag: 'blocker', date: '2026-03-22', time: '01:42 AM' }
+                ];
+                S.wins = [
+                    { id: 1, text: 'Deployed new feature to production', date: todayKey },
+                    { id: 2, text: 'Fixed 3 critical bugs', date: todayKey }
+                ];
                 S.snippets = [
                     { id: 1, title: 'Fetch API Example', code: 'fetch("https://api.example.com/data")\n  .then(res => res.json())\n  .then(data => console.log(data));', lang: 'javascript', date: todayKey }
                 ];
-                S.analytics.daily[todayKey] = { tasks: 1, min: 75, sess: 2, score: 65 };
+                S.analytics.daily[todayKey] = { tasks: 1, min: 75, sess: 2, score: 85 };
                 S.analytics.totalMin = 75;
                 S.analytics.totalSess = 2;
                 save();
                 boot();
             }
-        }
-        setTimeout(initDemoData, 100);
+        }, 100);
     </script>
 </body>
 
