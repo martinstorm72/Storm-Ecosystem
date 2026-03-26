@@ -655,17 +655,45 @@
         const { createClient } = supabase;
         const sb = createClient(SUPA_URL, SUPA_KEY);
 
+        // ===== AUTH UTILITIES =====
+        async function getCurrentUser() {
+            try {
+                const { data: { session } } = await sb.auth.getSession();
+                return session?.user || null;
+            } catch (e) {
+                console.warn('getCurrentUser failed:', e);
+                return null;
+            }
+        }
+
+        async function checkPaid(uid) {
+            try {
+                const { data } = await sb.from('profiles').select('is_paid,subscription_status').eq('id', uid).single();
+                return data && (data.is_paid === true || data.subscription_status === 'active');
+            } catch (e) {
+                console.warn('checkPaid failed:', e);
+                return false;
+            }
+        }
+
         setInterval(() => { document.getElementById('sb-clock').textContent = new Date().toLocaleTimeString(); }, 1000);
 
+        // Check session on load - redirect if already paid
         (async () => {
             try {
-                const { data } = await sb.auth.getSession();
+                const user = await getCurrentUser();
                 document.getElementById('sb-status').textContent = 'SUPABASE: CONNECTED';
-                if (data.session) {
-                    const { data: p } = await sb.from('profiles').select('is_paid,subscription_status').eq('id', data.session.user.id).single();
-                    if (p && (p.is_paid || p.subscription_status === 'active')) window.location.href = 'dashboard.html';
+                if (user) {
+                    const paid = await checkPaid(user.id);
+                    if (paid) {
+                        // User already has paid subscription - go to dashboard
+                        window.location.href = 'dashboard.html';
+                    }
                 }
-            } catch (e) { document.getElementById('sb-status').textContent = 'SUPABASE: ERROR'; }
+            } catch (e) {
+                document.getElementById('sb-status').textContent = 'SUPABASE: ERROR';
+                console.warn('Session check error:', e);
+            }
         })();
 
         function showMsg(t, type) { const el = document.getElementById('msg'); el.textContent = t; el.className = 'msg ' + type; }
@@ -718,9 +746,37 @@
                         customData: { supabase_user_id: userId, operator_name: name },
                         settings: { displayMode: 'overlay', theme: 'dark' },
                         successCallback: async function () {
-                            await sb.from('profiles').upsert({ id: userId, email, full_name: name, is_paid: true, subscription_status: 'active', paid_at: new Date().toISOString() });
-                            showMsg('// PAYMENT CONFIRMED — REDIRECTING TO DASHBOARD...', 'success');
-                            setTimeout(() => window.location.href = 'dashboard.html', 1200);
+                            try {
+                                // Save payment confirmation to profiles table
+                                const { error: updateError } = await sb.from('profiles').upsert({
+                                    id: userId,
+                                    email,
+                                    full_name: name,
+                                    is_paid: true,
+                                    subscription_status: 'active',
+                                    paid_at: new Date().toISOString()
+                                });
+
+                                if (updateError) {
+                                    console.error('Profile update failed:', updateError);
+                                    showMsg('// PAYMENT CONFIRMED BUT DATABASE ERROR — CONTACT SUPPORT', 'error');
+                                    return;
+                                }
+
+                                // Verify payment was saved
+                                const verified = await checkPaid(userId);
+                                if (!verified) {
+                                    console.error('Payment verification failed');
+                                    showMsg('// PAYMENT VERIFICATION FAILED — CONTACT SUPPORT', 'error');
+                                    return;
+                                }
+
+                                showMsg('// PAYMENT CONFIRMED — REDIRECTING TO DASHBOARD...', 'success');
+                                setTimeout(() => window.location.href = 'dashboard.html', 1200);
+                            } catch (e) {
+                                console.error('Signup success callback error:', e);
+                                showMsg('// ERROR: COULD NOT COMPLETE REGISTRATION', 'error');
+                            }
                         }
                     });
                 }, 800);
@@ -737,13 +793,37 @@
                 eventCallback: async function (ev) {
                     if (ev.name === 'checkout.completed') {
                         try {
-                            const { data: s } = await sb.auth.getSession();
-                            if (s && s.session && s.session.user) {
-                                await sb.from('profiles').upsert({ id: s.session.user.id, is_paid: true, subscription_status: 'active', paddle_subscription_id: ev.data?.subscription?.id || null, paid_at: new Date().toISOString() });
+                            const user = await getCurrentUser();
+                            if (user) {
+                                // Save payment confirmation
+                                const { error } = await sb.from('profiles').upsert({
+                                    id: user.id,
+                                    is_paid: true,
+                                    subscription_status: 'active',
+                                    paddle_subscription_id: ev.data?.subscription?.id || null,
+                                    paid_at: new Date().toISOString()
+                                });
+
+                                if (error) {
+                                    console.error('Profile update failed:', error);
+                                    showMsg('// PAYMENT CONFIRMED BUT DATABASE ERROR — CONTACT SUPPORT', 'error');
+                                    return;
+                                }
+
+                                // Verify payment was saved
+                                const verified = await checkPaid(user.id);
+                                if (verified) {
+                                    showMsg('// PAYMENT CONFIRMED — LOADING DASHBOARD...', 'success');
+                                    setTimeout(() => window.location.href = 'dashboard.html', 1200);
+                                } else {
+                                    console.error('Payment verification failed after event');
+                                    showMsg('// PAYMENT VERIFICATION FAILED — CONTACT SUPPORT', 'error');
+                                }
                             }
-                        } catch (e) { }
-                        showMsg('// PAYMENT CONFIRMED — LOADING DASHBOARD...', 'success');
-                        setTimeout(() => window.location.href = 'dashboard.html', 1200);
+                        } catch (e) {
+                            console.error('Paddle event callback error:', e);
+                            showMsg('// ERROR: COULD NOT VERIFY PAYMENT', 'error');
+                        }
                     }
                     if (ev.name === 'checkout.closed') { showMsg('// PAYMENT REQUIRED TO ACCESS DASHBOARD', 'error'); }
                 }
