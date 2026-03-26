@@ -552,28 +552,50 @@
         const { createClient } = supabase;
         const sb = createClient(SUPA_URL, SUPA_KEY);
 
+        // ===== AUTH UTILITIES =====
+        async function getCurrentUser() {
+            try {
+                const { data: { session } } = await sb.auth.getSession();
+                return session?.user || null;
+            } catch (e) {
+                console.warn('getCurrentUser failed:', e);
+                return null;
+            }
+        }
+
+        async function checkPaid(uid) {
+            try {
+                const { data } = await sb.from('profiles').select('is_paid,subscription_status').eq('id', uid).single();
+                return data && (data.is_paid === true || data.subscription_status === 'active');
+            } catch (e) {
+                console.warn('checkPaid failed:', e);
+                return false;
+            }
+        }
+
         // Clock
         setInterval(() => { document.getElementById('sb-clock').textContent = new Date().toLocaleTimeString(); }, 1000);
 
         // Check session on load
         (async () => {
             try {
-                const { data } = await sb.auth.getSession();
+                const user = await getCurrentUser();
                 document.getElementById('sb-status').textContent = 'SUPABASE: CONNECTED';
-                if (data.session) {
-                    const paid = await checkPaid(data.session.user.id);
-                    if (paid) window.location.href = 'dashboard.html';
-                    // else stay on login — show message
+                if (user) {
+                    const paid = await checkPaid(user.id);
+                    if (paid) {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        // User authenticated but not paid - redirect to pricing
+                        showMsg('// SUBSCRIPTION REQUIRED: COMPLETE PAYMENT TO ACCESS', 'error');
+                        setTimeout(() => window.location.href = 'index.html#pricing', 2000);
+                    }
                 }
-            } catch (e) { document.getElementById('sb-status').textContent = 'SUPABASE: ERROR'; }
+            } catch (e) {
+                document.getElementById('sb-status').textContent = 'SUPABASE: ERROR';
+                console.warn('Session check error:', e);
+            }
         })();
-
-        async function checkPaid(uid) {
-            try {
-                const { data } = await sb.from('profiles').select('is_paid,subscription_status').eq('id', uid).single();
-                return data && (data.is_paid === true || data.subscription_status === 'active');
-            } catch (e) { return false; }
-        }
 
         function showMsg(t, type) { const el = document.getElementById('msg'); el.textContent = t; el.className = 'msg ' + type; }
         function togglePwd(id, btn) { const i = document.getElementById(id); if (i.type === 'password') { i.type = 'text'; btn.textContent = '🙈'; } else { i.type = 'password'; btn.textContent = '👁'; } }
