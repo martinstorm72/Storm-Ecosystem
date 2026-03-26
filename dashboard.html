@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -2419,14 +2419,8 @@
                     PLAYGROUND</button>
                 <button class="tool-tab" onclick="switchToolTab('github',this)"><i class="fab fa-github"></i>
                     GITHUB</button>
-                <button class="tool-tab" onclick="switchToolTab('sql',this)"><i class="fas fa-database"></i> SQL
-                    EDITOR</button>
                 <button class="tool-tab" onclick="switchToolTab('snippets',this)"><i class="fas fa-database"></i>
                     SNIPPETS</button>
-                <button class="tool-tab" onclick="switchToolTab('minifier',this)"><i class="fas fa-compress-alt"></i>
-                    MINIFIER</button>
-                <button class="tool-tab" onclick="switchToolTab('livehtml',this)"><i class="fab fa-html5"></i> LIVE
-                    HTML</button>
                 <button class="tool-tab" onclick="switchToolTab('datastructure',this)"><i
                         class="fas fa-project-diagram"></i> DATA STRUCTURES</button>
                 <button class="tool-tab" onclick="switchToolTab('complexity',this)"><i class="fas fa-chart-line"></i>
@@ -2439,7 +2433,25 @@
 
             <div class="tool-panel active" id="code-panel">
                 <div class="grid-2">
-                    <div class="card"><textarea id="playground-code" rows="12" class="mb-16">// JavaScript Code Playground
+                    <div class="card">
+                        <div style="display:flex;gap:8px;margin-bottom:12px;">
+                            <select id="playground-language" onchange="switchLanguage()" class="mb-16"
+                                style="flex:1;background:var(--bg2);border:1px solid var(--border2);color:var(--text);padding:8px;border-radius:5px;font-family:var(--mono);font-size:.75rem;">
+                                <option value="javascript">JavaScript</option>
+                                <option value="python">Python</option>
+                                <option value="java">Java</option>
+                                <option value="cpp">C++</option>
+                                <option value="csharp">C#</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="php">PHP</option>
+                                <option value="sql">SQL</option>
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                                <option value="go">Go</option>
+                                <option value="rust">Rust</option>
+                            </select>
+                        </div>
+                        <textarea id="playground-code" rows="12" class="mb-16">// JavaScript Code Playground
 console.log("Hello, Operator!");
 
 function fibonacci(n) {
@@ -2474,20 +2486,6 @@ for(let i=0; i<10; i++) {
                 </div>
             </div>
 
-            <div class="tool-panel" id="sql-panel">
-                <div class="grid-2">
-                    <div class="card"><textarea id="sql-input" rows="10"
-                            class="mb-16">SELECT * FROM users WHERE active = 1 ORDER BY created_at DESC;</textarea>
-                        <button class="btn btn-primary" onclick="formatSQL()">FORMAT SQL</button>
-                        <button class="btn btn-ghost" onclick="validateSQL()">VALIDATE</button>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">RESULTS</div>
-                        <div id="sql-output" class="json-viewer"></div>
-                    </div>
-                </div>
-            </div>
-
             <div class="tool-panel" id="snippets-panel">
                 <div class="grid-2">
                     <div class="card">
@@ -2502,36 +2500,6 @@ for(let i=0; i<10; i++) {
                 </div>
             </div>
 
-            <div class="tool-panel" id="minifier-panel">
-                <div class="grid-2">
-                    <div class="card">
-                        <select id="minify-type" class="mb-16">
-                            <option value="js">JavaScript</option>
-                            <option value="css">CSS</option>
-                        </select>
-                        <textarea id="minify-input" rows="10" class="mb-16">function hello() {
-    console.log("Hello World");
-}</textarea>
-                        <button class="btn btn-primary" onclick="minifyCode()">MINIFY</button>
-                        <button class="btn btn-ghost" onclick="beautifyCode()">BEAUTIFY</button>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">STATS</div>
-                        <div id="minify-stats" class="json-viewer"></div>
-                        <button class="btn btn-ghost mt-16" onclick="copyMinified()">COPY RESULT</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-panel" id="livehtml-panel">
-                <div class="card">
-                    <textarea id="livehtml-input" rows="12"
-                        class="mb-16"><!DOCTYPE html><html><head><style>body{font-family:Arial;background:linear-gradient(135deg,#667eea,#764ba2);color:white;text-align:center;padding:50px;}h1{font-size:3em;}button{padding:10px 20px;cursor:pointer;}</style></head><body><h1>Live Preview</h1><button onclick="alert('Hello!')">Click Me</button></body></html></textarea>
-                    <button class="btn btn-primary" onclick="updateLivePreview()">PREVIEW</button>
-                    <div id="livehtml-preview" class="mt-16"
-                        style="border:1px solid var(--border2);border-radius:5px;min-height:200px;"></div>
-                </div>
-            </div>
 
             <div class="tool-panel" id="datastructure-panel">
                 <div class="grid-2">
@@ -2956,9 +2924,11 @@ for(let i=0; i<10; i++) {
             if (!el) return;
             if (user) {
                 let initials = (user.email || 'OP').substring(0, 2).toUpperCase();
-                let name = user.user_metadata?.display_name || user.email?.split('@')[0] || 'OPERATOR';
+                let name = user.user_metadata?.full_name || user.user_metadata?.display_name || user.email?.split('@')[0] || 'OPERATOR';
                 el.innerHTML = `<div class="auth-status-bar"><div class="user-avatar" onclick="showUserMenu()" title="${user.email}">${initials}</div><button class="btn btn-ghost btn-sm" onclick="handleSignOut()"><i class="fas fa-sign-out-alt"></i></button></div>`;
                 document.getElementById('user-name').innerHTML = name.toUpperCase();
+                // Also update the state object with user's name
+                if (S.user) S.user.name = name.toUpperCase();
             } else {
                 el.innerHTML = `<button class="btn btn-ghost btn-sm" onclick="showAuthOverlay()"><i class="fas fa-sign-in-alt"></i> LOGIN</button>`;
             }
@@ -3177,6 +3147,15 @@ for(let i=0; i<10; i++) {
         load();
 
         if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
+
+        // Restore language preference
+        (function () {
+            let savedLang = localStorage.getItem('selected_language') || 'javascript';
+            let langSelect = document.getElementById('playground-language');
+            if (langSelect) {
+                langSelect.value = savedLang;
+            }
+        })();
 
         function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
         function escHtml(s) { return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
@@ -3551,19 +3530,90 @@ for(let i=0; i<10; i++) {
             let qe = document.getElementById('quote-of-day'); if (qe) qe.innerHTML = `<i class="fas fa-quote-left"></i> ${q[Math.floor(Math.random() * q.length)]}`;
         }
 
-        // Dev Tools
-        function runCode() { let code = document.getElementById('playground-code').value, logs = []; let orig = console.log; console.log = (...a) => logs.push(a.join(' ')); try { eval(code); document.getElementById('playground-output').innerHTML = logs.join('<br>') || '✓ Executed'; addXP(2); } catch (e) { document.getElementById('playground-output').innerHTML = `<span style="color:var(--red)">Error: ${e.message}</span>`; } console.log = orig; }
-        function clearPlayground() { document.getElementById('playground-code').value = ''; document.getElementById('playground-output').innerHTML = ''; }
+        // Dev Tools - Language Templates
+        const LANGUAGE_TEMPLATES = {
+            javascript: 'console.log("test");',
+            python: 'print("test")',
+            java: 'public class M { public static void main(String[] a) { System.out.println("test"); } }',
+            cpp: '#include <iostream>\nint main() { std::cout << "test"; }',
+            csharp: 'using System; class P { static void Main() { Console.WriteLine("test"); } }',
+            ruby: 'puts "test"',
+            php: '<?php echo "test"; ?>',
+            sql: 'SELECT 1',
+            html: '<h1>test</h1>',
+            css: 'body { color: blue; }',
+            go: 'package main\nfunc main() { }',
+            rust: 'fn main() { }'
+        };
+
+        function switchLanguage() {
+            let lang = document.getElementById('playground-language').value;
+            let textarea = document.getElementById('playground-code');
+            let template = LANGUAGE_TEMPLATES[lang] || LANGUAGE_TEMPLATES['javascript'];
+            textarea.value = template;
+            // Save language preference
+            localStorage.setItem('selected_language', lang);
+            showToast(`Switched to ${lang.toUpperCase()}`);
+        }
+
+        function runCode() {
+            let lang = document.getElementById('playground-language').value;
+            let code = document.getElementById('playground-code').value;
+            let output = document.getElementById('playground-output');
+
+            if (lang === 'javascript') {
+                let logs = [];
+                let orig = console.log;
+                console.log = (...a) => logs.push(a.join(' '));
+                try {
+                    eval(code);
+                    output.innerHTML = logs.join('<br>') || '✓ Executed';
+                    addXP(2);
+                } catch (e) {
+                    output.innerHTML = `<span style="color:var(--red)">Error: ${e.message}</span>`;
+                }
+                console.log = orig;
+            } else if (lang === 'python') {
+                output.innerHTML = `<span style="color:var(--green)">✓ Python execution requires backend. Use: python script.py</span>`;
+                addXP(1);
+            } else if (lang === 'html') {
+                // Open HTML in new window/iframe
+                try {
+                    let iframeWin = window.open('');
+                    iframeWin.document.write(code);
+                    iframeWin.document.close();
+                    output.innerHTML = '<span style="color:var(--green)">✓ HTML preview opened in new window</span>';
+                    addXP(2);
+                } catch (e) {
+                    output.innerHTML = `<span style="color:var(--red)">Error: ${e.message}</span>`;
+                }
+            } else {
+                // For other languages, show syntax reference
+                let langGuide = {
+                    'java': 'Compile: javac Main.java\\nRun: java Main',
+                    'cpp': 'Compile: g++ main.cpp -o main\\nRun: ./main',
+                    'csharp': 'Compile: csc program.cs\\nRun: program.exe',
+                    'ruby': 'Run: ruby script.rb',
+                    'php': 'Run: php script.php',
+                    'sql': 'Execute in your database client',
+                    'css': 'Use in HTML <style> tag',
+                    'go': 'Run: go run main.go',
+                    'rust': 'Compile: rustc main.rs\\nRun: ./main'
+                };
+                output.innerHTML = `<span style="color:var(--green)">✓ ${lang.toUpperCase()} Code Valid\\n${langGuide[lang] || 'Use a dedicated IDE to run this code'}</span>`;
+                addXP(1);
+            }
+        }
+
+        function clearPlayground() {
+            document.getElementById('playground-code').value = '';
+            document.getElementById('playground-output').innerHTML = '';
+            showToast('Cleared');
+        }
         async function fetchGitHubStats() { let user = document.getElementById('github-username').value; if (!user) return; try { let r = await fetch(`https://api.github.com/users/${user}`); let d = await r.json(); document.getElementById('github-stats').innerHTML = `<strong>${d.login}</strong>\n📁 Repos: ${d.public_repos}\n👥 Followers: ${d.followers}\n🔗 ${d.html_url}`; addXP(5); } catch (e) { document.getElementById('github-stats').innerHTML = 'Error fetching user'; } }
-        function formatSQL() { let sql = document.getElementById('sql-input').value; sql = sql.replace(/\s+/g, ' ').trim(); document.getElementById('sql-input').value = sql; document.getElementById('sql-output').innerHTML = 'SQL formatted'; }
-        function validateSQL() { let sql = document.getElementById('sql-input').value; if (sql.toLowerCase().includes('select') || sql.toLowerCase().includes('insert')) document.getElementById('sql-output').innerHTML = '✓ SQL looks valid'; else document.getElementById('sql-output').innerHTML = '⚠️ Not a standard SQL query'; }
         function addSnippet() { let t = document.getElementById('snip-title').value.trim(), c = document.getElementById('snip-code').value.trim(); if (!t || !c) return; S.snippets.unshift({ id: Date.now(), title: t, code: c }); save(); renderSnippets(); showToast('Snippet saved'); addXP(5); }
         function deleteSnippet(id) { S.snippets = S.snippets.filter(s => s.id != id); save(); renderSnippets(); }
         function renderSnippets() { let cont = document.getElementById('snippet-list'); if (!cont) return; cont.innerHTML = S.snippets.length ? S.snippets.map(s => `<div style="background:var(--bg2);padding:10px;margin-bottom:8px;border-radius:5px"><strong style="font-size:.82rem">${escHtml(s.title)}</strong><pre style="background:var(--bg);padding:6px;margin:6px 0;border-radius:4px;max-height:80px;overflow:auto;font-size:.75rem">${escHtml(s.code.substring(0, 150))}</pre><button class="btn btn-ghost btn-sm" onclick="deleteSnippet(${s.id})">DELETE</button></div>`).join('') : '<div class="empty-state">// NO SNIPPETS</div>'; }
-        function minifyCode() { let input = document.getElementById('minify-input').value; let minified = input.replace(/\s+/g, ' ').trim(); document.getElementById('minify-input').value = minified; let saved = ((input.length - minified.length) / input.length * 100).toFixed(1); document.getElementById('minify-stats').innerHTML = `Original: ${input.length} chars\nMinified: ${minified.length} chars\nSaved: ${saved}%`; addXP(3); }
-        function beautifyCode() { let input = document.getElementById('minify-input').value; let beautified = input.replace(/{/g, '{\n  ').replace(/}/g, '\n}').replace(/;/g, ';\n'); document.getElementById('minify-input').value = beautified; }
-        function copyMinified() { navigator.clipboard.writeText(document.getElementById('minify-input').value); showToast('Copied!'); }
-        function updateLivePreview() { let html = document.getElementById('livehtml-input').value; document.getElementById('livehtml-preview').innerHTML = html; addXP(3); }
         function visualizeDataStructure() { let type = document.getElementById('ds-type').value, vals = document.getElementById('ds-input').value.split(',').map(v => v.trim()), cont = document.getElementById('ds-visualization'); if (type === 'array') { cont.innerHTML = vals.map(v => `<span style="display:inline-block;background:var(--accent);padding:8px;margin:4px;border-radius:4px;font-size:.82rem;font-weight:700">${v}</span>`).join(''); } else if (type === 'linkedlist') { cont.innerHTML = vals.map(v => `<span style="display:inline-block;background:var(--accent);padding:8px;margin:4px;border-radius:4px;font-size:.82rem;font-weight:700">${v} → </span>`).join('') + 'null'; } else { cont.innerHTML = 'Tree: ' + vals.join(' → '); } }
         function analyzeComplexity() { let code = document.getElementById('complexity-input').value; let comp = 'O(1)'; if (code.includes('for') || code.includes('while')) comp = 'O(n)'; if (code.match(/for.*for/)) comp = 'O(n²)'; if (code.includes('fibonacci')) comp = 'O(2ⁿ)'; document.getElementById('complexity-output').innerHTML = `Time: ${comp}\nLines: ${code.split('\n').length}`; }
         function renderMarkdown() { let text = document.getElementById('markdown-input').value; let html = text.replace(/^# (.*$)/gm, '<h1>$1</h1>').replace(/^## (.*$)/gm, '<h2>$1</h2>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/^- (.*$)/gm, '<li>$1</li>').replace(/\n/g, '<br>'); document.getElementById('markdown-preview').innerHTML = html; }
