@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -46,9 +46,7 @@
             color: var(--text);
             font-family: var(--body);
             font-size: 15px;
-            /* INCREASED BASE FONT */
             font-weight: 500;
-            /* BOLDER BASE */
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -154,20 +152,6 @@
 
             50% {
                 text-shadow: 0 0 50px rgba(57, 211, 83, .8), 0 0 80px rgba(57, 211, 83, .3);
-            }
-        }
-
-        @keyframes timerTick {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.02);
-            }
-
-            100% {
-                transform: scale(1);
             }
         }
 
@@ -823,7 +807,6 @@
             color: var(--text3);
             margin-top: 8px;
             letter-spacing: .1em;
-            transition: color 0.3s;
         }
 
         .timer-controls {
@@ -1464,7 +1447,6 @@
             white-space: pre-wrap;
         }
 
-        /* FOCUS SCORE FOR DEVELOPERS */
         .focus-score-container {
             background: linear-gradient(135deg, rgba(108, 99, 255, 0.15), rgba(0, 210, 255, 0.08));
             border: 1px solid rgba(108, 99, 255, 0.4);
@@ -1501,7 +1483,6 @@
 
         .focus-score-main {
             display: flex;
-            align-items: center;
             gap: 24px;
         }
 
@@ -1626,196 +1607,6 @@
             background: rgba(255, 71, 87, 0.2);
             color: var(--red);
             border: 1px solid rgba(255, 71, 87, 0.4);
-        }
-
-        /* AUTH MODAL */
-        .auth-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(8, 10, 12, 0.96);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-            backdrop-filter: blur(8px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .auth-overlay.hidden {
-            display: none;
-        }
-
-        .auth-box {
-            background: var(--card);
-            border: 1px solid var(--accent);
-            border-radius: 16px;
-            padding: 36px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 0 80px rgba(108, 99, 255, 0.25);
-            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .auth-title {
-            font-family: var(--head);
-            font-size: 1.1rem;
-            font-weight: 900;
-            letter-spacing: .12em;
-            background: linear-gradient(135deg, #fff, var(--accent2), var(--cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
-        }
-
-        .auth-sub {
-            font-family: var(--mono);
-            font-size: .75rem;
-            font-weight: 700;
-            color: var(--text2);
-            margin-bottom: 24px;
-        }
-
-        .auth-tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 20px;
-            border: 1px solid var(--border2);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .auth-tab {
-            flex: 1;
-            padding: 8px;
-            font-family: var(--head);
-            font-size: .65rem;
-            font-weight: 700;
-            letter-spacing: .1em;
-            background: none;
-            border: none;
-            color: var(--text3);
-            cursor: pointer;
-            transition: all 0.25s;
-        }
-
-        .auth-tab.active {
-            background: var(--accent-glow);
-            color: var(--accent2);
-        }
-
-        .auth-field {
-            margin-bottom: 14px;
-        }
-
-        .auth-field label {
-            display: block;
-            font-family: var(--mono);
-            font-size: .7rem;
-            font-weight: 700;
-            color: var(--text2);
-            margin-bottom: 5px;
-        }
-
-        .auth-error {
-            color: var(--red);
-            font-family: var(--mono);
-            font-size: .72rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            min-height: 20px;
-        }
-
-        .auth-separator {
-            text-align: center;
-            font-family: var(--mono);
-            font-size: .7rem;
-            font-weight: 700;
-            color: var(--text3);
-            margin: 16px 0;
-            position: relative;
-        }
-
-        .auth-separator::before,
-        .auth-separator::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 42%;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .auth-separator::before {
-            left: 0;
-        }
-
-        .auth-separator::after {
-            right: 0;
-        }
-
-        .btn-google {
-            width: 100%;
-            padding: 10px;
-            background: var(--card2);
-            border: 1px solid var(--border2);
-            border-radius: 5px;
-            color: var(--text);
-            font-family: var(--head);
-            font-size: .68rem;
-            font-weight: 700;
-            letter-spacing: .1em;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.25s;
-        }
-
-        .btn-google:hover {
-            border-color: var(--accent);
-            background: var(--accent-glow);
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--cyan));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--head);
-            font-size: .7rem;
-            font-weight: 900;
-            color: #fff;
-            cursor: pointer;
-            border: 2px solid rgba(108, 99, 255, 0.4);
-        }
-
-        .auth-status-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--mono);
-            font-size: .7rem;
-            font-weight: 700;
-            color: var(--text2);
-        }
-
-        .sync-indicator {
-            font-family: var(--mono);
-            font-size: .65rem;
-            font-weight: 700;
-            color: var(--green);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .sync-indicator.syncing {
-            color: var(--amber);
         }
 
         .level-details-modal {
@@ -2009,50 +1800,6 @@
 </head>
 
 <body>
-    <!-- AUTH OVERLAY -->
-    <div id="auth-overlay" class="auth-overlay">
-        <div class="auth-box">
-            <div class="auth-title"><i class="fas fa-bolt"></i> OPERATOR COMMAND</div>
-            <div class="auth-sub"><i class="fas fa-lock"></i> AUTHENTICATE TO ACCESS SYSTEM</div>
-            <div class="auth-tabs">
-                <button class="auth-tab active" id="auth-tab-login" onclick="switchAuthTab('login')">LOGIN</button>
-                <button class="auth-tab" id="auth-tab-signup" onclick="switchAuthTab('signup')">SIGN UP</button>
-            </div>
-            <div id="auth-error" class="auth-error"></div>
-            <div class="auth-field">
-                <label><i class="fas fa-envelope"></i> EMAIL</label>
-                <input type="email" id="auth-email" placeholder="operator@command.dev" />
-            </div>
-            <div class="auth-field">
-                <label><i class="fas fa-key"></i> PASSWORD</label>
-                <input type="password" id="auth-password" placeholder="••••••••" />
-            </div>
-            <div id="auth-name-field" class="auth-field" style="display:none">
-                <label><i class="fas fa-user"></i> CALLSIGN (optional)</label>
-                <input type="text" id="auth-display-name" placeholder="OPERATOR" />
-            </div>
-            <button class="btn btn-primary" id="auth-submit-btn" onclick="handleAuthSubmit()"
-                style="width:100%;justify-content:center;margin-top:6px"><i class="fas fa-sign-in-alt"></i> <span
-                    id="auth-btn-text">LOGIN</span></button>
-            <div class="auth-separator">OR</div>
-            <button class="btn-google" onclick="handleGoogleAuth()"><svg width="16" height="16" viewBox="0 0 24 24">
-                    <path fill="#4285F4"
-                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                    <path fill="#34A853"
-                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                    <path fill="#FBBC05"
-                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                    <path fill="#EA4335"
-                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
-                </svg> Continue with Google</button>
-            <div style="text-align:center;margin-top:14px">
-                <button onclick="skipAuth()"
-                    style="background:none;border:none;color:var(--text3);cursor:pointer;font-family:var(--mono);font-size:.68rem;font-weight:700">Skip
-                    (local only) →</button>
-            </div>
-        </div>
-    </div>
-
     <div class="grid-bg"></div>
     <div class="scanline"></div>
     <div class="wrapper">
@@ -2245,10 +1992,8 @@
                         <div class="preset-btn active" onclick="setMain(45)">45m</div>
                         <div class="preset-btn" onclick="setMain(60)">60m</div>
                         <div class="preset-btn" onclick="setMain(90)">90m</div>
-                        <div class="preset-btn">
-                            <input type="number" id="deep-custom-minutes" placeholder="Custom" min="1">
-                            <button onclick="setMain('custom')"><i class="fas fa-check"></i></button>
-                        </div>
+                        <div class="preset-btn"><input type="number" id="deep-custom-minutes" placeholder="Custom"
+                                min="1"><button onclick="setMain('custom')"><i class="fas fa-check"></i></button></div>
                     </div>
                     <div class="mt-16"><input type="text" id="sess-task" placeholder="📋 Session directive" /></div>
                     <div class="timer-controls">
@@ -2412,7 +2157,7 @@
             </div>
         </div>
 
-        <!-- DEV TOOLS (JSON/XML/YAML tab REMOVED) -->
+        <!-- DEV TOOLS -->
         <div class="panel" id="panel-devtools">
             <div class="tool-tabs">
                 <button class="tool-tab active" onclick="switchToolTab('code',this)"><i class="fas fa-code"></i> CODE
@@ -2499,7 +2244,6 @@ for(let i=0; i<10; i++) {
                     </div>
                 </div>
             </div>
-
 
             <div class="tool-panel" id="datastructure-panel">
                 <div class="grid-2">
@@ -2788,14 +2532,14 @@ for(let i=0; i<10; i++) {
     <div id="toast"></div>
 
     <script>
-        // ===== SUPABASE INIT =====
+        // ===== SUPABASE CONFIGURATION =====
         const SUPABASE_URL = 'https://mryishzprrgpxauoccmr.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_mJPhITkITsUJL648DfbxaQ_dvUPMjz4';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
         let supabaseClient = null;
         let currentUser = null;
         let isSupabaseReady = false;
 
-        // ===== ACCESS CONTROL UTILITIES =====
+        // ===== AUTH PROTECTION =====
         async function getCurrentUser() {
             if (!supabaseClient) return null;
             try {
@@ -2810,7 +2554,11 @@ for(let i=0; i<10; i++) {
         async function checkPaidStatus(userId) {
             if (!supabaseClient || !userId) return false;
             try {
-                const { data, error } = await supabaseClient.from('profiles').select('is_paid,subscription_status').eq('id', userId).single();
+                const { data, error } = await supabaseClient
+                    .from('profiles')
+                    .select('is_paid, subscription_status')
+                    .eq('id', userId)
+                    .single();
                 if (error) {
                     console.warn('Payment check error:', error);
                     return false;
@@ -2822,101 +2570,55 @@ for(let i=0; i<10; i++) {
             }
         }
 
-        async function requireAuth() {
-            const user = await getCurrentUser();
-            if (!user) {
-                showToast('⚠ Authentication required');
-                showAuthOverlay();
-                return false;
-            }
-            return true;
-        }
-
-        async function requirePaidUser() {
+        async function protectDashboard() {
             if (!supabaseClient) {
-                console.log('ACCESS DENIED: Supabase not initialized');
+                console.log('Supabase not initialized, redirecting to login');
                 window.location.href = 'login.html';
                 return false;
             }
+
             const user = await getCurrentUser();
             if (!user) {
-                console.log('ACCESS DENIED: No authenticated user');
+                console.log('No authenticated user, redirecting to login');
                 window.location.href = 'login.html';
                 return false;
             }
-            const isPaid = await checkPaidStatus(user.id);
-            if (!isPaid) {
-                console.log('ACCESS DENIED: User not paid');
+
+            const hasPaid = await checkPaidStatus(user.id);
+            if (!hasPaid) {
+                console.log('User has no active subscription, redirecting to pricing');
                 window.location.href = 'index.html#pricing';
                 return false;
             }
+
             currentUser = user;
             return true;
         }
 
-        async function initSupabase() {
+        async function handleLogout() {
+            if (!supabaseClient) return;
             try {
-                if (!window.supabase || !window.supabase.createClient) {
-                    throw new Error('Supabase SDK not loaded. Check script URL.');
-                }
-                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-                isSupabaseReady = true;
-                const { data: { session } } = await supabaseClient.auth.getSession();
-                if (session) {
-                    const isPaid = await checkPaidStatus(session.user.id);
-                    if (isPaid) {
-                        currentUser = session.user;
-                        await onUserSignedIn(session.user);
-                        hideAuthOverlay();
-                    } else {
-                        console.log('ACCESS DENIED: User not paid');
-                        window.location.href = 'index.html#pricing';
-                        return;
-                    }
-                } else {
-                    showAuthOverlay();
-                }
-                supabaseClient.auth.onAuthStateChange(async (event, session) => {
-                    console.log('Auth state changed:', event, session?.user?.email);
-                    if (event === 'SIGNED_IN' && session) {
-                        try {
-                            const isPaid = await checkPaidStatus(session.user.id);
-                            if (!isPaid) {
-                                console.log('User not paid, signing out');
-                                await supabaseClient.auth.signOut();
-                                window.location.href = 'index.html#pricing';
-                                return;
-                            }
-                            console.log('User paid, loading dashboard');
-                            currentUser = session.user;
-                            await onUserSignedIn(session.user);
-                        } catch (e) {
-                            console.error('Error in auth listener:', e);
-                            let errEl = document.getElementById('auth-error');
-                            if (errEl) errEl.textContent = '⚠ Error: ' + e.message;
-                            await supabaseClient.auth.signOut();
-                        }
-                    } else if (event === 'SIGNED_OUT') {
-                        currentUser = null;
-                        updateHeaderUserArea(null);
-                        showAuthOverlay();
-                    }
-                });
+                await supabaseClient.auth.signOut();
+                showToast('✅ Logged out successfully');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 500);
             } catch (e) {
-                console.warn('Supabase init failed:', e);
-                isSupabaseReady = false;
-                showAuthOverlay();
+                console.error('Logout error:', e);
+                showToast('⚠ Logout failed');
             }
         }
 
-        async function onUserSignedIn(user) {
-            hideAuthOverlay();
-            // Load user's cloud data
-            await loadCloudData(user.id);
-            updateHeaderUserArea(user);
-            updateSyncStatus('synced');
-            showToast(`✅ Logged in as ${user.email}`);
-            renderAll(); updateXPBar();
+        function addLogoutButton() {
+            const headerActions = document.querySelector('.header-actions');
+            if (headerActions && !document.getElementById('logout-btn')) {
+                const logoutBtn = document.createElement('button');
+                logoutBtn.id = 'logout-btn';
+                logoutBtn.className = 'btn btn-ghost btn-sm';
+                logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> LOGOUT';
+                logoutBtn.onclick = handleLogout;
+                headerActions.appendChild(logoutBtn);
+            }
         }
 
         function updateHeaderUserArea(user) {
@@ -2925,17 +2627,98 @@ for(let i=0; i<10; i++) {
             if (user) {
                 let initials = (user.email || 'OP').substring(0, 2).toUpperCase();
                 let name = user.user_metadata?.full_name || user.user_metadata?.display_name || user.email?.split('@')[0] || 'OPERATOR';
-                el.innerHTML = `<div class="auth-status-bar"><div class="user-avatar" onclick="showUserMenu()" title="${user.email}">${initials}</div><button class="btn btn-ghost btn-sm" onclick="handleSignOut()"><i class="fas fa-sign-out-alt"></i></button></div>`;
+                el.innerHTML = `<div class="auth-status-bar"><div class="user-avatar" onclick="" title="${user.email}">${initials}</div></div>`;
                 document.getElementById('user-name').innerHTML = name.toUpperCase();
-                // Also update the state object with user's name
-                if (S.user) S.user.name = name.toUpperCase();
+                if (window.S && window.S.user) window.S.user.name = name.toUpperCase();
             } else {
-                el.innerHTML = `<button class="btn btn-ghost btn-sm" onclick="showAuthOverlay()"><i class="fas fa-sign-in-alt"></i> LOGIN</button>`;
+                el.innerHTML = ``;
+            }
+        }
+
+        // ===== SUPABASE INIT =====
+        async function initSupabase() {
+            try {
+                if (!window.supabase || !window.supabase.createClient) {
+                    throw new Error('Supabase SDK not loaded');
+                }
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                isSupabaseReady = true;
+
+                const isProtected = await protectDashboard();
+                if (!isProtected) return;
+
+                addLogoutButton();
+
+                if (currentUser) {
+                    updateHeaderUserArea(currentUser);
+                }
+
+                await loadCloudData(currentUser?.id);
+
+                supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                    if (event === 'SIGNED_OUT') {
+                        window.location.href = 'login.html';
+                    } else if (event === 'SIGNED_IN' && session) {
+                        const hasPaid = await checkPaidStatus(session.user.id);
+                        if (!hasPaid) {
+                            await supabaseClient.auth.signOut();
+                            window.location.href = 'index.html#pricing';
+                        } else {
+                            currentUser = session.user;
+                            window.location.reload();
+                        }
+                    }
+                });
+
+            } catch (e) {
+                console.warn('Supabase init failed:', e);
+                isSupabaseReady = false;
+                window.location.href = 'login.html';
+            }
+        }
+
+        async function loadCloudData(userId) {
+            if (!isSupabaseReady || !supabaseClient || !userId) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('operator_data')
+                    .select('data')
+                    .eq('user_id', userId)
+                    .single();
+                if (data && data.data) {
+                    let cloudData = typeof data.data === 'string' ? JSON.parse(data.data) : data.data;
+                    if (window.S) {
+                        window.S = {
+                            ...window.S, ...cloudData,
+                            user: { ...window.S.user, ...(cloudData.user || {}) },
+                            analytics: { ...window.S.analytics, ...(cloudData.analytics || {}) }
+                        };
+                        if (window.ensureArrays) window.ensureArrays();
+                        if (!window.S.analytics.daily) window.S.analytics.daily = {};
+                        const todayKey = new Date().toISOString().split('T')[0];
+                        if (!window.S.analytics.daily[todayKey]) window.S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
+                    }
+                }
+            } catch (e) {
+                console.warn('Cloud load failed:', e);
+            }
+        }
+
+        async function saveCloudData() {
+            if (!isSupabaseReady || !supabaseClient || !currentUser || !window.S) return;
+            try {
+                updateSyncStatus('syncing');
+                const { error } = await supabaseClient
+                    .from('operator_data')
+                    .upsert({ user_id: currentUser.id, data: JSON.stringify(window.S), updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+                if (!error) updateSyncStatus('synced');
+            } catch (e) {
+                console.warn('Cloud save failed:', e);
             }
         }
 
         function updateSyncStatus(status) {
-            let el = document.getElementById('sync-status');
+            const el = document.getElementById('sync-status');
             if (!el) return;
             if (currentUser) {
                 el.style.display = 'flex';
@@ -2949,157 +2732,6 @@ for(let i=0; i<10; i++) {
             } else {
                 el.style.display = 'none';
             }
-        }
-
-        async function loadCloudData(userId) {
-            if (!isSupabaseReady || !supabaseClient) return;
-            try {
-                const { data, error } = await supabaseClient
-                    .from('operator_data')
-                    .select('data')
-                    .eq('user_id', userId)
-                    .single();
-                if (data && data.data) {
-                    let cloudData = typeof data.data === 'string' ? JSON.parse(data.data) : data.data;
-                    S = {
-                        ...S, ...cloudData,
-                        user: { ...S.user, ...(cloudData.user || {}) },
-                        analytics: { ...S.analytics, ...(cloudData.analytics || {}) }
-                    };
-                    ensureArrays();
-                    if (!S.analytics.daily) S.analytics.daily = {};
-                    if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
-                }
-            } catch (e) {
-                console.warn('Cloud load failed:', e);
-            }
-        }
-
-        async function saveCloudData() {
-            if (!isSupabaseReady || !supabaseClient || !currentUser) return;
-            try {
-                updateSyncStatus('syncing');
-                const { error } = await supabaseClient
-                    .from('operator_data')
-                    .upsert({ user_id: currentUser.id, data: JSON.stringify(S), updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
-                if (!error) updateSyncStatus('synced');
-            } catch (e) {
-                console.warn('Cloud save failed:', e);
-            }
-        }
-
-        // ===== AUTH FUNCTIONS =====
-        let authMode = 'login';
-
-        function switchAuthTab(mode) {
-            authMode = mode;
-            document.getElementById('auth-tab-login').classList.toggle('active', mode === 'login');
-            document.getElementById('auth-tab-signup').classList.toggle('active', mode === 'signup');
-            document.getElementById('auth-btn-text').textContent = mode === 'login' ? 'LOGIN' : 'SIGN UP';
-            document.getElementById('auth-name-field').style.display = mode === 'signup' ? 'block' : 'none';
-            document.getElementById('auth-error').textContent = '';
-        }
-
-        async function handleAuthSubmit() {
-            console.log('handleAuthSubmit called');
-            let email = document.getElementById('auth-email').value.trim();
-            let password = document.getElementById('auth-password').value;
-            let errEl = document.getElementById('auth-error');
-            let btn = document.getElementById('auth-submit-btn');
-
-            console.log('Email:', email, 'Password length:', password.length, 'Error element:', !!errEl, 'Button:', !!btn);
-
-            if (!email || !password) {
-                console.log('Missing email or password');
-                errEl.textContent = '⚠ Email and password required';
-                return;
-            }
-
-            if (!supabaseClient || !isSupabaseReady) {
-                console.log('Supabase not ready:', { supabaseClient: !!supabaseClient, isSupabaseReady });
-                errEl.textContent = '⚠ Auth service not ready. Trying again in 2 seconds...';
-                setTimeout(() => handleAuthSubmit(), 2000);
-                return;
-            }
-
-            console.log('Attempting login with:', email);
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            errEl.textContent = '';
-
-            try {
-                let result;
-                if (authMode === 'login') {
-                    console.log('Signing in with password');
-                    result = await supabaseClient.auth.signInWithPassword({ email, password });
-                } else {
-                    console.log('Signing up');
-                    let displayName = document.getElementById('auth-display-name').value.trim() || 'OPERATOR';
-                    result = await supabaseClient.auth.signUp({ email, password, options: { data: { display_name: displayName } } });
-                    if (!result.error && result.data.user && !result.data.session) {
-                        errEl.style.color = 'var(--green)';
-                        errEl.textContent = '✅ Check your email to confirm your account!';
-                        btn.disabled = false;
-                        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> <span>LOGIN</span>';
-                        return;
-                    }
-                }
-
-                console.log('Auth result:', { error: !!result.error, hasUser: !!result.data?.user });
-
-                if (result.error) {
-                    console.error('Auth error:', result.error);
-                    errEl.style.color = 'var(--red)';
-                    errEl.textContent = '⚠ ' + result.error.message;
-                    btn.disabled = false;
-                    btn.innerHTML = `<i class="fas fa-sign-in-alt"></i> <span id="auth-btn-text">${authMode === 'login' ? 'LOGIN' : 'SIGN UP'}</span>`;
-                } else {
-                    // Success - show success message and wait for auth listener to redirect
-                    console.log('Login successful, waiting for redirect');
-                    errEl.style.color = 'var(--green)';
-                    errEl.textContent = '✅ Login successful. Verifying access...';
-                    // Button stays disabled and processing because onAuthStateChange will handle redirect
-                    // If no redirect happens within 5 seconds, re-enable button
-                    setTimeout(() => {
-                        if (currentUser) return; // User already signed in
-                        console.warn('Verification timeout - user not signed in');
-                        btn.disabled = false;
-                        btn.innerHTML = `<i class="fas fa-sign-in-alt"></i> <span id="auth-btn-text">${authMode === 'login' ? 'LOGIN' : 'SIGN UP'}</span>`;
-                        errEl.style.color = 'var(--red)';
-                        errEl.textContent = '⚠ Verification timeout. Please try again.';
-                    }, 5000);
-                }
-            } catch (e) {
-                console.error('Auth exception:', e);
-                errEl.textContent = '⚠ ' + (e.message || 'Connection error. Try again.');
-                btn.disabled = false;
-                btn.innerHTML = `<i class="fas fa-sign-in-alt"></i> <span id="auth-btn-text">${authMode === 'login' ? 'LOGIN' : 'SIGN UP'}</span>`;
-            }
-        }
-
-        async function handleGoogleAuth() {
-            if (!isSupabaseReady || !supabaseClient) { showToast('Auth not available'); return; }
-            try {
-                await supabaseClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.href } });
-            } catch (e) { showToast('Google auth failed'); }
-        }
-
-        async function handleSignOut() {
-            if (supabaseClient) await supabaseClient.auth.signOut();
-            currentUser = null;
-            updateHeaderUserArea(null);
-            showToast('Signed out');
-            showAuthOverlay();
-        }
-
-        function showAuthOverlay() { document.getElementById('auth-overlay').classList.remove('hidden'); }
-        function hideAuthOverlay() { document.getElementById('auth-overlay').classList.add('hidden'); }
-
-        function skipAuth() {
-            hideAuthOverlay();
-            currentUser = null;
-            updateHeaderUserArea(null);
-            showToast('Running in local mode');
         }
 
         // ===== CORE DATA =====
@@ -3127,7 +2759,6 @@ for(let i=0; i<10; i++) {
         function save() {
             try {
                 localStorage.setItem('storm_os_v5', JSON.stringify(S));
-                // Debounced cloud save
                 clearTimeout(save._timer);
                 save._timer = setTimeout(() => saveCloudData(), 2000);
             } catch (e) { console.warn('Save failed', e); }
@@ -3148,13 +2779,10 @@ for(let i=0; i<10; i++) {
 
         if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
 
-        // Restore language preference
         (function () {
             let savedLang = localStorage.getItem('selected_language') || 'javascript';
             let langSelect = document.getElementById('playground-language');
-            if (langSelect) {
-                langSelect.value = savedLang;
-            }
+            if (langSelect) langSelect.value = savedLang;
         })();
 
         function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
@@ -3190,7 +2818,6 @@ for(let i=0; i<10; i++) {
         }
         function closeLevelModal() { document.getElementById('level-modal').classList.remove('open'); }
 
-        // Timer Functions
         function setMiniPresetActive(mins) {
             document.querySelectorAll('#mini-presets .preset-btn').forEach((btn, i) => { const l = [15, 25, 45, 60, 90]; if (l[i] === mins) btn.classList.add('active'); else btn.classList.remove('active'); });
         }
@@ -3370,7 +2997,7 @@ for(let i=0; i<10; i++) {
         }
         function buildContrib() {
             let cells = []; for (let i = 89; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); let k = d.toISOString().split('T')[0], s = getDayStats(k), act = s.min + s.tasks * 20, l = ''; if (act > 0) l = 'l1'; if (act >= 60) l = 'l2'; if (act >= 120) l = 'l3'; if (act >= 240) l = 'l4'; cells.push(`<div class="contrib-cell ${l}" title="${k}: ${s.min}m"></div>`); }
-            let weeks = []; for (let i = 0; i < cells.length; i += 7)weeks.push(`<div class="contrib-week">${cells.slice(i, i + 7).join('')}</div>`);
+            let weeks = []; for (let i = 0; i < cells.length; i += 7) weeks.push(`<div class="contrib-week">${cells.slice(i, i + 7).join('')}</div>`);
             let cg = document.getElementById('contrib-graph'); if (cg) cg.innerHTML = weeks.join('');
         }
         function updateStreak() {
@@ -3408,50 +3035,28 @@ for(let i=0; i<10; i++) {
             let doneTasks = allTasks.filter(t => t.done);
             let taskRate = allTasks.length > 0 ? (doneTasks.length / allTasks.length) * 100 : 0;
 
-            // Score components (0-100 each)
-            // Sessions: 1 sess=25pts, 2=50, 3=75, 4+=100
             let sessScore = Math.min(todaySess * 25, 100);
-
-            // Distraction: 0 dist=100, each dist -15pts
             let distScore = Math.max(0, 100 - (todayDist * 15));
-
-            // Consistency (streak): 0d=0, 7d=100
             let consScore = Math.min(streak / 7 * 100, 100);
-
-            // Task completion
             let taskScore = taskRate;
-
-            // Streak bonus: 7+ days streak
             let streakBonus = streak >= 7 ? 100 : (streak / 7 * 100);
 
-            // Weighted total
             let total = Math.round(
-                sessScore * 0.30 +
-                distScore * 0.25 +
-                consScore * 0.25 +
-                taskScore * 0.15 +
-                streakBonus * 0.05
+                sessScore * 0.30 + distScore * 0.25 + consScore * 0.25 + taskScore * 0.15 + streakBonus * 0.05
             );
             total = Math.min(100, Math.max(0, total));
 
-            // Animate circle
             let circumference = 238.76;
             let offset = circumference - (total / 100) * circumference;
             let circle = document.getElementById('fs-circle');
-            if (circle) { circle.style.strokeDashoffset = offset; }
+            if (circle) circle.style.strokeDashoffset = offset;
 
-            // Update number
             let numEl = document.getElementById('fs-score-num');
-            if (numEl) {
-                let start = parseInt(numEl.textContent) || 0, end = total, step = (end - start) / 30, current = start;
-                let anim = setInterval(() => { current += step; if ((step > 0 && current >= end) || (step < 0 && current <= end)) { current = end; clearInterval(anim); } numEl.textContent = Math.round(current); }, 30);
-            }
+            if (numEl) numEl.textContent = total;
 
-            // Color the score
             let color = total >= 90 ? '#ffd700' : total >= 75 ? 'var(--green)' : total >= 60 ? 'var(--cyan)' : total >= 40 ? 'var(--amber)' : 'var(--red)';
             if (numEl) numEl.style.color = color;
 
-            // Grade
             let grade, gradeClass, verdict;
             if (total >= 90) { grade = 'S'; gradeClass = 'grade-s'; verdict = '🏆 ELITE OPERATOR — Exceptional focus discipline. You are in peak performance mode. Keep it up!'; }
             else if (total >= 75) { grade = 'A'; gradeClass = 'grade-a'; verdict = '✅ HIGH PERFORMER — Strong execution. Minor improvements in consistency could push you to S-rank.'; }
@@ -3465,7 +3070,6 @@ for(let i=0; i<10; i++) {
             let verdictEl = document.getElementById('fs-verdict');
             if (verdictEl) verdictEl.textContent = `// ${verdict}`;
 
-            // Update bars with animation
             setTimeout(() => {
                 let sb = document.getElementById('fs-sessions-bar'); if (sb) sb.style.width = sessScore + '%';
                 let sv = document.getElementById('fs-sessions-val'); if (sv) sv.textContent = todaySess + ' today';
@@ -3479,14 +3083,10 @@ for(let i=0; i<10; i++) {
                 let stv = document.getElementById('fs-streak-val'); if (stv) stv.textContent = streak + 'd';
             }, 100);
 
-            // Score history chart
             renderFocusScoreHistory(total);
-
-            // Save today's score
             if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
             S.analytics.daily[todayKey].focusScore = total;
             save();
-
             showToast(`Focus Score: ${total}/100 (${grade})`);
             addXP(5);
         }
@@ -3500,7 +3100,6 @@ for(let i=0; i<10; i++) {
                 if (i === 0 && todayScore !== undefined) score = todayScore;
                 days.push({ lbl: DAYS[d.getDay()], score, k });
             }
-            let maxS = Math.max(...days.map(d => d.score), 1);
             let hist = document.getElementById('fs-history');
             let lbls = document.getElementById('fs-history-labels');
             if (hist) hist.innerHTML = days.map(d => {
@@ -3530,7 +3129,7 @@ for(let i=0; i<10; i++) {
             let qe = document.getElementById('quote-of-day'); if (qe) qe.innerHTML = `<i class="fas fa-quote-left"></i> ${q[Math.floor(Math.random() * q.length)]}`;
         }
 
-        // Dev Tools - Language Templates
+        // Dev Tools
         const LANGUAGE_TEMPLATES = {
             javascript: 'console.log("test");',
             python: 'print("test")',
@@ -3551,7 +3150,6 @@ for(let i=0; i<10; i++) {
             let textarea = document.getElementById('playground-code');
             let template = LANGUAGE_TEMPLATES[lang] || LANGUAGE_TEMPLATES['javascript'];
             textarea.value = template;
-            // Save language preference
             localStorage.setItem('selected_language', lang);
             showToast(`Switched to ${lang.toUpperCase()}`);
         }
@@ -3577,7 +3175,6 @@ for(let i=0; i<10; i++) {
                 output.innerHTML = `<span style="color:var(--green)">✓ Python execution requires backend. Use: python script.py</span>`;
                 addXP(1);
             } else if (lang === 'html') {
-                // Open HTML in new window/iframe
                 try {
                     let iframeWin = window.open('');
                     iframeWin.document.write(code);
@@ -3588,7 +3185,6 @@ for(let i=0; i<10; i++) {
                     output.innerHTML = `<span style="color:var(--red)">Error: ${e.message}</span>`;
                 }
             } else {
-                // For other languages, show syntax reference
                 let langGuide = {
                     'java': 'Compile: javac Main.java\\nRun: java Main',
                     'cpp': 'Compile: g++ main.cpp -o main\\nRun: ./main',
@@ -3643,6 +3239,7 @@ for(let i=0; i<10; i++) {
         function clearData() { if (confirm('⚠️ RESET ALL DATA?')) { localStorage.clear(); location.reload(); } }
         function renderAll() { renderTasks(); renderHabits(); renderWeekBars(); renderGoals(); renderJournal(); renderWins(); renderSessLog(); renderAnalytics(); renderDayBreak(); updateStreak(); renderEnergyButtons(); renderDistractions(); buildContrib(); renderPeakHours(); renderProductivityMetrics(); }
 
+        // ===== BOOT =====
         async function boot() {
             try {
                 if (!S.analytics.daily) S.analytics.daily = {};
@@ -3651,15 +3248,17 @@ for(let i=0; i<10; i++) {
                 if (!S.energy) S.energy = {}; if (!S.user.xp) S.user.xp = 0; if (!S.user.level) S.user.level = 1;
 
                 let userNameEl = document.getElementById('user-name');
-                if (userNameEl) userNameEl.innerHTML = (S.user.name || 'OPERATOR').toUpperCase();
+                if (userNameEl && currentUser) {
+                    let name = currentUser.user_metadata?.full_name || currentUser.user_metadata?.display_name || currentUser.email?.split('@')[0] || 'OPERATOR';
+                    userNameEl.innerHTML = name.toUpperCase();
+                    if (S.user) S.user.name = name.toUpperCase();
+                } else if (userNameEl) {
+                    userNameEl.innerHTML = (S.user.name || 'OPERATOR').toUpperCase();
+                }
 
                 miniTotal = miniSecs = (S.user.focus || 45) * 60; mainTotal = mainSecs = (S.user.focus || 45) * 60;
-
-                let timerMini = document.getElementById('timer-mini');
-                if (timerMini) timerMini.textContent = fmt(miniSecs);
-
-                let mainTimer = document.getElementById('main-timer');
-                if (mainTimer) mainTimer.textContent = fmt(mainSecs);
+                let timerMini = document.getElementById('timer-mini'); if (timerMini) timerMini.textContent = fmt(miniSecs);
+                let mainTimer = document.getElementById('main-timer'); if (mainTimer) mainTimer.textContent = fmt(mainSecs);
 
                 try { renderAll(); } catch (e) { console.warn('renderAll failed:', e); }
                 try { updateXPBar(); } catch (e) { console.warn('updateXPBar failed:', e); }
@@ -3673,20 +3272,24 @@ for(let i=0; i<10; i++) {
                 }, 1000);
 
                 try { renderSnippets(); } catch (e) { console.warn('renderSnippets failed:', e); }
-
-                // Init Supabase auth - AWAIT this to ensure it completes before user can interact
-                await initSupabase();
-                updateHeaderUserArea(null);
-
                 try { renderFocusScoreHistory(); } catch (e) { console.warn('renderFocusScoreHistory failed:', e); }
             } catch (e) {
                 console.error('boot() error:', e);
-                showAuthOverlay();
             }
         }
-        boot();
+
+        // Start with auth protection first, then boot dashboard
+        async function startDashboard() {
+            await initSupabase();
+            if (currentUser) {
+                await boot();
+            }
+        }
+
+        startDashboard();
         setInterval(checkAndReset, 60000);
 
+        // Keyboard shortcuts
         document.addEventListener('keydown', e => {
             let inInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName);
             if (e.code === 'Escape') closeShortcuts();
@@ -3700,13 +3303,6 @@ for(let i=0; i<10; i++) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); document.getElementById('task-input').focus(); }
             if (e.altKey && e.key === 'd') { e.preventDefault(); logDistraction(); }
             if (e.altKey && e.key === 'e') { e.preventDefault(); exportData(); }
-        });
-
-        // Enter key on auth
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Enter' && document.getElementById('auth-overlay') && !document.getElementById('auth-overlay').classList.contains('hidden')) {
-                handleAuthSubmit();
-            }
         });
     </script>
 </body>
