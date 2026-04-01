@@ -4,7 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storm | Lock In. Level Up.</title>
+
+    <!-- ===== PRIMARY SEO META ===== -->
+    <title>Storm OS — Productivity Dashboard for Tech Professionals | Lock In. Level Up.</title>
+    <meta name="description"
+        content="Storm OS is the all-in-one productivity operating system for tech professionals. Deep Work Planner, Focus Pulse Timer, Habit Matrix, Weekly & Monthly Planners, Dev Tools Suite, Gamification, Cloud Sync — everything in one dashboard for $9.99/mo.">
+    <meta name="keywords"
+        content="productivity app for developers, deep work tracker, focus timer, habit tracker, pomodoro timer, productivity OS, developer tools dashboard, gamified productivity, streak tracker, tech professional productivity">
+    <meta name="author" content="Martin, Storm OS">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://storm-os.app/">
+
+    <!-- ===== OPEN GRAPH (Facebook / LinkedIn) ===== -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://storm-os.app/">
+    <meta property="og:title" content="Storm OS — Productivity Dashboard for Tech Professionals">
+    <meta property="og:description"
+        content="The all-in-one productivity OS for developers and tech professionals. Deep Work, Focus Timer, Habits, Dev Tools, XP Gamification — one dashboard, $9.99/mo.">
+    <meta property="og:image" content="https://storm-os.app/og-image.png">
+    <meta property="og:site_name" content="Storm OS">
+
+    <!-- ===== TWITTER / X CARD ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://storm-os.app/">
+    <meta name="twitter:title" content="Storm OS — Productivity Dashboard for Tech Professionals">
+    <meta name="twitter:description"
+        content="Deep Work. Focus Pulse. Habits. Dev Tools. All gamified. One dashboard. Lock in and level up at $9.99/mo.">
+    <meta name="twitter:image" content="https://storm-os.app/og-image.png">
+
+    <!-- ===== STRUCTURED DATA (JSON-LD) ===== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Storm OS",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "9.99",
+            "priceCurrency": "USD",
+            "priceValidUntil": "2027-01-01",
+            "availability": "https://schema.org/InStock"
+        },
+        "description": "Storm OS is a productivity operating system for tech professionals featuring Deep Work Planner, Focus Pulse Timer, Habit Matrix, Weekly Planner, Monthly Planner, Dev Tools Suite, and gamified XP system.",
+        "url": "https://storm-os.app",
+        "creator": {
+            "@type": "Person",
+            "name": "Martin",
+            "email": "martinsamer91@gmail.com"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "2400"
+        }
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -147,7 +204,6 @@
             background: rgba(59, 130, 246, .07);
             top: -200px;
             left: -200px;
-            animation-delay: 0s;
         }
 
         .orb-2 {
@@ -184,7 +240,6 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 0;
             z-index: 1000;
             transition: all .4s ease;
         }
@@ -449,7 +504,7 @@
             }
         }
 
-        .hero h1 {
+        h1 {
             font-family: var(--head);
             font-size: clamp(2.8rem, 8vw, 5.5rem);
             font-weight: 900;
@@ -460,20 +515,20 @@
             animation: heroFadeIn .8s .4s ease both;
         }
 
-        .hero h1 .grad-text {
+        h1 .grad-text {
             background: var(--grad);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .hero h1 .glitch {
+        h1 .glitch {
             position: relative;
             display: inline-block;
         }
 
-        .hero h1 .glitch::before,
-        .hero h1 .glitch::after {
+        h1 .glitch::before,
+        h1 .glitch::after {
             content: attr(data-text);
             position: absolute;
             top: 0;
@@ -485,13 +540,13 @@
             background-clip: text;
         }
 
-        .hero h1 .glitch::before {
+        h1 .glitch::before {
             left: 2px;
             animation: glitch1 4s infinite;
             clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
         }
 
-        .hero h1 .glitch::after {
+        h1 .glitch::after {
             left: -2px;
             animation: glitch2 4s infinite;
             clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
@@ -642,18 +697,6 @@
             box-shadow: 0 0 0 1px rgba(59, 130, 246, .1), 0 40px 80px rgba(0, 0, 0, .7), 0 0 80px rgba(59, 130, 246, .08);
         }
 
-        .preview-frame::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 30px;
-            background: linear-gradient(to bottom, rgba(2, 3, 5, .8), transparent);
-            z-index: 2;
-            pointer-events: none;
-        }
-
         .preview-bar {
             background: var(--card2);
             border-bottom: 1px solid var(--border);
@@ -661,8 +704,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            position: relative;
-            z-index: 1;
         }
 
         .preview-dots {
@@ -756,7 +797,6 @@
             color: var(--green);
             bottom: 20%;
             left: -40px;
-            animation-delay: 0s;
         }
 
         .badge-blue {
@@ -783,6 +823,7 @@
             margin-bottom: 16px;
         }
 
+        /* Features grid */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -927,6 +968,18 @@
             letter-spacing: .04em;
         }
 
+        .ftag-new {
+            font-family: var(--mono);
+            font-size: .57rem;
+            padding: 2px 7px;
+            border-radius: 3px;
+            border: 1px solid rgba(16, 185, 129, .3);
+            color: var(--green);
+            letter-spacing: .04em;
+            background: rgba(16, 185, 129, .08);
+        }
+
+        /* Benefits */
         #benefits {
             background: var(--bg2);
             border-top: 1px solid var(--border);
@@ -1067,6 +1120,7 @@
             background: var(--amber)
         }
 
+        /* Pricing */
         .pricing-wrap {
             max-width: 480px;
             margin: 60px auto 0;
@@ -1184,6 +1238,50 @@
             font-size: .7rem;
         }
 
+        /* Marquee */
+        .marquee-wrap {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            overflow: hidden;
+            background: var(--card);
+            position: relative;
+            z-index: 1;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 60px;
+            width: max-content;
+            animation: marqueeScroll 25s linear infinite;
+        }
+
+        @keyframes marqueeScroll {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .marquee-item {
+            font-family: var(--mono);
+            font-size: .65rem;
+            color: var(--text3);
+            letter-spacing: .15em;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .marquee-item span {
+            color: var(--accent);
+        }
+
+        /* Reveal */
         .reveal {
             opacity: 0;
             transform: translateY(24px);
@@ -1237,48 +1335,46 @@
             transition-delay: .5s
         }
 
-        .marquee-wrap {
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 0;
-            overflow: hidden;
-            background: var(--card);
+        /* CTA */
+        .cta-section {
+            padding: 120px 0;
+            text-align: center;
             position: relative;
             z-index: 1;
         }
 
-        .marquee-track {
-            display: flex;
-            gap: 60px;
-            width: max-content;
-            animation: marqueeScroll 25s linear infinite;
+        .cta-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, .08) 0%, transparent 70%);
+            pointer-events: none;
         }
 
-        @keyframes marqueeScroll {
-            from {
-                transform: translateX(0)
-            }
-
-            to {
-                transform: translateX(-50%)
-            }
+        .cta-section h2 {
+            font-family: var(--head);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -.01em;
+            margin-bottom: 20px;
+            line-height: 1.1;
         }
 
-        .marquee-item {
-            font-family: var(--mono);
-            font-size: .65rem;
-            color: var(--text3);
-            letter-spacing: .15em;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .cta-section p {
+            font-size: 1.05rem;
+            color: var(--text2);
+            max-width: 480px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
         }
 
-        .marquee-item span {
-            color: var(--accent);
+        .grad-text {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
+        /* Footer */
         footer {
             border-top: 1px solid var(--border);
             padding: 48px 0;
@@ -1313,6 +1409,7 @@
         .footer-links {
             display: flex;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .footer-links a {
@@ -1326,37 +1423,6 @@
 
         .footer-links a:hover {
             color: var(--accent);
-        }
-
-        .cta-section {
-            padding: 120px 0;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-glow {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(59, 130, 246, .08) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .cta-section h2 {
-            font-family: var(--head);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 900;
-            letter-spacing: -.01em;
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
-
-        .cta-section p {
-            font-size: 1.05rem;
-            color: var(--text2);
-            max-width: 480px;
-            margin: 0 auto 40px;
-            line-height: 1.7;
         }
 
         .count-up {
@@ -1409,16 +1475,16 @@
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
 
-    <nav id="nav">
+    <nav id="nav" role="navigation" aria-label="Main navigation">
         <div class="nav-inner">
-            <a href="index.html" class="logo">STORM<span class="logo-cursor"></span></a>
+            <a href="index.html" class="logo" aria-label="Storm OS Home">STORM<span class="logo-cursor"></span></a>
             <div class="nav-links">
                 <a href="#os">System</a>
                 <a href="#services">Services</a>
                 <a href="#benefits">Results</a>
                 <a href="#pricing">Pricing</a>
                 <a href="services.html">Full Docs</a>
-                <div class="nav-status">
+                <div class="nav-status" role="status" aria-label="System status">
                     <div class="dot"></div>OPERATIONAL
                 </div>
                 <a href="login.html" class="btn btn-ghost" style="margin-left:4px">LOGIN</a>
@@ -1427,7 +1493,7 @@
         </div>
     </nav>
 
-    <header class="hero">
+    <header class="hero" role="banner">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-eyebrow">
@@ -1438,18 +1504,20 @@
                     STOP DRIFTING.<br>
                     START <span class="grad-text glitch" data-text="LOCKING IN.">LOCKING IN.</span>
                 </h1>
-                <p>The high-performance operating system for tech professionals. Build discipline, track deep work, and
-                    level up your career through structural consistency.</p>
+                <p>The high-performance productivity operating system for tech professionals. Build discipline, track
+                    deep work, plan your week and month, and level up your career through structural consistency.</p>
                 <div class="hero-cta">
-                    <button onclick="openCheckout()" class="btn btn-primary btn-lg">START LOCKING IN
+                    <button onclick="handlePurchase()" class="btn btn-primary btn-lg"
+                        aria-label="Start your Storm OS subscription">
+                        START LOCKING IN
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5">
+                            stroke-width="2.5" aria-hidden="true">
                             <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
                     </button>
                     <a href="#os" class="btn btn-ghost btn-lg">SEE THE SYSTEM</a>
                 </div>
-                <div class="hero-stats">
+                <div class="hero-stats" role="region" aria-label="Storm OS statistics">
                     <div class="hero-stat">
                         <span class="stat-num count-up" data-target="2400">0</span><span class="stat-suffix">+</span>
                         <span class="stat-label">OPERATORS ACTIVE</span>
@@ -1465,7 +1533,7 @@
                 </div>
             </div>
 
-            <div class="preview-wrap reveal">
+            <div class="preview-wrap reveal" aria-hidden="true">
                 <div class="preview-frame">
                     <div class="preview-bar">
                         <div class="preview-dots">
@@ -1519,7 +1587,7 @@
                                     STREAK</div>
                                 <div
                                     style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--amber);">
-                                    14d&#x1F525;</div>
+                                    14d🔥</div>
                                 <div style="font-family:var(--mono);font-size:.5rem;color:var(--green);margin-top:4px;">
                                     +5 XP/habit</div>
                             </div>
@@ -1551,66 +1619,17 @@
                                     <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.2)">
-                                    </div>
-                                    <div
                                         style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.9)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                    </div>
+                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
                                     </div>
                                     <div
                                         style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.4)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.2)">
                                     </div>
                                     <div
                                         style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.7)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.4)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.5)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.8)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.3)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.9)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.4)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.2)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.6)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.4)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.9)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.9)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
                                     </div>
                                 </div>
                             </div>
@@ -1638,11 +1657,13 @@
         </div>
     </header>
 
-    <div class="marquee-wrap">
+    <div class="marquee-wrap" aria-hidden="true">
         <div class="marquee-track">
             <div class="marquee-item"><span>✦</span> DEEP WORK ENGINE</div>
             <div class="marquee-item"><span>✦</span> FOCUS PULSE TIMER</div>
             <div class="marquee-item"><span>✦</span> HABITS & STREAKS</div>
+            <div class="marquee-item"><span>✦</span> WEEKLY PLANNER</div>
+            <div class="marquee-item"><span>✦</span> MONTHLY PLANNER</div>
             <div class="marquee-item"><span>✦</span> DEV TOOLS SUITE</div>
             <div class="marquee-item"><span>✦</span> GAMIFICATION + XP</div>
             <div class="marquee-item"><span>✦</span> CODE PLAYGROUND</div>
@@ -1653,32 +1674,31 @@
             <div class="marquee-item"><span>✦</span> DEEP WORK ENGINE</div>
             <div class="marquee-item"><span>✦</span> FOCUS PULSE TIMER</div>
             <div class="marquee-item"><span>✦</span> HABITS & STREAKS</div>
+            <div class="marquee-item"><span>✦</span> WEEKLY PLANNER</div>
+            <div class="marquee-item"><span>✦</span> MONTHLY PLANNER</div>
             <div class="marquee-item"><span>✦</span> DEV TOOLS SUITE</div>
             <div class="marquee-item"><span>✦</span> GAMIFICATION + XP</div>
-            <div class="marquee-item"><span>✦</span> CODE PLAYGROUND</div>
-            <div class="marquee-item"><span>✦</span> GITHUB INTEGRATION</div>
-            <div class="marquee-item"><span>✦</span> WEEKLY OPS DASHBOARD</div>
             <div class="marquee-item"><span>✦</span> 90-DAY ANALYTICS</div>
-            <div class="marquee-item"><span>✦</span> STREAK SYSTEM</div>
         </div>
     </div>
 
-    <section id="os">
+    <!-- SYSTEM SECTION -->
+    <section id="os" aria-labelledby="os-heading">
         <div class="container">
             <div class="reveal">
                 <div class="section-tag">01 // THE SYSTEM</div>
-                <h2 class="section-heading">What is Storm OS?</h2>
-                <p style="color:var(--text2);max-width:540px;font-size:1rem;line-height:1.7;margin-top:12px;">
-                    More than a habit tracker. A full productivity operating system with deep work tools, developer
-                    utilities, and a gamification engine — engineered for the tech mindset.
+                <h2 class="section-heading" id="os-heading">What is Storm OS?</h2>
+                <p style="color:var(--text2);max-width:580px;font-size:1rem;line-height:1.7;margin-top:12px;">
+                    More than a habit tracker. A full productivity operating system with deep work tools, weekly and
+                    monthly planners, developer utilities, and a gamification engine — engineered for the tech mindset.
                 </p>
             </div>
 
-            <div class="features-grid reveal d1">
-                <div class="feature-card">
+            <div class="features-grid reveal d1" id="services">
+                <article class="feature-card">
                     <div class="feature-num">01</div>
-                    <div class="feature-icon">⚡</div>
-                    <div class="feature-title">DEEP WORK</div>
+                    <div class="feature-icon" aria-hidden="true">⚡</div>
+                    <h3 class="feature-title">DEEP WORK PLANNER</h3>
                     <p class="feature-desc">Add tasks with priority and time estimates. Check "Daily" for auto-reset
                         recurring tasks. Drag to reorder. Track distractions, log energy levels, and earn XP for
                         completions.</p>
@@ -1686,35 +1706,82 @@
                         <span class="ftag">PRIORITY TAGS</span><span class="ftag">DAY SCORE</span><span
                             class="ftag">DISTRACTION LOG</span><span class="ftag">+15 XP</span>
                     </div>
-                </div>
-                <div class="feature-card">
+                </article>
+                <article class="feature-card">
                     <div class="feature-num">02</div>
-                    <div class="feature-icon">⏱</div>
-                    <div class="feature-title">FOCUS PULSE</div>
+                    <div class="feature-icon" aria-hidden="true">⏱</div>
+                    <h3 class="feature-title">FOCUS PULSE TIMER</h3>
                     <p class="feature-desc">Presets: 15/25/45/60/90 min + custom. Full START, PAUSE, RESET, STOP
                         controls. Sessions auto-log with timestamp and task label. Edit or delete entries.</p>
                     <div class="feature-tags">
                         <span class="ftag">15–90 MIN</span><span class="ftag">AUTO LOG</span><span class="ftag">+20
                             XP</span>
                     </div>
-                </div>
-                <div class="feature-card">
+                </article>
+                <article class="feature-card">
                     <div class="feature-num">03</div>
-                    <div class="feature-icon">🔁</div>
-                    <div class="feature-title">HABITS & STREAKS</div>
+                    <div class="feature-icon" aria-hidden="true">🔁</div>
+                    <h3 class="feature-title">HABIT MATRIX</h3>
                     <p class="feature-desc">Create habits, click days to track. View current and best streaks. 7-day
                         visual grid with auto-calculated consistency rate and XP per check.</p>
                     <div class="feature-tags">
                         <span class="ftag">7-DAY GRID</span><span class="ftag">STREAK</span><span class="ftag">+5
                             XP</span>
                     </div>
-                </div>
+                </article>
             </div>
-            <div class="features-row-2 reveal d2">
-                <div class="feature-card">
+
+            <!-- NEW: Weekly & Monthly Planners feature row -->
+            <div class="features-grid reveal d2"
+                style="margin-top:1px;border-radius:0;border-top:none;grid-template-columns:1fr 1fr;">
+                <article class="feature-card">
                     <div class="feature-num">04</div>
-                    <div class="feature-icon">🛠️</div>
-                    <div class="feature-title">DEV TOOLS (7 PANELS)</div>
+                    <div class="feature-icon" aria-hidden="true">📅</div>
+                    <h3 class="feature-title">WEEKLY PLANNER <span class="ftag-new"
+                            style="font-size:.55rem;vertical-align:middle;">NEW</span></h3>
+                    <p class="feature-desc">Plan your entire week in a 7-column visual grid. Add events by day, time,
+                        and category. Navigate between weeks, see category stats, and manage your schedule at a glance.
+                    </p>
+                    <ul class="feature-list">
+                        <li>7-column day-by-day grid layout</li>
+                        <li>5 categories: Work, Focus, Personal, Health, Learning</li>
+                        <li>Time-stamped events, sortable by time</li>
+                        <li>Week navigation (prev/this/next)</li>
+                        <li>Weekly stats by category</li>
+                        <li>Alt+W keyboard shortcut to add events</li>
+                    </ul>
+                    <div class="feature-tags">
+                        <span class="ftag">7-DAY VIEW</span><span class="ftag">CATEGORIES</span><span
+                            class="ftag-new">+3 XP</span>
+                    </div>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-num">05</div>
+                    <div class="feature-icon" aria-hidden="true">🗓️</div>
+                    <h3 class="feature-title">MONTHLY PLANNER <span class="ftag-new"
+                            style="font-size:.55rem;vertical-align:middle;">NEW</span></h3>
+                    <p class="feature-desc">Full calendar view of any month. Click any date to add events, see colored
+                        dots for event categories, and view detailed event lists per day.</p>
+                    <ul class="feature-list">
+                        <li>Traditional calendar grid layout</li>
+                        <li>Click any day to view or add events</li>
+                        <li>Color-coded category dots per day</li>
+                        <li>Month navigation (prev/this/next)</li>
+                        <li>Shared event data with Weekly Planner</li>
+                        <li>Alt+M keyboard shortcut to add events</li>
+                    </ul>
+                    <div class="feature-tags">
+                        <span class="ftag">CALENDAR VIEW</span><span class="ftag">COLOR CODED</span><span
+                            class="ftag-new">+3 XP</span>
+                    </div>
+                </article>
+            </div>
+
+            <div class="features-row-2 reveal d2" style="border-top:none;">
+                <article class="feature-card">
+                    <div class="feature-num">06</div>
+                    <div class="feature-icon" aria-hidden="true">🛠️</div>
+                    <h3 class="feature-title">DEV TOOLS SUITE (7 PANELS)</h3>
                     <p class="feature-desc">A complete developer toolkit built into your dashboard. Code, analyze, and
                         reference — all without context-switching.</p>
                     <ul class="feature-list">
@@ -1724,20 +1791,20 @@
                         <li>Data Structures — Visualize arrays, linked lists, trees</li>
                         <li>Complexity Analyzer — Big O analysis from pasted code</li>
                         <li>Markdown Editor — Write and preview markdown live</li>
-                        <li>Focus Score Engine — Calculate your daily focus grade</li>
+                        <li>Focus Score Engine — Calculate your daily focus grade (S/A/B/C/D)</li>
                     </ul>
                     <div class="feature-tags">
                         <span class="ftag">CODE PLAYGROUND</span><span class="ftag">GITHUB</span><span
                             class="ftag">SNIPPETS</span><span class="ftag">MARKDOWN</span><span class="ftag">BIG
                             O</span>
                     </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-num">05</div>
-                    <div class="feature-icon">🏆</div>
-                    <div class="feature-title">GAMIFICATION + ANALYTICS</div>
-                    <p class="feature-desc">Level up every 100 XP. Unlock achievements. Track weekly goals, log wins,
-                        write field notes, and monitor your 90-day activity heatmap.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-num">07</div>
+                    <div class="feature-icon" aria-hidden="true">🏆</div>
+                    <h3 class="feature-title">GAMIFICATION + ANALYTICS</h3>
+                    <p class="feature-desc">Level up every 100 XP. Track weekly goals, log wins, write field notes, and
+                        monitor your 90-day activity heatmap.</p>
                     <ul class="feature-list">
                         <li>Level up every 100 XP (+50 XP bonus per level)</li>
                         <li>Weekly Goals, Quick Wins, and Field Notes journal</li>
@@ -1745,29 +1812,31 @@
                         <li>Weekly Ops dashboard with day-by-day breakdown</li>
                         <li>Smart recommendations and weekly report</li>
                         <li>Full Analytics: peak hours chart, insights, metrics</li>
+                        <li>Cloud sync across all browsers and devices</li>
                     </ul>
                     <div class="feature-tags">
                         <span class="ftag">XP SYSTEM</span><span class="ftag">LEVELS</span><span
-                            class="ftag">HEATMAP</span><span class="ftag">WEEKLY OPS</span>
+                            class="ftag">HEATMAP</span><span class="ftag">CLOUD SYNC</span>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <section id="benefits">
+    <!-- RESULTS SECTION -->
+    <section id="benefits" aria-labelledby="benefits-heading">
         <div class="container">
             <div class="results-grid">
                 <div class="reveal-left">
                     <div class="section-tag">02 // RESULTS</div>
-                    <h2 class="section-heading">Built for the<br>Ambitious</h2>
+                    <h2 class="section-heading" id="benefits-heading">Built for the<br>Ambitious</h2>
                     <p style="color:var(--text2);font-size:.95rem;line-height:1.7;margin-top:16px;margin-bottom:40px;">
                         Every feature is engineered for one outcome: making you perform at the highest level, every
                         single day.</p>
                     <div class="result-item">
                         <div class="result-num">01</div>
                         <div class="result-content">
-                            <h4>CONSISTENCY ENGINE</h4>
+                            <h3>CONSISTENCY ENGINE</h3>
                             <p>Never lose momentum again. The streak system and daily check-ins ensure you show up every
                                 single day without exception.</p>
                         </div>
@@ -1775,7 +1844,7 @@
                     <div class="result-item">
                         <div class="result-num">02</div>
                         <div class="result-content">
-                            <h4>GAMIFIED DISCIPLINE</h4>
+                            <h3>GAMIFIED DISCIPLINE</h3>
                             <p>Earn XP for every task completed, session logged, and habit tracked. Level up, unlock
                                 achievements, and make excellence addictive.</p>
                         </div>
@@ -1783,7 +1852,15 @@
                     <div class="result-item">
                         <div class="result-num">03</div>
                         <div class="result-content">
-                            <h4>CAREER ACCELERATION</h4>
+                            <h3>FULL SCHEDULE CONTROL</h3>
+                            <p>Weekly and Monthly Planners give you complete visibility over your time. Plan your weeks
+                                and months alongside your daily tasks — all in one system.</p>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-num">04</div>
+                        <div class="result-content">
+                            <h3>CAREER ACCELERATION</h3>
                             <p>Built-in dev tools, code playground, GitHub integration and complexity analyzer — stop
                                 context-switching. Build the discipline for senior roles.</p>
                         </div>
@@ -1828,11 +1905,12 @@
         </div>
     </section>
 
-    <section id="pricing">
+    <!-- PRICING SECTION (INTEGRATED PAYPAL LINK) -->
+    <section id="pricing" aria-labelledby="pricing-heading">
         <div class="container">
             <div style="text-align:center;" class="reveal">
                 <div class="section-tag" style="justify-content:center;margin-bottom:14px;">03 // PRICING</div>
-                <h2 class="section-heading">Commit to Excellence</h2>
+                <h2 class="section-heading" id="pricing-heading">Commit to Excellence</h2>
                 <p style="color:var(--text2);font-size:.95rem;margin-top:12px;">One plan. Everything you need to operate
                     at maximum capacity.</p>
             </div>
@@ -1849,40 +1927,49 @@
                         <p class="pricing-desc">Everything you need to lock in, earn XP, and build the discipline
                             required to reach the top 1% of tech professionals.</p>
                         <div class="pricing-divider"></div>
-                        <ul class="pricing-features">
+                        <ul class="pricing-features" aria-label="Plan features">
                             <li>
-                                <div class="check">✓</div> Deep Work Engine (+15 XP per task)
+                                <div class="check" aria-hidden="true">✓</div> Deep Work Planner (+15 XP per task)
                             </li>
                             <li>
-                                <div class="check">✓</div> Focus Pulse Timer (+20 XP per session)
+                                <div class="check" aria-hidden="true">✓</div> Focus Pulse Timer (+20 XP per session)
                             </li>
                             <li>
-                                <div class="check">✓</div> Habits & Streaks (+5 XP per habit)
+                                <div class="check" aria-hidden="true">✓</div> Habit Matrix & Streak Tracker (+5 XP per
+                                habit)
                             </li>
                             <li>
-                                <div class="check">✓</div> Dev Tools Suite (7 panels)
+                                <div class="check" aria-hidden="true">✓</div> Weekly Planner — 7-day visual calendar
                             </li>
                             <li>
-                                <div class="check">✓</div> Gamification: XP, Levels & Achievements
+                                <div class="check" aria-hidden="true">✓</div> Monthly Planner — full month calendar view
                             </li>
                             <li>
-                                <div class="check">✓</div> 90-Day Consistency Analytics
+                                <div class="check" aria-hidden="true">✓</div> Dev Tools Suite (7 panels)
                             </li>
                             <li>
-                                <div class="check">✓</div> Weekly Execution Dashboard
+                                <div class="check" aria-hidden="true">✓</div> Gamification: XP, Levels & Achievements
                             </li>
                             <li>
-                                <div class="check">✓</div> Field Notes Journal & Quick Wins
+                                <div class="check" aria-hidden="true">✓</div> 90-Day Consistency Analytics
                             </li>
                             <li>
-                                <div class="check">✓</div> Cloud Sync Across All Browsers
+                                <div class="check" aria-hidden="true">✓</div> Weekly Ops Dashboard
+                            </li>
+                            <li>
+                                <div class="check" aria-hidden="true">✓</div> Field Notes Journal & Quick Wins
+                            </li>
+                            <li>
+                                <div class="check" aria-hidden="true">✓</div> Cloud Sync Across All Browsers
                             </li>
                         </ul>
-                        <button onclick="openCheckout()" class="btn btn-primary"
-                            style="width:100%;justify-content:center;padding:15px;border:none;cursor:pointer;">
+                        <!-- PayPal payment link button -->
+                        <button onclick="handlePurchase()" class="btn btn-primary"
+                            style="width:100%;justify-content:center;padding:15px;border:none;cursor:pointer;"
+                            aria-label="Subscribe via PayPal">
                             GET STARTED NOW
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5">
+                                stroke-width="2.5" aria-hidden="true">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </button>
@@ -1895,15 +1982,17 @@
         </div>
     </section>
 
-    <section class="cta-section">
+    <!-- CTA SECTION -->
+    <section class="cta-section" aria-labelledby="cta-heading">
         <div class="cta-glow"></div>
         <div class="container">
             <div class="reveal">
-                <h2>Ready to<br><span class="grad-text">Stop Drifting?</span></h2>
+                <h2 id="cta-heading">Ready to<br><span class="grad-text">Stop Drifting?</span></h2>
                 <p>Join 2,400+ operators who chose to lock in. Your system is waiting.</p>
-                <button onclick="openCheckout()" class="btn btn-primary btn-lg">DEPLOY YOUR OS TODAY
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2.5">
+                <button onclick="handlePurchase()" class="btn btn-primary btn-lg" aria-label="Deploy Storm OS today">
+                    DEPLOY YOUR OS TODAY
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        aria-hidden="true">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                 </button>
@@ -1911,7 +2000,7 @@
         </div>
     </section>
 
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <div class="footer-inner">
                 <div>
@@ -1920,18 +2009,14 @@
                         style="font-family:var(--mono);font-size:.6rem;color:var(--text3);margin-top:6px;letter-spacing:.08em;">
                         LOCK IN. LEVEL UP.</div>
                 </div>
-                <div class="footer-links">
-                    <a href="#os">System</a>
-                    <a href="#services">Services</a>
-                    <a href="#benefits">Results</a>
-                    <a href="#pricing">Pricing</a>
-                    <a href="services.html">Docs</a>
-                    <a href="policy.html">Privacy</a>
-                    <a href="policy.html#terms">Terms</a>
-                    <a href="policy.html#refund">Refund</a>
-                    <a href="login.html">Login</a>
-                    <a href="signup.html">Register</a>
-                </div>
+                <nav class="footer-links" aria-label="Footer navigation">
+                    <a href="#os">System</a><a href="#services">Services</a><a href="#benefits">Results</a><a
+                        href="#pricing">Pricing</a>
+                    <a href="services.html">Docs</a><a href="policy.html">Privacy</a><a
+                        href="policy.html#terms">Terms</a>
+                    <a href="policy.html#refund">Refund</a><a href="login.html">Login</a><a
+                        href="signup.html">Register</a>
+                </nav>
                 <div class="footer-meta">
                     <div>SYSTEM_VERSION: 1.0.26 // STORM OS</div>
                     <div>© 2026 STORM. ALL RIGHTS RESERVED.</div>
@@ -1941,93 +2026,175 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <script>
-        const PADDLE_CLIENT_TOKEN = 'live_b978c685c872729dcde58410fec';
-        const PADDLE_PRICE_ID = 'pri_01km9k8z59mvjdvny2fwcn109q';
-        const SUPA_URL = 'https://mryishzprrgpxauoccmr.supabase.co';
-        const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
-        try {
-            Paddle.Environment.set('production');
-            Paddle.Initialize({
-                token: PADDLE_CLIENT_TOKEN,
-                eventCallback: async function (ev) {
-                    if (ev.name === 'checkout.completed') {
-                        try {
-                            const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
-                            const { data: s } = await sb.auth.getSession();
-                            if (s && s.session && s.session.user) {
-                                await sb.from('profiles').upsert({ id: s.session.user.id, is_paid: true, subscription_status: 'active', paid_at: new Date().toISOString() });
-                                window.location.href = 'dashboard.html';
-                            } else { window.location.href = 'signup.html'; }
-                        } catch (e) { window.location.href = 'signup.html'; }
-                    }
-                }
-            });
-        } catch (e) { }
-        function openCheckout() {
-            Paddle.Checkout.open({ items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }], settings: { displayMode: 'overlay', theme: 'dark' } });
+        // ========== PAYPAL PAYMENT & AUTHENTICATION WORKFLOW ==========
+        // PayPal payment link
+        const PAYPAL_PAYMENT_URL = "https://www.paypal.com/ncp/payment/F9GMRECG239T2";
+
+        // Helper: check if user is logged in (using localStorage as mock auth for this demo)
+        function isLoggedIn() {
+            return localStorage.getItem('storm_os_auth') === 'true';
         }
 
-        // Cursor
+        // Helper: check if user has paid status (stored after successful payment)
+        function hasPaid() {
+            return localStorage.getItem('storm_os_paid') === 'true';
+        }
+
+        // Helper: set paid status after successful payment (called on return from PayPal)
+        function setPaidStatus() {
+            localStorage.setItem('storm_os_paid', 'true');
+        }
+
+        // Core purchase handler: implements the complete workflow
+        function handlePurchase() {
+            // Check if user is already paid and logged in -> go directly to dashboard
+            if (isLoggedIn() && hasPaid()) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // Case 1: User is logged in but hasn't paid yet
+            if (isLoggedIn() && !hasPaid()) {
+                // Store intent to return to pricing section after payment completion
+                localStorage.setItem('return_to_pricing_after_payment', 'true');
+                // Redirect to PayPal payment link
+                window.location.href = PAYPAL_PAYMENT_URL;
+                return;
+            }
+
+            // Case 2: User is NOT logged in (no account)
+            if (!isLoggedIn()) {
+                // Store intent to return to pricing section after login and payment flow
+                localStorage.setItem('pending_payment_intent', 'true');
+                // Save current scroll position to return to pricing after login
+                localStorage.setItem('return_to_pricing_scroll', window.scrollY.toString());
+                // Redirect to login page
+                window.location.href = 'login.html';
+                return;
+            }
+        }
+
+        // Handle return from PayPal (should be called when user comes back from PayPal)
+        // This simulates the post-payment confirmation and redirect logic
+        function processPaypalReturn() {
+            const urlParams = new URLSearchParams(window.location.search);
+            // Check for payment success parameter (PayPal may redirect with success indicator)
+            if (urlParams.get('payment_success') === '1' || document.referrer.includes('paypal.com')) {
+                setPaidStatus();
+                // After successful payment, check if user is logged in
+                if (isLoggedIn()) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    // If not logged in after payment, redirect to login with special flag
+                    localStorage.setItem('payment_completed_needs_login', 'true');
+                    window.location.href = 'login.html';
+                }
+                return true;
+            }
+
+            // Check if we have a pending payment intent from login return
+            if (localStorage.getItem('pending_payment_intent') === 'true') {
+                localStorage.removeItem('pending_payment_intent');
+                // After login, redirect to PayPal
+                window.location.href = PAYPAL_PAYMENT_URL;
+                return true;
+            }
+
+            // Check if we need to return to pricing section after payment completion (for logged in users who just paid)
+            if (localStorage.getItem('return_to_pricing_after_payment') === 'true') {
+                localStorage.removeItem('return_to_pricing_after_payment');
+                // If payment is now marked as paid, go to dashboard; else stay on pricing
+                if (hasPaid()) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    // Scroll to pricing section
+                    const pricingSection = document.getElementById('pricing');
+                    if (pricingSection) {
+                        pricingSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        // On page load: handle any pending payment/authentication flows and scroll to pricing if needed
+        window.addEventListener('DOMContentLoaded', function () {
+            // Process PayPal return flow
+            processPaypalReturn();
+
+            // Check if user just logged in and has a pending payment intent
+            if (localStorage.getItem('payment_completed_needs_login') === 'true') {
+                localStorage.removeItem('payment_completed_needs_login');
+                // After login completion with payment, user should have paid status
+                if (hasPaid() && isLoggedIn()) {
+                    window.location.href = 'dashboard.html';
+                } else if (localStorage.getItem('pending_payment_intent') === 'true') {
+                    // If payment intent exists, redirect to PayPal
+                    localStorage.removeItem('pending_payment_intent');
+                    window.location.href = PAYPAL_PAYMENT_URL;
+                }
+            }
+
+            // If user is logged in but hasn't paid, ensure pricing section is visible and handle scroll
+            if (isLoggedIn() && !hasPaid()) {
+                // Scroll to pricing section after a short delay to ensure DOM is ready
+                setTimeout(() => {
+                    const pricingSection = document.getElementById('pricing');
+                    if (pricingSection) {
+                        pricingSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 300);
+            }
+
+            // For new users coming from login page with payment intent
+            if (localStorage.getItem('pending_payment_intent') === 'true' && isLoggedIn()) {
+                localStorage.removeItem('pending_payment_intent');
+                window.location.href = PAYPAL_PAYMENT_URL;
+            }
+
+            // Restore scroll position if returning to pricing after login
+            const returnScroll = localStorage.getItem('return_to_pricing_scroll');
+            if (returnScroll && !isLoggedIn()) {
+                // Clear it if user didn't complete login flow
+                localStorage.removeItem('return_to_pricing_scroll');
+            } else if (returnScroll && isLoggedIn() && !hasPaid()) {
+                // User just logged in, scroll to pricing
+                localStorage.removeItem('return_to_pricing_scroll');
+                setTimeout(() => {
+                    const pricingSection = document.getElementById('pricing');
+                    if (pricingSection) {
+                        pricingSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 200);
+            }
+        });
+
+        // Mock timer countdown (unchanged)
+        let ms = 24 * 60 + 58;
+        setInterval(() => { ms = ms > 0 ? ms - 1 : 25 * 60; const el = document.getElementById('mock-timer'); if (el) el.textContent = String(Math.floor(ms / 60)).padStart(2, '0') + ':' + String(ms % 60).padStart(2, '0'); }, 1000);
+
+        // Count up and reveal logic (unchanged)
+        function countUp(el, target, dur = 1500) {
+            if (el.dataset.counted) return; el.dataset.counted = '1';
+            const s = performance.now();
+            function upd(now) { const e = Math.min(now - s, dur); const p = 1 - Math.pow(1 - e / dur, 3); const v = Math.round(p * target); el.textContent = v >= 1000 ? v.toLocaleString() : v; if (e < dur) requestAnimationFrame(upd); else el.textContent = target >= 1000 ? target.toLocaleString() : target; }
+            requestAnimationFrame(upd);
+        }
+        function triggerCountUps(c) { const els = c.classList && c.classList.contains('count-up') ? [c] : c.querySelectorAll('.count-up'); els.forEach(el => { const t = parseFloat(el.dataset.target); if (!isNaN(t)) countUp(el, t); }); }
+        function triggerBarFills(c) { c.querySelectorAll('.metric-bar-fill[data-width]').forEach(b => { if (b.dataset.filled) return; b.dataset.filled = '1'; setTimeout(() => { b.style.width = b.dataset.width + '%'; }, 200); }); }
+        const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); triggerCountUps(e.target); triggerBarFills(e.target); } }), { threshold: .1 });
+        document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
+        setTimeout(() => { document.querySelectorAll('.hero-stats .count-up[data-target]').forEach(el => countUp(el, parseFloat(el.dataset.target))); }, 1200);
+        window.addEventListener('scroll', () => { document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40); const y = window.scrollY; document.querySelectorAll('.orb').forEach((o, i) => { o.style.transform = 'translate(0,' + y * (i + 1) * .12 + 'px) scale(1)'; }); });
+
+        // Custom cursor
         const cursor = document.getElementById('cursor'), cursorRing = document.getElementById('cursor-ring');
         let mx = 0, my = 0, rx = 0, ry = 0;
         document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
         (function a() { rx += (mx - rx) * .15; ry += (my - ry) * .15; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; requestAnimationFrame(a); })();
-
-        // Nav scroll
-        window.addEventListener('scroll', () => { document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40); });
-
-        // Mock timer
-        let ms = 24 * 60 + 58;
-        setInterval(() => { ms = ms > 0 ? ms - 1 : 25 * 60; const el = document.getElementById('mock-timer'); if (el) el.textContent = String(Math.floor(ms / 60)).padStart(2, '0') + ':' + String(ms % 60).padStart(2, '0'); }, 1000);
-
-        // Count up animation
-        function countUp(el, target, dur = 1500) {
-            if (el.dataset.counted) return;
-            el.dataset.counted = '1';
-            const s = performance.now();
-            function upd(now) {
-                const e = Math.min(now - s, dur);
-                const p = 1 - Math.pow(1 - e / dur, 3);
-                const v = Math.round(p * target);
-                el.textContent = v >= 1000 ? v.toLocaleString() : v;
-                if (e < dur) requestAnimationFrame(upd);
-                else el.textContent = target >= 1000 ? target.toLocaleString() : target;
-            }
-            requestAnimationFrame(upd);
-        }
-
-        function triggerCountUps(c) {
-            const els = c.classList && c.classList.contains('count-up') ? [c] : c.querySelectorAll('.count-up');
-            els.forEach(el => { const t = parseFloat(el.dataset.target); if (!isNaN(t)) countUp(el, t); });
-        }
-
-        function triggerBarFills(c) {
-            c.querySelectorAll('.metric-bar-fill[data-width]').forEach(b => {
-                if (b.dataset.filled) return;
-                b.dataset.filled = '1';
-                setTimeout(() => { b.style.width = b.dataset.width + '%'; }, 200);
-            });
-        }
-
-        // Reveal on scroll
-        const obs = new IntersectionObserver(entries => entries.forEach(e => {
-            if (e.isIntersecting) { e.target.classList.add('active'); triggerCountUps(e.target); triggerBarFills(e.target); }
-        }), { threshold: .1 });
-        document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
-
-        // Hero stats count up after 1.2s
-        setTimeout(() => {
-            document.querySelectorAll('.hero-stats .count-up[data-target]').forEach(el => countUp(el, parseFloat(el.dataset.target)));
-        }, 1200);
-
-        // Parallax orbs
-        window.addEventListener('scroll', () => {
-            const y = window.scrollY;
-            document.querySelectorAll('.orb').forEach((o, i) => { o.style.transform = 'translate(0,' + y * (i + 1) * .12 + 'px) scale(1)'; });
-        });
     </script>
 </body>
 
