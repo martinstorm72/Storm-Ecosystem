@@ -56,7 +56,6 @@
             cursor: none;
         }
 
-        /* ── CUSTOM CURSOR ── */
         #cursor {
             position: fixed;
             width: 10px;
@@ -66,7 +65,7 @@
             pointer-events: none;
             z-index: 99999;
             transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background 0.2s;
+            transition: width .2s, height .2s, background .2s;
             mix-blend-mode: screen;
         }
 
@@ -74,12 +73,12 @@
             position: fixed;
             width: 36px;
             height: 36px;
-            border: 1px solid rgba(59, 130, 246, 0.5);
+            border: 1px solid rgba(59, 130, 246, .5);
             border-radius: 50%;
             pointer-events: none;
             z-index: 99998;
             transform: translate(-50%, -50%);
-            transition: all 0.12s ease;
+            transition: all .12s ease;
         }
 
         body:has(a:hover) #cursor {
@@ -94,36 +93,29 @@
             border-color: var(--purple);
         }
 
-        /* ── NOISE TEXTURE OVERLAY ── */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-            opacity: 0.35;
+            opacity: .35;
             pointer-events: none;
             z-index: 9998;
         }
 
-        /* ── SCANLINES ── */
         body::after {
             content: '';
             position: fixed;
             inset: 0;
-            background: repeating-linear-gradient(0deg,
-                    transparent, transparent 3px,
-                    rgba(0, 0, 0, 0.05) 3px, rgba(0, 0, 0, 0.05) 4px);
+            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, .05) 3px, rgba(0, 0, 0, .05) 4px);
             pointer-events: none;
             z-index: 9997;
         }
 
-        /* ── ANIMATED BG GRID ── */
         .grid-bg {
             position: fixed;
             inset: 0;
-            background-image:
-                linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(59, 130, 246, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, .04) 1px, transparent 1px);
             background-size: 60px 60px;
             animation: gridDrift 25s linear infinite;
             pointer-events: none;
@@ -132,15 +124,14 @@
 
         @keyframes gridDrift {
             0% {
-                background-position: 0 0;
+                background-position: 0 0
             }
 
             100% {
-                background-position: 60px 60px;
+                background-position: 60px 60px
             }
         }
 
-        /* ── AMBIENT ORBS ── */
         .orb {
             position: fixed;
             border-radius: 50%;
@@ -153,7 +144,7 @@
         .orb-1 {
             width: 600px;
             height: 600px;
-            background: rgba(59, 130, 246, 0.07);
+            background: rgba(59, 130, 246, .07);
             top: -200px;
             left: -200px;
             animation-delay: 0s;
@@ -162,7 +153,7 @@
         .orb-2 {
             width: 500px;
             height: 500px;
-            background: rgba(99, 102, 241, 0.07);
+            background: rgba(99, 102, 241, .07);
             bottom: -200px;
             right: -200px;
             animation-delay: 6s;
@@ -171,7 +162,7 @@
         .orb-3 {
             width: 300px;
             height: 300px;
-            background: rgba(139, 92, 246, 0.05);
+            background: rgba(139, 92, 246, .05);
             top: 40%;
             left: 40%;
             animation-delay: 3s;
@@ -181,26 +172,25 @@
 
             0%,
             100% {
-                transform: translate(0, 0) scale(1);
+                transform: translate(0, 0) scale(1)
             }
 
             50% {
-                transform: translate(30px, -30px) scale(1.05);
+                transform: translate(30px, -30px) scale(1.05)
             }
         }
 
-        /* ── NAV ── */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
             padding: 0;
             z-index: 1000;
-            transition: all 0.4s ease;
+            transition: all .4s ease;
         }
 
         nav.scrolled {
-            background: rgba(2, 3, 5, 0.85);
+            background: rgba(2, 3, 5, .85);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
         }
@@ -219,7 +209,7 @@
             font-family: var(--head);
             font-size: 1.3rem;
             font-weight: 900;
-            letter-spacing: 0.12em;
+            letter-spacing: .12em;
             color: var(--text);
             text-decoration: none;
             display: flex;
@@ -257,12 +247,12 @@
 
         .nav-links a {
             font-family: var(--mono);
-            font-size: 0.7rem;
+            font-size: .7rem;
             color: var(--text2);
             text-decoration: none;
             padding: 6px 14px;
-            letter-spacing: 0.1em;
-            transition: color 0.2s;
+            letter-spacing: .1em;
+            transition: color .2s;
             position: relative;
         }
 
@@ -275,7 +265,7 @@
             height: 1px;
             background: var(--accent);
             transform: scaleX(0);
-            transition: transform 0.3s;
+            transition: transform .3s;
         }
 
         .nav-links a:hover {
@@ -288,13 +278,13 @@
 
         .nav-status {
             font-family: var(--mono);
-            font-size: 0.62rem;
+            font-size: .62rem;
             color: var(--green);
-            letter-spacing: 0.1em;
+            letter-spacing: .1em;
             display: flex;
             align-items: center;
             gap: 6px;
-            border: 1px solid rgba(16, 185, 129, 0.25);
+            border: 1px solid rgba(16, 185, 129, .25);
             padding: 4px 12px;
             border-radius: 20px;
         }
@@ -311,20 +301,19 @@
 
             0%,
             100% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, .4)
             }
 
             50% {
-                box-shadow: 0 0 0 4px rgba(16, 185, 129, 0);
+                box-shadow: 0 0 0 4px rgba(16, 185, 129, 0)
             }
         }
 
-        /* ── BUTTONS ── */
         .btn {
             font-family: var(--head);
-            font-size: 0.65rem;
+            font-size: .65rem;
             font-weight: 700;
-            letter-spacing: 0.16em;
+            letter-spacing: .16em;
             padding: 11px 24px;
             border-radius: 5px;
             border: none;
@@ -333,7 +322,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.25s;
+            transition: all .25s;
             position: relative;
             overflow: hidden;
         }
@@ -342,9 +331,9 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .08), transparent);
             transform: translateX(-100%);
-            transition: transform 0.5s;
+            transition: transform .5s;
         }
 
         .btn:hover::before {
@@ -352,7 +341,7 @@
         }
 
         .btn:active {
-            transform: scale(0.97);
+            transform: scale(.97);
         }
 
         .btn-primary {
@@ -361,7 +350,7 @@
         }
 
         .btn-primary:hover {
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), 0 8px 24px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 0 30px rgba(59, 130, 246, .4), 0 8px 24px rgba(99, 102, 241, .3);
             transform: translateY(-2px);
         }
 
@@ -378,12 +367,11 @@
         }
 
         .btn-lg {
-            font-size: 0.72rem;
+            font-size: .72rem;
             padding: 15px 36px;
-            letter-spacing: 0.18em;
+            letter-spacing: .18em;
         }
 
-        /* ── CONTAINER ── */
         .container {
             max-width: 1280px;
             margin: 0 auto;
@@ -392,12 +380,11 @@
             z-index: 1;
         }
 
-        /* ── SECTION LABEL ── */
         .section-tag {
             font-family: var(--mono);
-            font-size: 0.65rem;
+            font-size: .65rem;
             color: var(--accent);
-            letter-spacing: 0.2em;
+            letter-spacing: .2em;
             margin-bottom: 14px;
             display: flex;
             align-items: center;
@@ -411,7 +398,6 @@
             background: var(--accent);
         }
 
-        /* ── HERO ── */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -431,16 +417,16 @@
             align-items: center;
             gap: 10px;
             font-family: var(--mono);
-            font-size: 0.68rem;
+            font-size: .68rem;
             color: var(--text2);
-            letter-spacing: 0.15em;
+            letter-spacing: .15em;
             border: 1px solid var(--border2);
             padding: 7px 16px;
             border-radius: 20px;
             margin-bottom: 32px;
-            background: rgba(8, 12, 20, 0.8);
+            background: rgba(8, 12, 20, .8);
             opacity: 0;
-            animation: heroFadeIn 0.8s 0.2s ease both;
+            animation: heroFadeIn .8s .2s ease both;
         }
 
         .hero-eyebrow .pulse {
@@ -454,12 +440,12 @@
         @keyframes heroFadeIn {
             from {
                 opacity: 0;
-                transform: translateY(16px);
+                transform: translateY(16px)
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0)
             }
         }
 
@@ -468,10 +454,10 @@
             font-size: clamp(2.8rem, 8vw, 5.5rem);
             font-weight: 900;
             line-height: 1.0;
-            letter-spacing: -0.02em;
+            letter-spacing: -.02em;
             margin-bottom: 24px;
             opacity: 0;
-            animation: heroFadeIn 0.8s 0.4s ease both;
+            animation: heroFadeIn .8s .4s ease both;
         }
 
         .hero h1 .grad-text {
@@ -479,10 +465,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            position: relative;
         }
 
-        /* Glitch effect on heading */
         .hero h1 .glitch {
             position: relative;
             display: inline-block;
@@ -519,17 +503,17 @@
             94%,
             100% {
                 transform: translate(0);
-                opacity: 0;
+                opacity: 0
             }
 
             95% {
                 transform: translate(-2px, 1px);
-                opacity: 0.7;
+                opacity: .7
             }
 
             97% {
                 transform: translate(2px, -1px);
-                opacity: 0.7;
+                opacity: .7
             }
         }
 
@@ -539,17 +523,17 @@
             94%,
             100% {
                 transform: translate(0);
-                opacity: 0;
+                opacity: 0
             }
 
             95% {
                 transform: translate(2px, 1px);
-                opacity: 0.7;
+                opacity: .7
             }
 
             97% {
                 transform: translate(-2px, -1px);
-                opacity: 0.7;
+                opacity: .7
             }
         }
 
@@ -560,7 +544,7 @@
             margin: 0 auto 40px;
             line-height: 1.7;
             opacity: 0;
-            animation: heroFadeIn 0.8s 0.6s ease both;
+            animation: heroFadeIn .8s .6s ease both;
         }
 
         .hero-cta {
@@ -569,10 +553,9 @@
             justify-content: center;
             flex-wrap: wrap;
             opacity: 0;
-            animation: heroFadeIn 0.8s 0.8s ease both;
+            animation: heroFadeIn .8s .8s ease both;
         }
 
-        /* ── HERO STATS ROW ── */
         .hero-stats {
             display: flex;
             gap: 0;
@@ -583,7 +566,7 @@
             background: var(--card);
             overflow: hidden;
             opacity: 0;
-            animation: heroFadeIn 0.8s 1s ease both;
+            animation: heroFadeIn .8s 1s ease both;
             max-width: 640px;
             margin-left: auto;
             margin-right: auto;
@@ -610,7 +593,7 @@
             height: 2px;
             background: var(--grad);
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform .4s ease;
         }
 
         .hero-stat:hover::before {
@@ -623,19 +606,25 @@
             font-weight: 900;
             color: var(--text);
             line-height: 1;
-            display: block;
+            display: inline;
+        }
+
+        .stat-suffix {
+            font-family: var(--head);
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--text2);
         }
 
         .stat-label {
             font-family: var(--mono);
-            font-size: 0.58rem;
+            font-size: .58rem;
             color: var(--text3);
-            letter-spacing: 0.12em;
+            letter-spacing: .12em;
             margin-top: 5px;
             display: block;
         }
 
-        /* ── UI PREVIEW ── */
         .preview-wrap {
             position: relative;
             max-width: 1000px;
@@ -650,13 +639,9 @@
             border: 1px solid var(--border2);
             overflow: hidden;
             position: relative;
-            box-shadow:
-                0 0 0 1px rgba(59, 130, 246, 0.1),
-                0 40px 80px rgba(0, 0, 0, 0.7),
-                0 0 80px rgba(59, 130, 246, 0.08);
+            box-shadow: 0 0 0 1px rgba(59, 130, 246, .1), 0 40px 80px rgba(0, 0, 0, .7), 0 0 80px rgba(59, 130, 246, .08);
         }
 
-        /* Gradient fade at top and bottom of preview */
         .preview-frame::before {
             content: '';
             position: absolute;
@@ -664,7 +649,7 @@
             left: 0;
             right: 0;
             height: 30px;
-            background: linear-gradient(to bottom, rgba(2, 3, 5, 0.8), transparent);
+            background: linear-gradient(to bottom, rgba(2, 3, 5, .8), transparent);
             z-index: 2;
             pointer-events: none;
         }
@@ -692,41 +677,32 @@
         }
 
         .pd-r {
-            background: #ef4444;
+            background: #ef4444
         }
 
         .pd-y {
-            background: #f59e0b;
+            background: #f59e0b
         }
 
         .pd-g {
-            background: #10b981;
+            background: #10b981
         }
 
         .preview-url {
             flex: 1;
             text-align: center;
             font-family: var(--mono);
-            font-size: 0.62rem;
+            font-size: .62rem;
             color: var(--text3);
-            letter-spacing: 0.06em;
+            letter-spacing: .06em;
         }
 
-        .preview-img {
-            width: 100%;
-            display: block;
-            background: #050810;
-            min-height: 400px;
-            object-fit: cover;
-        }
-
-        /* Scan line over preview */
         .preview-scan {
             position: absolute;
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), transparent);
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, .6), transparent);
             top: 0;
             pointer-events: none;
             z-index: 3;
@@ -736,25 +712,24 @@
         @keyframes scanDown {
             0% {
                 top: 42px;
-                opacity: 1;
+                opacity: 1
             }
 
             90% {
-                opacity: 1;
+                opacity: 1
             }
 
             100% {
                 top: calc(100% - 2px);
-                opacity: 0;
+                opacity: 0
             }
         }
 
-        /* Floating labels on preview */
         .preview-badge {
             position: absolute;
             font-family: var(--mono);
-            font-size: 0.6rem;
-            letter-spacing: 0.1em;
+            font-size: .6rem;
+            letter-spacing: .1em;
             padding: 5px 12px;
             border-radius: 4px;
             border: 1px solid;
@@ -767,17 +742,17 @@
 
             0%,
             100% {
-                transform: translateY(0);
+                transform: translateY(0)
             }
 
             50% {
-                transform: translateY(-6px);
+                transform: translateY(-6px)
             }
         }
 
         .badge-green {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, .1);
+            border-color: rgba(16, 185, 129, .3);
             color: var(--green);
             bottom: 20%;
             left: -40px;
@@ -785,32 +760,29 @@
         }
 
         .badge-blue {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(59, 130, 246, .1);
+            border-color: rgba(59, 130, 246, .3);
             color: var(--accent);
             top: 20%;
             right: -30px;
             animation-delay: 2s;
         }
 
-        /* ── SECTION BASE ── */
         section {
             padding: 120px 0;
             position: relative;
             z-index: 1;
         }
 
-        /* ── SECTION HEADINGS ── */
         .section-heading {
             font-family: var(--head);
             font-size: clamp(1.8rem, 4vw, 2.8rem);
             font-weight: 900;
-            letter-spacing: -0.01em;
+            letter-spacing: -.01em;
             line-height: 1.1;
             margin-bottom: 16px;
         }
 
-        /* ── FEATURE CARDS ── */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -822,11 +794,22 @@
             margin-top: 60px;
         }
 
+        .features-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+        }
+
         .feature-card {
             background: var(--card);
             padding: 40px 32px;
             position: relative;
-            transition: background 0.3s;
+            transition: background .3s;
             overflow: hidden;
         }
 
@@ -840,7 +823,7 @@
             background: var(--grad);
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 0.4s ease;
+            transition: transform .4s ease;
         }
 
         .feature-card:hover {
@@ -853,9 +836,9 @@
 
         .feature-num {
             font-family: var(--mono);
-            font-size: 0.6rem;
+            font-size: .6rem;
             color: var(--text3);
-            letter-spacing: 0.15em;
+            letter-spacing: .15em;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -879,7 +862,7 @@
             justify-content: center;
             margin-bottom: 20px;
             font-size: 1.2rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: border-color .3s, box-shadow .3s;
         }
 
         .feature-card:hover .feature-icon {
@@ -889,20 +872,61 @@
 
         .feature-title {
             font-family: var(--head);
-            font-size: 0.85rem;
+            font-size: .85rem;
             font-weight: 700;
-            letter-spacing: 0.1em;
+            letter-spacing: .1em;
             color: var(--text);
             margin-bottom: 12px;
         }
 
         .feature-desc {
-            font-size: 0.9rem;
+            font-size: .9rem;
             color: var(--text2);
             line-height: 1.6;
         }
 
-        /* ── RESULTS / BENEFITS ── */
+        .feature-list {
+            list-style: none;
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .feature-list li {
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--text3);
+            letter-spacing: .04em;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            line-height: 1.5;
+        }
+
+        .feature-list li::before {
+            content: '›';
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 14px;
+        }
+
+        .ftag {
+            font-family: var(--mono);
+            font-size: .57rem;
+            padding: 2px 7px;
+            border-radius: 3px;
+            border: 1px solid var(--border2);
+            color: var(--text3);
+            letter-spacing: .04em;
+        }
+
         #benefits {
             background: var(--bg2);
             border-top: 1px solid var(--border);
@@ -922,7 +946,7 @@
             gap: 20px;
             padding: 24px 0;
             border-bottom: 1px solid var(--border);
-            transition: all 0.3s;
+            transition: all .3s;
         }
 
         .result-item:last-child {
@@ -935,29 +959,28 @@
 
         .result-num {
             font-family: var(--mono);
-            font-size: 0.6rem;
+            font-size: .6rem;
             color: var(--accent);
-            letter-spacing: 0.1em;
+            letter-spacing: .1em;
             flex-shrink: 0;
             padding-top: 3px;
         }
 
         .result-content h4 {
             font-family: var(--head);
-            font-size: 0.78rem;
+            font-size: .78rem;
             font-weight: 700;
-            letter-spacing: 0.12em;
+            letter-spacing: .12em;
             color: var(--text);
             margin-bottom: 6px;
         }
 
         .result-content p {
-            font-size: 0.9rem;
+            font-size: .9rem;
             color: var(--text2);
             line-height: 1.6;
         }
 
-        /* ── METRICS VISUAL ── */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -969,7 +992,7 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 20px;
-            transition: all 0.3s;
+            transition: all .3s;
         }
 
         .metric-card:hover {
@@ -986,26 +1009,30 @@
         }
 
         .metric-val.blue {
-            color: var(--accent);
+            color: var(--accent)
         }
 
         .metric-val.purple {
-            color: var(--purple);
+            color: var(--purple)
         }
 
         .metric-val.green {
-            color: var(--green);
+            color: var(--green)
         }
 
         .metric-val.cyan {
-            color: var(--cyan);
+            color: var(--cyan)
+        }
+
+        .metric-val.amber {
+            color: var(--amber)
         }
 
         .metric-label {
             font-family: var(--mono);
-            font-size: 0.6rem;
+            font-size: .6rem;
             color: var(--text3);
-            letter-spacing: 0.1em;
+            letter-spacing: .1em;
         }
 
         .metric-bar {
@@ -1021,22 +1048,25 @@
             border-radius: 2px;
             background: var(--grad);
             width: 0;
-            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 1.5s cubic-bezier(.4, 0, .2, 1);
         }
 
         .metric-bar-fill.green {
-            background: var(--green);
+            background: var(--green)
         }
 
         .metric-bar-fill.purple {
-            background: var(--purple);
+            background: var(--purple)
         }
 
         .metric-bar-fill.cyan {
-            background: var(--cyan);
+            background: var(--cyan)
         }
 
-        /* ── PRICING ── */
+        .metric-bar-fill.amber {
+            background: var(--amber)
+        }
+
         .pricing-wrap {
             max-width: 480px;
             margin: 60px auto 0;
@@ -1048,11 +1078,11 @@
             border-radius: 12px;
             overflow: hidden;
             position: relative;
-            transition: box-shadow 0.4s;
+            transition: box-shadow .4s;
         }
 
         .pricing-card:hover {
-            box-shadow: 0 0 60px rgba(59, 130, 246, 0.15), 0 40px 80px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 60px rgba(59, 130, 246, .15), 0 40px 80px rgba(0, 0, 0, .4);
         }
 
         .pricing-top-border {
@@ -1066,10 +1096,10 @@
 
         .pricing-badge {
             font-family: var(--mono);
-            font-size: 0.6rem;
-            letter-spacing: 0.14em;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.25);
+            font-size: .6rem;
+            letter-spacing: .14em;
+            background: rgba(59, 130, 246, .1);
+            border: 1px solid rgba(59, 130, 246, .25);
             color: var(--accent);
             padding: 4px 12px;
             border-radius: 20px;
@@ -1093,17 +1123,24 @@
             margin-top: 10px;
         }
 
+        .pricing-cents {
+            font-size: 1.8rem;
+            font-weight: 900;
+            align-self: flex-start;
+            margin-top: 8px;
+        }
+
         .pricing-period {
             font-family: var(--mono);
-            font-size: 0.7rem;
+            font-size: .7rem;
             color: var(--text3);
             align-self: flex-end;
             margin-bottom: 6px;
-            letter-spacing: 0.08em;
+            letter-spacing: .08em;
         }
 
         .pricing-desc {
-            font-size: 0.9rem;
+            font-size: .9rem;
             color: var(--text2);
             margin-bottom: 32px;
             line-height: 1.6;
@@ -1128,30 +1165,29 @@
             align-items: center;
             gap: 12px;
             font-family: var(--mono);
-            font-size: 0.72rem;
+            font-size: .72rem;
             color: var(--text2);
-            letter-spacing: 0.04em;
+            letter-spacing: .04em;
         }
 
         .pricing-features li .check {
             width: 18px;
             height: 18px;
             border-radius: 4px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.25);
+            background: rgba(16, 185, 129, .1);
+            border: 1px solid rgba(16, 185, 129, .25);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             color: var(--green);
-            font-size: 0.7rem;
+            font-size: .7rem;
         }
 
-        /* ── REVEAL ANIMATION ── */
         .reveal {
             opacity: 0;
             transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transition: opacity .7s ease, transform .7s ease;
         }
 
         .reveal.active {
@@ -1162,7 +1198,7 @@
         .reveal-left {
             opacity: 0;
             transform: translateX(-30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transition: opacity .7s ease, transform .7s ease;
         }
 
         .reveal-left.active {
@@ -1173,7 +1209,7 @@
         .reveal-right {
             opacity: 0;
             transform: translateX(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transition: opacity .7s ease, transform .7s ease;
         }
 
         .reveal-right.active {
@@ -1181,28 +1217,26 @@
             transform: translateX(0);
         }
 
-        /* Delay helpers */
         .d1 {
-            transition-delay: 0.1s;
+            transition-delay: .1s
         }
 
         .d2 {
-            transition-delay: 0.2s;
+            transition-delay: .2s
         }
 
         .d3 {
-            transition-delay: 0.3s;
+            transition-delay: .3s
         }
 
         .d4 {
-            transition-delay: 0.4s;
+            transition-delay: .4s
         }
 
         .d5 {
-            transition-delay: 0.5s;
+            transition-delay: .5s
         }
 
-        /* ── MARQUEE ── */
         .marquee-wrap {
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
@@ -1217,24 +1251,24 @@
             display: flex;
             gap: 60px;
             width: max-content;
-            animation: marqueeScroll 20s linear infinite;
+            animation: marqueeScroll 25s linear infinite;
         }
 
         @keyframes marqueeScroll {
             from {
-                transform: translateX(0);
+                transform: translateX(0)
             }
 
             to {
-                transform: translateX(-50%);
+                transform: translateX(-50%)
             }
         }
 
         .marquee-item {
             font-family: var(--mono);
-            font-size: 0.65rem;
+            font-size: .65rem;
             color: var(--text3);
-            letter-spacing: 0.15em;
+            letter-spacing: .15em;
             white-space: nowrap;
             display: flex;
             align-items: center;
@@ -1245,7 +1279,6 @@
             color: var(--accent);
         }
 
-        /* ── FOOTER ── */
         footer {
             border-top: 1px solid var(--border);
             padding: 48px 0;
@@ -1265,14 +1298,14 @@
             font-family: var(--head);
             font-size: 1rem;
             font-weight: 900;
-            letter-spacing: 0.1em;
+            letter-spacing: .1em;
         }
 
         .footer-meta {
             font-family: var(--mono);
-            font-size: 0.62rem;
+            font-size: .62rem;
             color: var(--text3);
-            letter-spacing: 0.1em;
+            letter-spacing: .1em;
             line-height: 1.8;
             text-align: right;
         }
@@ -1284,18 +1317,17 @@
 
         .footer-links a {
             font-family: var(--mono);
-            font-size: 0.62rem;
+            font-size: .62rem;
             color: var(--text3);
             text-decoration: none;
-            letter-spacing: 0.08em;
-            transition: color 0.2s;
+            letter-spacing: .08em;
+            transition: color .2s;
         }
 
         .footer-links a:hover {
             color: var(--accent);
         }
 
-        /* ── CTA SECTION ── */
         .cta-section {
             padding: 120px 0;
             text-align: center;
@@ -1306,7 +1338,7 @@
         .cta-glow {
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            background: radial-gradient(ellipse at center, rgba(59, 130, 246, .08) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -1314,7 +1346,7 @@
             font-family: var(--head);
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 900;
-            letter-spacing: -0.01em;
+            letter-spacing: -.01em;
             margin-bottom: 20px;
             line-height: 1.1;
         }
@@ -1327,16 +1359,14 @@
             line-height: 1.7;
         }
 
-        /* ── COUNTER ANIMATION ── */
         .count-up {
-            display: inline-block;
+            display: inline;
         }
 
-        @media (max-width: 900px) {
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
+        @media(max-width:900px) {
 
+            .features-grid,
+            .features-row-2,
             .results-grid {
                 grid-template-columns: 1fr;
             }
@@ -1346,7 +1376,7 @@
             }
         }
 
-        @media (max-width: 600px) {
+        @media(max-width:600px) {
             .nav-links a:not(.btn) {
                 display: none;
             }
@@ -1372,18 +1402,13 @@
 </head>
 
 <body>
-
-    <!-- CURSOR -->
     <div id="cursor"></div>
     <div id="cursor-ring"></div>
-
-    <!-- BACKGROUND -->
     <div class="grid-bg"></div>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
 
-    <!-- ═══════════ NAV ═══════════ -->
     <nav id="nav">
         <div class="nav-inner">
             <a href="index.html" class="logo">STORM<span class="logo-cursor"></span></a>
@@ -1396,13 +1421,12 @@
                 <div class="nav-status">
                     <div class="dot"></div>OPERATIONAL
                 </div>
-                <a href="login.html" class="btn btn-outline" style="margin-left:4px">LOGIN</a>
+                <a href="login.html" class="btn btn-ghost" style="margin-left:4px">LOGIN</a>
                 <a href="signup.html" class="btn btn-primary" style="margin-left:4px">GET STARTED</a>
             </div>
         </div>
     </nav>
 
-    <!-- ═══════════ HERO ═══════════ -->
     <header class="hero">
         <div class="container">
             <div class="hero-content">
@@ -1410,15 +1434,12 @@
                     <div class="pulse"></div>
                     STATUS: SYSTEM ACTIVE // v1.0.26
                 </div>
-
                 <h1>
                     STOP DRIFTING.<br>
                     START <span class="grad-text glitch" data-text="LOCKING IN.">LOCKING IN.</span>
                 </h1>
-
                 <p>The high-performance operating system for tech professionals. Build discipline, track deep work, and
                     level up your career through structural consistency.</p>
-
                 <div class="hero-cta">
                     <button onclick="openCheckout()" class="btn btn-primary btn-lg">START LOCKING IN
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1428,26 +1449,22 @@
                     </button>
                     <a href="#os" class="btn btn-ghost btn-lg">SEE THE SYSTEM</a>
                 </div>
-
                 <div class="hero-stats">
                     <div class="hero-stat">
-                        <span class="stat-num" data-target="2400">0</span>
+                        <span class="stat-num count-up" data-target="2400">0</span><span class="stat-suffix">+</span>
                         <span class="stat-label">OPERATORS ACTIVE</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="stat-num" data-target="94">0</span><span class="stat-num"
-                            style="font-size:1rem;color:var(--text2)">%</span>
+                        <span class="stat-num count-up" data-target="94">0</span><span class="stat-suffix">%</span>
                         <span class="stat-label">CONSISTENCY RATE</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="stat-num" data-target="6">0</span><span class="stat-num"
-                            style="font-size:1rem;color:var(--text2)">h</span>
+                        <span class="stat-num count-up" data-target="6">0</span><span class="stat-suffix">h</span>
                         <span class="stat-label">AVG DAILY FOCUS</span>
                     </div>
                 </div>
             </div>
 
-            <!-- UI PREVIEW -->
             <div class="preview-wrap reveal">
                 <div class="preview-frame">
                     <div class="preview-bar">
@@ -1458,292 +1475,138 @@
                         </div>
                         <div class="preview-url">storm-os.app/dashboard</div>
                     </div>
-                    <!-- Dashboard Mock — STATIC, no JS needed -->
                     <div
                         style="background:#050810;padding:20px;height:360px;display:flex;flex-direction:column;gap:12px;overflow:hidden;">
-                        <!-- Top Row -->
                         <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <div
-                                style="font-family:var(--head);font-size:0.85rem;font-weight:900;letter-spacing:0.12em;">
+                            <div style="font-family:var(--head);font-size:.85rem;font-weight:900;letter-spacing:.12em;">
                                 OPERATOR COMMAND</div>
-                            <div
-                                style="font-family:var(--mono);font-size:0.6rem;color:var(--green);border:1px solid rgba(16,185,129,0.3);padding:3px 10px;border-radius:3px;">
-                                ACTIVE_OS</div>
+                            <div style="display:flex;gap:8px;align-items:center;">
+                                <div
+                                    style="font-family:var(--mono);font-size:.58rem;color:var(--amber);border:1px solid rgba(245,158,11,.3);padding:3px 10px;border-radius:3px;">
+                                    LVL 7 // 340 XP</div>
+                                <div
+                                    style="font-family:var(--mono);font-size:.6rem;color:var(--green);border:1px solid rgba(16,185,129,.3);padding:3px 10px;border-radius:3px;">
+                                    ACTIVE_OS</div>
+                            </div>
                         </div>
-                        <!-- Cards Row -->
                         <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;">
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
                                 <div
-                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;margin-bottom:6px;">
+                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
                                     TASKS DONE</div>
                                 <div
                                     style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--green);">
                                     7</div>
+                                <div style="font-family:var(--mono);font-size:.5rem;color:var(--amber);margin-top:4px;">
+                                    +105 XP</div>
                             </div>
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
                                 <div
-                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;margin-bottom:6px;">
+                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
                                     FOCUSED</div>
                                 <div
                                     style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--accent);">
                                     4.5h</div>
+                                <div style="font-family:var(--mono);font-size:.5rem;color:var(--amber);margin-top:4px;">
+                                    +20 XP/session</div>
                             </div>
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
                                 <div
-                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;margin-bottom:6px;">
+                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
                                     STREAK</div>
                                 <div
                                     style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--amber);">
                                     14d&#x1F525;</div>
+                                <div style="font-family:var(--mono);font-size:.5rem;color:var(--green);margin-top:4px;">
+                                    +5 XP/habit</div>
                             </div>
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
                                 <div
-                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;margin-bottom:6px;">
+                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
                                     DAY SCORE</div>
                                 <div
                                     style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--cyan);">
                                     91%</div>
+                                <div style="font-family:var(--mono);font-size:.5rem;color:var(--amber);margin-top:4px;">
+                                    ELITE ⚡</div>
                             </div>
                         </div>
-                        <!-- Bottom Row -->
                         <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;flex:1;min-height:0;">
-                            <!-- Heatmap STATIC -->
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:14px;overflow:hidden;">
                                 <div
-                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;margin-bottom:10px;">
+                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;margin-bottom:10px;">
                                     90-DAY ACTIVITY</div>
                                 <div style="display:flex;gap:2px;flex-wrap:wrap;overflow:hidden;max-height:120px;">
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.3)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.6)">
                                     </div>
                                     <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.2)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.2)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.9)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.4)">
                                     </div>
                                     <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.2)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.2)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.7)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.4)">
                                     </div>
                                     <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.5)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.8)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.3)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.9)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.4)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.2)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.2)">
                                     </div>
                                     <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.6)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.4)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.2)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.5)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.3)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.4)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.7)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.6)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.9)">
                                     </div>
                                     <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
                                     </div>
                                     <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.8)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,0.9)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.9)">
                                     </div>
                                     <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
                                     </div>
@@ -1751,16 +1614,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Timer -->
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
                                 <div
-                                    style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);letter-spacing:0.1em;">
+                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;">
                                     FOCUS PULSE</div>
-                                <div style="font-family:var(--head);font-size:2.2rem;font-weight:900;color:var(--accent2);text-shadow:0 0 20px rgba(99,102,241,0.5);"
+                                <div style="font-family:var(--head);font-size:2.2rem;font-weight:900;color:var(--accent2);text-shadow:0 0 20px rgba(99,102,241,.5);"
                                     id="mock-timer">24:58</div>
-                                <div style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);">ACTIVE
-                                    SESSION</div>
+                                <div style="font-family:var(--mono);font-size:.55rem;color:var(--text3);">ACTIVE SESSION
+                                </div>
                                 <div
                                     style="width:60px;height:3px;background:var(--border);border-radius:2px;overflow:hidden;">
                                     <div style="height:100%;width:65%;background:var(--accent2);"></div>
@@ -1776,38 +1638,39 @@
         </div>
     </header>
 
-    <!-- ═══════════ MARQUEE ═══════════ -->
     <div class="marquee-wrap">
         <div class="marquee-track">
             <div class="marquee-item"><span>✦</span> DEEP WORK ENGINE</div>
-            <div class="marquee-item"><span>✦</span> HABIT MATRIX</div>
             <div class="marquee-item"><span>✦</span> FOCUS PULSE TIMER</div>
+            <div class="marquee-item"><span>✦</span> HABITS & STREAKS</div>
+            <div class="marquee-item"><span>✦</span> DEV TOOLS SUITE</div>
+            <div class="marquee-item"><span>✦</span> GAMIFICATION + XP</div>
+            <div class="marquee-item"><span>✦</span> CODE PLAYGROUND</div>
+            <div class="marquee-item"><span>✦</span> GITHUB INTEGRATION</div>
             <div class="marquee-item"><span>✦</span> WEEKLY OPS DASHBOARD</div>
             <div class="marquee-item"><span>✦</span> 90-DAY ANALYTICS</div>
-            <div class="marquee-item"><span>✦</span> CONSISTENCY TRACKING</div>
-            <div class="marquee-item"><span>✦</span> FIELD NOTES</div>
             <div class="marquee-item"><span>✦</span> STREAK SYSTEM</div>
-            <!-- duplicate for seamless loop -->
             <div class="marquee-item"><span>✦</span> DEEP WORK ENGINE</div>
-            <div class="marquee-item"><span>✦</span> HABIT MATRIX</div>
             <div class="marquee-item"><span>✦</span> FOCUS PULSE TIMER</div>
+            <div class="marquee-item"><span>✦</span> HABITS & STREAKS</div>
+            <div class="marquee-item"><span>✦</span> DEV TOOLS SUITE</div>
+            <div class="marquee-item"><span>✦</span> GAMIFICATION + XP</div>
+            <div class="marquee-item"><span>✦</span> CODE PLAYGROUND</div>
+            <div class="marquee-item"><span>✦</span> GITHUB INTEGRATION</div>
             <div class="marquee-item"><span>✦</span> WEEKLY OPS DASHBOARD</div>
             <div class="marquee-item"><span>✦</span> 90-DAY ANALYTICS</div>
-            <div class="marquee-item"><span>✦</span> CONSISTENCY TRACKING</div>
-            <div class="marquee-item"><span>✦</span> FIELD NOTES</div>
             <div class="marquee-item"><span>✦</span> STREAK SYSTEM</div>
         </div>
     </div>
 
-    <!-- ═══════════ FEATURES ═══════════ -->
     <section id="os">
         <div class="container">
             <div class="reveal">
                 <div class="section-tag">01 // THE SYSTEM</div>
                 <h2 class="section-heading">What is Storm OS?</h2>
                 <p style="color:var(--text2);max-width:540px;font-size:1rem;line-height:1.7;margin-top:12px;">
-                    It's more than a habit tracker. It's a full productivity operating system engineered for the tech
-                    mindset — built on the principles of deep work, consistency, and measurable output.
+                    More than a habit tracker. A full productivity operating system with deep work tools, developer
+                    utilities, and a gamification engine — engineered for the tech mindset.
                 </p>
             </div>
 
@@ -1815,41 +1678,92 @@
                 <div class="feature-card">
                     <div class="feature-num">01</div>
                     <div class="feature-icon">⚡</div>
-                    <div class="feature-title">DEEP WORK ENGINE</div>
-                    <p class="feature-desc">Plan and measure high-intensity focus sessions with precision. Stop counting
-                        hours; start counting output. Integrated timer with session logging.</p>
+                    <div class="feature-title">DEEP WORK</div>
+                    <p class="feature-desc">Add tasks with priority and time estimates. Check "Daily" for auto-reset
+                        recurring tasks. Drag to reorder. Track distractions, log energy levels, and earn XP for
+                        completions.</p>
+                    <div class="feature-tags">
+                        <span class="ftag">PRIORITY TAGS</span><span class="ftag">DAY SCORE</span><span
+                            class="ftag">DISTRACTION LOG</span><span class="ftag">+15 XP</span>
+                    </div>
                 </div>
                 <div class="feature-card">
                     <div class="feature-num">02</div>
-                    <div class="feature-icon">📈</div>
-                    <div class="feature-title">TECH GROWTH SYSTEM</div>
-                    <p class="feature-desc">Track your journey through AI, Cloud, or Software Engineering with
-                        structured learning path templates and milestone tracking.</p>
+                    <div class="feature-icon">⏱</div>
+                    <div class="feature-title">FOCUS PULSE</div>
+                    <p class="feature-desc">Presets: 15/25/45/60/90 min + custom. Full START, PAUSE, RESET, STOP
+                        controls. Sessions auto-log with timestamp and task label. Edit or delete entries.</p>
+                    <div class="feature-tags">
+                        <span class="ftag">15–90 MIN</span><span class="ftag">AUTO LOG</span><span class="ftag">+20
+                            XP</span>
+                    </div>
                 </div>
                 <div class="feature-card">
                     <div class="feature-num">03</div>
-                    <div class="feature-icon">🎯</div>
-                    <div class="feature-title">PERFORMANCE DASHBOARD</div>
-                    <p class="feature-desc">Hard data on your consistency. Visualize habits, focus time, and discipline
-                        trends across a 90-day activity graph.</p>
+                    <div class="feature-icon">🔁</div>
+                    <div class="feature-title">HABITS & STREAKS</div>
+                    <p class="feature-desc">Create habits, click days to track. View current and best streaks. 7-day
+                        visual grid with auto-calculated consistency rate and XP per check.</p>
+                    <div class="feature-tags">
+                        <span class="ftag">7-DAY GRID</span><span class="ftag">STREAK</span><span class="ftag">+5
+                            XP</span>
+                    </div>
+                </div>
+            </div>
+            <div class="features-row-2 reveal d2">
+                <div class="feature-card">
+                    <div class="feature-num">04</div>
+                    <div class="feature-icon">🛠️</div>
+                    <div class="feature-title">DEV TOOLS (7 PANELS)</div>
+                    <p class="feature-desc">A complete developer toolkit built into your dashboard. Code, analyze, and
+                        reference — all without context-switching.</p>
+                    <ul class="feature-list">
+                        <li>Code Playground — Run JavaScript live in-browser</li>
+                        <li>GitHub Stats — Fetch any user's public repo stats</li>
+                        <li>Code Snippets — Save and organize reusable code</li>
+                        <li>Data Structures — Visualize arrays, linked lists, trees</li>
+                        <li>Complexity Analyzer — Big O analysis from pasted code</li>
+                        <li>Markdown Editor — Write and preview markdown live</li>
+                        <li>Focus Score Engine — Calculate your daily focus grade</li>
+                    </ul>
+                    <div class="feature-tags">
+                        <span class="ftag">CODE PLAYGROUND</span><span class="ftag">GITHUB</span><span
+                            class="ftag">SNIPPETS</span><span class="ftag">MARKDOWN</span><span class="ftag">BIG
+                            O</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-num">05</div>
+                    <div class="feature-icon">🏆</div>
+                    <div class="feature-title">GAMIFICATION + ANALYTICS</div>
+                    <p class="feature-desc">Level up every 100 XP. Unlock achievements. Track weekly goals, log wins,
+                        write field notes, and monitor your 90-day activity heatmap.</p>
+                    <ul class="feature-list">
+                        <li>Level up every 100 XP (+50 XP bonus per level)</li>
+                        <li>Weekly Goals, Quick Wins, and Field Notes journal</li>
+                        <li>90-Day activity contribution heatmap</li>
+                        <li>Weekly Ops dashboard with day-by-day breakdown</li>
+                        <li>Smart recommendations and weekly report</li>
+                        <li>Full Analytics: peak hours chart, insights, metrics</li>
+                    </ul>
+                    <div class="feature-tags">
+                        <span class="ftag">XP SYSTEM</span><span class="ftag">LEVELS</span><span
+                            class="ftag">HEATMAP</span><span class="ftag">WEEKLY OPS</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══════════ BENEFITS ═══════════ -->
     <section id="benefits">
         <div class="container">
             <div class="results-grid">
-
                 <div class="reveal-left">
                     <div class="section-tag">02 // RESULTS</div>
                     <h2 class="section-heading">Built for the<br>Ambitious</h2>
-                    <p style="color:var(--text2);font-size:0.95rem;line-height:1.7;margin-top:16px;margin-bottom:40px;">
+                    <p style="color:var(--text2);font-size:.95rem;line-height:1.7;margin-top:16px;margin-bottom:40px;">
                         Every feature is engineered for one outcome: making you perform at the highest level, every
-                        single day.
-                    </p>
-
+                        single day.</p>
                     <div class="result-item">
                         <div class="result-num">01</div>
                         <div class="result-content">
@@ -1861,70 +1775,67 @@
                     <div class="result-item">
                         <div class="result-num">02</div>
                         <div class="result-content">
-                            <h4>DISTRACTION ELIMINATION</h4>
-                            <p>Kill distractions. The OS is designed to facilitate deep work and flow states through
-                                structured focus blocks.</p>
+                            <h4>GAMIFIED DISCIPLINE</h4>
+                            <p>Earn XP for every task completed, session logged, and habit tracked. Level up, unlock
+                                achievements, and make excellence addictive.</p>
                         </div>
                     </div>
                     <div class="result-item">
                         <div class="result-num">03</div>
                         <div class="result-content">
                             <h4>CAREER ACCELERATION</h4>
-                            <p>Measure your progress and build the discipline required for senior-level roles in tech
-                                through consistent daily execution.</p>
+                            <p>Built-in dev tools, code playground, GitHub integration and complexity analyzer — stop
+                                context-switching. Build the discipline for senior roles.</p>
                         </div>
                     </div>
                 </div>
-
                 <div class="reveal-right" style="display:flex;flex-direction:column;gap:16px;">
-                    <!-- Metrics -->
                     <div class="metrics-grid">
                         <div class="metric-card">
-                            <div class="metric-val blue count-up" data-target="94">0</div>
+                            <div class="metric-val blue"><span class="count-up" data-target="94">0</span><span
+                                    style="font-size:1.2rem">%</span></div>
                             <div class="metric-label">% CONSISTENCY</div>
                             <div class="metric-bar">
                                 <div class="metric-bar-fill" data-width="94"></div>
                             </div>
                         </div>
                         <div class="metric-card">
-                            <div class="metric-val purple count-up" data-target="6">0</div>
+                            <div class="metric-val purple"><span class="count-up" data-target="6">0</span><span
+                                    style="font-size:1.2rem">h</span></div>
                             <div class="metric-label">H AVG DEEP WORK</div>
                             <div class="metric-bar">
                                 <div class="metric-bar-fill purple" data-width="75"></div>
                             </div>
                         </div>
                         <div class="metric-card">
-                            <div class="metric-val green count-up" data-target="47">0</div>
+                            <div class="metric-val amber"><span class="count-up" data-target="47">0</span><span
+                                    style="font-size:1.2rem">d</span></div>
                             <div class="metric-label">DAY BEST STREAK</div>
                             <div class="metric-bar">
-                                <div class="metric-bar-fill green" data-width="60"></div>
+                                <div class="metric-bar-fill amber" data-width="60"></div>
                             </div>
                         </div>
                         <div class="metric-card">
-                            <div class="metric-val cyan count-up" data-target="2400">0</div>
+                            <div class="metric-val cyan"><span class="count-up" data-target="2400">0</span></div>
                             <div class="metric-label">OPERATORS ACTIVE</div>
                             <div class="metric-bar">
                                 <div class="metric-bar-fill cyan" data-width="85"></div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- ═══════════ PRICING ═══════════ -->
     <section id="pricing">
         <div class="container">
             <div style="text-align:center;" class="reveal">
                 <div class="section-tag" style="justify-content:center;margin-bottom:14px;">03 // PRICING</div>
                 <h2 class="section-heading">Commit to Excellence</h2>
-                <p style="color:var(--text2);font-size:0.95rem;margin-top:12px;">One plan. Everything you need to
-                    operate at maximum capacity.</p>
+                <p style="color:var(--text2);font-size:.95rem;margin-top:12px;">One plan. Everything you need to operate
+                    at maximum capacity.</p>
             </div>
-
             <div class="pricing-wrap reveal d2">
                 <div class="pricing-card">
                     <div class="pricing-top-border"></div>
@@ -1932,35 +1843,41 @@
                         <div class="pricing-badge">FULL OPERATOR ACCESS</div>
                         <div class="pricing-price">
                             <span class="pricing-dollar">$</span>
-                            <span class="count-up" data-target="19">0</span>
+                            <span>9</span><span class="pricing-cents">.99</span>
                             <span class="pricing-period">/MO</span>
                         </div>
-                        <p class="pricing-desc">Everything you need to lock in and build the discipline required to
-                            reach the top 1% of tech professionals.</p>
-
+                        <p class="pricing-desc">Everything you need to lock in, earn XP, and build the discipline
+                            required to reach the top 1% of tech professionals.</p>
                         <div class="pricing-divider"></div>
-
                         <ul class="pricing-features">
                             <li>
-                                <div class="check">✓</div> Full Lock In OS Access
+                                <div class="check">✓</div> Deep Work Engine (+15 XP per task)
                             </li>
                             <li>
-                                <div class="check">✓</div> Tech Growth Learning Tracks
+                                <div class="check">✓</div> Focus Pulse Timer (+20 XP per session)
                             </li>
                             <li>
-                                <div class="check">✓</div> Deep Work Performance Analytics
+                                <div class="check">✓</div> Habits & Streaks (+5 XP per habit)
                             </li>
                             <li>
-                                <div class="check">✓</div> Premium Productivity Templates
+                                <div class="check">✓</div> Dev Tools Suite (7 panels)
                             </li>
                             <li>
-                                <div class="check">✓</div> 90-Day Consistency Graph
+                                <div class="check">✓</div> Gamification: XP, Levels & Achievements
+                            </li>
+                            <li>
+                                <div class="check">✓</div> 90-Day Consistency Analytics
                             </li>
                             <li>
                                 <div class="check">✓</div> Weekly Execution Dashboard
                             </li>
+                            <li>
+                                <div class="check">✓</div> Field Notes Journal & Quick Wins
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Cloud Sync Across All Browsers
+                            </li>
                         </ul>
-
                         <button onclick="openCheckout()" class="btn btn-primary"
                             style="width:100%;justify-content:center;padding:15px;border:none;cursor:pointer;">
                             GET STARTED NOW
@@ -1969,9 +1886,8 @@
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </button>
-
                         <p
-                            style="text-align:center;font-family:var(--mono);font-size:0.6rem;color:var(--text3);margin-top:14px;letter-spacing:0.08em;">
+                            style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--text3);margin-top:14px;letter-spacing:.08em;">
                             NO COMMITMENT // CANCEL ANYTIME</p>
                     </div>
                 </div>
@@ -1979,7 +1895,6 @@
         </div>
     </section>
 
-    <!-- ═══════════ CTA ═══════════ -->
     <section class="cta-section">
         <div class="cta-glow"></div>
         <div class="container">
@@ -1991,19 +1906,18 @@
                         stroke-width="2.5">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
-                    </a>
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- ═══════════ FOOTER ═══════════ -->
     <footer>
         <div class="container">
             <div class="footer-inner">
                 <div>
                     <div class="footer-logo">STORM<span style="color:var(--accent)">_</span></div>
                     <div
-                        style="font-family:var(--mono);font-size:0.6rem;color:var(--text3);margin-top:6px;letter-spacing:0.08em;">
+                        style="font-family:var(--mono);font-size:.6rem;color:var(--text3);margin-top:6px;letter-spacing:.08em;">
                         LOCK IN. LEVEL UP.</div>
                 </div>
                 <div class="footer-links">
@@ -2027,27 +1941,13 @@
         </div>
     </footer>
 
-    <style>
-        @keyframes progressShimmer {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
-        }
-    </style>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <script>
-        // ── PADDLE ──
         const PADDLE_CLIENT_TOKEN = 'live_b978c685c872729dcde58410fec';
         const PADDLE_PRICE_ID = 'pri_01km9k8z59mvjdvny2fwcn109q';
         const SUPA_URL = 'https://mryishzprrgpxauoccmr.supabase.co';
         const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
-
         try {
             Paddle.Environment.set('production');
             Paddle.Initialize({
@@ -2058,77 +1958,52 @@
                             const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
                             const { data: s } = await sb.auth.getSession();
                             if (s && s.session && s.session.user) {
-                                await sb.from('profiles').upsert({
-                                    id: s.session.user.id,
-                                    is_paid: true,
-                                    subscription_status: 'active',
-                                    paid_at: new Date().toISOString()
-                                });
+                                await sb.from('profiles').upsert({ id: s.session.user.id, is_paid: true, subscription_status: 'active', paid_at: new Date().toISOString() });
                                 window.location.href = 'dashboard.html';
-                            } else {
-                                window.location.href = 'signup.html';
-                            }
+                            } else { window.location.href = 'signup.html'; }
                         } catch (e) { window.location.href = 'signup.html'; }
                     }
                 }
             });
         } catch (e) { }
-
         function openCheckout() {
-            Paddle.Checkout.open({
-                items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }],
-                settings: { displayMode: 'overlay', theme: 'dark' }
-            });
+            Paddle.Checkout.open({ items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }], settings: { displayMode: 'overlay', theme: 'dark' } });
         }
 
-        // ── CURSOR ──
-        const cursor = document.getElementById('cursor');
-        const cursorRing = document.getElementById('cursor-ring');
+        // Cursor
+        const cursor = document.getElementById('cursor'), cursorRing = document.getElementById('cursor-ring');
         let mx = 0, my = 0, rx = 0, ry = 0;
         document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-        (function animateCursor() {
-            rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
-            cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-            cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
-            requestAnimationFrame(animateCursor);
-        })();
+        (function a() { rx += (mx - rx) * .15; ry += (my - ry) * .15; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; requestAnimationFrame(a); })();
 
-        // ── NAV + PROGRESS BAR ──
-        const nav = document.getElementById('nav');
-        const pgLine = document.getElementById('pg-line');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 40);
-            const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-            pgLine.style.transform = 'scaleX(' + p + ')';
-        });
+        // Nav scroll
+        window.addEventListener('scroll', () => { document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40); });
 
-        // ── MOCK TIMER ──
+        // Mock timer
         let ms = 24 * 60 + 58;
-        setInterval(() => {
-            ms = ms > 0 ? ms - 1 : 25 * 60;
-            const el = document.getElementById('mock-timer');
-            if (el) el.textContent = String(Math.floor(ms / 60)).padStart(2, '0') + ':' + String(ms % 60).padStart(2, '0');
-        }, 1000);
+        setInterval(() => { ms = ms > 0 ? ms - 1 : 25 * 60; const el = document.getElementById('mock-timer'); if (el) el.textContent = String(Math.floor(ms / 60)).padStart(2, '0') + ':' + String(ms % 60).padStart(2, '0'); }, 1000);
 
-        // ── COUNT UP ──
+        // Count up animation
         function countUp(el, target, dur = 1500) {
             if (el.dataset.counted) return;
             el.dataset.counted = '1';
             const s = performance.now();
             function upd(now) {
-                const e = Math.min(now - s, dur), p = 1 - Math.pow(1 - e / dur, 3), v = Math.round(p * target);
+                const e = Math.min(now - s, dur);
+                const p = 1 - Math.pow(1 - e / dur, 3);
+                const v = Math.round(p * target);
                 el.textContent = v >= 1000 ? v.toLocaleString() : v;
                 if (e < dur) requestAnimationFrame(upd);
                 else el.textContent = target >= 1000 ? target.toLocaleString() : target;
             }
             requestAnimationFrame(upd);
         }
+
         function triggerCountUps(c) {
-            (c.classList.contains('count-up') ? [c] : c.querySelectorAll('.count-up')).forEach(el => {
-                const t = parseFloat(el.dataset.target);
-                if (!isNaN(t)) countUp(el, t);
-            });
+            const els = c.classList && c.classList.contains('count-up') ? [c] : c.querySelectorAll('.count-up');
+            els.forEach(el => { const t = parseFloat(el.dataset.target); if (!isNaN(t)) countUp(el, t); });
         }
+
         function triggerBarFills(c) {
             c.querySelectorAll('.metric-bar-fill[data-width]').forEach(b => {
                 if (b.dataset.filled) return;
@@ -2137,29 +2012,21 @@
             });
         }
 
-        // ── REVEAL ──
+        // Reveal on scroll
         const obs = new IntersectionObserver(entries => entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('active');
-                triggerCountUps(e.target);
-                triggerBarFills(e.target);
-            }
-        }), { threshold: 0.1 });
+            if (e.isIntersecting) { e.target.classList.add('active'); triggerCountUps(e.target); triggerBarFills(e.target); }
+        }), { threshold: .1 });
         document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
 
-        // Hero stats trigger after animation
+        // Hero stats count up after 1.2s
         setTimeout(() => {
-            document.querySelectorAll('.hero-stats .count-up[data-target]').forEach(el => {
-                countUp(el, parseFloat(el.dataset.target));
-            });
+            document.querySelectorAll('.hero-stats .count-up[data-target]').forEach(el => countUp(el, parseFloat(el.dataset.target)));
         }, 1200);
 
-        // ── PARALLAX ──
+        // Parallax orbs
         window.addEventListener('scroll', () => {
             const y = window.scrollY;
-            document.querySelectorAll('.orb').forEach((o, i) => {
-                o.style.transform = 'translate(0,' + y * (i + 1) * 0.12 + 'px) scale(1)';
-            });
+            document.querySelectorAll('.orb').forEach((o, i) => { o.style.transform = 'translate(0,' + y * (i + 1) * .12 + 'px) scale(1)'; });
         });
     </script>
 </body>
