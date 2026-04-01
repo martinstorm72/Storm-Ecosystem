@@ -243,7 +243,6 @@
             z-index: 1
         }
 
-        /* TAB NAV */
         .page-hero {
             padding: 140px 0 40px;
             text-align: center
@@ -304,7 +303,6 @@
             color: var(--accent)
         }
 
-        /* POLICY SECTIONS */
         .policy-section {
             display: none;
             padding: 60px 0 80px
@@ -314,7 +312,6 @@
             display: block
         }
 
-        /* DOC CARD */
         .doc-card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -363,7 +360,6 @@
             padding: 32px
         }
 
-        /* PROSE */
         .policy-h2 {
             font-family: var(--head);
             font-size: .72rem;
@@ -455,7 +451,6 @@
             color: #6ee7b7
         }
 
-        /* FOOTER */
         footer {
             border-top: 1px solid var(--border);
             padding: 48px 0;
@@ -542,25 +537,23 @@
         </div>
     </nav>
 
-    <!-- HERO -->
     <div class="page-hero">
         <div class="container">
             <div
                 style="font-family:var(--mono);font-size:.62rem;color:var(--accent);letter-spacing:.15em;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px">
                 <span style="width:20px;height:1px;background:var(--accent);display:inline-block"></span>STORM OS //
-                LEGAL
-            </div>
+                LEGAL</div>
             <h1>Policies &<br><span class="grad">Legal Docs</span></h1>
             <p>Everything you need to know about how we handle your data, what you agree to, and our refund policy.</p>
             <div class="policy-tabs">
-                <button class="ptab active" onclick="showPolicy('privacy')">🔒 Privacy Policy</button>
-                <button class="ptab" onclick="showPolicy('terms')" id="tab-terms">📋 Terms of Service</button>
-                <button class="ptab" onclick="showPolicy('refund')" id="tab-refund">💳 Refund Policy</button>
+                <button class="ptab active" onclick="showPolicy('privacy',this)">🔒 Privacy Policy</button>
+                <button class="ptab" onclick="showPolicy('terms',this)" id="tab-terms">📋 Terms of Service</button>
+                <button class="ptab" onclick="showPolicy('refund',this)" id="tab-refund">💳 Refund Policy</button>
             </div>
         </div>
     </div>
 
-    <!-- ═══ PRIVACY POLICY ═══ -->
+    <!-- PRIVACY -->
     <div class="policy-section active" id="sec-privacy">
         <div class="container">
             <div class="doc-card">
@@ -579,9 +572,7 @@
                     <p class="policy-p">By using Storm OS, you agree to the collection and use of information in
                         accordance with this policy. We take your privacy seriously and will never sell your personal
                         data to third parties.</p>
-
                     <h3 class="policy-h2">2. INFORMATION WE COLLECT</h3>
-                    <p class="policy-p">We collect the following categories of information:</p>
                     <ul class="policy-ul">
                         <li><strong>Account Data:</strong> Your name and email address when you register.</li>
                         <li><strong>Payment Data:</strong> Billing information processed by Paddle (our payment
@@ -589,43 +580,37 @@
                             PCI-compliant systems.</li>
                         <li><strong>Usage Data:</strong> Your subscription status and payment confirmation stored in our
                             Supabase database.</li>
-                        <li><strong>Local Data:</strong> All dashboard activity (tasks, habits, sessions, journal
-                            entries, analytics) is stored locally in your browser's localStorage and never transmitted
-                            to our servers.</li>
+                        <li><strong>Cloud Sync Data:</strong> Dashboard activity (tasks, habits, sessions, journal
+                            entries, analytics) synced to Supabase cloud storage, encrypted in transit and at rest.</li>
                         <li><strong>Technical Data:</strong> Basic server logs (IP address, browser type, timestamps)
                             for security and debugging purposes.</li>
                     </ul>
-
                     <h3 class="policy-h2">3. HOW WE USE YOUR DATA</h3>
                     <ul class="policy-ul">
                         <li>To authenticate your account and verify your subscription status.</li>
                         <li>To process your payment and grant dashboard access upon confirmation.</li>
+                        <li>To sync your productivity data across browsers and devices via Supabase.</li>
                         <li>To send transactional emails (payment receipts, account confirmation) via Supabase Auth.
                         </li>
                         <li>To maintain the security of our platform and prevent fraud.</li>
                         <li>We do NOT use your data for advertising, profiling, or sell it to any third parties.</li>
                     </ul>
-
                     <h3 class="policy-h2">4. DATA STORAGE & SECURITY</h3>
-                    <p class="policy-p">Your account data (name, email, subscription status) is stored in Supabase, a
-                        SOC 2 compliant cloud database. All data is encrypted in transit using TLS and at rest. Payment
+                    <p class="policy-p">Your account data (name, email, subscription status) and productivity data
+                        (tasks, habits, sessions, journal entries, goals, analytics) are stored in Supabase, a SOC 2
+                        compliant cloud database. All data is encrypted in transit using TLS and at rest. Payment
                         processing is handled exclusively by Paddle, a PCI-DSS Level 1 certified provider.</p>
-                    <p class="policy-p">Your productivity data (tasks, habits, sessions, journal entries, goals,
-                        analytics) is stored exclusively in your browser's localStorage on your own device. We cannot
-                        access this data. Clearing your browser storage will permanently delete this data.</p>
-
+                    <p class="policy-p">Data is also cached in your browser's localStorage for offline access. Clearing
+                        your browser storage will not permanently delete your data if cloud sync is enabled.</p>
                     <h3 class="policy-h2">5. THIRD-PARTY SERVICES</h3>
                     <ul class="policy-ul">
-                        <li><strong>Supabase:</strong> Authentication and user profile database. Privacy policy at
-                            supabase.com/privacy.</li>
+                        <li><strong>Supabase:</strong> Authentication, user profiles, and cloud data sync. Privacy
+                            policy at supabase.com/privacy.</li>
                         <li><strong>Paddle:</strong> Payment processing. Privacy policy at paddle.com/legal/privacy.
                         </li>
-                        <li><strong>OneCompiler:</strong> In-browser code execution via embedded iframe. Privacy policy
-                            at onecompiler.com. No code you write is stored by us.</li>
                         <li><strong>Google Fonts:</strong> Typography delivery. Privacy policy at
                             policies.google.com/privacy.</li>
                     </ul>
-
                     <h3 class="policy-h2">6. YOUR RIGHTS</h3>
                     <ul class="policy-ul">
                         <li>Request access to the personal data we hold about you.</li>
@@ -635,22 +620,16 @@
                     </ul>
                     <p class="policy-p">To exercise any of these rights, contact us at <a
                             href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a>.</p>
-
                     <h3 class="policy-h2">7. COOKIES</h3>
-                    <p class="policy-p">Storm OS does not use tracking cookies. We use browser localStorage to maintain
-                        your dashboard data and Supabase Auth session tokens for authentication purposes only. No
-                        advertising or analytics cookies are used.</p>
-
+                    <p class="policy-p">Storm OS does not use tracking cookies. We use browser localStorage for data
+                        caching and Supabase Auth session tokens for authentication purposes only. No advertising or
+                        analytics cookies are used.</p>
                     <h3 class="policy-h2">8. CHILDREN'S PRIVACY</h3>
                     <p class="policy-p">Storm OS is not directed at anyone under the age of 16. We do not knowingly
-                        collect personal information from children. If you believe a child has provided us with personal
-                        data, contact us immediately.</p>
-
+                        collect personal information from children.</p>
                     <h3 class="policy-h2">9. CHANGES TO THIS POLICY</h3>
-                    <p class="policy-p">We may update this Privacy Policy from time to time. We will notify users of
-                        significant changes by email or by posting a notice on the platform. Continued use of Storm OS
+                    <p class="policy-p">We may update this Privacy Policy from time to time. Continued use of Storm OS
                         after changes constitutes acceptance of the updated policy.</p>
-
                     <h3 class="policy-h2">10. CONTACT</h3>
                     <p class="policy-p">For privacy concerns or data requests, contact Martin at:<br><a
                             href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a></p>
@@ -659,7 +638,7 @@
         </div>
     </div>
 
-    <!-- ═══ TERMS OF SERVICE ═══ -->
+    <!-- TERMS -->
     <div class="policy-section" id="sec-terms">
         <div class="container">
             <div class="doc-card">
@@ -675,24 +654,22 @@
                         <p>⚠ BY CREATING AN ACCOUNT OR ACCESSING THE STORM OS DASHBOARD, YOU AGREE TO THESE TERMS IN
                             FULL. IF YOU DO NOT AGREE, DO NOT USE THE SERVICE.</p>
                     </div>
-
                     <h3 class="policy-h2">1. ACCEPTANCE OF TERMS</h3>
                     <p class="policy-p">These Terms of Service ("Terms") govern your access to and use of Storm OS,
                         operated by Martin ("Operator", "we", "us") from Egypt. By registering an account, completing a
                         payment, or accessing the dashboard, you confirm that you have read, understood, and agree to be
                         bound by these Terms.</p>
-
                     <h3 class="policy-h2">2. THE SERVICE</h3>
-                    <p class="policy-p">Storm OS is a web-based productivity platform providing seven integrated tools:
-                        Deep Work Engine, Focus Pulse Timer, Habit Matrix, Weekly Ops Dashboard, 90-Day Analytics, Field
-                        Notes, and an Online Compiler. Access to the dashboard requires a paid subscription.</p>
+                    <p class="policy-p">Storm OS is a web-based productivity platform providing nine integrated
+                        dashboard tabs: Deep Work Planner, Focus Pulse Timer, Habit Matrix, Weekly Ops Dashboard,
+                        Analytics, Field Notes Journal, Dev Tools Suite, Reports, and Help. Access to the dashboard
+                        requires a paid subscription.</p>
                     <ul class="policy-ul">
                         <li>Access is granted upon successful payment processing via Paddle.</li>
                         <li>The platform is provided "as is" and "as available".</li>
                         <li>We reserve the right to modify, update, or discontinue features with reasonable notice.</li>
                         <li>We do not guarantee 100% uptime and are not liable for downtime outside our control.</li>
                     </ul>
-
                     <h3 class="policy-h2">3. ACCOUNT REGISTRATION</h3>
                     <ul class="policy-ul">
                         <li>You must provide accurate and complete information when creating your account.</li>
@@ -701,17 +678,15 @@
                         <li>One account per user. Sharing accounts is not permitted.</li>
                         <li>You must be at least 16 years old to register.</li>
                     </ul>
-
                     <h3 class="policy-h2">4. SUBSCRIPTION & PAYMENT</h3>
                     <ul class="policy-ul">
-                        <li>The Operator plan costs $19/month, billed monthly through Paddle.</li>
+                        <li>The Operator plan costs $9.99/month, billed monthly through Paddle.</li>
                         <li>Payment is required before accessing the dashboard. No free trial is offered.</li>
                         <li>Subscriptions renew automatically each month until cancelled.</li>
                         <li>You may cancel your subscription at any time through Paddle's customer portal.</li>
                         <li>Cancellation takes effect at the end of the current billing period.</li>
                         <li>All prices are in USD and exclude applicable taxes where required.</li>
                     </ul>
-
                     <h3 class="policy-h2">5. ACCEPTABLE USE</h3>
                     <p class="policy-p">You agree not to:</p>
                     <ul class="policy-ul">
@@ -722,48 +697,39 @@
                         <li>Use automated scripts, bots, or scrapers to access the platform.</li>
                         <li>Resell or sublicense access to the platform.</li>
                         <li>Upload or transmit malicious code, viruses, or harmful content.</li>
-                        <li>Use the compiler to execute malicious, illegal, or harmful code targeting external systems.
-                        </li>
+                        <li>Use the code playground to execute malicious, illegal, or harmful code targeting external
+                            systems.</li>
                     </ul>
-
                     <h3 class="policy-h2">6. INTELLECTUAL PROPERTY</h3>
                     <p class="policy-p">All content, design, code, branding, and materials comprising Storm OS are the
                         intellectual property of the Operator and are protected by applicable copyright and trademark
                         laws. You may not reproduce, distribute, or create derivative works from Storm OS without
                         explicit written permission.</p>
-                    <p class="policy-p">Your personal data (tasks, journal entries, habits, notes) stored in your
-                        browser's localStorage remains your own property. We have no access to it.</p>
-
+                    <p class="policy-p">Your personal data (tasks, journal entries, habits, notes) stored in cloud sync
+                        and localStorage remains your own property.</p>
                     <h3 class="policy-h2">7. DISCLAIMER OF WARRANTIES</h3>
                     <p class="policy-p">STORM OS IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
                         WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR THAT ANY DEFECTS WILL
                         BE CORRECTED. YOUR USE OF THE SERVICE IS AT YOUR SOLE RISK.</p>
-
                     <h3 class="policy-h2">8. LIMITATION OF LIABILITY</h3>
                     <p class="policy-p">TO THE FULLEST EXTENT PERMITTED BY LAW, STORM OS AND ITS OPERATOR SHALL NOT BE
                         LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS
                         OF DATA, REVENUE, OR PROFITS, ARISING FROM YOUR USE OF THE SERVICE.</p>
                     <p class="policy-p">OUR TOTAL LIABILITY TO YOU SHALL NOT EXCEED THE AMOUNT PAID BY YOU IN THE 30
                         DAYS PRECEDING THE CLAIM.</p>
-
                     <h3 class="policy-h2">9. TERMINATION</h3>
                     <ul class="policy-ul">
                         <li>You may cancel your subscription and close your account at any time.</li>
                         <li>We reserve the right to suspend or terminate accounts that violate these Terms.</li>
                         <li>Upon termination, your access to the dashboard will cease immediately.</li>
-                        <li>Data stored in your browser's localStorage remains on your device after termination.</li>
                     </ul>
-
                     <h3 class="policy-h2">10. GOVERNING LAW</h3>
                     <p class="policy-p">These Terms are governed by and construed in accordance with the laws of Egypt.
                         Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the
                         courts of Egypt.</p>
-
                     <h3 class="policy-h2">11. CHANGES TO TERMS</h3>
                     <p class="policy-p">We reserve the right to update these Terms at any time. Continued use of Storm
-                        OS after changes constitutes acceptance of the new Terms. We will provide reasonable notice of
-                        material changes via email or platform notification.</p>
-
+                        OS after changes constitutes acceptance of the new Terms.</p>
                     <h3 class="policy-h2">12. CONTACT</h3>
                     <p class="policy-p">For questions about these Terms, contact: <a
                             href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a></p>
@@ -772,7 +738,7 @@
         </div>
     </div>
 
-    <!-- ═══ REFUND POLICY ═══ -->
+    <!-- REFUND -->
     <div class="policy-section" id="sec-refund">
         <div class="container">
             <div class="doc-card">
@@ -788,21 +754,19 @@
                         <p>🔴 IMPORTANT: STORM OS OPERATES A STRICT NO-REFUND POLICY. ALL SALES ARE FINAL. BY COMPLETING
                             YOUR PURCHASE, YOU ACKNOWLEDGE AND ACCEPT THIS POLICY IN FULL.</p>
                     </div>
-
                     <h3 class="policy-h2">1. NO REFUND POLICY</h3>
                     <p class="policy-p">Due to the digital and immediate-access nature of the Storm OS platform, all
                         purchases are final and non-refundable. Once payment is processed and dashboard access is
                         granted, no refunds will be issued under any circumstances.</p>
                     <p class="policy-p">This policy applies to:</p>
                     <ul class="policy-ul">
-                        <li>Monthly subscription charges.</li>
+                        <li>Monthly subscription charges of $9.99/month.</li>
                         <li>All past and future billing cycles.</li>
                         <li>Situations where you did not use the service after payment.</li>
                         <li>Situations where you forgot to cancel before the renewal date.</li>
                         <li>Situations where you were dissatisfied with the service after access was granted.</li>
                         <li>Partial month refunds when cancelling mid-cycle.</li>
                     </ul>
-
                     <h3 class="policy-h2">2. CANCELLATION</h3>
                     <p class="policy-p">You may cancel your subscription at any time through your Paddle customer
                         portal. Your subscription and access will remain active until the end of the current billing
@@ -810,7 +774,6 @@
                     <p class="policy-p">To cancel: log into your Paddle account, navigate to "Subscriptions", and select
                         "Cancel". If you need assistance finding your Paddle portal, email us at <a
                             href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a>.</p>
-
                     <h3 class="policy-h2">3. EXCEPTIONS</h3>
                     <div class="notice green-n">
                         <p>✓ The only exception to this policy is in the case of a verifiable duplicate charge or
@@ -820,20 +783,16 @@
                     <p class="policy-p">We do not accept claims of "I didn't know", "I forgot to cancel", "I didn't use
                         it", or "it didn't work as expected" as grounds for a refund. We encourage all prospective users
                         to review the full service description on our landing page before purchasing.</p>
-
                     <h3 class="policy-h2">4. CHARGEBACKS</h3>
                     <p class="policy-p">Initiating a chargeback or payment dispute with your bank or card issuer without
                         first contacting us is a violation of these Terms. If you initiate a chargeback, we reserve the
                         right to immediately terminate your account and contest the dispute with evidence of service
                         delivery.</p>
-
                     <h3 class="policy-h2">5. TECHNICAL ISSUES</h3>
                     <p class="policy-p">If you experience a genuine technical issue preventing you from accessing the
                         dashboard after payment, contact us at <a
                             href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a> within 48 hours. We will
-                        work to resolve the issue promptly. Technical issues do not automatically entitle you to a
-                        refund; they entitle you to support and resolution.</p>
-
+                        work to resolve the issue promptly.</p>
                     <h3 class="policy-h2">6. HOW TO REQUEST SUPPORT</h3>
                     <ul class="policy-ul">
                         <li>Email: <a href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a></li>
@@ -841,11 +800,9 @@
                         <li>For billing errors only: include your Paddle transaction ID and the date of charge.</li>
                         <li>Response time: 1–3 business days.</li>
                     </ul>
-
                     <h3 class="policy-h2">7. GOVERNING LAW</h3>
                     <p class="policy-p">This Refund Policy is governed by the laws of Egypt. By purchasing a Storm OS
                         subscription, you acknowledge that you have read and accepted this policy in its entirety.</p>
-
                     <div class="notice amber-n" style="margin-top:24px">
                         <p>⚠ BY CLICKING "GET STARTED NOW" AND COMPLETING PAYMENT, YOU CONFIRM THAT YOU HAVE READ AND
                             AGREE TO THIS NO-REFUND POLICY.</p>
@@ -855,7 +812,6 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer>
         <div class="fi">
             <div>
@@ -864,13 +820,10 @@
                     style="font-family:var(--mono);font-size:.57rem;color:var(--text3);margin-top:6px;letter-spacing:.08em">
                     LOCK IN. LEVEL UP.</div>
             </div>
-            <div class="flinks">
-                <a href="index.html">Home</a><a href="services.html">Services</a><a
-                    href="index.html#pricing">Pricing</a>
-                <a href="policy.html">Privacy</a><a href="policy.html#terms">Terms</a><a
-                    href="policy.html#refund">Refund</a>
-                <a href="login.html">Login</a><a href="signup.html">Register</a>
-            </div>
+            <div class="flinks"><a href="index.html">Home</a><a href="services.html">Services</a><a
+                    href="index.html#pricing">Pricing</a><a href="policy.html">Privacy</a><a
+                    href="policy.html#terms">Terms</a><a href="policy.html#refund">Refund</a><a
+                    href="login.html">Login</a><a href="signup.html">Register</a></div>
             <div class="fm">
                 <div>STORM OS // v1.0.26</div>
                 <div>© 2026 STORM. ALL RIGHTS RESERVED.</div>
@@ -880,30 +833,24 @@
     </footer>
 
     <script>
-        // Cursor
         const cur = document.getElementById('cur'), cr = document.getElementById('cur-r');
         let mx = 0, my = 0, rx = 0, ry = 0;
         document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
         (function a() { rx += (mx - rx) * .15; ry += (my - ry) * .15; cur.style.left = mx + 'px'; cur.style.top = my + 'px'; cr.style.left = rx + 'px'; cr.style.top = ry + 'px'; requestAnimationFrame(a); })();
-
-        // Nav scroll
         window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('sc', window.scrollY > 40));
 
-        // Tab switching
-        function showPolicy(tab) {
+        function showPolicy(tab, btn) {
             document.querySelectorAll('.policy-section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
             document.getElementById('sec-' + tab).classList.add('active');
-            event.currentTarget.classList.add('active');
+            if (btn) btn.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        // Handle hash navigation
         function handleHash() {
             const hash = window.location.hash.replace('#', '');
-            if (hash === 'terms') { document.querySelector('[onclick*="terms"]').click(); }
-            else if (hash === 'refund') { document.querySelector('[onclick*="refund"]').click(); }
-            else if (hash === 'privacy') { document.querySelector('[onclick*="privacy"]').click(); }
+            if (hash === 'terms') { const btn = document.querySelector('[onclick*="terms"]'); if (btn) showPolicy('terms', btn); }
+            else if (hash === 'refund') { const btn = document.querySelector('[onclick*="refund"]'); if (btn) showPolicy('refund', btn); }
+            else if (hash === 'privacy') { const btn = document.querySelector('[onclick*="privacy"]'); if (btn) showPolicy('privacy', btn); }
         }
         window.addEventListener('hashchange', handleHash);
         if (window.location.hash) handleHash();
