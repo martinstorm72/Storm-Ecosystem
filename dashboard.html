@@ -1881,12 +1881,260 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--accent);
         }
+
+        /* ===== WEEKLY & MONTHLY PLANNER STYLES ===== */
+        .wp-day-col {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: border-color 0.2s;
+        }
+
+        .wp-day-col.today-col {
+            border-color: var(--accent);
+            background: rgba(108, 99, 255, 0.06);
+        }
+
+        .wp-day-header {
+            font-family: var(--mono);
+            font-size: .6rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            color: var(--text3);
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .wp-day-header.today-hdr {
+            color: var(--accent);
+        }
+
+        .wp-event {
+            font-family: var(--mono);
+            font-size: .62rem;
+            font-weight: 600;
+            padding: 4px 7px;
+            border-radius: 4px;
+            border-left: 3px solid;
+            background: var(--bg2);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 4px;
+            cursor: default;
+            transition: opacity 0.2s;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .wp-event:hover {
+            opacity: 0.85;
+        }
+
+        .wp-event.cat-work {
+            border-color: var(--accent);
+            color: var(--accent2);
+        }
+
+        .wp-event.cat-focus {
+            border-color: var(--amber);
+            color: var(--amber);
+        }
+
+        .wp-event.cat-personal {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .wp-event.cat-health {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+
+        .wp-event.cat-learning {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .wp-event-del {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text3);
+            font-size: .7rem;
+            padding: 0 2px;
+            flex-shrink: 0;
+            transition: color 0.2s;
+        }
+
+        .wp-event-del:hover {
+            color: var(--red);
+        }
+
+        .wp-event-time {
+            font-size: .58rem;
+            font-weight: 700;
+            opacity: 0.9;
+            white-space: nowrap;
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        .wp-event-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Monthly calendar */
+        .mp-day-cell {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 6px;
+            min-height: 80px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .mp-day-cell:hover {
+            border-color: var(--accent);
+            background: rgba(108, 99, 255, 0.04);
+        }
+
+        .mp-day-cell.today-cell {
+            border-color: var(--accent);
+            background: rgba(108, 99, 255, 0.08);
+        }
+
+        .mp-day-cell.other-month {
+            opacity: 0.3;
+        }
+
+        .mp-day-cell.selected-cell {
+            border-color: var(--cyan);
+            background: rgba(0, 210, 255, 0.06);
+        }
+
+        .mp-day-num {
+            font-family: var(--mono);
+            font-size: .65rem;
+            font-weight: 700;
+            color: var(--text3);
+            margin-bottom: 4px;
+        }
+
+        .mp-day-cell.today-cell .mp-day-num {
+            color: var(--accent);
+        }
+
+        .mp-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 1px;
+        }
+
+        .mp-dot.cat-work {
+            background: var(--accent);
+        }
+
+        .mp-dot.cat-focus {
+            background: var(--amber);
+        }
+
+        .mp-dot.cat-personal {
+            background: var(--green);
+        }
+
+        .mp-dot.cat-health {
+            background: var(--cyan);
+        }
+
+        .mp-dot.cat-learning {
+            background: var(--red);
+        }
+
+        .mp-event-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 8px;
+            background: var(--bg2);
+            border-radius: 4px;
+            margin-bottom: 5px;
+            font-family: var(--mono);
+            font-size: .72rem;
+            border-left: 3px solid var(--accent);
+            animation: slideInLeft 0.3s ease;
+        }
+
+        .mp-event-item.cat-work {
+            border-color: var(--accent);
+        }
+
+        .mp-event-item.cat-focus {
+            border-color: var(--amber);
+        }
+
+        .mp-event-item.cat-personal {
+            border-color: var(--green);
+        }
+
+        .mp-event-item.cat-health {
+            border-color: var(--cyan);
+        }
+
+        .mp-event-item.cat-learning {
+            border-color: var(--red);
+        }
+
+        .mp-event-time-badge {
+            font-family: var(--mono);
+            font-size: .62rem;
+            font-weight: 700;
+            color: var(--text3);
+            margin-right: 6px;
+            white-space: nowrap;
+        }
+
+        .wp-stat-card {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .wp-stat-val {
+            font-family: var(--head);
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--accent2);
+        }
+
+        .wp-stat-lbl {
+            font-family: var(--mono);
+            font-size: .58rem;
+            color: var(--text3);
+            margin-top: 4px;
+            letter-spacing: .08em;
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- LOADING OVERLAY — shown while auth + cloud sync completes -->
+    <!-- LOADING OVERLAY -->
     <div id="loading-overlay">
         <div class="loading-spinner"></div>
         <h2><i class="fas fa-bolt"></i> OPERATOR COMMAND</h2>
@@ -1954,6 +2202,10 @@
                 PULSE</button>
             <button class="nav-tab" onclick="switchTab('habits',this)"><i class="fas fa-chart-line"></i> HABIT
                 MATRIX</button>
+            <button class="nav-tab" onclick="switchTab('weekly-planner',this)"><i class="fas fa-calendar-alt"></i>
+                WEEKLY PLAN</button>
+            <button class="nav-tab" onclick="switchTab('monthly-planner',this)"><i class="fas fa-calendar"></i> MONTHLY
+                PLAN</button>
             <button class="nav-tab" onclick="switchTab('dashboard',this)"><i class="fas fa-calendar-week"></i> WEEKLY
                 OPS</button>
             <button class="nav-tab" onclick="switchTab('analytics',this)"><i class="fas fa-chart-bar"></i>
@@ -2488,7 +2740,10 @@
                         <p>🎯 <strong>Deep Work</strong> — Add tasks, set priorities, track completion</p>
                         <p>⏱️ <strong>Focus Pulse</strong> — Timed focus sessions with session log</p>
                         <p>📈 <strong>Habit Matrix</strong> — Track daily habits with streak counts</p>
-                        <p>📅 <strong>Weekly Ops</strong> — Weekly goals, wins and overview</p>
+                        <p>📅 <strong>Weekly Plan</strong> — Plan your full week day by day <span
+                                style="color:var(--green)">[NEW]</span></p>
+                        <p>🗓️ <strong>Monthly Plan</strong> — Schedule across the whole month <span
+                                style="color:var(--green)">[NEW]</span></p>
                         <p>📊 <strong>Analytics</strong> — Full productivity analytics & graphs</p>
                         <p>📓 <strong>Field Notes</strong> — Journal for wins, blockers, insights</p>
                         <p>💻 <strong>Dev Tools</strong> — Code playground, snippets, GitHub stats</p>
@@ -2500,12 +2755,136 @@
                     <div class="shortcut-row"><span>Toggle timer</span><span class="kbd">Space</span></div>
                     <div class="shortcut-row"><span>Show shortcuts</span><span class="kbd">?</span></div>
                     <div class="shortcut-row"><span>Switch tabs 1-9</span><span class="kbd">1-9</span></div>
+                    <div class="shortcut-row"><span>Add task (quick)</span><span class="kbd">Ctrl+N</span></div>
+                    <div class="shortcut-row"><span>Submit ADD button</span><span class="kbd">Enter</span></div>
                     <div class="shortcut-row"><span>Run code</span><span class="kbd">Ctrl+Enter</span></div>
-                    <div class="shortcut-row"><span>New task</span><span class="kbd">Ctrl+N</span></div>
                     <div class="shortcut-row"><span>Log distraction</span><span class="kbd">Alt+D</span></div>
                     <div class="shortcut-row"><span>Export data</span><span class="kbd">Alt+E</span></div>
                     <div class="shortcut-row"><span>Force cloud sync</span><span class="kbd">Alt+S</span></div>
+                    <div class="shortcut-row"><span>Add weekly event</span><span class="kbd">Alt+W</span></div>
+                    <div class="shortcut-row"><span>Add monthly event</span><span class="kbd">Alt+M</span></div>
                 </div>
+            </div>
+        </div>
+
+        <!-- WEEKLY PLANNER PANEL -->
+        <div class="panel" id="panel-weekly-planner">
+            <div class="card">
+                <div class="card-title">
+                    <span><i class="fas fa-calendar-alt"></i> WEEKLY PLANNER</span>
+                    <span class="card-badge" id="wp-week-label"></span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+                    <button class="btn btn-ghost btn-sm" onclick="wpPrevWeek()"><i class="fas fa-chevron-left"></i>
+                        PREV</button>
+                    <button class="btn btn-ghost btn-sm" onclick="wpThisWeek()"><i class="fas fa-crosshairs"></i> THIS
+                        WEEK</button>
+                    <button class="btn btn-ghost btn-sm" onclick="wpNextWeek()">NEXT <i
+                            class="fas fa-chevron-right"></i></button>
+                    <div style="display:flex;gap:8px;margin-left:auto;flex-wrap:wrap;">
+                        <input type="text" id="wp-task-input" placeholder="📝 Add event/task..."
+                            style="max-width:220px;" onkeydown="if(event.key==='Enter')addWeeklyEvent()" />
+                        <select id="wp-day-select" style="max-width:100px;">
+                            <option value="0">SUN</option>
+                            <option value="1">MON</option>
+                            <option value="2">TUE</option>
+                            <option value="3">WED</option>
+                            <option value="4">THU</option>
+                            <option value="5">FRI</option>
+                            <option value="6">SAT</option>
+                        </select>
+                        <input type="time" id="wp-time-input" style="max-width:110px;" />
+                        <select id="wp-cat-select" style="max-width:110px;">
+                            <option value="work">💼 WORK</option>
+                            <option value="focus">⚡ FOCUS</option>
+                            <option value="personal">🏠 PERSONAL</option>
+                            <option value="health">💪 HEALTH</option>
+                            <option value="learning">📚 LEARNING</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm" onclick="addWeeklyEvent()" title="Enter to add"><i
+                                class="fas fa-plus"></i> ADD <span
+                                style="font-size:.55rem;opacity:.7">[Enter]</span></button>
+                    </div>
+                </div>
+                <div id="wp-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;min-height:400px;">
+                </div>
+                <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+                    <span style="font-family:var(--mono);font-size:.6rem;color:var(--text3);">CATEGORIES:</span>
+                    <span style="font-family:var(--mono);font-size:.6rem;color:#6c63ff;">💼 WORK</span>
+                    <span style="font-family:var(--mono);font-size:.6rem;color:#ffb347;">⚡ FOCUS</span>
+                    <span style="font-family:var(--mono);font-size:.6rem;color:#39d353;">🏠 PERSONAL</span>
+                    <span style="font-family:var(--mono);font-size:.6rem;color:#00d2ff;">💪 HEALTH</span>
+                    <span style="font-family:var(--mono);font-size:.6rem;color:#ff4757;">📚 LEARNING</span>
+                </div>
+            </div>
+            <div class="card" style="margin-top:16px;">
+                <div class="card-title"><i class="fas fa-chart-bar"></i> WEEK STATS</div>
+                <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;" id="wp-stats"></div>
+            </div>
+        </div>
+
+        <!-- MONTHLY PLANNER PANEL -->
+        <div class="panel" id="panel-monthly-planner">
+            <div class="card">
+                <div class="card-title">
+                    <span><i class="fas fa-calendar"></i> MONTHLY PLANNER</span>
+                    <span class="card-badge" id="mp-month-label"></span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+                    <button class="btn btn-ghost btn-sm" onclick="mpPrevMonth()"><i class="fas fa-chevron-left"></i>
+                        PREV</button>
+                    <button class="btn btn-ghost btn-sm" onclick="mpThisMonth()"><i class="fas fa-crosshairs"></i> THIS
+                        MONTH</button>
+                    <button class="btn btn-ghost btn-sm" onclick="mpNextMonth()">NEXT <i
+                            class="fas fa-chevron-right"></i></button>
+                    <div style="display:flex;gap:8px;margin-left:auto;flex-wrap:wrap;">
+                        <input type="text" id="mp-task-input" placeholder="📝 Add event..." style="max-width:200px;"
+                            onkeydown="if(event.key==='Enter')addMonthlyEvent()" />
+                        <input type="date" id="mp-date-input" style="max-width:150px;" />
+                        <input type="time" id="mp-time-input" style="max-width:110px;" placeholder="Time (optional)" />
+                        <select id="mp-cat-select" style="max-width:110px;">
+                            <option value="work">💼 WORK</option>
+                            <option value="focus">⚡ FOCUS</option>
+                            <option value="personal">🏠 PERSONAL</option>
+                            <option value="health">💪 HEALTH</option>
+                            <option value="learning">📚 LEARNING</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm" onclick="addMonthlyEvent()" title="Enter to add"><i
+                                class="fas fa-plus"></i> ADD <span
+                                style="font-size:.55rem;opacity:.7">[Enter]</span></button>
+                    </div>
+                </div>
+                <!-- Day-of-week headers -->
+                <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px;">
+                    <div
+                        style="font-family:var(--mono);font-size:.6rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        SUN</div>
+                    <div
+                        style="font-family:var(--mono);font-size:.6rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        MON</div>
+                    <div
+                        style="font-family:var(--mono);font-size:.6rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        TUE</div>
+                    <div
+                        style="font-family:var(--mono);font-size:.6rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        WED</div>
+                    <div
+                        style="font-family:var(--mono);font-size:.6rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        THU</div>
+                    <div
+                        style="font-family:var(--mono);font-size:.6rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        FRI</div>
+                    <div
+                        style="font-family:var(--mono);font-size:.6rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        SAT</div>
+                </div>
+                <div id="mp-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;"></div>
+            </div>
+            <!-- Selected day detail -->
+            <div class="card" style="margin-top:16px;" id="mp-day-detail">
+                <div class="card-title"><i class="fas fa-list"></i> EVENTS FOR <span id="mp-day-detail-title">—</span>
+                </div>
+                <div id="mp-day-events"></div>
             </div>
         </div>
     </div><!-- end .wrapper -->
@@ -2526,11 +2905,14 @@
             <div class="shortcut-row"><span>Toggle timer</span><span class="kbd">Space</span></div>
             <div class="shortcut-row"><span>Show shortcuts</span><span class="kbd">?</span></div>
             <div class="shortcut-row"><span>Tabs 1-9</span><span class="kbd">1-9</span></div>
+            <div class="shortcut-row"><span>Focus task input & add</span><span class="kbd">Ctrl+N</span></div>
+            <div class="shortcut-row"><span>Submit ADD (any input)</span><span class="kbd">Enter</span></div>
             <div class="shortcut-row"><span>Run code</span><span class="kbd">Ctrl+Enter</span></div>
-            <div class="shortcut-row"><span>New task</span><span class="kbd">Ctrl+N</span></div>
             <div class="shortcut-row"><span>Log distraction</span><span class="kbd">Alt+D</span></div>
             <div class="shortcut-row"><span>Export</span><span class="kbd">Alt+E</span></div>
             <div class="shortcut-row"><span>Force cloud sync</span><span class="kbd">Alt+S</span></div>
+            <div class="shortcut-row"><span>Add weekly event</span><span class="kbd">Alt+W</span></div>
+            <div class="shortcut-row"><span>Add monthly event</span><span class="kbd">Alt+M</span></div>
             <button class="btn btn-ghost btn-sm mt-16" onclick="closeShortcuts()">Close</button>
         </div>
     </div>
@@ -2546,93 +2928,70 @@
         let isSupabaseReady = false;
 
         // ===== LOADING OVERLAY HELPERS =====
-        function setLoadingMsg(msg) {
-            let el = document.getElementById('loading-msg');
-            if (el) el.textContent = msg;
-        }
-        function hideLoadingOverlay() {
-            let el = document.getElementById('loading-overlay');
-            if (el) { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => el.remove(), 400); }
-        }
+        function setLoadingMsg(msg) { let el = document.getElementById('loading-msg'); if (el) el.textContent = msg; }
+        function hideLoadingOverlay() { let el = document.getElementById('loading-overlay'); if (el) { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => el.remove(), 400); } }
 
         // ===== AUTH =====
         async function getCurrentUser() {
             if (!supabaseClient) return null;
-            try {
-                const { data: { session } } = await supabaseClient.auth.getSession();
-                return session?.user || null;
-            } catch (e) { console.warn('getCurrentUser failed:', e); return null; }
+            try { const { data: { session } } = await supabaseClient.auth.getSession(); return session?.user || null; } catch (e) { return null; }
         }
-
         async function checkPaidStatus(userId) {
             if (!supabaseClient || !userId) return false;
             try {
-                const { data, error } = await supabaseClient
-                    .from('profiles')
-                    .select('is_paid, subscription_status')
-                    .eq('id', userId)
-                    .single();
-                if (error) { console.warn('Payment check error:', error); return false; }
+                const { data, error } = await supabaseClient.from('profiles').select('is_paid, subscription_status').eq('id', userId).single();
+                if (error) return false;
                 return data && (data.is_paid === true || data.subscription_status === 'active');
-            } catch (e) { console.warn('checkPaidStatus failed:', e); return false; }
+            } catch (e) { return false; }
         }
-
         async function protectDashboard() {
             if (!supabaseClient) { window.location.href = 'login.html'; return false; }
             const user = await getCurrentUser();
             if (!user) { window.location.href = 'login.html'; return false; }
             const hasPaid = await checkPaidStatus(user.id);
             if (!hasPaid) { window.location.href = 'index.html#pricing'; return false; }
-            currentUser = user;
-            return true;
+            currentUser = user; return true;
         }
-
         async function handleLogout() {
             if (!supabaseClient) return;
-            try {
-                // Save before logout to ensure nothing is lost
-                await saveCloudData();
-                await supabaseClient.auth.signOut();
-                showToast('✅ Logged out');
-                setTimeout(() => window.location.href = 'login.html', 500);
-            } catch (e) { showToast('⚠ Logout failed'); }
+            try { await saveCloudData(); await supabaseClient.auth.signOut(); showToast('✅ Logged out'); setTimeout(() => window.location.href = 'login.html', 500); } catch (e) { showToast('⚠ Logout failed'); }
         }
-
         function addLogoutButton() {
             const ha = document.querySelector('.header-actions');
             if (ha && !document.getElementById('logout-btn')) {
-                const btn = document.createElement('button');
-                btn.id = 'logout-btn';
-                btn.className = 'btn btn-ghost btn-sm';
-                btn.innerHTML = '<i class="fas fa-sign-out-alt"></i> LOGOUT';
-                btn.onclick = handleLogout;
-                ha.appendChild(btn);
+                const btn = document.createElement('button'); btn.id = 'logout-btn'; btn.className = 'btn btn-ghost btn-sm';
+                btn.innerHTML = '<i class="fas fa-sign-out-alt"></i> LOGOUT'; btn.onclick = handleLogout; ha.appendChild(btn);
             }
         }
-
         function updateHeaderUserArea(user) {
-            let el = document.getElementById('header-user-area');
-            if (!el) return;
+            let el = document.getElementById('header-user-area'); if (!el) return;
             if (user) {
                 let initials = (user.email || 'OP').substring(0, 2).toUpperCase();
                 let name = user.user_metadata?.full_name || user.user_metadata?.display_name || user.email?.split('@')[0] || 'OPERATOR';
                 el.innerHTML = `<div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--cyan));display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:.7rem;font-weight:900;color:#fff;cursor:pointer;border:2px solid rgba(108,99,255,0.4);" title="${user.email}">${initials}</div>`;
                 document.getElementById('user-name').innerHTML = name.toUpperCase();
                 if (window.S && window.S.user) S.user.name = name.toUpperCase();
-            } else {
-                el.innerHTML = '';
-            }
+            } else { el.innerHTML = ''; }
         }
 
         // ===== CORE DATA =====
         const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-        function getTodayKey() { return new Date().toISOString().split('T')[0]; }
+
+        // ─── FIX: Use local date (not UTC) for today key ───
+        function getTodayKey() {
+            let d = new Date();
+            let y = d.getFullYear();
+            let m = String(d.getMonth() + 1).padStart(2, '0');
+            let day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
         let todayKey = getTodayKey(), lastDate = todayKey;
 
         let S = {
             user: { name: 'OPERATOR', focus: 45, target: 6, level: 1, xp: 0 },
             tasks: [], habits: [], sessions: [], journal: [], wins: [], goals: [],
-            snippets: [], distractions: [], energy: {},
+            snippets: [], distractions: [], energy: {}, weeklyEvents: [],
             analytics: { totalMin: 0, totalSess: 0, totalTasks: 0, maxStreak: 0, curStreak: 0, daily: {} }
         };
 
@@ -2643,16 +3002,13 @@
 
         // ===== SYNC STATUS =====
         function updateSyncStatus(status) {
-            const el = document.getElementById('sync-status');
-            if (!el) return;
+            const el = document.getElementById('sync-status'); if (!el) return;
             if (currentUser) {
                 el.style.display = 'inline-flex';
                 if (status === 'synced') { el.innerHTML = '<i class="fas fa-cloud"></i> SYNCED'; el.className = 'sync-indicator'; }
                 if (status === 'syncing') { el.innerHTML = '<i class="fas fa-sync fa-spin"></i> SYNCING'; el.className = 'sync-indicator syncing'; }
                 if (status === 'error') { el.innerHTML = '<i class="fas fa-exclamation-triangle"></i> SYNC ERROR'; el.className = 'sync-indicator error'; }
-            } else {
-                el.style.display = 'none';
-            }
+            } else { el.style.display = 'none'; }
         }
 
         // ===== CLOUD DATA =====
@@ -2660,22 +3016,10 @@
             if (!isSupabaseReady || !supabaseClient || !userId) return false;
             try {
                 updateSyncStatus('syncing');
-                const { data, error } = await supabaseClient
-                    .from('operator_data')
-                    .select('data')
-                    .eq('user_id', userId)
-                    .single();
-
-                if (error && error.code !== 'PGRST116') {
-                    console.warn('Cloud load error:', error);
-                    updateSyncStatus('error');
-                    return false;
-                }
-
+                const { data, error } = await supabaseClient.from('operator_data').select('data').eq('user_id', userId).single();
+                if (error && error.code !== 'PGRST116') { updateSyncStatus('error'); return false; }
                 if (data && data.data) {
                     let cloud = typeof data.data === 'string' ? JSON.parse(data.data) : data.data;
-
-                    // Full replace from cloud — cloud is the source of truth
                     if (Array.isArray(cloud.tasks)) S.tasks = cloud.tasks;
                     if (Array.isArray(cloud.habits)) S.habits = cloud.habits;
                     if (Array.isArray(cloud.sessions)) S.sessions = cloud.sessions;
@@ -2684,127 +3028,65 @@
                     if (Array.isArray(cloud.goals)) S.goals = cloud.goals;
                     if (Array.isArray(cloud.snippets)) S.snippets = cloud.snippets;
                     if (Array.isArray(cloud.distractions)) S.distractions = cloud.distractions;
+                    if (Array.isArray(cloud.weeklyEvents)) S.weeklyEvents = cloud.weeklyEvents;
                     if (cloud.energy) S.energy = cloud.energy;
                     if (cloud.analytics) S.analytics = { ...S.analytics, ...cloud.analytics };
                     if (cloud.user) S.user = { ...S.user, ...cloud.user };
-
                     ensureArrays();
                     if (!S.analytics.daily) S.analytics.daily = {};
                     if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
-
-                    // Also sync to localStorage so it's available offline
                     localStorage.setItem('storm_os_v5', JSON.stringify(S));
-
-                    updateSyncStatus('synced');
-                    return true;
+                    updateSyncStatus('synced'); return true;
                 }
-
-                updateSyncStatus('synced');
-                return false;
-            } catch (e) {
-                console.warn('Cloud load failed:', e);
-                updateSyncStatus('error');
-                return false;
-            }
+                updateSyncStatus('synced'); return false;
+            } catch (e) { updateSyncStatus('error'); return false; }
         }
 
         async function saveCloudData() {
             if (!isSupabaseReady || !supabaseClient || !currentUser) return;
             try {
                 updateSyncStatus('syncing');
-                const { error } = await supabaseClient
-                    .from('operator_data')
-                    .upsert({
-                        user_id: currentUser.id,
-                        data: JSON.stringify(S),
-                        updated_at: new Date().toISOString()
-                    }, { onConflict: 'user_id' });
-
-                if (!error) {
-                    updateSyncStatus('synced');
-                } else {
-                    console.warn('Cloud save error:', error);
-                    updateSyncStatus('error');
-                }
-            } catch (e) {
-                console.warn('Cloud save failed:', e);
-                updateSyncStatus('error');
-            }
+                const { error } = await supabaseClient.from('operator_data').upsert({ user_id: currentUser.id, data: JSON.stringify(S), updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+                if (!error) { updateSyncStatus('synced'); } else { updateSyncStatus('error'); }
+            } catch (e) { updateSyncStatus('error'); }
         }
 
-        // Force sync button handler
         async function forceSyncNow() {
             if (!currentUser) { showToast('⚠ Not logged in'); return; }
-            showToast('⏳ Syncing to cloud...');
-            await saveCloudData();
-            showToast('✅ Cloud sync complete!');
+            showToast('⏳ Syncing to cloud...'); await saveCloudData(); showToast('✅ Cloud sync complete!');
         }
 
-        // ===== AUTO-SAVE SYSTEM =====
-        // Tracks whether there are unsaved changes waiting to go to cloud
-        let _pendingCloudSave = false;
-        let _cloudSaveTimer = null;
-        let _lastCloudSave = 0;
-        const CLOUD_SAVE_DEBOUNCE = 1500; // ms — max wait before cloud write
-        const CLOUD_SAVE_THROTTLE = 10000; // ms — minimum gap between cloud writes
+        let _pendingCloudSave = false, _cloudSaveTimer = null, _lastCloudSave = 0;
+        const CLOUD_SAVE_DEBOUNCE = 1500, CLOUD_SAVE_THROTTLE = 10000;
 
-        // Always writes to localStorage instantly.
-        // Schedules a cloud write within CLOUD_SAVE_DEBOUNCE ms.
-        // Will not write to cloud more often than CLOUD_SAVE_THROTTLE ms.
         function save() {
             try {
-                // 1. Always write localStorage immediately (fast, synchronous)
-                localStorage.setItem('storm_os_v5', JSON.stringify(S));
-                _pendingCloudSave = true;
-
-                // 2. Cancel any pending debounced cloud write
+                localStorage.setItem('storm_os_v5', JSON.stringify(S)); _pendingCloudSave = true;
                 clearTimeout(_cloudSaveTimer);
-
-                // 3. If enough time has passed since last cloud write, write now
                 const now = Date.now();
-                const timeSinceLast = now - _lastCloudSave;
-                if (timeSinceLast >= CLOUD_SAVE_THROTTLE) {
-                    _flushToCloud();
-                } else {
-                    // Otherwise wait until debounce window closes
-                    _cloudSaveTimer = setTimeout(_flushToCloud, CLOUD_SAVE_DEBOUNCE);
-                }
-            } catch (e) { console.warn('Save failed', e); }
+                if (now - _lastCloudSave >= CLOUD_SAVE_THROTTLE) { _flushToCloud(); }
+                else { _cloudSaveTimer = setTimeout(_flushToCloud, CLOUD_SAVE_DEBOUNCE); }
+            } catch (e) { }
         }
 
-        // Immediate cloud write — bypasses debounce/throttle
-        // Use for critical moments: session complete, task done, logout
         function saveNow() {
-            try {
-                localStorage.setItem('storm_os_v5', JSON.stringify(S));
-                _pendingCloudSave = true;
-                clearTimeout(_cloudSaveTimer);
-                _flushToCloud();
-            } catch (e) { console.warn('saveNow failed', e); }
+            try { localStorage.setItem('storm_os_v5', JSON.stringify(S)); _pendingCloudSave = true; clearTimeout(_cloudSaveTimer); _flushToCloud(); } catch (e) { }
         }
 
-        // Internal: performs the actual cloud write
         async function _flushToCloud() {
             if (!currentUser || !_pendingCloudSave) return;
-            _pendingCloudSave = false;
-            _lastCloudSave = Date.now();
-            await saveCloudData();
+            _pendingCloudSave = false; _lastCloudSave = Date.now(); await saveCloudData();
         }
 
         function load() {
             try {
                 let d = localStorage.getItem('storm_os_v5');
-                if (d) {
-                    let p = JSON.parse(d);
-                    S = { ...S, ...p, user: { ...S.user, ...(p.user || {}) }, analytics: { ...S.analytics, ...(p.analytics || {}) } };
-                }
-            } catch (e) { console.warn('Load failed', e); }
+                if (d) { let p = JSON.parse(d); S = { ...S, ...p, user: { ...S.user, ...(p.user || {}) }, analytics: { ...S.analytics, ...(p.analytics || {}) } }; }
+            } catch (e) { }
         }
 
         function ensureArrays() {
-            ['tasks', 'habits', 'sessions', 'journal', 'wins', 'goals', 'snippets', 'distractions'].forEach(k => {
-                if (!Array.isArray(S[k])) S[k] = [];
-            });
+            ['tasks', 'habits', 'sessions', 'journal', 'wins', 'goals', 'snippets', 'distractions', 'weeklyEvents'].forEach(k => { if (!Array.isArray(S[k])) S[k] = []; });
             if (!S.energy) S.energy = {};
             if (!S.analytics) S.analytics = { totalMin: 0, totalSess: 0, totalTasks: 0, maxStreak: 0, curStreak: 0, daily: {} };
             if (!S.analytics.daily) S.analytics.daily = {};
@@ -2813,11 +3095,20 @@
         // ===== UTILITY =====
         function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
         function escHtml(s) { return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
-        function showToast(m) {
-            let t = document.getElementById('toast');
-            t.textContent = m; t.classList.add('show');
-            clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+        function showToast(m) { let t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2500); }
+
+        // ─── FIX: Convert 24h time string "HH:MM" to "H:MM AM/PM" ───
+        function formatTimeAMPM(timeStr) {
+            if (!timeStr) return '';
+            let [hStr, mStr] = timeStr.split(':');
+            let h = parseInt(hStr, 10);
+            let m = mStr || '00';
+            let period = h >= 12 ? 'PM' : 'AM';
+            let h12 = h % 12;
+            if (h12 === 0) h12 = 12;
+            return `${h12}:${m} ${period}`;
         }
+
         function addXP(amt) {
             S.user.xp = (S.user.xp || 0) + amt;
             let nl = Math.floor(S.user.xp / 100) + 1;
@@ -2839,12 +3130,8 @@
         function closeLevelModal() { document.getElementById('level-modal').classList.remove('open'); }
 
         // ===== TIMERS =====
-        function setMiniPresetActive(mins) {
-            document.querySelectorAll('#mini-presets .preset-btn').forEach((b, i) => { const l = [15, 25, 45, 60, 90]; b.classList.toggle('active', l[i] === mins); });
-        }
-        function setMainPresetActive(mins) {
-            document.querySelectorAll('#main-presets .preset-btn').forEach((b, i) => { const l = [15, 25, 45, 60, 90]; b.classList.toggle('active', l[i] === mins); });
-        }
+        function setMiniPresetActive(mins) { document.querySelectorAll('#mini-presets .preset-btn').forEach((b, i) => { const l = [15, 25, 45, 60, 90]; b.classList.toggle('active', l[i] === mins); }); }
+        function setMainPresetActive(mins) { document.querySelectorAll('#main-presets .preset-btn').forEach((b, i) => { const l = [15, 25, 45, 60, 90]; b.classList.toggle('active', l[i] === mins); }); }
         function setMini(m) {
             if (m === 'custom') { let v = parseInt(document.getElementById('focus-custom-minutes').value); if (v && !isNaN(v) && v > 0 && !miniRun) { miniSecs = v * 60; miniTotal = v * 60; document.getElementById('timer-mini').textContent = fmt(miniSecs); document.querySelectorAll('#mini-presets .preset-btn').forEach(b => b.classList.remove('active')); } }
             else if (!miniRun) { miniSecs = m * 60; miniTotal = m * 60; document.getElementById('timer-mini').textContent = fmt(miniSecs); setMiniPresetActive(m); }
@@ -2866,11 +3153,9 @@
                 document.getElementById('timer-mini').classList.remove('running');
                 setFocusActive(false);
             } else {
-                miniRun = true;
-                document.getElementById('mini-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
+                miniRun = true; document.getElementById('mini-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
                 document.getElementById('mini-badge').innerHTML = 'ACTIVE';
-                document.getElementById('timer-mini').classList.add('running');
-                setFocusActive(true);
+                document.getElementById('timer-mini').classList.add('running'); setFocusActive(true);
                 miniInt = setInterval(() => {
                     if (miniSecs > 0) {
                         miniSecs--; document.getElementById('timer-mini').textContent = fmt(miniSecs);
@@ -2880,9 +3165,7 @@
                             document.getElementById('timer-mini').classList.remove('running');
                             document.getElementById('timer-mini').classList.add('complete');
                             setTimeout(() => document.getElementById('timer-mini').classList.remove('complete'), 4000);
-                            logSess(Math.round(miniTotal / 60));
-                            showToast('🎉 Focus complete! +20 XP');
-                            setFocusActive(false);
+                            logSess(Math.round(miniTotal / 60)); showToast('🎉 Focus complete! +20 XP'); setFocusActive(false);
                         }
                     }
                 }, 1000);
@@ -2894,13 +3177,10 @@
             if (mainRun) {
                 clearInterval(mainInt); mainRun = false;
                 document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
-                document.getElementById('main-timer').classList.remove('running');
-                setFocusActive(false);
+                document.getElementById('main-timer').classList.remove('running'); setFocusActive(false);
             } else {
-                mainRun = true;
-                document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
-                document.getElementById('main-timer').classList.add('running');
-                setFocusActive(true);
+                mainRun = true; document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
+                document.getElementById('main-timer').classList.add('running'); setFocusActive(true);
                 mainInt = setInterval(() => {
                     if (mainSecs > 0) {
                         mainSecs--; document.getElementById('main-timer').textContent = fmt(mainSecs);
@@ -2910,9 +3190,7 @@
                             document.getElementById('main-timer').classList.remove('running');
                             document.getElementById('main-timer').classList.add('complete');
                             setTimeout(() => document.getElementById('main-timer').classList.remove('complete'), 4000);
-                            logSess(Math.round(mainTotal / 60));
-                            showToast('🎉 Session! +20 XP');
-                            setFocusActive(false);
+                            logSess(Math.round(mainTotal / 60)); showToast('🎉 Session! +20 XP'); setFocusActive(false);
                         }
                     }
                 }, 1000);
@@ -2932,9 +3210,7 @@
             if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
             S.analytics.daily[todayKey].sess = (S.analytics.daily[todayKey].sess || 0) + 1;
             S.analytics.daily[todayKey].min = (S.analytics.daily[todayKey].min || 0) + mins;
-            updateScore(); renderSessLog(); renderWeekBars();
-            saveNow(); // Immediate cloud save after session
-            addXP(20);
+            updateScore(); renderSessLog(); renderWeekBars(); saveNow(); addXP(20);
         }
         function renderSessLog() {
             let ts = S.sessions.filter(s => s.date === todayKey);
@@ -2998,10 +3274,20 @@
 
         // ===== HABITS =====
         function addHabit() { let v = document.getElementById('habit-input').value.trim(); if (!v) return; S.habits.push({ id: Date.now(), name: v, streak: 0, best: 0, days: {} }); document.getElementById('habit-input').value = ''; save(); renderHabits(); addXP(5); }
-        function toggleHabit(id, dateKey) { let h = S.habits.find(h => h.id == id); if (!h) return; let key = dateKey || todayKey; if (h.days[key]) delete h.days[key]; else h.days[key] = true; let str = 0, d = new Date(); for (let i = 0; i < 365; i++) { let k = d.toISOString().split('T')[0]; if (h.days[k]) str++; else break; d.setDate(d.getDate() - 1); } h.streak = str; h.best = Math.max(h.best || 0, str); save(); renderHabits(); addXP(5); }
+        function toggleHabit(id, dateKey) { let h = S.habits.find(h => h.id == id); if (!h) return; let key = dateKey || todayKey; if (h.days[key]) delete h.days[key]; else h.days[key] = true; let str = 0, d = new Date(); for (let i = 0; i < 365; i++) { let k = localDateKey(d); if (h.days[k]) str++; else break; d.setDate(d.getDate() - 1); } h.streak = str; h.best = Math.max(h.best || 0, str); save(); renderHabits(); addXP(5); }
         function deleteHabit(id) { S.habits = S.habits.filter(h => h.id != id); save(); renderHabits(); }
+
+        // ─── FIX: Use local date key helper ───
+        function localDateKey(d) {
+            let y = d.getFullYear();
+            let m = String(d.getMonth() + 1).padStart(2, '0');
+            let day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
         function renderHabits() {
-            let labels = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); labels.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()] }); }
+            let labels = [];
+            for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); labels.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); }
             let hl = document.getElementById('habit-list'); if (hl) hl.innerHTML = S.habits.length ? S.habits.map(h => `<div class="habit-row"><div style="flex:1;font-size:.85rem;font-weight:600">${escHtml(h.name)}</div><div class="habit-days">${labels.map(d => `<div class="habit-day${h.days[d.key] ? ' done' : ''}" onclick="toggleHabit(${h.id},'${d.key}')">${h.days[d.key] ? '✓' : d.lbl[0]}</div>`).join('')}</div><div style="font-size:.82rem;font-weight:700">🔥${h.streak}</div><span class="task-del" onclick="deleteHabit(${h.id})"><i class="fas fa-trash-alt"></i></span></div>`).join('') : '<div class="empty-state">// NO HABITS</div>';
             let ht = document.getElementById('h-total'); if (ht) ht.textContent = S.habits.length;
             let hb = document.getElementById('h-best'); if (hb) hb.textContent = Math.max(...S.habits.map(h => h.best), 0) + 'd';
@@ -3048,7 +3334,7 @@
             return { tasks: done.length, min: mins, score: Math.min(score, 100) };
         }
         function renderWeekBars() {
-            let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); days.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()] }); }
+            let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); days.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); }
             let stats = days.map(d => ({ ...d, ...getDayStats(d.key) })), maxM = Math.max(...stats.map(s => s.min), 1);
             let wb = document.getElementById('week-bars'); if (wb) wb.innerHTML = stats.map(s => `<div><div class="week-day-label">${s.lbl}</div><div class="week-score-bar"><div class="week-score-fill" style="height:${Math.round(s.min / maxM * 100)}%"></div></div><div style="font-size:.62rem;font-weight:700;text-align:center;margin-top:4px">${s.min > 0 ? s.min + 'm' : '—'}</div></div>`).join('');
             let wt = document.getElementById('w-tasks'); if (wt) wt.textContent = stats.reduce((a, s) => a + s.tasks, 0);
@@ -3056,7 +3342,7 @@
             let ws = document.getElementById('w-streak'); if (ws) ws.textContent = (S.analytics.curStreak || 0) + 'd';
         }
         function renderDayBreak() {
-            let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); days.push({ key: d.toISOString().split('T')[0], lbl: DAYS[d.getDay()] }); }
+            let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); days.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); }
             let db = document.getElementById('day-breakdown'); if (db) db.innerHTML = days.map(d => { let s = getDayStats(d.key); return `<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:.82rem;font-weight:600"><span>${d.lbl}</span><span>${s.score}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${s.score}%"></div></div></div>`; }).join('');
         }
         function renderAnalytics() {
@@ -3077,13 +3363,13 @@
             let pm = document.getElementById('productivity-metrics'); if (pm) pm.innerHTML = `<div style="font-size:.82rem;font-weight:600;line-height:2">📈 Rate: ${rate}%<br>⏱️ Avg: ${avg} min<br>📅 Active: ${Object.keys(S.analytics.daily).filter(d => S.analytics.daily[d]?.min > 0).length}d</div>`;
         }
         function buildContrib() {
-            let cells = []; for (let i = 89; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); let k = d.toISOString().split('T')[0], s = getDayStats(k), act = s.min + s.tasks * 20, l = ''; if (act > 0) l = 'l1'; if (act >= 60) l = 'l2'; if (act >= 120) l = 'l3'; if (act >= 240) l = 'l4'; cells.push(`<div class="contrib-cell ${l}" title="${k}: ${s.min}m"></div>`); }
+            let cells = []; for (let i = 89; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); let k = localDateKey(d), s = getDayStats(k), act = s.min + s.tasks * 20, l = ''; if (act > 0) l = 'l1'; if (act >= 60) l = 'l2'; if (act >= 120) l = 'l3'; if (act >= 240) l = 'l4'; cells.push(`<div class="contrib-cell ${l}" title="${k}: ${s.min}m"></div>`); }
             let weeks = []; for (let i = 0; i < cells.length; i += 7) weeks.push(`<div class="contrib-week">${cells.slice(i, i + 7).join('')}</div>`);
             let cg = document.getElementById('contrib-graph'); if (cg) cg.innerHTML = weeks.join('');
         }
         function updateStreak() {
             let act = {}; S.tasks.forEach(t => { if (t.done) act[t.date] = (act[t.date] || 0) + 1; }); S.sessions.forEach(s => { act[s.date] = (act[s.date] || 0) + 1; });
-            let str = 0, d = new Date(); for (let i = 0; i < 365; i++) { let k = d.toISOString().split('T')[0]; if (act[k]) str++; else break; d.setDate(d.getDate() - 1); }
+            let str = 0, d = new Date(); for (let i = 0; i < 365; i++) { let k = localDateKey(d); if (act[k]) str++; else break; d.setDate(d.getDate() - 1); }
             S.analytics.curStreak = str; S.analytics.maxStreak = Math.max(S.analytics.maxStreak || 0, str);
             let sb = document.getElementById('streak-badge'); if (sb) sb.innerHTML = `STREAK: ${str}d`;
         }
@@ -3113,7 +3399,7 @@
             let todayDist = S.distractions.filter(d => d.date === todayKey).length;
             let streak = S.analytics.curStreak || 0;
             let allTasks = S.tasks.filter(t => t.date === todayKey), doneTasks = allTasks.filter(t => t.done);
-            let taskRate = allTasks.length > (0) ? (doneTasks.length / allTasks.length * 100) : 0;
+            let taskRate = allTasks.length > 0 ? (doneTasks.length / allTasks.length * 100) : 0;
             let sessScore = Math.min(todaySess * 25, 100), distScore = Math.max(0, 100 - (todayDist * 15));
             let consScore = Math.min(streak / 7 * 100, 100), taskScore = taskRate, streakBonus = streak >= 7 ? 100 : (streak / 7 * 100);
             let total = Math.round(sessScore * 0.30 + distScore * 0.25 + consScore * 0.25 + taskScore * 0.15 + streakBonus * 0.05);
@@ -3147,7 +3433,7 @@
             save(); showToast(`Focus Score: ${total}/100 (${grade})`); addXP(5);
         }
         function renderFocusScoreHistory(todayScore) {
-            let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); let k = d.toISOString().split('T')[0]; let score = S.analytics.daily[k]?.focusScore || 0; if (i === 0 && todayScore !== undefined) score = todayScore; days.push({ lbl: DAYS[d.getDay()], score, k }); }
+            let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); let k = localDateKey(d); let score = S.analytics.daily[k]?.focusScore || 0; if (i === 0 && todayScore !== undefined) score = todayScore; days.push({ lbl: DAYS[d.getDay()], score, k }); }
             let hist = document.getElementById('fs-history'), lbls = document.getElementById('fs-history-labels');
             if (hist) hist.innerHTML = days.map(d => { let pct = Math.max(8, (d.score / 100) * 60); let col = d.score >= 90 ? '#ffd700' : d.score >= 75 ? 'var(--green)' : d.score >= 60 ? 'var(--cyan)' : d.score >= 40 ? 'var(--amber)' : 'var(--red)'; return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end"><div style="width:100%;max-width:28px;height:${pct}px;background:${col};border-radius:4px 4px 0 0;transition:height 0.8s;opacity:${d.score > 0 ? 1 : 0.2}"></div><div style="font-size:.6rem;font-weight:700;margin-top:4px;color:var(--text3)">${d.score > 0 ? d.score : '-'}</div></div>`; }).join('');
             if (lbls) lbls.innerHTML = days.map(d => `<span>${d.lbl}</span>`).join('');
@@ -3155,8 +3441,8 @@
 
         // ===== REPORTS & DEV TOOLS =====
         function generateReport() {
-            let weekTasks = S.tasks.filter(t => { let d = new Date(t.date), w = new Date(); w.setDate(w.getDate() - 7); return d >= w && t.done; }).length;
-            let weekFocus = S.sessions.filter(s => { let d = new Date(s.date), w = new Date(); w.setDate(w.getDate() - 7); return d >= w; }).reduce((a, s) => a + s.mins, 0);
+            let weekTasks = S.tasks.filter(t => { let d = new Date(t.date + 'T00:00:00'), w = new Date(); w.setDate(w.getDate() - 7); w.setHours(0, 0, 0, 0); return d >= w && t.done; }).length;
+            let weekFocus = S.sessions.filter(s => { let d = new Date(s.date + 'T00:00:00'), w = new Date(); w.setDate(w.getDate() - 7); w.setHours(0, 0, 0, 0); return d >= w; }).reduce((a, s) => a + s.mins, 0);
             let score = Math.min(100, Math.round((weekTasks * 20 + weekFocus / 60 * 10)));
             let wr = document.getElementById('weekly-report'); if (wr) wr.innerHTML = `<strong>📊 Weekly Report</strong>\n✅ Tasks: ${weekTasks}\n⏱️ Focus: ${weekFocus} min\n🔥 Streak: ${S.analytics.curStreak || 0}d\n📈 Score: ${score}%`;
         }
@@ -3177,7 +3463,7 @@
             ruby: 'puts "Hello"', php: '<?php echo "Hello"; ?>', sql: 'SELECT 1', html: '<h1>Hello, Operator!</h1>', css: 'body { background: #000; color: #fff; }',
             go: 'package main\nfunc main() { }', rust: 'fn main() { }'
         };
-        function switchLanguage() { let lang = document.getElementById('playground-language').value; document.getElementById('playground-code').value = LANGUAGE_TEMPLATES[lang] || LANGUAGE_TEMPLATES['javascript']; localStorage.setItem('selected_language', lang); showToast(`Switched to ${lang.toUpperCase()}`); }
+        function switchLanguage() { let lang = document.getElementById('playground-language').value; document.getElementById('playground-code').value = LANGUAGE_TEMPLATES[lang] || LANGUAGE_TEMPLATES['javascript']; showToast(`Switched to ${lang.toUpperCase()}`); }
         function runCode() {
             let lang = document.getElementById('playground-language').value, code = document.getElementById('playground-code').value, output = document.getElementById('playground-output');
             if (lang === 'javascript') { let logs = [], orig = console.log; console.log = (...a) => logs.push(a.join(' ')); try { eval(code); output.innerHTML = logs.join('<br>') || '✓ Executed'; addXP(2); } catch (e) { output.innerHTML = `<span style="color:var(--red)">Error: ${e.message}</span>`; } console.log = orig; }
@@ -3202,6 +3488,8 @@
             if (id === 'dashboard') { renderWeekBars(); renderDayBreak(); }
             if (id === 'reports') { generateReport(); smartRec(); loadQuotes(); }
             if (id === 'devtools') renderSnippets();
+            if (id === 'weekly-planner') renderWeeklyPlanner();
+            if (id === 'monthly-planner') renderMonthlyPlanner();
         }
         function switchToolTab(id, el) {
             document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
@@ -3235,24 +3523,15 @@
                 if (!window.supabase || !window.supabase.createClient) throw new Error('Supabase SDK not loaded');
                 supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
                 isSupabaseReady = true;
-
                 setLoadingMsg('AUTHENTICATING...');
                 const isProtected = await protectDashboard();
-                if (!isProtected) return; // redirected
-
+                if (!isProtected) return;
                 setLoadingMsg('LOADING CLOUD DATA...');
-                addLogoutButton();
-                updateHeaderUserArea(currentUser);
-
-                // *** KEY FIX: load cloud data BEFORE boot, BEFORE hiding overlay ***
+                addLogoutButton(); updateHeaderUserArea(currentUser);
                 await loadCloudData(currentUser.id);
-
                 setLoadingMsg('BOOTING SYSTEMS...');
                 await boot();
-
-                // Only now show the UI
                 hideLoadingOverlay();
-
                 supabaseClient.auth.onAuthStateChange(async (event, session) => {
                     if (event === 'SIGNED_OUT') { window.location.href = 'login.html'; }
                     else if (event === 'SIGNED_IN' && session) {
@@ -3261,7 +3540,6 @@
                         else { currentUser = session.user; window.location.reload(); }
                     }
                 });
-
             } catch (e) {
                 console.warn('Supabase init failed:', e);
                 window.location.href = 'login.html';
@@ -3281,100 +3559,49 @@
                 let userNameEl = document.getElementById('user-name');
                 if (userNameEl && currentUser) {
                     let name = currentUser.user_metadata?.full_name || currentUser.user_metadata?.display_name || currentUser.email?.split('@')[0] || 'OPERATOR';
-                    userNameEl.innerHTML = name.toUpperCase();
-                    S.user.name = name.toUpperCase();
-                } else if (userNameEl) {
-                    userNameEl.innerHTML = (S.user.name || 'OPERATOR').toUpperCase();
-                }
+                    userNameEl.innerHTML = name.toUpperCase(); S.user.name = name.toUpperCase();
+                } else if (userNameEl) { userNameEl.innerHTML = (S.user.name || 'OPERATOR').toUpperCase(); }
 
                 miniTotal = miniSecs = (S.user.focus || 45) * 60;
                 mainTotal = mainSecs = (S.user.focus || 45) * 60;
                 let timerMini = document.getElementById('timer-mini'); if (timerMini) timerMini.textContent = fmt(miniSecs);
                 let mainTimer = document.getElementById('main-timer'); if (mainTimer) mainTimer.textContent = fmt(mainSecs);
 
-                renderAll();
-                updateXPBar();
-                loadTheme();
-                smartRec();
-                loadQuotes();
+                renderAll(); updateXPBar(); loadTheme(); smartRec(); loadQuotes();
 
-                setInterval(() => {
-                    let clock = document.getElementById('live-clock');
-                    if (clock) clock.innerHTML = new Date().toTimeString().slice(0, 8);
-                }, 1000);
+                setInterval(() => { let clock = document.getElementById('live-clock'); if (clock) clock.innerHTML = new Date().toTimeString().slice(0, 8); }, 1000);
 
-                renderSnippets();
-                renderFocusScoreHistory();
+                renderSnippets(); renderFocusScoreHistory();
 
-                // ── AUTO-SAVE TRIGGERS ──────────────────────────────────────
+                setInterval(() => { if (currentUser && _pendingCloudSave) _flushToCloud(); }, 30 * 1000);
+                setInterval(() => { if (currentUser) { _pendingCloudSave = true; _flushToCloud(); } }, 60 * 1000);
 
-                // 1. Every 30 seconds — heartbeat cloud save
-                setInterval(() => {
-                    if (currentUser && _pendingCloudSave) _flushToCloud();
-                }, 30 * 1000);
-
-                // 2. Every 60 seconds — force cloud save even if no pending changes
-                //    (catches any edge cases where _pendingCloudSave was missed)
-                setInterval(() => {
-                    if (currentUser) {
-                        _pendingCloudSave = true;
-                        _flushToCloud();
-                    }
-                }, 60 * 1000);
-
-                // 3. When tab becomes hidden (user switches browser tabs, minimizes, etc.)
                 document.addEventListener('visibilitychange', () => {
-                    if (document.visibilityState === 'hidden' && currentUser) {
-                        localStorage.setItem('storm_os_v5', JSON.stringify(S));
-                        _pendingCloudSave = true;
-                        _flushToCloud();
-                    }
+                    if (document.visibilityState === 'hidden' && currentUser) { localStorage.setItem('storm_os_v5', JSON.stringify(S)); _pendingCloudSave = true; _flushToCloud(); }
                 });
-
-                // 4. When window loses focus (user clicks another app/window)
                 window.addEventListener('blur', () => {
-                    if (currentUser) {
-                        localStorage.setItem('storm_os_v5', JSON.stringify(S));
-                        _pendingCloudSave = true;
-                        _flushToCloud();
-                    }
+                    if (currentUser) { localStorage.setItem('storm_os_v5', JSON.stringify(S)); _pendingCloudSave = true; _flushToCloud(); }
                 });
 
-                // 5. Timer tick — save to cloud every 60 timer-ticks while session running
-                //    so if browser crashes mid-session, partial time is not lost
                 let _timerSaveTick = 0;
                 setInterval(() => {
-                    if ((miniRun || mainRun) && currentUser) {
-                        _timerSaveTick++;
-                        if (_timerSaveTick % 60 === 0) { // every 60 seconds of running timer
-                            _pendingCloudSave = true;
-                            _flushToCloud();
-                        }
-                    }
+                    if ((miniRun || mainRun) && currentUser) { _timerSaveTick++; if (_timerSaveTick % 60 === 0) { _pendingCloudSave = true; _flushToCloud(); } }
                 }, 1000);
 
             } catch (e) { console.error('boot() error:', e); }
         }
 
         // ===== START =====
-        // Load local first (for speed), then cloud override happens inside initSupabase
         load();
         ensureArrays();
         if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
 
-        initSupabase(); // async — overlay shows while this runs
-
+        initSupabase();
         setInterval(checkAndReset, 60000);
 
-        // Save before user closes/navigates away
         window.addEventListener('beforeunload', () => {
-            // Always save localStorage synchronously — this always works
             localStorage.setItem('storm_os_v5', JSON.stringify(S));
-            // Fire async cloud save — browser gives it a moment before killing the page
-            if (currentUser) {
-                _pendingCloudSave = true;
-                _flushToCloud();
-            }
+            if (currentUser) { _pendingCloudSave = true; _flushToCloud(); }
         });
 
         // Keyboard shortcuts
@@ -3382,17 +3609,295 @@
             let inInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName);
             if (e.code === 'Escape') closeShortcuts();
             if (!inInput) {
-                if (e.code === 'Space') { e.preventDefault(); let tp = document.getElementById('panel-timer'); if (tp.classList.contains('active')) toggleMain(); else toggleMini(); }
+                if (e.code === 'Space') { e.preventDefault(); let tp = document.getElementById('panel-timer'); if (tp && tp.classList.contains('active')) toggleMain(); else toggleMini(); }
                 if (e.key === '?') showShortcuts();
-                const tabs = ['planner', 'timer', 'habits', 'dashboard', 'analytics', 'journal', 'devtools', 'reports', 'help'];
-                let num = parseInt(e.key); if (num >= 1 && num <= 9) { let tabEl = document.querySelectorAll('.nav-tab')[num - 1]; switchTab(tabs[num - 1], tabEl); }
+                const tabs = ['planner', 'timer', 'habits', 'weekly-planner', 'monthly-planner', 'dashboard', 'analytics', 'journal', 'devtools', 'reports', 'help'];
+                let num = parseInt(e.key); if (num >= 1 && num <= tabs.length) { let tabEl = document.querySelectorAll('.nav-tab')[num - 1]; switchTab(tabs[num - 1], tabEl); }
             }
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runCode(); }
-            if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); document.getElementById('task-input').focus(); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); let ti = document.getElementById('task-input'); if (ti) { ti.focus(); } }
             if (e.altKey && e.key === 'd') { e.preventDefault(); logDistraction(); }
             if (e.altKey && e.key === 'e') { e.preventDefault(); exportData(); }
             if (e.altKey && e.key === 's') { e.preventDefault(); forceSyncNow(); }
+            if (e.altKey && e.key === 'w') { e.preventDefault(); let wi = document.getElementById('wp-task-input'); if (wi) { wi.focus(); } }
+            if (e.altKey && e.key === 'm') { e.preventDefault(); let mi = document.getElementById('mp-task-input'); if (mi) { mi.focus(); } }
         });
+
+        // Enter on task input
+        document.addEventListener('DOMContentLoaded', () => {
+            let ti = document.getElementById('task-input');
+            if (ti) ti.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addTask(); } });
+        });
+
+        // ===== WEEKLY PLANNER =====
+        const WP_DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+        const CAT_COLORS = { work: 'cat-work', focus: 'cat-focus', personal: 'cat-personal', health: 'cat-health', learning: 'cat-learning' };
+
+        let wpOffset = 0;
+
+        // ─── FIX: Build week start using local date arithmetic, no UTC drift ───
+        function wpGetWeekStart(offset) {
+            let now = new Date();
+            // Go to local Sunday of current week
+            let day = now.getDay(); // 0=Sun
+            let sun = new Date(now.getFullYear(), now.getMonth(), now.getDate() - day);
+            // Apply offset
+            sun.setDate(sun.getDate() + offset * 7);
+            return sun;
+        }
+
+        function addWeeklyEvent() {
+            let text = document.getElementById('wp-task-input').value.trim();
+            if (!text) { showToast('Enter event name'); return; }
+            let dayIdx = parseInt(document.getElementById('wp-day-select').value);
+            let time = document.getElementById('wp-time-input').value || '';
+            let cat = document.getElementById('wp-cat-select').value;
+
+            let weekStart = wpGetWeekStart(wpOffset);
+            // Build date for the chosen day-of-week in this week
+            let eventDate = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + dayIdx);
+            let dateKey = localDateKey(eventDate);
+
+            if (!S.weeklyEvents) S.weeklyEvents = [];
+            S.weeklyEvents.push({ id: Date.now(), text, time, cat, date: dateKey });
+            document.getElementById('wp-task-input').value = '';
+            document.getElementById('wp-time-input').value = '';
+            save(); renderWeeklyPlanner(); showToast('Event added'); addXP(3);
+        }
+
+        function deleteWeeklyEvent(id) {
+            if (!S.weeklyEvents) S.weeklyEvents = [];
+            S.weeklyEvents = S.weeklyEvents.filter(e => e.id != id);
+            save(); renderWeeklyPlanner();
+            let mpEl = document.getElementById('panel-monthly-planner');
+            if (mpEl && mpEl.classList.contains('active')) renderMonthlyPlanner();
+        }
+
+        function renderWeeklyPlanner() {
+            if (!S.weeklyEvents) S.weeklyEvents = [];
+            let weekStart = wpGetWeekStart(wpOffset);
+            let weekEndDate = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 6);
+
+            // Label — use local date formatting
+            let lbl = document.getElementById('wp-week-label');
+            if (lbl) {
+                let opts = { month: 'short', day: 'numeric', year: 'numeric' };
+                lbl.textContent = weekStart.toLocaleDateString('en-US', opts) + ' — ' + weekEndDate.toLocaleDateString('en-US', opts);
+            }
+
+            // Pre-select today's day of week when viewing current week
+            let todayDow = new Date().getDay();
+            let ds = document.getElementById('wp-day-select');
+            if (ds && wpOffset === 0) ds.value = todayDow;
+
+            let grid = document.getElementById('wp-grid');
+            if (!grid) return;
+
+            let todayStr = getTodayKey();
+            let cols = '';
+            let stats = { work: 0, focus: 0, personal: 0, health: 0, learning: 0 };
+
+            for (let i = 0; i < 7; i++) {
+                let colDate = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + i);
+                let dateKey = localDateKey(colDate);
+                let isToday = dateKey === todayStr;
+
+                let dayEvents = S.weeklyEvents
+                    .filter(e => e.date === dateKey)
+                    // ─── FIX: Sort by time correctly ───
+                    .sort((a, b) => {
+                        let ta = a.time || '00:00', tb = b.time || '00:00';
+                        return ta.localeCompare(tb);
+                    });
+
+                dayEvents.forEach(e => { if (stats[e.cat] !== undefined) stats[e.cat]++; });
+
+                // ─── FIX: Display time in AM/PM format ───
+                let evHTML = dayEvents.map(e => {
+                    let timeDisplay = e.time ? `<span class="wp-event-time">${formatTimeAMPM(e.time)}</span>` : '';
+                    return `<div class="wp-event ${CAT_COLORS[e.cat] || 'cat-work'}">
+                        <div class="wp-event-body">
+                            ${timeDisplay}
+                            <span>${escHtml(e.text)}</span>
+                        </div>
+                        <button class="wp-event-del" onclick="deleteWeeklyEvent(${e.id})" title="Delete">✕</button>
+                    </div>`;
+                }).join('');
+
+                // ─── FIX: Show full date in day header (day name + date number + month) ───
+                let monthShort = colDate.toLocaleDateString('en-US', { month: 'short' });
+                cols += `<div class="wp-day-col${isToday ? ' today-col' : ''}">
+                    <div class="wp-day-header${isToday ? ' today-hdr' : ''}">
+                        ${WP_DAYS[i]}<br>
+                        <span style="font-size:.68rem;color:${isToday ? 'var(--accent)' : 'var(--text2)'};">
+                            ${monthShort} ${colDate.getDate()}
+                        </span>
+                    </div>
+                    ${evHTML || `<div style="font-family:var(--mono);font-size:.58rem;color:var(--text3);text-align:center;margin-top:16px;">// EMPTY</div>`}
+                </div>`;
+            }
+            grid.innerHTML = cols;
+
+            // Stats
+            let statsEl = document.getElementById('wp-stats');
+            if (statsEl) {
+                let total = Object.values(stats).reduce((a, b) => a + b, 0);
+                statsEl.innerHTML = `
+                    <div class="wp-stat-card"><div class="wp-stat-val">${total}</div><div class="wp-stat-lbl">TOTAL EVENTS</div></div>
+                    <div class="wp-stat-card"><div class="wp-stat-val" style="color:var(--accent)">${stats.work}</div><div class="wp-stat-lbl">💼 WORK</div></div>
+                    <div class="wp-stat-card"><div class="wp-stat-val" style="color:var(--amber)">${stats.focus}</div><div class="wp-stat-lbl">⚡ FOCUS</div></div>
+                    <div class="wp-stat-card"><div class="wp-stat-val" style="color:var(--green)">${stats.personal}</div><div class="wp-stat-lbl">🏠 PERSONAL</div></div>
+                    <div class="wp-stat-card"><div class="wp-stat-val" style="color:var(--cyan)">${stats.health + stats.learning}</div><div class="wp-stat-lbl">💪 HEALTH+📚</div></div>`;
+            }
+        }
+
+        function wpPrevWeek() { wpOffset--; renderWeeklyPlanner(); }
+        function wpNextWeek() { wpOffset++; renderWeeklyPlanner(); }
+        function wpThisWeek() { wpOffset = 0; renderWeeklyPlanner(); }
+
+        // ===== MONTHLY PLANNER =====
+        let mpYear = new Date().getFullYear();
+        let mpMonth = new Date().getMonth();
+        let mpSelectedDate = null;
+
+        function addMonthlyEvent() {
+            let text = document.getElementById('mp-task-input').value.trim();
+            if (!text) { showToast('Enter event name'); return; }
+            let dateVal = document.getElementById('mp-date-input').value;
+            if (!dateVal) { showToast('Select a date'); return; }
+            let timeVal = document.getElementById('mp-time-input').value || '';
+            let cat = document.getElementById('mp-cat-select').value;
+
+            if (!S.weeklyEvents) S.weeklyEvents = [];
+            S.weeklyEvents.push({ id: Date.now(), text, time: timeVal, cat, date: dateVal });
+            document.getElementById('mp-task-input').value = '';
+            document.getElementById('mp-time-input').value = '';
+            save(); renderMonthlyPlanner(); showToast('Event added'); addXP(3);
+        }
+
+        function deleteMonthlyEvent(id) {
+            if (!S.weeklyEvents) S.weeklyEvents = [];
+            S.weeklyEvents = S.weeklyEvents.filter(e => e.id != id);
+            save(); renderMonthlyPlanner();
+        }
+
+        function renderMonthlyPlanner() {
+            if (!S.weeklyEvents) S.weeklyEvents = [];
+            const MONTH_NAMES = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+
+            let lbl = document.getElementById('mp-month-label');
+            if (lbl) lbl.textContent = MONTH_NAMES[mpMonth] + ' ' + mpYear;
+
+            // ─── FIX: Default date input to today only if this is the current month ───
+            let di = document.getElementById('mp-date-input');
+            if (di && !di.value) {
+                let today = new Date();
+                if (today.getFullYear() === mpYear && today.getMonth() === mpMonth) {
+                    di.value = getTodayKey();
+                }
+            }
+
+            let grid = document.getElementById('mp-grid');
+            if (!grid) return;
+
+            // ─── FIX: Calculate first day and days-in-month using local Date (no UTC) ───
+            let firstDayOfMonth = new Date(mpYear, mpMonth, 1);
+            let firstDay = firstDayOfMonth.getDay(); // 0=Sun
+            let daysInMonth = new Date(mpYear, mpMonth + 1, 0).getDate();
+            let daysInPrevMonth = new Date(mpYear, mpMonth, 0).getDate();
+            let todayStr = getTodayKey();
+
+            let cells = '';
+            let totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+
+            for (let i = 0; i < totalCells; i++) {
+                let dayNum, dateKey, isCurrentMonth = true;
+                if (i < firstDay) {
+                    dayNum = daysInPrevMonth - firstDay + i + 1;
+                    dateKey = localDateKey(new Date(mpYear, mpMonth - 1, dayNum));
+                    isCurrentMonth = false;
+                } else if (i >= firstDay + daysInMonth) {
+                    dayNum = i - firstDay - daysInMonth + 1;
+                    dateKey = localDateKey(new Date(mpYear, mpMonth + 1, dayNum));
+                    isCurrentMonth = false;
+                } else {
+                    dayNum = i - firstDay + 1;
+                    dateKey = localDateKey(new Date(mpYear, mpMonth, dayNum));
+                }
+
+                let isToday = dateKey === todayStr;
+                let isSelected = dateKey === mpSelectedDate;
+                let dayEvents = S.weeklyEvents.filter(e => e.date === dateKey);
+
+                let dots = dayEvents.slice(0, 5).map(e =>
+                    `<span class="mp-dot ${CAT_COLORS[e.cat] || 'cat-work'}"></span>`
+                ).join('');
+                let moreCount = dayEvents.length > 5 ? `<span style="font-family:var(--mono);font-size:.5rem;color:var(--text3)">+${dayEvents.length - 5}</span>` : '';
+
+                cells += `<div class="mp-day-cell${!isCurrentMonth ? ' other-month' : ''}${isToday ? ' today-cell' : ''}${isSelected ? ' selected-cell' : ''}"
+                    onclick="mpSelectDay('${dateKey}',${dayNum})">
+                    <div class="mp-day-num">${dayNum}</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:1px;margin-top:2px;">${dots}${moreCount}</div>
+                </div>`;
+            }
+            grid.innerHTML = cells;
+
+            if (mpSelectedDate) mpShowDayDetail(mpSelectedDate);
+        }
+
+        function mpSelectDay(dateKey, dayNum) {
+            mpSelectedDate = dateKey;
+            // Also pre-fill the date input for easy add
+            let di = document.getElementById('mp-date-input');
+            if (di) di.value = dateKey;
+            renderMonthlyPlanner();
+        }
+
+        function mpShowDayDetail(dateKey) {
+            let detail = document.getElementById('mp-day-detail');
+            let title = document.getElementById('mp-day-detail-title');
+            let evList = document.getElementById('mp-day-events');
+            if (!detail || !title || !evList) return;
+
+            detail.style.display = 'block';
+
+            // ─── FIX: Parse dateKey as local date to get correct display ───
+            let [y, m, d] = dateKey.split('-').map(Number);
+            let displayDate = new Date(y, m - 1, d);
+            title.textContent = displayDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            let events = (S.weeklyEvents || []).filter(e => e.date === dateKey)
+                .sort((a, b) => (a.time || '00:00').localeCompare(b.time || '00:00'));
+
+            evList.innerHTML = events.length
+                ? events.map(e => {
+                    let timeBadge = e.time ? `<span class="mp-event-time-badge">${formatTimeAMPM(e.time)}</span>` : '';
+                    return `<div class="mp-event-item ${CAT_COLORS[e.cat] || 'cat-work'}">
+                        <span style="display:flex;align-items:center;font-size:.8rem;">${timeBadge}${escHtml(e.text)}</span>
+                        <button onclick="deleteMonthlyEvent(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:.75rem" title="Delete">🗑</button>
+                    </div>`;
+                }).join('')
+                : '<div class="empty-state">// NO EVENTS THIS DAY</div>';
+        }
+
+        function mpPrevMonth() {
+            mpMonth--; if (mpMonth < 0) { mpMonth = 11; mpYear--; }
+            mpSelectedDate = null;
+            let di = document.getElementById('mp-date-input'); if (di) di.value = '';
+            renderMonthlyPlanner();
+        }
+        function mpNextMonth() {
+            mpMonth++; if (mpMonth > 11) { mpMonth = 0; mpYear++; }
+            mpSelectedDate = null;
+            let di = document.getElementById('mp-date-input'); if (di) di.value = '';
+            renderMonthlyPlanner();
+        }
+        function mpThisMonth() {
+            let now = new Date(); mpYear = now.getFullYear(); mpMonth = now.getMonth();
+            mpSelectedDate = null;
+            let di = document.getElementById('mp-date-input'); if (di) di.value = '';
+            renderMonthlyPlanner();
+        }
     </script>
 </body>
 
