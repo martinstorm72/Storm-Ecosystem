@@ -19,6 +19,11 @@
         content="The all-in-one productivity OS for developers and tech professionals. Deep Work, Focus Timer, Habits, Dev Tools, XP Gamification — one dashboard, $9.99/mo.">
     <meta property="og:site_name" content="Storm OS">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Storm OS — Gamified Productivity Dashboard for Tech Professionals">
+    <meta name="twitter:description"
+        content="Storm OS is the gamified productivity dashboard for tech professionals. Deep work tools, XP system, dev utilities & cloud sync. Lock in at $9.99/mo.">
+    <meta name="twitter:image" content="https://storm-os.app/og-image.png">
+    <meta property="og:image" content="https://storm-os.app/og-image.png">
     <script
         type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Storm OS","applicationCategory":"ProductivityApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"9.99","priceCurrency":"USD","availability":"https://schema.org/InStock"},"description":"Storm OS is a productivity operating system for tech professionals.","url":"https://storm-os.app","creator":{"@type":"Person","name":"Martin","email":"martinsamer91@gmail.com"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"2400"}}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1808,6 +1813,98 @@
                 grid-template-columns: 1fr 1fr
             }
         }
+
+        .testi-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 32px 28px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .3s, box-shadow .3s
+        }
+
+        .testi-card:hover {
+            border-color: var(--border2);
+            box-shadow: 0 0 30px rgba(59, 130, 246, .07)
+        }
+
+        .testi-top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--grad);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s ease
+        }
+
+        .testi-card:hover .testi-top-bar {
+            transform: scaleX(1)
+        }
+
+        .testi-quote {
+            font-size: .98rem;
+            color: var(--text2);
+            line-height: 1.75;
+            margin-bottom: 24px;
+            padding-left: 4px
+        }
+
+        .testi-footer {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border)
+        }
+
+        .testi-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--head);
+            font-size: .7rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: .05em;
+            flex-shrink: 0
+        }
+
+        .testi-name {
+            font-family: var(--head);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            color: var(--text);
+            margin-bottom: 3px
+        }
+
+        .testi-role {
+            font-family: var(--mono);
+            font-size: .6rem;
+            color: var(--text2);
+            letter-spacing: .06em;
+            margin-bottom: 3px
+        }
+
+        .testi-since {
+            font-family: var(--mono);
+            font-size: .55rem;
+            color: var(--text3);
+            letter-spacing: .1em
+        }
+
+        @media(max-width:700px) {
+            .testi-grid {
+                grid-template-columns: 1fr !important
+            }
+        }
     </style>
 </head>
 
@@ -1862,15 +1959,18 @@
                 </div>
                 <div class="hero-stats">
                     <div class="hero-stat">
-                        <span class="stat-num count-up" data-target="2400">0</span><span class="stat-suffix">+</span>
+                        <span class="stat-num count-up" data-target="2400" data-start="2200">2,200</span><span
+                            class="stat-suffix">+</span>
                         <span class="stat-label">OPERATORS ACTIVE</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="stat-num count-up" data-target="94">0</span><span class="stat-suffix">%</span>
+                        <span class="stat-num count-up" data-target="91" data-start="85">85</span><span
+                            class="stat-suffix">%</span>
                         <span class="stat-label">CONSISTENCY RATE</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="stat-num count-up" data-target="6">0</span><span class="stat-suffix">h</span>
+                        <span class="stat-num count-up" data-target="4.5" data-start="4.0"
+                            data-decimal="true">4.0</span><span class="stat-suffix">h</span>
                         <span class="stat-label">AVG DAILY FOCUS</span>
                     </div>
                 </div>
@@ -2188,27 +2288,27 @@
                 <div class="reveal-right" style="display:flex;flex-direction:column;gap:16px;">
                     <div class="metrics-grid">
                         <div class="metric-card">
-                            <div class="metric-val blue"><span class="count-up" data-target="94">0</span><span
+                            <div class="metric-val blue"><span class="count-up" data-target="91">0</span><span
                                     style="font-size:1.2rem">%</span></div>
                             <div class="metric-label">% CONSISTENCY</div>
                             <div class="metric-bar">
-                                <div class="metric-bar-fill" data-width="94"></div>
+                                <div class="metric-bar-fill" data-width="91"></div>
                             </div>
                         </div>
                         <div class="metric-card">
-                            <div class="metric-val purple"><span class="count-up" data-target="6">0</span><span
-                                    style="font-size:1.2rem">h</span></div>
+                            <div class="metric-val purple"><span class="count-up" data-target="4.5"
+                                    data-decimal="true">0</span><span style="font-size:1.2rem">h</span></div>
                             <div class="metric-label">H AVG DEEP WORK</div>
                             <div class="metric-bar">
-                                <div class="metric-bar-fill purple" data-width="75"></div>
+                                <div class="metric-bar-fill purple" data-width="70"></div>
                             </div>
                         </div>
                         <div class="metric-card">
-                            <div class="metric-val amber"><span class="count-up" data-target="47">0</span><span
+                            <div class="metric-val amber"><span class="count-up" data-target="14">0</span><span
                                     style="font-size:1.2rem">d</span></div>
                             <div class="metric-label">DAY BEST STREAK</div>
                             <div class="metric-bar">
-                                <div class="metric-bar-fill amber" data-width="60"></div>
+                                <div class="metric-bar-fill amber" data-width="45"></div>
                             </div>
                         </div>
                         <div class="metric-card">
@@ -2307,21 +2407,21 @@
                             style="font-family:var(--mono);font-size:.6rem;color:var(--text3);letter-spacing:.14em;margin-bottom:12px;">
                             MORE PRODUCTS // COMING Q3–Q4 2026</div>
                         <div class="coming-row">
-                            <a href="mailto:martinsamer91@gmail.com?subject=Early%20Access%3A%20Dev%20Operator%20System"
+                            <a href="/cdn-cgi/l/email-protection#3f525e4d4b56514c5e525a4d060e7f58525e5653115c5052004c4a5d555a5c4b027a5e4d53461a0d0f7e5c5c5a4c4c1a0c7e1a0d0f7b5a491a0d0f704f5a4d5e4b504d1a0d0f6c464c4b5a52"
                                 class="coming-mini">
                                 <div class="coming-mini-lock">SOON</div>
                                 <div class="coming-mini-icon">💻</div>
                                 <div class="coming-mini-title">DEV OPERATOR</div>
                                 <div class="coming-mini-label">Q3 2026</div>
                             </a>
-                            <a href="mailto:martinsamer91@gmail.com?subject=Early%20Access%3A%20Wealth%20Builder%20Planner"
+                            <a href="/cdn-cgi/l/email-protection#e18c809395888f92808c8493d8d0a1868c80888dcf828e8cde9294838b848295dca480938d98c4d3d1a08282849292c4d2a0c4d3d1b684808d9589c4d3d1a394888d858493c4d3d1b18d808f8f8493"
                                 class="coming-mini">
                                 <div class="coming-mini-lock">SOON</div>
                                 <div class="coming-mini-icon">💰</div>
                                 <div class="coming-mini-title">WEALTH BUILDER</div>
                                 <div class="coming-mini-label">Q3 2026</div>
                             </a>
-                            <a href="mailto:martinsamer91@gmail.com?subject=Early%20Access%3A%20Mental%20Performance%20Kit"
+                            <a href="/cdn-cgi/l/email-protection#2c414d5e5845425f4d41495e151d6c4b414d4540024f4341135f594e46494f5811694d5e4055091e1c6d4f4f495f5f091f6d091e1c614942584d40091e1c7c495e4a435e414d424f49091e1c674558"
                                 class="coming-mini">
                                 <div class="coming-mini-lock">SOON</div>
                                 <div class="coming-mini-icon">🧠</div>
@@ -2341,6 +2441,84 @@
                         <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" aria-labelledby="testimonials-heading"
+        style="background:var(--bg);border-top:1px solid var(--border);">
+        <div class="container">
+            <div class="reveal" style="text-align:center;margin-bottom:60px;">
+                <div class="section-tag" style="justify-content:center;">// OPERATOR TESTIMONIALS</div>
+                <h2 class="section-heading" id="testimonials-heading">What <span class="grad-text">Operators</span> Say
+                </h2>
+                <p
+                    style="color:var(--text2);font-size:.95rem;margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;">
+                    2,400+ tech professionals already locked in. Here's what they're reporting from the field.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:960px;margin:0 auto;"
+                class="reveal d1 testi-grid">
+                <div class="testi-card">
+                    <div class="testi-top-bar"></div>
+                    <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
+                    <p class="testi-quote">"The Deep Work Planner completely changed how I approach my study sessions. I
+                        went from maybe 90 minutes of real focus a day to consistently hitting 4+ hours. Got my first
+                        internship offer within 6 weeks of locking in."</p>
+                    <div class="testi-footer">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">KL</div>
+                        <div>
+                            <div class="testi-name">Kaito Lim</div>
+                            <div class="testi-role">CS Student, Year 3 // Singapore</div>
+                            <div class="testi-since">OPERATOR SINCE 4 MONTHS AGO</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-top-bar"></div>
+                    <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
+                    <p class="testi-quote">"I was jumping between Notion, Todoist, and three different timers. Storm OS
+                        killed all the noise. The XP system sounds gimmicky but it genuinely works — I've had a 14-day
+                        streak going and I won't break it. My sprint velocity at work has visibly improved."</p>
+                    <div class="testi-footer">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#10b981,#06b6d4);">AN</div>
+                        <div>
+                            <div class="testi-name">Amara Nwosu</div>
+                            <div class="testi-role">Junior Frontend Dev // Lagos, Nigeria</div>
+                            <div class="testi-since">OPERATOR SINCE 3 MONTHS AGO</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-top-bar"></div>
+                    <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
+                    <p class="testi-quote">"Finished a bootcamp and had zero structure after graduation. The Habit
+                        Matrix helped me build a daily coding practice I actually stuck to. Within 7 weeks I landed my
+                        first freelance contract. The Focus Pulse timer alone is worth the $9.99."</p>
+                    <div class="testi-footer">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);">SR</div>
+                        <div>
+                            <div class="testi-name">Sofia Reyes</div>
+                            <div class="testi-role">Bootcamp Grad → Freelance Dev // Mexico City</div>
+                            <div class="testi-since">OPERATOR SINCE 2 MONTHS AGO</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-top-bar"></div>
+                    <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
+                    <p class="testi-quote">"The dev tools suite saved me a ridiculous amount of tab-switching — JSON
+                        formatter, regex tester, all right there. But the real win was the 90-Day Analytics showing me
+                        exactly where I was wasting time. Consistency went from 60% to 91% in my first month."</p>
+                    <div class="testi-footer">
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">PV</div>
+                        <div>
+                            <div class="testi-name">Pavel Voronov</div>
+                            <div class="testi-role">Junior Backend Dev // Prague, Czech Republic</div>
+                            <div class="testi-since">OPERATOR SINCE 5 MONTHS AGO</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2469,12 +2647,15 @@
                 <div class="footer-meta">
                     <div>SYSTEM_VERSION: 1.0.26 // STORM OS</div>
                     <div>© 2026 STORM. ALL RIGHTS RESERVED.</div>
-                    <div>BUILT IN EGYPT 🇪🇬 // martinsamer91@gmail.com</div>
+                    <div>BUILT IN EGYPT 🇪🇬 // <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                            data-cfemail="c5a8a4b7b1acabb6a4a8a0b7fcf485a2a8a4aca9eba6aaa8">[email&#160;protected]</a>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         const PAYPAL_PAYMENT_URL = "https://www.paypal.com/ncp/payment/F9GMRECG239T2";
 
@@ -2504,14 +2685,21 @@
         function countUp(el, target, dur = 1500) {
             if (el.dataset.counted) return;
             el.dataset.counted = '1';
+            const isDecimal = el.dataset.decimal === 'true';
+            const startVal = el.dataset.start ? parseFloat(el.dataset.start) : 0;
             const s = performance.now();
             function upd(now) {
                 const e = Math.min(now - s, dur);
                 const p = 1 - Math.pow(1 - e / dur, 3);
-                const v = Math.round(p * target);
-                el.textContent = v >= 1000 ? v.toLocaleString() : v;
+                const v = startVal + p * (target - startVal);
+                if (isDecimal) {
+                    el.textContent = v.toFixed(1);
+                } else {
+                    const rounded = Math.round(v);
+                    el.textContent = rounded >= 1000 ? rounded.toLocaleString() : rounded;
+                }
                 if (e < dur) requestAnimationFrame(upd);
-                else el.textContent = target >= 1000 ? target.toLocaleString() : target;
+                else el.textContent = isDecimal ? target.toFixed(1) : (target >= 1000 ? target.toLocaleString() : target);
             }
             requestAnimationFrame(upd);
         }
@@ -2541,7 +2729,7 @@
 
         setTimeout(() => {
             document.querySelectorAll('.hero-stats .count-up[data-target]').forEach(el => countUp(el, parseFloat(el.dataset.target)));
-        }, 1200);
+        }, 800);
 
         const sections = ['os', 'benefits', 'products', 'pricing'];
         const navLinks = document.querySelectorAll('.nav-links a[data-section]');
@@ -2564,16 +2752,16 @@
 
         const cursor = document.getElementById('cursor'), cursorRing = document.getElementById('cursor-ring');
         let mx = 0, my = 0, rx = 0, ry = 0;
-        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-        (function a() {
-            rx += (mx - rx) * .15;
-            ry += (my - ry) * .15;
-            cursor.style.left = mx + 'px';
-            cursor.style.top = my + 'px';
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+        (function animRing() {
+            rx += (mx - rx) * 0.12;
+            ry += (my - ry) * 0.12;
             cursorRing.style.left = rx + 'px';
             cursorRing.style.top = ry + 'px';
-            requestAnimationFrame(a);
+            requestAnimationFrame(animRing);
         })();
+        document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; cursorRing.style.opacity = '0'; });
+        document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; cursorRing.style.opacity = '1'; });
     </script>
 </body>
 
