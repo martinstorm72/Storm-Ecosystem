@@ -1096,6 +1096,7 @@
             letter-spacing: .08em
         }
 
+        /* ── Payment state panels ── */
         .paypal-panel {
             display: none;
             margin-top: 16px;
@@ -1141,6 +1142,57 @@
         .paypal-link:hover {
             box-shadow: 0 8px 24px rgba(0, 112, 186, .4);
             transform: translateY(-2px)
+        }
+
+        /* spinner inside verifying panel */
+        .pay-spin {
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(201, 162, 39, .2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spinAnim .8s linear infinite;
+            margin: 0 auto 14px
+        }
+
+        @keyframes spinAnim {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        #verify-status {
+            font-family: var(--mono);
+            font-size: .72rem;
+            color: var(--gold);
+            letter-spacing: .1em
+        }
+
+        /* failed panel overrides */
+        #payment-failed {
+            border-color: rgba(239, 68, 68, .35) !important;
+            background: rgba(239, 68, 68, .06) !important
+        }
+
+        #payment-failed .fail-icon {
+            font-size: 2rem;
+            margin-bottom: 10px
+        }
+
+        #payment-failed .fail-title {
+            font-family: var(--mono);
+            font-size: .72rem;
+            color: #ef4444;
+            letter-spacing: .1em;
+            margin-bottom: 8px
+        }
+
+        #fail-reason {
+            font-size: .72rem;
+            color: var(--text2);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-family: var(--mono)
         }
 
         .download-success {
@@ -1485,8 +1537,9 @@
                     <div class="buy-top-border"></div>
                     <div class="buy-body">
                         <div class="buy-badge">PREMIUM DIGITAL DOWNLOAD</div>
-                        <div class="buy-price"><span class="buy-dollar">$</span><span>14</span><span
-                                class="buy-cents">.99</span></div>
+                        <div class="buy-price">
+                            <span class="buy-dollar">$</span><span>14</span><span class="buy-cents">.99</span>
+                        </div>
                         <div class="buy-type">ONE-TIME PURCHASE · INSTANT PDF DOWNLOAD</div>
                         <p class="buy-desc">Get the complete 90-Day Discipline Challenge system. 21 pages. Daily,
                             weekly, and monthly planners. Level system. Habit tracker. Anti-procrastination protocol.
@@ -1528,32 +1581,57 @@
                             </li>
                         </ul>
 
+                        <!-- STATE 1: Buy button -->
                         <button onclick="handleBuyNow()" id="buy-btn" class="btn btn-gold"
                             style="width:100%;justify-content:center;padding:16px;font-size:.75rem">
-                            BUY NOW — 14.99 →
+                            BUY NOW — $14.99 →
                         </button>
 
+                        <!-- STATE 2: PayPal checkout -->
                         <div id="paypal-panel" class="paypal-panel">
-                            <p>SECURE CHECKOUT VIA PAYPAL<br>After payment is complete, click the button below to
-                                download your PDF instantly.</p>
-                            <a href="https://www.paypal.com/ncp/payment/W62YX89UER4LS" target="_blank" rel="noopener"
-                                class="paypal-link" onclick="onPayPalClick()">
-                                PAY SECURELY ON PAYPAL
+                            <p>SECURE CHECKOUT VIA PAYPAL<br>You will be redirected to PayPal. After payment you are
+                                automatically returned here and your PDF downloads instantly.</p>
+                            <a href="https://www.paypal.com/ncp/payment/W62YX89UER4LS" class="paypal-link">
+                                🔒 PAY SECURELY ON PAYPAL →
                             </a>
-                            <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(201,162,39,.2)">
-                                <p style="margin-bottom:12px">✅ Already paid? Click below to download your PDF:</p>
-                                <button onclick="triggerDownload()" class="dl-btn" style="margin:0 auto">
-                                    ⬇ DOWNLOAD MY PDF NOW
-                                </button>
-                            </div>
+                            <p style="margin-top:14px;font-size:.58rem;color:var(--text3);margin-bottom:0">
+                                256-bit SSL · PayPal Buyer Protection · No account required
+                            </p>
                         </div>
 
+                        <!-- STATE 3: Verifying -->
+                        <div id="verifying-panel" class="paypal-panel">
+                            <div class="pay-spin"></div>
+                            <div id="verify-status">VERIFYING YOUR PAYMENT...</div>
+                            <p style="margin-top:10px;font-size:.6rem;color:var(--text3);margin-bottom:0">
+                                Please wait — do not close this tab.
+                            </p>
+                        </div>
+
+                        <!-- STATE 4: Success -->
                         <div id="download-success" class="download-success">
                             <h3>🎉 PAYMENT CONFIRMED — DOWNLOADING NOW!</h3>
                             <p>Your PDF is downloading automatically. If it doesn't start, click the button below.</p>
                             <button onclick="triggerDownload()" class="dl-btn">⬇ DOWNLOAD AGAIN</button>
-                            <p style="margin-top:14px;font-size:.6rem;color:var(--text3)">Check your Downloads folder
-                                for "LOCK-IN-90-Day-Discipline-Challenge.pdf"</p>
+                            <p style="margin-top:14px;font-size:.6rem;color:var(--text3);margin-bottom:0">
+                                Check your Downloads folder for "LOCK-IN-90-Day-Discipline-Challenge.pdf"
+                            </p>
+                        </div>
+
+                        <!-- STATE 5: Failed -->
+                        <div id="payment-failed" class="paypal-panel">
+                            <div class="fail-icon">❌</div>
+                            <div class="fail-title">PAYMENT NOT CONFIRMED</div>
+                            <div id="fail-reason"></div>
+                            <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+                                <button onclick="retryPayment()" class="btn btn-gold" style="font-size:.65rem">
+                                    TRY AGAIN →
+                                </button>
+                                <a href="mailto:contact@storm-ecosystem.vercel.app"
+                                    style="font-size:.6rem;color:var(--text3);font-family:var(--mono)">
+                                    Already charged? Contact support →
+                                </a>
+                            </div>
                         </div>
 
                         <p class="buy-note">SECURE PAYMENT // INSTANT DOWNLOAD // NO SUBSCRIPTION</p>
@@ -1584,94 +1662,166 @@
                     </div>
                 </div>
                 <nav class="footer-links">
-                    <a href="index.html">Home</a><a href="products.html">Products</a><a href="services.html">Docs</a><a
-                        href="index.html#pricing">Dashboard</a><a href="policy.html">Privacy</a><a
-                        href="policy.html#terms">Terms</a><a href="policy.html#refund">Refund</a><a
-                        href="login.html">Login</a>
+                    <a href="index.html">Home</a>
+                    <a href="products.html">Products</a>
+                    <a href="services.html">Docs</a>
+                    <a href="index.html#pricing">Dashboard</a>
+                    <a href="policy.html">Privacy</a>
+                    <a href="policy.html#terms">Terms</a>
+                    <a href="policy.html#refund">Refund</a>
+                    <a href="login.html">Login</a>
                 </nav>
                 <div class="footer-meta">
                     <div>STORM OS // v1.0.26</div>
                     <div>© 2026 STORM. ALL RIGHTS RESERVED.</div>
-                    <div>BUILT IN EGYPT 🇪🇬 // martinsamer91@gmail.com</div>
+                    <div>BUILT IN EGYPT 🇪🇬 // contact@storm-ecosystem.vercel.app</div>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // === PAYMENT PROTECTED + DIRECT DOWNLOAD (Final Version) ===
-        function hasPaidForPDF() {
-            return localStorage.getItem('storm_lockin_paid') === 'true';
+        // ================================================================
+        // STORM OS — SECURE PAYMENT GATE v3.0
+        // PayPal Auto-Return is already configured ✅
+        // Return URL: https://storm-ecosystem.vercel.app/productLockIn.html
+        //
+        // Flow:
+        //   1. User clicks BUY NOW → sees PayPal panel
+        //   2. Clicks PayPal link → pays on PayPal
+        //   3. PayPal redirects back with ?tx=XXXXX&st=Completed
+        //   4. Page detects ?tx, calls /api/verify-payment
+        //   5. Vercel function checks with PayPal PDT → returns {valid:true}
+        //   6. PDF downloads automatically ✅
+        // ================================================================
+
+        const PDF_PATH = "/LOCK-IN-90-Day-Discipline-Challenge.pdf";
+        const VERIFY_API = "/api/verify-payment";
+        const SESS_KEY = "storm_verified_tx";
+
+        function urlParam(name) {
+            return new URLSearchParams(window.location.search).get(name);
         }
 
-        function markAsPaid() {
-            localStorage.setItem('storm_lockin_paid', 'true');
+        // ── Show/hide payment state panels ──────────────────────────
+        const PANELS = ["paypal-panel", "verifying-panel", "download-success", "payment-failed"];
+
+        function showPanel(activeId) {
+            PANELS.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (id === "download-success") {
+                    el.classList.toggle("show", id === activeId);
+                } else {
+                    el.classList.toggle("show", id === activeId);
+                }
+            });
         }
 
-        function downloadPDF() {
-            if (!hasPaidForPDF()) {
-                alert("❌ Payment required to download the PDF.\n\nPlease complete your PayPal payment first.");
-                scrollToBuy();
-                return;
-            }
+        // ── Button handlers ──────────────────────────────────────────
+        function handleBuyNow() {
+            document.getElementById("buy-btn").style.display = "none";
+            showPanel("paypal-panel");
+            document.getElementById("paypal-panel").scrollIntoView({ behavior: "smooth", block: "center" });
+        }
 
-            // Direct link to your PDF in the public folder
-            const pdfUrl = "/LOCK-IN-90-Day-Discipline-Challenge.pdf";
+        function retryPayment() {
+            showPanel(null);
+            document.getElementById("buy-btn").style.display = "";
+            scrollToBuy();
+        }
 
-            const a = document.createElement('a');
-            a.href = pdfUrl;
-            a.download = 'LOCK-IN-90-Day-Discipline-Challenge.pdf';
+        function scrollToBuy() {
+            document.getElementById("buy").scrollIntoView({ behavior: "smooth" });
+        }
+
+        // ── PDF download ─────────────────────────────────────────────
+        function executePDFDownload() {
+            const a = document.createElement("a");
+            a.href = PDF_PATH;
+            a.download = "LOCK-IN-90-Day-Discipline-Challenge.pdf";
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
         }
 
-        function handleBuyNow() {
-            document.getElementById('paypal-panel').classList.add('show');
-            document.getElementById('buy-btn').style.display = 'none';
-            document.getElementById('paypal-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function onPayPalClick() {
-            localStorage.setItem('storm_pdf_pending', 'true');
-        }
-
         function triggerDownload() {
-            downloadPDF();
+            if (sessionStorage.getItem(SESS_KEY)) {
+                executePDFDownload();
+            } else {
+                scrollToBuy();
+            }
         }
 
-        function showDownloadSuccess() {
-            document.getElementById('paypal-panel').classList.remove('show');
-            document.getElementById('buy-btn').style.display = 'none';
-            document.getElementById('download-success').classList.add('show');
-            document.getElementById('download-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // ── Verify transaction via Vercel API ────────────────────────
+        async function verifyTransaction(tx) {
+            try {
+                const res = await fetch(VERIFY_API, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tx })
+                });
+                if (!res.ok) return { valid: false, reason: "Verification server error." };
+                return await res.json();
+            } catch (e) {
+                return { valid: false, reason: "Could not reach the verification server. Check your connection." };
+            }
         }
 
-        function scrollToBuy() {
-            document.getElementById('buy').scrollIntoView({ behavior: 'smooth' });
-        }
+        // ── On load: check for PayPal Auto-Return params ─────────────
+        window.addEventListener("load", async function () {
+            const tx = urlParam("tx");
+            const status = urlParam("st"); // PayPal sends st=Completed on success
 
-        // Auto-download when user returns from successful PayPal payment
-        window.addEventListener('load', function () {
-            if (localStorage.getItem('storm_pdf_pending') === 'true') {
-                localStorage.removeItem('storm_pdf_pending');
-                markAsPaid();
-                showDownloadSuccess();
-                setTimeout(() => {
-                    downloadPDF();
-                }, 1200);
+            if (!tx) return; // Normal page visit — nothing to do
+
+            // Immediately clean the URL (prevents re-trigger on refresh)
+            window.history.replaceState({}, "", window.location.pathname);
+
+            // Scroll to buy section and show spinner
+            document.getElementById("buy-btn").style.display = "none";
+            showPanel("verifying-panel");
+            document.getElementById("buy").scrollIntoView({ behavior: "smooth" });
+
+            // Quick client-side sanity check
+            if (status && status !== "Completed") {
+                showPanel("payment-failed");
+                document.getElementById("fail-reason").textContent =
+                    'Payment status: "' + status + '". Please complete payment and try again.';
+                return;
+            }
+
+            // Server-side PDT verification
+            document.getElementById("verify-status").textContent = "CONFIRMING WITH PAYPAL...";
+            const result = await verifyTransaction(tx);
+
+            if (result.valid) {
+                sessionStorage.setItem(SESS_KEY, tx);
+                showPanel("download-success");
+                setTimeout(executePDFDownload, 800);
+            } else {
+                showPanel("payment-failed");
+                document.getElementById("fail-reason").textContent =
+                    result.reason ||
+                    ("Payment could not be verified. Contact support with your Transaction ID: " + tx);
             }
         });
 
-        // Keep your original scroll and reveal behavior
-        window.addEventListener('scroll', () => {
-            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+        // ── Sticky nav on scroll ─────────────────────────────────────
+        window.addEventListener("scroll", () => {
+            document.getElementById("nav").classList.toggle("scrolled", window.scrollY > 40);
         });
 
-        const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        // ── Reveal elements on scroll ────────────────────────────────
+        const revealObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add("active");
+                    revealObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
     </script>
 </body>
 
