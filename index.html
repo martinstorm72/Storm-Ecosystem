@@ -1910,15 +1910,26 @@
 
         /* Hide custom cursor on touch devices */
         @media(hover:none) {
-            body { cursor: auto }
-            #cursor, #cursor-ring { display: none }
-            .btn { cursor: pointer }
+            body {
+                cursor: auto
+            }
+
+            #cursor,
+            #cursor-ring {
+                display: none
+            }
+
+            .btn {
+                cursor: pointer
+            }
         }
 
         @media(max-width:768px) {
 
             /* Container padding */
-            .container { padding: 0 1rem }
+            .container {
+                padding: 0 1rem
+            }
 
             /* Nav */
             .nav-inner {
@@ -1927,10 +1938,14 @@
                 flex-wrap: nowrap
             }
 
-            .logo { font-size: 1rem }
+            .logo {
+                font-size: 1rem
+            }
 
             /* Hide text nav links, keep only buttons */
-            .nav-links a:not(.btn) { display: none }
+            .nav-links a:not(.btn) {
+                display: none
+            }
 
             .nav-links .btn {
                 font-size: .58rem;
@@ -1938,7 +1953,9 @@
                 letter-spacing: .1em
             }
 
-            .nav-status { display: none }
+            .nav-status {
+                display: none
+            }
 
             /* Hero section */
             .hero {
@@ -1946,7 +1963,9 @@
                 align-items: flex-start
             }
 
-            h1 { font-size: clamp(2rem, 11vw, 3rem) }
+            h1 {
+                font-size: clamp(2rem, 11vw, 3rem)
+            }
 
             .hero p {
                 font-size: .95rem;
@@ -1959,7 +1978,9 @@
                 margin-bottom: 20px
             }
 
-            .hero-cta { gap: 10px }
+            .hero-cta {
+                gap: 10px
+            }
 
             .btn-lg {
                 font-size: .65rem;
@@ -1968,22 +1989,36 @@
             }
 
             /* Hero stats */
-            .hero-stats { margin-top: 36px }
+            .hero-stats {
+                margin-top: 36px
+            }
 
-            .hero-stat { padding: 14px 16px }
+            .hero-stat {
+                padding: 14px 16px
+            }
 
-            .stat-num { font-size: 1.3rem }
+            .stat-num {
+                font-size: 1.3rem
+            }
 
             /* Dashboard preview mockup: hide on small screens */
-            .preview-wrap { display: none }
+            .preview-wrap {
+                display: none
+            }
 
             /* Sections: reduce vertical padding */
-            section { padding: 64px 0 }
+            section {
+                padding: 64px 0
+            }
 
-            .section-heading { font-size: clamp(1.5rem, 7vw, 2.2rem) }
+            .section-heading {
+                font-size: clamp(1.5rem, 7vw, 2.2rem)
+            }
 
             /* Features grid */
-            .feature-card { padding: 28px 20px }
+            .feature-card {
+                padding: 28px 20px
+            }
 
             .features-grid,
             .features-row-2 {
@@ -1992,44 +2027,76 @@
             }
 
             /* Results section */
-            .results-grid { gap: 32px }
+            .results-grid {
+                gap: 32px
+            }
 
             /* Metrics */
-            .metrics-grid { grid-template-columns: 1fr 1fr }
+            .metrics-grid {
+                grid-template-columns: 1fr 1fr
+            }
 
-            .metric-val { font-size: 1.6rem }
+            .metric-val {
+                font-size: 1.6rem
+            }
 
             /* Products */
-            .products-showcase { grid-template-columns: 1fr }
+            .products-showcase {
+                grid-template-columns: 1fr
+            }
 
             .showcase-right {
                 grid-template-columns: 1fr !important
             }
 
-            .coming-row { grid-template-columns: 1fr 1fr }
+            .coming-row {
+                grid-template-columns: 1fr 1fr
+            }
 
-            .showcase-body { padding: 20px }
+            .showcase-body {
+                padding: 20px
+            }
 
-            .showcase-preview { height: 150px }
+            .showcase-preview {
+                height: 150px
+            }
 
-            .showcase-icon { font-size: 2.5rem }
+            .showcase-icon {
+                font-size: 2.5rem
+            }
 
             /* Testimonials */
-            .testi-card { padding: 22px 18px }
+            .testi-card {
+                padding: 22px 18px
+            }
 
             /* Pricing */
-            .pricing-body { padding: 24px 20px }
+            .pricing-body {
+                padding: 24px 20px
+            }
 
-            .pricing-price { font-size: 3rem }
+            .pricing-price {
+                font-size: 3rem
+            }
 
-            .pricing-dollar { font-size: 1.2rem; margin-top: 7px }
+            .pricing-dollar {
+                font-size: 1.2rem;
+                margin-top: 7px
+            }
 
-            .pricing-cents { font-size: 1.4rem; margin-top: 6px }
+            .pricing-cents {
+                font-size: 1.4rem;
+                margin-top: 6px
+            }
 
             /* CTA section */
-            .cta-section { padding: 64px 0 }
+            .cta-section {
+                padding: 64px 0
+            }
 
-            .cta-section h2 { font-size: clamp(1.6rem, 8vw, 2.5rem) }
+            .cta-section h2 {
+                font-size: clamp(1.6rem, 8vw, 2.5rem)
+            }
 
             /* Footer */
             .footer-inner {
@@ -2043,25 +2110,37 @@
                 flex-wrap: wrap
             }
 
-            .footer-meta { text-align: left }
+            .footer-meta {
+                text-align: left
+            }
 
             /* Marquee: smaller text */
-            .marquee-item { font-size: .58rem }
+            .marquee-item {
+                font-size: .58rem
+            }
         }
 
         @media(max-width:400px) {
-            h1 { font-size: clamp(1.7rem, 12vw, 2.2rem) }
+            h1 {
+                font-size: clamp(1.7rem, 12vw, 2.2rem)
+            }
 
             .btn-lg {
                 width: 100%;
                 justify-content: center
             }
 
-            .hero-cta { flex-direction: column }
+            .hero-cta {
+                flex-direction: column
+            }
 
-            .pricing-price { font-size: 2.5rem }
+            .pricing-price {
+                font-size: 2.5rem
+            }
 
-            .coming-row { grid-template-columns: 1fr }
+            .coming-row {
+                grid-template-columns: 1fr
+            }
         }
     </style>
 </head>
