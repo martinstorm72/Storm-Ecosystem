@@ -2560,6 +2560,401 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(108, 99, 255, .25);
         }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+
+            /* Wrapper padding */
+            .wrapper {
+                padding: 0 12px 100px;
+            }
+
+            /* Header: stack brand on top, compress sys-info */
+            header {
+                padding: 14px 0 12px;
+                gap: 8px;
+            }
+
+            .brand h1 {
+                font-size: 1.1rem;
+            }
+
+            .brand .sub {
+                font-size: .72rem;
+            }
+
+            /* Hide secondary sys-info items on mobile to prevent overflow */
+            .sys-info {
+                gap: 10px;
+                font-size: .75rem;
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 4px;
+            }
+
+            .clock-display {
+                font-size: .72rem;
+                white-space: nowrap;
+            }
+
+            /* Header actions: scrollable row */
+            .header-actions {
+                width: 100%;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 4px;
+                gap: 6px;
+            }
+
+            .header-actions .btn,
+            .header-actions .btn-home {
+                white-space: nowrap;
+                flex-shrink: 0;
+                font-size: .65rem;
+                padding: 6px 10px;
+            }
+
+            /* Quote banner */
+            .quote-banner {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+
+            .quote-text {
+                font-size: .78rem;
+            }
+
+            /* Hero CTA bar: stack vertically */
+            .hero-cta-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px;
+                gap: 12px;
+            }
+
+            .hero-cta-text h2 {
+                font-size: .95rem;
+            }
+
+            .hero-cta-text p {
+                font-size: .76rem;
+            }
+
+            .btn-hero {
+                width: 100%;
+                justify-content: center;
+                font-size: .85rem;
+                padding: 13px 20px;
+            }
+
+            /* Nav tabs: horizontal scroll, no wrap */
+            .nav-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: 2px;
+                padding-bottom: 0;
+                margin-bottom: 16px;
+                scrollbar-width: none;
+            }
+
+            .nav-tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-tab {
+                font-size: .62rem;
+                padding: 8px 10px;
+                white-space: nowrap;
+                flex-shrink: 0;
+                letter-spacing: .06em;
+            }
+
+            .nav-tab i {
+                display: none;
+            }
+
+            /* Cards */
+            .card {
+                padding: 14px;
+            }
+
+            /* Timer: smaller digits on mobile */
+            .timer-digits {
+                font-size: 3.2rem;
+            }
+
+            /* Timer controls: wrap nicely */
+            .timer-controls {
+                gap: 8px;
+            }
+
+            .timer-controls .btn {
+                font-size: .65rem;
+                padding: 7px 10px;
+            }
+
+            /* Timer presets: scroll */
+            .timer-presets {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                gap: 6px;
+                padding-bottom: 4px;
+            }
+
+            .timer-presets::-webkit-scrollbar {
+                display: none;
+            }
+
+            .preset-btn {
+                flex-shrink: 0;
+                font-size: .75rem;
+                padding: 7px 12px;
+            }
+
+            /* Inline row inputs: stack vertically */
+            .inline-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .inline-row>* {
+                min-width: unset;
+                width: 100%;
+            }
+
+            .inline-row .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .inline-row select {
+                max-width: 100% !important;
+            }
+
+            .inline-row input[type="number"] {
+                max-width: 100% !important;
+            }
+
+            /* Task items: bigger tap targets */
+            .task-item {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .task-check {
+                width: 22px;
+                height: 22px;
+                flex-shrink: 0;
+            }
+
+            .task-text {
+                font-size: .84rem;
+            }
+
+            /* Habit rows: allow wrapping */
+            .habit-row {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .habit-days {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .habit-day {
+                width: 30px;
+                height: 30px;
+                font-size: .72rem;
+            }
+
+            /* Stats row: always 2 columns on mobile */
+            .stats-row {
+                grid-template-columns: 1fr 1fr !important;
+            }
+
+            .stat-val {
+                font-size: 1.3rem;
+            }
+
+            /* Weekly planner: single column scroll */
+            #wp-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .wp-day-col {
+                min-height: unset;
+                width: 100%;
+            }
+
+            .wp-day-header {
+                font-size: .88rem;
+            }
+
+            /* Weekly planner controls: wrap */
+            #panel-weekly-planner .card>div[style*="flex"] {
+                flex-wrap: wrap;
+            }
+
+            /* Monthly planner: smaller cells */
+            .mp-day-cell {
+                min-height: 56px;
+                padding: 4px;
+            }
+
+            .mp-day-num {
+                font-size: .72rem;
+            }
+
+            .mp-cell-event {
+                font-size: .56rem;
+                padding: 1px 3px;
+            }
+
+            /* Floating onboarding: full width at bottom, smaller */
+            .ob-float {
+                width: calc(100% - 24px);
+                right: 12px;
+                left: 12px;
+                bottom: 12px;
+            }
+
+            /* Shortcut hint: hide on mobile (keyboard shortcuts not relevant) */
+            .shortcut-hint {
+                display: none;
+            }
+
+            /* Toast: full width on mobile */
+            #toast {
+                right: 12px;
+                left: 12px;
+                bottom: 16px;
+                max-width: unset;
+                text-align: center;
+            }
+
+            /* Focus score: stack circle and breakdown */
+            .focus-score-main {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+            }
+
+            /* Dev tools tabs: scroll */
+            .tool-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 2px;
+            }
+
+            .tool-tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tool-tab {
+                white-space: nowrap;
+                flex-shrink: 0;
+                font-size: .72rem;
+                padding: 6px 10px;
+            }
+
+            /* Markdown: stack side by side editor */
+            #markdown-panel .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            /* Level card: compact */
+            .level-card {
+                padding: 6px 10px;
+                gap: 6px;
+            }
+
+            .xp-bar {
+                width: 60px;
+            }
+
+            /* Energy buttons: bigger tap targets */
+            .energy-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1.3rem;
+            }
+
+            /* Session log entries */
+            .session-entry {
+                font-size: .76rem;
+            }
+
+            /* Card titles */
+            .card-title {
+                font-size: .75rem;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            /* Grid 2 and grid main always 1 col on mobile */
+            .grid-2,
+            .grid-main,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            /* Distraction count smaller on mobile */
+            .distraction-count {
+                font-size: 2.4rem;
+            }
+
+            /* Weekly planner add form */
+            #panel-weekly-planner .inline-row,
+            #panel-monthly-planner .inline-row {
+                flex-direction: column;
+            }
+
+            /* Contrib graph scrollable */
+            .contrib-graph {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Week grid: scrollable */
+            .week-grid {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                display: flex;
+                gap: 8px;
+            }
+
+            .week-grid>div {
+                flex-shrink: 0;
+                min-width: 36px;
+            }
+        }
+
+        /* Very small screens */
+        @media (max-width: 380px) {
+            .brand h1 {
+                font-size: .95rem;
+            }
+
+            .timer-digits {
+                font-size: 2.6rem;
+            }
+
+            .nav-tab {
+                font-size: .58rem;
+                padding: 7px 8px;
+            }
+        }
     </style>
 </head>
 
