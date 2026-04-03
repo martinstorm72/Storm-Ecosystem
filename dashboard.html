@@ -3503,14 +3503,133 @@
 
         function updateSyncStatus(status) { const el = document.getElementById('sync-status'); if (!el) return; if (currentUser) { el.style.display = 'inline-flex'; if (status === 'synced') { el.innerHTML = '<i class="fas fa-cloud"></i> SYNCED'; el.className = 'sync-indicator'; } if (status === 'syncing') { el.innerHTML = '<i class="fas fa-sync fa-spin"></i> SYNCING'; el.className = 'sync-indicator syncing'; } if (status === 'error') { el.innerHTML = '<i class="fas fa-exclamation-triangle"></i> SYNC ERROR'; el.className = 'sync-indicator error'; } } else { el.style.display = 'none'; } }
 
-        async function loadCloudData(userId) { if (!isSupabaseReady || !supabaseClient || !userId) return false; try { updateSyncStatus('syncing'); const { data, error } = await supabaseClient.from('operator_data').select('data').eq('user_id', userId).single(); if (error && error.code !== 'PGRST116') { updateSyncStatus('error'); return false; } if (data && data.data) { let cloud = typeof data.data === 'string' ? JSON.parse(data.data) : data.data; if (Array.isArray(cloud.tasks)) S.tasks = cloud.tasks; if (Array.isArray(cloud.habits)) S.habits = cloud.habits; if (Array.isArray(cloud.sessions)) S.sessions = cloud.sessions; if (Array.isArray(cloud.journal)) S.journal = cloud.journal; if (Array.isArray(cloud.wins)) S.wins = cloud.wins; if (Array.isArray(cloud.goals)) S.goals = cloud.goals; if (Array.isArray(cloud.snippets)) S.snippets = cloud.snippets; if (Array.isArray(cloud.distractions)) S.distractions = cloud.distractions; if (Array.isArray(cloud.weeklyEvents)) S.weeklyEvents = cloud.weeklyEvents; if (cloud.energy) S.energy = cloud.energy; if (cloud.analytics) S.analytics = { ...S.analytics, ...cloud.analytics }; if (cloud.user) S.user = { ...S.user, ...cloud.user }; ensureArrays(); if (!S.analytics.daily) S.analytics.daily = {}; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; localStorage.setItem('storm_os_v5', JSON.stringify(S)); updateSyncStatus('synced'); return true; } updateSyncStatus('synced'); return false; } catch (e) { updateSyncStatus('error'); return false; } }
-        async function saveCloudData() { if (!isSupabaseReady || !supabaseClient || !currentUser) return; try { updateSyncStatus('syncing'); const { error } = await supabaseClient.from('operator_data').upsert({ user_id: currentUser.id, data: JSON.stringify(S), updated_at: new Date().toISOString() }, { onConflict: 'user_id' }); if (!error) { updateSyncStatus('synced'); } else { updateSyncStatus('error'); } } catch (e) { updateSyncStatus('error'); } }
-        async function forceSyncNow() { if (!currentUser) { showToast('⚠ Not logged in'); return; } showToast('⏳ Syncing to cloud...'); await saveCloudData(); showToast('✅ Cloud sync complete!'); }
+        async function loadCloudData(userId) {
+            if (!isSupabaseReady || !supabaseClient || !userId) return false;
+            try {
+                updateSyncStatus('syncing');
+                const { data, error } = await supabaseClient.from('operator_data')
+                    .select('data, updated_at').eq('user_id', userId).single();
+                if (error && error.code !== 'PGRST116') { updateSyncStatus('error'); return false; }
+                if (data && data.data) {
+                    let cloud = typeof data.data === 'string' ? JSON.parse(data.data) : data.data;
+                    // Conflict resolution: use whichever copy is newer (cloud updated_at vs local _savedAt)
+                    let cloudTs = data.updated_at ? new Date(data.updated_at).getTime() : 0;
+                    let localTs = S._savedAt ? new Date(S._savedAt).getTime() : 0;
+                    if (cloudTs >= localTs) {
+                        // Cloud is newer — fully replace local state
+                        if (Array.isArray(cloud.tasks)) S.tasks = cloud.tasks;
+                        if (Array.isArray(cloud.habits)) S.habits = cloud.habits;
+                        if (Array.isArray(cloud.sessions)) S.sessions = cloud.sessions;
+                        if (Array.isArray(cloud.journal)) S.journal = cloud.journal;
+                        if (Array.isArray(cloud.wins)) S.wins = cloud.wins;
+                        if (Array.isArray(cloud.goals)) S.goals = cloud.goals;
+                        if (Array.isArray(cloud.snippets)) S.snippets = cloud.snippets;
+                        if (Array.isArray(cloud.distractions)) S.distractions = cloud.distractions;
+                        if (Array.isArray(cloud.weeklyEvents)) S.weeklyEvents = cloud.weeklyEvents;
+                        if (cloud.energy) S.energy = cloud.energy;
+                        if (cloud.analytics) S.analytics = { ...S.analytics, ...cloud.analytics };
+                        if (cloud.user) S.user = { ...S.user, ...cloud.user };
+                    }
+                    // else: local is newer — keep S as-is, it will be pushed to cloud
+                    ensureArrays();
+                    if (!S.analytics.daily) S.analytics.daily = {};
+                    if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
+                    localStorage.setItem('storm_os_v5', JSON.stringify(S));
+                    updateSyncStatus('synced');
+                    return true;
+                }
+                // No cloud record yet — push local data up so it's available on other devices
+                await saveCloudData();
+                updateSyncStatus('synced');
+                return false;
+            } catch (e) { updateSyncStatus('error'); return false; }
+        }
+        async function saveCloudData() {
+            if (!isSupabaseReady || !supabaseClient || !currentUser) return;
+            try {
+                updateSyncStatus('syncing');
+                S._savedAt = new Date().toISOString();
+                const now = S._savedAt;
+                const { error } = await supabaseClient.from('operator_data').upsert(
+                    { user_id: currentUser.id, data: JSON.stringify(S), updated_at: now },
+                    { onConflict: 'user_id' }
+                );
+                if (!error) {
+                    localStorage.setItem('storm_os_v5', JSON.stringify(S));
+                    updateSyncStatus('synced');
+                    _syncRetryCount = 0;
+                } else {
+                    updateSyncStatus('error');
+                    _scheduleRetry();
+                }
+            } catch (e) {
+                updateSyncStatus('error');
+                _scheduleRetry();
+            }
+        }
+        async function forceSyncNow() {
+            if (!currentUser) { showToast('⚠ Not logged in'); return; }
+            updateSyncStatus('syncing');
+            showToast('⏳ Syncing...');
+            // Pull cloud first, merge, then push — guarantees cross-device consistency
+            const gotCloud = await loadCloudData(currentUser.id);
+            if (gotCloud) renderAll();
+            await saveCloudData();
+            showToast('✅ Sync complete!');
+        }
         let _pendingCloudSave = false, _cloudSaveTimer = null, _lastCloudSave = 0;
+        let _syncRetryCount = 0, _syncRetryTimer = null;
         const CLOUD_SAVE_DEBOUNCE = 1500, CLOUD_SAVE_THROTTLE = 10000;
-        function save() { try { localStorage.setItem('storm_os_v5', JSON.stringify(S)); _pendingCloudSave = true; clearTimeout(_cloudSaveTimer); const now = Date.now(); if (now - _lastCloudSave >= CLOUD_SAVE_THROTTLE) { _flushToCloud(); } else { _cloudSaveTimer = setTimeout(_flushToCloud, CLOUD_SAVE_DEBOUNCE); } } catch (e) { } }
-        function saveNow() { try { localStorage.setItem('storm_os_v5', JSON.stringify(S)); _pendingCloudSave = true; clearTimeout(_cloudSaveTimer); _flushToCloud(); } catch (e) { } }
-        async function _flushToCloud() { if (!currentUser || !_pendingCloudSave) return; _pendingCloudSave = false; _lastCloudSave = Date.now(); await saveCloudData(); }
+        const SYNC_RETRY_DELAYS = [5000, 15000, 30000, 60000]; // back-off schedule
+
+        function _scheduleRetry() {
+            if (_syncRetryTimer) return; // already scheduled
+            let delay = SYNC_RETRY_DELAYS[Math.min(_syncRetryCount, SYNC_RETRY_DELAYS.length - 1)];
+            _syncRetryCount++;
+            _syncRetryTimer = setTimeout(async () => {
+                _syncRetryTimer = null;
+                if (currentUser && _pendingCloudSave && navigator.onLine) {
+                    await saveCloudData();
+                }
+            }, delay);
+        }
+
+        function save() {
+            try {
+                localStorage.setItem('storm_os_v5', JSON.stringify(S));
+                _pendingCloudSave = true;
+                clearTimeout(_cloudSaveTimer);
+                const now = Date.now();
+                if (now - _lastCloudSave >= CLOUD_SAVE_THROTTLE) { _flushToCloud(); }
+                else { _cloudSaveTimer = setTimeout(_flushToCloud, CLOUD_SAVE_DEBOUNCE); }
+            } catch (e) { }
+        }
+
+        function saveNow() {
+            try {
+                localStorage.setItem('storm_os_v5', JSON.stringify(S));
+                _pendingCloudSave = true;
+                clearTimeout(_cloudSaveTimer);
+                _flushToCloud();
+            } catch (e) { }
+        }
+
+        async function _flushToCloud() {
+            if (!currentUser || !_pendingCloudSave) return;
+            if (!navigator.onLine) { updateSyncStatus('error'); return; } // offline — retry when back online
+            _pendingCloudSave = false;
+            _lastCloudSave = Date.now();
+            await saveCloudData();
+        }
+
+        // When connectivity is restored, push any pending save immediately
+        window.addEventListener('online', () => {
+            if (currentUser && _pendingCloudSave) {
+                showToast('🌐 Back online — syncing...');
+                _flushToCloud();
+            }
+        });
+        window.addEventListener('offline', () => { updateSyncStatus('error'); });
         function load() { try { let d = localStorage.getItem('storm_os_v5'); if (d) { let p = JSON.parse(d); S = { ...S, ...p, user: { ...S.user, ...(p.user || {}) }, analytics: { ...S.analytics, ...(p.analytics || {}) } }; } } catch (e) { } }
         function ensureArrays() { ['tasks', 'habits', 'sessions', 'journal', 'wins', 'goals', 'snippets', 'distractions', 'weeklyEvents'].forEach(k => { if (!Array.isArray(S[k])) S[k] = []; }); if (!S.energy) S.energy = {}; if (!S.analytics) S.analytics = { totalMin: 0, totalSess: 0, totalTasks: 0, maxStreak: 0, curStreak: 0, daily: {} }; if (!S.analytics.daily) S.analytics.daily = {}; }
 
@@ -3665,7 +3784,30 @@
         function closeShortcuts() { document.getElementById('shortcuts-modal').classList.remove('open'); }
         function changeTheme(theme) { let c = { default: { accent: '#6c63ff', accent2: '#8b84ff' }, cyan: { accent: '#00d2ff', accent2: '#33dbff' }, green: { accent: '#39d353', accent2: '#5fe077' }, red: { accent: '#ff4757', accent2: '#ff6b78' }, orange: { accent: '#ffb347', accent2: '#ffc46a' } }[theme]; document.documentElement.style.setProperty('--accent', c.accent); document.documentElement.style.setProperty('--accent2', c.accent2); localStorage.setItem('theme', theme); showToast(`Theme: ${theme}`); }
         function loadTheme() { let s = localStorage.getItem('theme'); if (s) changeTheme(s); }
-        function checkAndReset() { let nd = getTodayKey(); if (nd !== lastDate) { S.tasks.forEach(t => { if (t.recurring && t.done && t.date === lastDate) { S.tasks.push({ id: Date.now(), text: t.text, priority: t.priority, mins: t.mins, done: false, date: nd, recurring: true, parentId: t.id }); } }); lastDate = nd; todayKey = nd; saveNow(); renderAll(); showToast('✨ Daily tasks reset!'); addXP(25); } }
+        function spawnDailyTasks() {
+            let nd = getTodayKey(); let spawned = 0;
+            let recurringDone = S.tasks.filter(t => t.recurring && t.done && t.date !== nd);
+            recurringDone.forEach(t => {
+                let rootId = t.parentId || t.id;
+                let exists = S.tasks.some(x => x.recurring && x.date === nd && x.text === t.text && (x.parentId === rootId || x.id === rootId));
+                if (!exists) { S.tasks.push({ id: Date.now() + (++spawned), text: t.text, priority: t.priority, mins: t.mins, done: false, date: nd, recurring: true, parentId: rootId }); }
+            });
+            let recurringUndone = S.tasks.filter(t => t.recurring && !t.done && t.date !== nd);
+            recurringUndone.forEach(t => {
+                let rootId = t.parentId || t.id;
+                let exists = S.tasks.some(x => x.recurring && x.date === nd && x.text === t.text && (x.parentId === rootId || x.id === rootId));
+                if (!exists) { t.date = nd; spawned++; } else { S.tasks = S.tasks.filter(x => x !== t); }
+            });
+            return spawned;
+        }
+        function checkAndReset() {
+            let nd = getTodayKey();
+            if (nd !== lastDate) { lastDate = nd; todayKey = nd; let s = spawnDailyTasks(); saveNow(); renderAll(); if (s > 0) showToast('✨ Daily tasks reset!'); addXP(25); }
+        }
+        function checkDailyOnLoad() {
+            let s = spawnDailyTasks();
+            if (s > 0) { saveNow(); renderTasks(); showToast('✨ Daily tasks ready!'); }
+        }
         function exportData() { let blob = new Blob([JSON.stringify(S, null, 2)], { type: 'application/json' }); let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `storm-os-${todayKey}.json`; a.click(); showToast('Exported'); }
         function clearData() { if (confirm('⚠️ RESET ALL DATA?')) { localStorage.clear(); location.reload(); } }
         function renderAll() { renderTasks(); renderHabits(); renderWeekBars(); renderGoals(); renderJournal(); renderWins(); renderSessLog(); renderAnalytics(); updateStreak(); renderEnergyButtons(); renderDistractions(); buildContrib(); renderPeakHours(); renderObFloat(); }
@@ -3707,12 +3849,31 @@
                 let timerMini = document.getElementById('timer-mini'); if (timerMini) timerMini.textContent = fmt(miniSecs);
                 let mainTimer = document.getElementById('main-timer'); if (mainTimer) mainTimer.textContent = fmt(mainSecs);
                 loadObStatus(); loadTodayGoals(); renderObFloat();
-                renderAll(); updateXPBar(); loadTheme(); loadQuotes(); renderSnippets(); renderFocusScoreHistory();
+                renderAll(); updateXPBar(); loadTheme(); loadQuotes(); renderSnippets(); renderFocusScoreHistory(); checkDailyOnLoad();
                 setInterval(() => { let clock = document.getElementById('live-clock'); if (clock) clock.innerHTML = new Date().toTimeString().slice(0, 8); }, 1000);
+                // Flush any pending save every 30s (catches anything missed)
                 setInterval(() => { if (currentUser && _pendingCloudSave) _flushToCloud(); }, 30 * 1000);
-                setInterval(() => { if (currentUser) { _pendingCloudSave = true; _flushToCloud(); } }, 60 * 1000);
-                document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && currentUser) { localStorage.setItem('storm_os_v5', JSON.stringify(S)); _pendingCloudSave = true; _flushToCloud(); } });
+                // Periodic heartbeat sync every 2 min — marks pending only if data has actually changed
+                let _heartbeatSnapshot = '';
+                setInterval(() => {
+                    if (!currentUser) return;
+                    let snap = JSON.stringify(S);
+                    if (snap !== _heartbeatSnapshot) { _heartbeatSnapshot = snap; _pendingCloudSave = true; _flushToCloud(); }
+                }, 120 * 1000);
+                // Save when tab goes to background (most reliable cross-device trigger)
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'hidden' && currentUser) {
+                        localStorage.setItem('storm_os_v5', JSON.stringify(S));
+                        _pendingCloudSave = true;
+                        _flushToCloud();
+                    } else if (document.visibilityState === 'visible' && currentUser) {
+                        // Tab came back into focus — pull latest cloud data in background
+                        loadCloudData(currentUser.id).then(got => { if (got) renderAll(); });
+                    }
+                });
+                // Save when window loses focus (switching apps/tabs)
                 window.addEventListener('blur', () => { if (currentUser) { localStorage.setItem('storm_os_v5', JSON.stringify(S)); _pendingCloudSave = true; _flushToCloud(); } });
+                // Save every 60s while timer is running
                 let _timerSaveTick = 0; setInterval(() => { if ((miniRun || mainRun) && currentUser) { _timerSaveTick++; if (_timerSaveTick % 60 === 0) { _pendingCloudSave = true; _flushToCloud(); } } }, 1000);
             } catch (e) { console.error('boot() error:', e); }
         }
@@ -3720,8 +3881,28 @@
         load(); ensureArrays();
         if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
         initSupabase();
+        checkDailyOnLoad();
         setInterval(checkAndReset, 60000);
-        window.addEventListener('beforeunload', () => { localStorage.setItem('storm_os_v5', JSON.stringify(S)); if (currentUser) { _pendingCloudSave = true; _flushToCloud(); } });
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('storm_os_v5', JSON.stringify(S));
+            // sendBeacon is the only reliable way to fire a request on page close
+            // It queues the request even after the page is gone
+            if (currentUser && isSupabaseReady) {
+                try {
+                    S._savedAt = new Date().toISOString();
+                    const payload = JSON.stringify({
+                        user_id: currentUser.id,
+                        data: JSON.stringify(S),
+                        updated_at: S._savedAt
+                    });
+                    // Use REST API directly since fetch() is cancelled on unload
+                    navigator.sendBeacon(
+                        SUPABASE_URL + '/rest/v1/operator_data?on_conflict=user_id',
+                        new Blob([payload], { type: 'application/json' })
+                    );
+                } catch (e) { /* silent — localStorage already saved above */ }
+            }
+        });
 
         document.addEventListener('keydown', e => {
             let inInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName);
