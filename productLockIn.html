@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOCK IN — 90-Day Discipline Planner PDF | Storm OS</title>
+    <meta name="description"
+        content="The LOCK IN 90-Day Discipline Challenge is a premium high-performance planner PDF. Daily planners, habit trackers, XP level system, and anti-procrastination protocols.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020305;
+            --bg2: #050810;
+            --card: #080c14;
+            --card2: #0c1220;
+            --border: #131d30;
+            --border2: #1c2a42;
+            --accent: #3b82f6;
+            --purple: #8b5cf6;
+            --green: #10b981;
+            --red: #ef4444;
+            --amber: #f59e0b;
+            --text: #f0f4ff;
+            --text2: #7a90b8;
+            --text3: #2d3f60;
+            --grad: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            --gold: #c9a227;
+            --gold2: #e8c44a;
+            --head: 'Orbitron', sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+            --body: 'Rajdhani', sans-serif
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--body);
+            overflow-x: hidden
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(59, 130, 246, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, .04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridDrift 25s linear infinite;
+            pointer-events: none;
+            z-index: 0
+        }
+
+        @keyframes gridDrift {
+            0% {
+                background-position: 0 0
+            }
+
+            100% {
+                background-position: 60px 60px
+            }
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            animation: orbFloat 12s ease-in-out infinite
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: rgba(201, 162, 39, .05);
+            top: -200px;
+            left: -200px
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: rgba(99, 102, 241, .07);
+            bottom: -200px;
+            right: -200px;
+            animation-delay: 6s
+        }
+
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1)
+            }
+
+            50% {
+                transform: translate(30px, -30px) scale(1.05)
+            }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all .4s ease
+        }
+
+        nav.scrolled {
+            background: rgba(2, 3, 5, .85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .logo {
+            font-family: var(--head);
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            color: var(--text);
+            text-decoration: none
+        }
+
+        .logo-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background: var(--accent);
+            margin-left: 3px;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .nav-links a {
+            font-family: var(--mono);
+            font-size: .7rem;
+            color: var(--text2);
+            text-decoration: none;
+            padding: 6px 14px;
+            letter-spacing: .1em;
+            transition: color .2s
+        }
+
+        .nav-links a:hover {
+            color: var(--text)
+        }
+
+        .nav-status {
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--green);
+            letter-spacing: .1em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(16, 185, 129, .25);
+            padding: 4px 12px;
+            border-radius: 20px
+        }
+
+        .nav-status .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, .4)
+            }
+
+            50% {
+                box-shadow: 0 0 0 4px rgba(16, 185, 129, 0)
+            }
+        }
+
+        .btn {
+            font-family: var(--head);
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            padding: 11px 24px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .25s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .btn-primary {
+            background: var(--grad);
+            color: #fff
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, .4);
+            transform: translateY(-2px)
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold2));
+            color: #1a0e00
+        }
+
+        .btn-gold:hover {
+            box-shadow: 0 0 30px rgba(201, 162, 39, .4);
+            transform: translateY(-2px)
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text2);
+            border: 1px solid var(--border2)
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            color: var(--text)
+        }
+
+        .btn-lg {
+            font-size: .72rem;
+            padding: 15px 36px;
+            letter-spacing: .18em
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1
+        }
+
+        section {
+            padding: 120px 0;
+            position: relative;
+            z-index: 1
+        }
+
+        .section-tag {
+            font-family: var(--mono);
+            font-size: .65rem;
+            color: var(--gold);
+            letter-spacing: .2em;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--gold)
+        }
+
+        .section-heading {
+            font-family: var(--head);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -.01em;
+            line-height: 1.1;
+            margin-bottom: 16px
+        }
+
+        .gold-text {
+            background: linear-gradient(135deg, var(--gold), var(--gold2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .grad-text {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--mono);
+            font-size: .68rem;
+            color: var(--text2);
+            letter-spacing: .15em;
+            border: 1px solid var(--border2);
+            padding: 7px 16px;
+            border-radius: 20px;
+            margin-bottom: 32px;
+            background: rgba(8, 12, 20, .8);
+            animation: fadeUp .8s .2s ease both
+        }
+
+        .hero-eyebrow .gold-pulse {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: goldPulse 2s infinite
+        }
+
+        @keyframes goldPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(201, 162, 39, .4)
+            }
+
+            50% {
+                box-shadow: 0 0 0 4px rgba(201, 162, 39, 0)
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        h1 {
+            font-family: var(--head);
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.0;
+            letter-spacing: -.02em;
+            margin-bottom: 24px;
+            animation: fadeUp .8s .4s ease both
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text2);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            animation: fadeUp .8s .6s ease both
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeUp .8s .8s ease both
+        }
+
+        .product-badges {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 24px;
+            animation: fadeUp .8s 1s ease both
+        }
+
+        .badge {
+            font-family: var(--mono);
+            font-size: .6rem;
+            letter-spacing: .12em;
+            padding: 5px 12px;
+            border-radius: 4px;
+            border: 1px solid
+        }
+
+        .badge-gold {
+            background: rgba(201, 162, 39, .1);
+            border-color: rgba(201, 162, 39, .3);
+            color: var(--gold)
+        }
+
+        .badge-green {
+            background: rgba(16, 185, 129, .1);
+            border-color: rgba(16, 185, 129, .3);
+            color: var(--green)
+        }
+
+        .badge-blue {
+            background: rgba(59, 130, 246, .1);
+            border-color: rgba(59, 130, 246, .3);
+            color: var(--accent)
+        }
+
+        .pdf-preview-wrap {
+            position: relative;
+            max-width: 900px;
+            margin: 60px auto 0;
+            animation: fadeUp 1s 1.2s ease both
+        }
+
+        .preview-frame {
+            border-radius: 12px;
+            border: 1px solid var(--border2);
+            overflow: hidden;
+            box-shadow: 0 0 0 1px rgba(201, 162, 39, .1), 0 40px 80px rgba(0, 0, 0, .7), 0 0 80px rgba(201, 162, 39, .06)
+        }
+
+        .preview-bar {
+            background: var(--card2);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .preview-dots {
+            display: flex;
+            gap: 6px
+        }
+
+        .preview-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%
+        }
+
+        .pd-r {
+            background: #ef4444
+        }
+
+        .pd-y {
+            background: #f59e0b
+        }
+
+        .pd-g {
+            background: #10b981
+        }
+
+        .preview-url {
+            flex: 1;
+            text-align: center;
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--text3);
+            letter-spacing: .06em
+        }
+
+        .preview-scan {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(201, 162, 39, .6), transparent);
+            top: 0;
+            pointer-events: none;
+            z-index: 3;
+            animation: scanDown 5s linear infinite
+        }
+
+        @keyframes scanDown {
+            0% {
+                top: 42px;
+                opacity: 1
+            }
+
+            90% {
+                opacity: 1
+            }
+
+            100% {
+                top: calc(100% - 2px);
+                opacity: 0
+            }
+        }
+
+        .pdf-pages-grid {
+            background: #050810;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px
+        }
+
+        .page-thumb {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            aspect-ratio: .75;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all .3s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .page-thumb:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(201, 162, 39, .15)
+        }
+
+        .thumb-icon {
+            font-size: 1.6rem
+        }
+
+        .thumb-label {
+            font-family: var(--mono);
+            font-size: .52rem;
+            color: var(--text3);
+            letter-spacing: .1em;
+            text-align: center;
+            padding: 0 8px
+        }
+
+        .thumb-tag {
+            font-family: var(--mono);
+            font-size: .5rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: rgba(201, 162, 39, .1);
+            border: 1px solid rgba(201, 162, 39, .25);
+            color: var(--gold)
+        }
+
+        #inside {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .inside-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 60px
+        }
+
+        .inside-card {
+            background: var(--card);
+            padding: 36px 30px;
+            position: relative;
+            transition: background .3s;
+            overflow: hidden
+        }
+
+        .inside-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold2));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s ease
+        }
+
+        .inside-card:hover {
+            background: var(--card2)
+        }
+
+        .inside-card:hover::before {
+            transform: scaleX(1)
+        }
+
+        .inside-num {
+            font-family: var(--mono);
+            font-size: .6rem;
+            color: var(--text3);
+            letter-spacing: .15em;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .inside-num::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border2)
+        }
+
+        .inside-icon {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 1.2rem;
+            transition: border-color .3s, box-shadow .3s
+        }
+
+        .inside-card:hover .inside-icon {
+            border-color: var(--gold);
+            box-shadow: 0 0 16px rgba(201, 162, 39, .2)
+        }
+
+        .inside-title {
+            font-family: var(--head);
+            font-size: .82rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            color: var(--text);
+            margin-bottom: 10px
+        }
+
+        .inside-desc {
+            font-size: .9rem;
+            color: var(--text2);
+            line-height: 1.6
+        }
+
+        .inside-list {
+            list-style: none;
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .inside-list li {
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--text3);
+            letter-spacing: .04em;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            line-height: 1.5
+        }
+
+        .inside-list li::before {
+            content: '›';
+            color: var(--gold);
+            flex-shrink: 0
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-top: 48px
+        }
+
+        .rule-card {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all .3s;
+            text-align: center
+        }
+
+        .rule-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px)
+        }
+
+        .rule-num {
+            font-family: var(--head);
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 8px
+        }
+
+        .rule-text {
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--text2);
+            line-height: 1.6;
+            letter-spacing: .04em
+        }
+
+        .levels-wrap {
+            margin-top: 60px
+        }
+
+        .level-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            transition: all .3s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .level-row::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--gold);
+            transform: scaleY(0);
+            transition: transform .3s
+        }
+
+        .level-row:hover {
+            background: rgba(201, 162, 39, .03);
+            padding-left: 28px
+        }
+
+        .level-row:hover::before {
+            transform: scaleY(1)
+        }
+
+        .level-row:last-child {
+            border-bottom: none
+        }
+
+        .lvl-num {
+            font-family: var(--head);
+            font-size: 1.8rem;
+            font-weight: 900;
+            width: 40px;
+            flex-shrink: 0
+        }
+
+        .lvl-1 {
+            color: #9ca3af
+        }
+
+        .lvl-2 {
+            color: #60a5fa
+        }
+
+        .lvl-3 {
+            color: var(--green)
+        }
+
+        .lvl-4 {
+            color: var(--gold)
+        }
+
+        .lvl-5 {
+            color: #f97316
+        }
+
+        .lvl-6 {
+            color: var(--red)
+        }
+
+        .lvl-name {
+            font-family: var(--head);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            width: 140px;
+            flex-shrink: 0
+        }
+
+        .lvl-desc {
+            font-size: .9rem;
+            color: var(--text2);
+            flex: 1;
+            line-height: 1.5
+        }
+
+        .lvl-pts {
+            font-family: var(--mono);
+            font-size: .65rem;
+            color: var(--text3);
+            letter-spacing: .1em;
+            white-space: nowrap
+        }
+
+        .get-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 48px
+        }
+
+        .get-card {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all .3s
+        }
+
+        .get-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px)
+        }
+
+        .get-num {
+            font-family: var(--head);
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1
+        }
+
+        .get-label {
+            font-family: var(--mono);
+            font-size: .58rem;
+            color: var(--text3);
+            letter-spacing: .1em;
+            margin-top: 6px
+        }
+
+        .phases-timeline {
+            margin-top: 60px;
+            position: relative
+        }
+
+        .phases-timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--gold), transparent)
+        }
+
+        .phase-item {
+            display: flex;
+            gap: 24px;
+            padding-bottom: 48px;
+            position: relative
+        }
+
+        .phase-dot {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            background: var(--card2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--head);
+            font-size: .65rem;
+            font-weight: 700;
+            color: var(--gold);
+            flex-shrink: 0;
+            transition: all .3s
+        }
+
+        .phase-item:hover .phase-dot {
+            background: rgba(201, 162, 39, .1);
+            box-shadow: 0 0 24px rgba(201, 162, 39, .3)
+        }
+
+        .phase-content {
+            flex: 1
+        }
+
+        .phase-days {
+            font-family: var(--mono);
+            font-size: .6rem;
+            color: var(--gold);
+            letter-spacing: .15em;
+            margin-bottom: 6px
+        }
+
+        .phase-title {
+            font-family: var(--head);
+            font-size: .85rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            margin-bottom: 8px
+        }
+
+        .phase-desc {
+            font-size: .9rem;
+            color: var(--text2);
+            line-height: 1.7
+        }
+
+        .phase-outcome {
+            font-family: var(--mono);
+            font-size: .65rem;
+            color: var(--green);
+            letter-spacing: .08em;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .phase-outcome::before {
+            content: '▸';
+            color: var(--green)
+        }
+
+        #buy {
+            background: var(--bg2);
+            border-top: 1px solid var(--border)
+        }
+
+        .buy-card {
+            max-width: 560px;
+            margin: 0 auto;
+            background: var(--card);
+            border: 1px solid var(--border2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: box-shadow .4s
+        }
+
+        .buy-card:hover {
+            box-shadow: 0 0 60px rgba(201, 162, 39, .12), 0 40px 80px rgba(0, 0, 0, .4)
+        }
+
+        .buy-top-border {
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold2))
+        }
+
+        .buy-body {
+            padding: 40px
+        }
+
+        .buy-badge {
+            font-family: var(--mono);
+            font-size: .6rem;
+            letter-spacing: .14em;
+            background: rgba(201, 162, 39, .1);
+            border: 1px solid rgba(201, 162, 39, .25);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 24px
+        }
+
+        .buy-price {
+            font-family: var(--head);
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+            display: flex;
+            align-items: flex-start;
+            color: var(--text);
+            margin-bottom: 8px
+        }
+
+        .buy-dollar {
+            font-size: 1.5rem;
+            color: var(--text2);
+            margin-top: 10px
+        }
+
+        .buy-cents {
+            font-size: 1.8rem;
+            font-weight: 900;
+            align-self: flex-start;
+            margin-top: 8px
+        }
+
+        .buy-type {
+            font-family: var(--mono);
+            font-size: .7rem;
+            color: var(--text3);
+            letter-spacing: .08em;
+            margin-bottom: 16px
+        }
+
+        .buy-desc {
+            font-size: .9rem;
+            color: var(--text2);
+            margin-bottom: 28px;
+            line-height: 1.6
+        }
+
+        .buy-divider {
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 24px
+        }
+
+        .buy-features {
+            list-style: none;
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .buy-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--mono);
+            font-size: .7rem;
+            color: var(--text2);
+            letter-spacing: .04em
+        }
+
+        .buy-features li .check {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            background: rgba(201, 162, 39, .1);
+            border: 1px solid rgba(201, 162, 39, .25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--gold);
+            font-size: .7rem
+        }
+
+        .buy-note {
+            text-align: center;
+            font-family: var(--mono);
+            font-size: .58rem;
+            color: var(--text3);
+            margin-top: 14px;
+            letter-spacing: .08em
+        }
+
+        .paypal-panel {
+            display: none;
+            margin-top: 16px;
+            background: rgba(201, 162, 39, .05);
+            border: 1px solid rgba(201, 162, 39, .2);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            animation: fadeUp .5s ease both
+        }
+
+        .paypal-panel.show {
+            display: block
+        }
+
+        .paypal-panel p {
+            font-family: var(--mono);
+            font-size: .65rem;
+            color: var(--text2);
+            letter-spacing: .08em;
+            margin-bottom: 16px;
+            line-height: 1.6
+        }
+
+        .paypal-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--head);
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            padding: 13px 28px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #0070ba, #003087);
+            color: #fff;
+            text-decoration: none;
+            transition: all .25s;
+            cursor: pointer;
+            border: none
+        }
+
+        .paypal-link:hover {
+            box-shadow: 0 8px 24px rgba(0, 112, 186, .4);
+            transform: translateY(-2px)
+        }
+
+        .download-success {
+            display: none;
+            margin-top: 20px;
+            background: rgba(16, 185, 129, .08);
+            border: 1px solid rgba(16, 185, 129, .3);
+            border-radius: 10px;
+            padding: 28px;
+            text-align: center
+        }
+
+        .download-success.show {
+            display: block;
+            animation: fadeUp .5s ease both
+        }
+
+        .download-success h3 {
+            font-family: var(--head);
+            font-size: .9rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            color: var(--green);
+            margin-bottom: 10px
+        }
+
+        .download-success p {
+            font-family: var(--mono);
+            font-size: .65rem;
+            color: var(--text2);
+            letter-spacing: .08em;
+            line-height: 1.6;
+            margin-bottom: 16px
+        }
+
+        .dl-btn {
+            background: linear-gradient(135deg, var(--green), #059669);
+            color: #fff;
+            font-family: var(--head);
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .25s
+        }
+
+        .dl-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, .4)
+        }
+
+        .cta-section {
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1
+        }
+
+        .cta-section h2 {
+            font-family: var(--head);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -.01em;
+            margin-bottom: 20px;
+            line-height: 1.1
+        }
+
+        .cta-section p {
+            font-size: 1.05rem;
+            color: var(--text2);
+            max-width: 480px;
+            margin: 0 auto 40px;
+            line-height: 1.7
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 48px 0;
+            position: relative;
+            z-index: 1
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px
+        }
+
+        .footer-logo {
+            font-family: var(--head);
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: .1em
+        }
+
+        .footer-meta {
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--text3);
+            letter-spacing: .1em;
+            line-height: 1.8;
+            text-align: right
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap
+        }
+
+        .footer-links a {
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--text3);
+            text-decoration: none;
+            letter-spacing: .08em;
+            transition: color .2s
+        }
+
+        .footer-links a:hover {
+            color: var(--gold)
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s ease, transform .7s ease
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .marquee-wrap {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+            overflow: hidden;
+            background: var(--card);
+            position: relative;
+            z-index: 1
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 60px;
+            width: max-content;
+            animation: marqueeScroll 30s linear infinite
+        }
+
+        @keyframes marqueeScroll {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .marquee-item {
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--text3);
+            letter-spacing: .15em;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .marquee-item span {
+            color: var(--gold)
+        }
+
+        @media(max-width:900px) {
+
+            .inside-grid,
+            .rules-grid,
+            .get-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .nav-links a:not(.btn) {
+                display: none
+            }
+
+            .pdf-pages-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media(max-width:600px) {
+
+            .inside-grid,
+            .rules-grid,
+            .get-grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">STORM<span class="logo-cursor"></span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="index.html#pricing">Dashboard</a>
+                <a href="services.html">Docs</a>
+                <div class="nav-status">
+                    <div class="dot"></div>AVAILABLE NOW
+                </div>
+                <a href="login.html" class="btn btn-ghost" style="margin-left:4px;cursor:pointer">LOGIN</a>
+                <a href="signup.html" class="btn btn-primary" style="margin-left:4px;cursor:pointer">GET STARTED</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <div class="gold-pulse"></div>DIGITAL PRODUCT // PDF DOWNLOAD // PREMIUM EDITION
+                </div>
+                <h1><span class="gold-text">LOCK IN.</span><br>THE 90-DAY<br>DISCIPLINE CHALLENGE</h1>
+                <p>A high-performance planner system for those who are done drifting. 21 pages of daily planners, weekly
+                    sprints, habit trackers, a level system, and the anti-procrastination protocol. Not a planner. A
+                    mission.</p>
+                <div class="hero-cta">
+                    <button onclick="scrollToBuy()" class="btn btn-gold btn-lg">GET THE PDF NOW →</button>
+                    <a href="#inside" class="btn btn-ghost btn-lg">SEE WHAT'S INSIDE</a>
+                </div>
+                <div class="product-badges">
+                    <span class="badge badge-gold">21 PAGES</span>
+                    <span class="badge badge-green">INSTANT DOWNLOAD</span>
+                    <span class="badge badge-blue">IPAD + PRINT READY</span>
+                    <span class="badge badge-gold">6-LEVEL SYSTEM</span>
+                    <span class="badge badge-green">90-DAY SYSTEM</span>
+                </div>
+            </div>
+            <div class="pdf-preview-wrap reveal">
+                <div class="preview-frame">
+                    <div class="preview-bar">
+                        <div class="preview-dots">
+                            <div class="preview-dot pd-r"></div>
+                            <div class="preview-dot pd-y"></div>
+                            <div class="preview-dot pd-g"></div>
+                        </div>
+                        <div class="preview-url">LOCK IN · HIGH-PERFORMANCE PLANNER SYSTEM · PREMIUM EDITION</div>
+                    </div>
+                    <div class="pdf-pages-grid">
+                        <div class="page-thumb" onclick="scrollToBuy()">
+                            <div class="thumb-icon">📋</div>
+                            <div class="thumb-label">THE LOCK IN CONTRACT</div><span class="thumb-tag">PAGE 8</span>
+                        </div>
+                        <div class="page-thumb" onclick="scrollToBuy()">
+                            <div class="thumb-icon">🗓️</div>
+                            <div class="thumb-label">DAILY PLANNER VERSION A</div><span class="thumb-tag">PAGE 12</span>
+                        </div>
+                        <div class="page-thumb" onclick="scrollToBuy()">
+                            <div class="thumb-icon">⚡</div>
+                            <div class="thumb-label">DAILY PLANNER VERSION B</div><span class="thumb-tag">PAGE 14</span>
+                        </div>
+                        <div class="page-thumb" onclick="scrollToBuy()">
+                            <div class="thumb-icon">📅</div>
+                            <div class="thumb-label">WEEKLY PLANNER SPRINT</div><span class="thumb-tag">PAGE 15</span>
+                        </div>
+                        <div class="page-thumb" onclick="scrollToBuy()">
+                            <div class="thumb-icon">🗺️</div>
+                            <div class="thumb-label">MONTHLY BLUEPRINT</div><span class="thumb-tag">PAGE 17</span>
+                        </div>
+                        <div class="page-thumb" onclick="scrollToBuy()">
+                            <div class="thumb-icon">🔁</div>
+                            <div class="thumb-label">30-DAY HABIT TRACKER</div><span class="thumb-tag">PAGE 18</span>
+                        </div>
+                        <div class="page-thumb" onclick="scrollToBuy()">
+                            <div class="thumb-icon">🏆</div>
+                            <div class="thumb-label">YOUR LEVEL SYSTEM</div><span class="thumb-tag">PAGE 4</span>
+                        </div>
+                        <div class="page-thumb" onclick="scrollToBuy()">
+                            <div class="thumb-icon">🎯</div>
+                            <div class="thumb-label">GOAL EXECUTION SYSTEM</div><span class="thumb-tag">PAGE 10</span>
+                        </div>
+                    </div>
+                    <div class="preview-scan"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="marquee-wrap" aria-hidden="true">
+        <div class="marquee-track">
+            <div class="marquee-item"><span>✦</span> 90-DAY CHALLENGE</div>
+            <div class="marquee-item"><span>✦</span> 6-LEVEL SYSTEM</div>
+            <div class="marquee-item"><span>✦</span> DAILY PLANNER A + B</div>
+            <div class="marquee-item"><span>✦</span> WEEKLY SPRINT</div>
+            <div class="marquee-item"><span>✦</span> MONTHLY BLUEPRINT</div>
+            <div class="marquee-item"><span>✦</span> HABIT TRACKER 30-DAY</div>
+            <div class="marquee-item"><span>✦</span> ANTI-PROCRASTINATION PROTOCOL</div>
+            <div class="marquee-item"><span>✦</span> LOCK IN CONTRACT</div>
+            <div class="marquee-item"><span>✦</span> MILESTONE REWARDS</div>
+            <div class="marquee-item"><span>✦</span> EISENHOWER MATRIX</div>
+            <div class="marquee-item"><span>✦</span> 21 PAGES · PREMIUM EDITION</div>
+            <div class="marquee-item"><span>✦</span> 90-DAY CHALLENGE</div>
+            <div class="marquee-item"><span>✦</span> 6-LEVEL SYSTEM</div>
+        </div>
+    </div>
+
+    <!-- BUY SECTION -->
+    <section id="buy">
+        <div class="container">
+            <div style="text-align:center" class="reveal">
+                <div class="section-tag" style="justify-content:center;margin-bottom:14px">05 // GET THE PDF</div>
+                <h2 class="section-heading">Commit to<br><span class="gold-text">Your Transformation</span></h2>
+                <p
+                    style="color:var(--text2);font-size:.95rem;margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto">
+                    One decision. 90 days of execution. Instant download after payment. Printable and iPad-ready.</p>
+            </div>
+            <div style="max-width:560px;margin:48px auto 0" class="reveal d2">
+                <div class="buy-card">
+                    <div class="buy-top-border"></div>
+                    <div class="buy-body">
+                        <div class="buy-badge">PREMIUM DIGITAL DOWNLOAD</div>
+                        <div class="buy-price"><span class="buy-dollar">$</span><span>14</span><span
+                                class="buy-cents">.99</span></div>
+                        <div class="buy-type">ONE-TIME PURCHASE · INSTANT PDF DOWNLOAD</div>
+                        <p class="buy-desc">Get the complete 90-Day Discipline Challenge system. 21 pages. Daily,
+                            weekly, and monthly planners. Level system. Habit tracker. Anti-procrastination protocol.
+                        </p>
+                        <div class="buy-divider"></div>
+                        <ul class="buy-features">
+                            <li>
+                                <div class="check">✓</div> The Lock In Contract (signed commitment)
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Daily Planner Version A — Simple (printable)
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Daily Planner Version B — Advanced (full ops)
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Weekly Planner — High-Performance Sprint
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Monthly Blueprint — Elite Edition
+                            </li>
+                            <li>
+                                <div class="check">✓</div> 30-Day Habit Tracker with streak system
+                            </li>
+                            <li>
+                                <div class="check">✓</div> 6-Level Discipline Score System
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Goal Execution System + Eisenhower Matrix
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Anti-Procrastination 5-Step Protocol
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Milestone Rewards + Common Failures guide
+                            </li>
+                            <li>
+                                <div class="check">✓</div> Digital (iPad/GoodNotes) + Print-Ready
+                            </li>
+                        </ul>
+
+                        <button onclick="handleBuyNow()" id="buy-btn" class="btn btn-gold"
+                            style="width:100%;justify-content:center;padding:16px;font-size:.75rem">
+                            BUY NOW — 14.99 →
+                        </button>
+
+                        <div id="paypal-panel" class="paypal-panel">
+                            <p>SECURE CHECKOUT VIA PAYPAL<br>After payment is complete, click the button below to
+                                download your PDF instantly.</p>
+                            <a href="https://www.paypal.com/ncp/payment/W62YX89UER4LS" target="_blank" rel="noopener"
+                                class="paypal-link" onclick="onPayPalClick()">
+                                PAY SECURELY ON PAYPAL
+                            </a>
+                            <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(201,162,39,.2)">
+                                <p style="margin-bottom:12px">✅ Already paid? Click below to download your PDF:</p>
+                                <button onclick="triggerDownload()" class="dl-btn" style="margin:0 auto">
+                                    ⬇ DOWNLOAD MY PDF NOW
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="download-success" class="download-success">
+                            <h3>🎉 PAYMENT CONFIRMED — DOWNLOADING NOW!</h3>
+                            <p>Your PDF is downloading automatically. If it doesn't start, click the button below.</p>
+                            <button onclick="triggerDownload()" class="dl-btn">⬇ DOWNLOAD AGAIN</button>
+                            <p style="margin-top:14px;font-size:.6rem;color:var(--text3)">Check your Downloads folder
+                                for "LOCK-IN-90-Day-Discipline-Challenge.pdf"</p>
+                        </div>
+
+                        <p class="buy-note">SECURE PAYMENT // INSTANT DOWNLOAD // NO SUBSCRIPTION</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="reveal">
+                <h2>Ready to<br><span class="gold-text">Stop Drifting?</span></h2>
+                <p>21 pages. 90 days. One decision. The version of you that could have existed — starts today.</p>
+                <button onclick="scrollToBuy()" class="btn btn-gold btn-lg">GET THE PDF — LOCK IN NOW →</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div>
+                    <div class="footer-logo">STORM<span style="color:var(--accent)">_</span></div>
+                    <div
+                        style="font-family:var(--mono);font-size:.6rem;color:var(--text3);margin-top:6px;letter-spacing:.08em">
+                        LOCK IN. LEVEL UP.
+                    </div>
+                </div>
+                <nav class="footer-links">
+                    <a href="index.html">Home</a><a href="products.html">Products</a><a href="services.html">Docs</a><a
+                        href="index.html#pricing">Dashboard</a><a href="policy.html">Privacy</a><a
+                        href="policy.html#terms">Terms</a><a href="policy.html#refund">Refund</a><a
+                        href="login.html">Login</a>
+                </nav>
+                <div class="footer-meta">
+                    <div>STORM OS // v1.0.26</div>
+                    <div>© 2026 STORM. ALL RIGHTS RESERVED.</div>
+                    <div>BUILT IN EGYPT 🇪🇬 // martinsamer91@gmail.com</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // === PAYMENT PROTECTED + DIRECT DOWNLOAD (Final Version) ===
+        function hasPaidForPDF() {
+            return localStorage.getItem('storm_lockin_paid') === 'true';
+        }
+
+        function markAsPaid() {
+            localStorage.setItem('storm_lockin_paid', 'true');
+        }
+
+        function downloadPDF() {
+            if (!hasPaidForPDF()) {
+                alert("❌ Payment required to download the PDF.\n\nPlease complete your PayPal payment first.");
+                scrollToBuy();
+                return;
+            }
+
+            // Direct link to your PDF in the public folder
+            const pdfUrl = "/LOCK-IN-90-Day-Discipline-Challenge.pdf";
+
+            const a = document.createElement('a');
+            a.href = pdfUrl;
+            a.download = 'LOCK-IN-90-Day-Discipline-Challenge.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function handleBuyNow() {
+            document.getElementById('paypal-panel').classList.add('show');
+            document.getElementById('buy-btn').style.display = 'none';
+            document.getElementById('paypal-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function onPayPalClick() {
+            localStorage.setItem('storm_pdf_pending', 'true');
+        }
+
+        function triggerDownload() {
+            downloadPDF();
+        }
+
+        function showDownloadSuccess() {
+            document.getElementById('paypal-panel').classList.remove('show');
+            document.getElementById('buy-btn').style.display = 'none';
+            document.getElementById('download-success').classList.add('show');
+            document.getElementById('download-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function scrollToBuy() {
+            document.getElementById('buy').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Auto-download when user returns from successful PayPal payment
+        window.addEventListener('load', function () {
+            if (localStorage.getItem('storm_pdf_pending') === 'true') {
+                localStorage.removeItem('storm_pdf_pending');
+                markAsPaid();
+                showDownloadSuccess();
+                setTimeout(() => {
+                    downloadPDF();
+                }, 1200);
+            }
+        });
+
+        // Keep your original scroll and reveal behavior
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    </script>
+</body>
+
+</html>
