@@ -1,9 +1,12 @@
 {
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "cleanUrls": true
+    { "source": "/productLockIn.html", "destination": "/productLockIn.html" },
+    { "source": "/products.html", "destination": "/products.html" },
+    { "source": "/dashboard.html", "destination": "/dashboard.html" },
+    { "source": "/login.html", "destination": "/login.html" },
+    { "source": "/signup.html", "destination": "/signup.html" },
+    { "source": "/services.html", "destination": "/services.html" },
+    { "source": "/policy.html", "destination": "/policy.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
