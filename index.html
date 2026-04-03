@@ -1905,6 +1905,164 @@
                 grid-template-columns: 1fr !important
             }
         }
+
+        /* ===== MOBILE ===== */
+
+        /* Hide custom cursor on touch devices */
+        @media(hover:none) {
+            body { cursor: auto }
+            #cursor, #cursor-ring { display: none }
+            .btn { cursor: pointer }
+        }
+
+        @media(max-width:768px) {
+
+            /* Container padding */
+            .container { padding: 0 1rem }
+
+            /* Nav */
+            .nav-inner {
+                padding: 0 1rem;
+                height: 60px;
+                flex-wrap: nowrap
+            }
+
+            .logo { font-size: 1rem }
+
+            /* Hide text nav links, keep only buttons */
+            .nav-links a:not(.btn) { display: none }
+
+            .nav-links .btn {
+                font-size: .58rem;
+                padding: 8px 14px;
+                letter-spacing: .1em
+            }
+
+            .nav-status { display: none }
+
+            /* Hero section */
+            .hero {
+                padding: 90px 0 50px;
+                align-items: flex-start
+            }
+
+            h1 { font-size: clamp(2rem, 11vw, 3rem) }
+
+            .hero p {
+                font-size: .95rem;
+                margin-bottom: 28px
+            }
+
+            .hero-eyebrow {
+                font-size: .6rem;
+                padding: 6px 12px;
+                margin-bottom: 20px
+            }
+
+            .hero-cta { gap: 10px }
+
+            .btn-lg {
+                font-size: .65rem;
+                padding: 12px 22px;
+                letter-spacing: .12em
+            }
+
+            /* Hero stats */
+            .hero-stats { margin-top: 36px }
+
+            .hero-stat { padding: 14px 16px }
+
+            .stat-num { font-size: 1.3rem }
+
+            /* Dashboard preview mockup: hide on small screens */
+            .preview-wrap { display: none }
+
+            /* Sections: reduce vertical padding */
+            section { padding: 64px 0 }
+
+            .section-heading { font-size: clamp(1.5rem, 7vw, 2.2rem) }
+
+            /* Features grid */
+            .feature-card { padding: 28px 20px }
+
+            .features-grid,
+            .features-row-2 {
+                grid-template-columns: 1fr !important;
+                border-radius: 8px
+            }
+
+            /* Results section */
+            .results-grid { gap: 32px }
+
+            /* Metrics */
+            .metrics-grid { grid-template-columns: 1fr 1fr }
+
+            .metric-val { font-size: 1.6rem }
+
+            /* Products */
+            .products-showcase { grid-template-columns: 1fr }
+
+            .showcase-right {
+                grid-template-columns: 1fr !important
+            }
+
+            .coming-row { grid-template-columns: 1fr 1fr }
+
+            .showcase-body { padding: 20px }
+
+            .showcase-preview { height: 150px }
+
+            .showcase-icon { font-size: 2.5rem }
+
+            /* Testimonials */
+            .testi-card { padding: 22px 18px }
+
+            /* Pricing */
+            .pricing-body { padding: 24px 20px }
+
+            .pricing-price { font-size: 3rem }
+
+            .pricing-dollar { font-size: 1.2rem; margin-top: 7px }
+
+            .pricing-cents { font-size: 1.4rem; margin-top: 6px }
+
+            /* CTA section */
+            .cta-section { padding: 64px 0 }
+
+            .cta-section h2 { font-size: clamp(1.6rem, 8vw, 2.5rem) }
+
+            /* Footer */
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px
+            }
+
+            .footer-links {
+                gap: 12px;
+                flex-wrap: wrap
+            }
+
+            .footer-meta { text-align: left }
+
+            /* Marquee: smaller text */
+            .marquee-item { font-size: .58rem }
+        }
+
+        @media(max-width:400px) {
+            h1 { font-size: clamp(1.7rem, 12vw, 2.2rem) }
+
+            .btn-lg {
+                width: 100%;
+                justify-content: center
+            }
+
+            .hero-cta { flex-direction: column }
+
+            .pricing-price { font-size: 2.5rem }
+
+            .coming-row { grid-template-columns: 1fr }
+        }
     </style>
 </head>
 
@@ -2466,7 +2624,7 @@
                         went from maybe 90 minutes of real focus a day to consistently hitting 4+ hours. Got my first
                         internship offer within 6 weeks of locking in."</p>
                     <div class="testi-footer">
-                        <div class="testi-avatar" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">AA</div>
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">KL</div>
                         <div>
                             <div class="testi-name">Adam Ahmed</div>
                             <div class="testi-role">CS Student, Year 3 // Singapore</div>
@@ -2477,7 +2635,9 @@
                 <div class="testi-card">
                     <div class="testi-top-bar"></div>
                     <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
-                    <p class="testi-quote">"ngl i was skeptical. tried like 5 productivity apps before this and quit all of them. the XP thing got me — feels dumb to say but i literally didn't want to break my streak. been 3 months and i'm still logging sessions every day. never done that before"</p>
+                    <p class="testi-quote">"I was jumping between Notion, Todoist, and three different timers. Storm OS
+                        killed all the noise. The XP system sounds gimmicky but it genuinely works — I've had a 14-day
+                        streak going and I won't break it. My sprint velocity at work has visibly improved."</p>
                     <div class="testi-footer">
                         <div class="testi-avatar" style="background:linear-gradient(135deg,#10b981,#06b6d4);">AN</div>
                         <div>
@@ -2490,7 +2650,9 @@
                 <div class="testi-card">
                     <div class="testi-top-bar"></div>
                     <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
-                    <p class="testi-quote">"after bootcamp i had zero routine, just applying to jobs and feeling lost. a friend sent me this and i thought whatever i'll try it. the habit tracker is what got me — small thing but checking off days made me feel like i was actually building something. got my first client 2 months in"</p>
+                    <p class="testi-quote">"Finished a bootcamp and had zero structure after graduation. The Habit
+                        Matrix helped me build a daily coding practice I actually stuck to. Within 7 weeks I landed my
+                        first freelance contract. The Focus Pulse timer alone is worth the $9.99."</p>
                     <div class="testi-footer">
                         <div class="testi-avatar" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);">SR</div>
                         <div>
@@ -2503,7 +2665,9 @@
                 <div class="testi-card">
                     <div class="testi-top-bar"></div>
                     <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
-                    <p class="testi-quote">"the dev tools are actually useful, not just filler. json formatter and the complexity analyzer save me from opening 3 extra tabs. but honestly what kept me paying is the weekly breakdown — i could finally see where my time was actually going vs where i thought it was going. pretty humbling lol"</p>
+                    <p class="testi-quote">"The dev tools suite saved me a ridiculous amount of tab-switching — JSON
+                        formatter, regex tester, all right there. But the real win was the 90-Day Analytics showing me
+                        exactly where I was wasting time. Consistency went from 60% to 91% in my first month."</p>
                     <div class="testi-footer">
                         <div class="testi-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">PV</div>
                         <div>
