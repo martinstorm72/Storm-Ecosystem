@@ -551,6 +551,7 @@
         const SUPA_URL = 'https://mryishzprrgpxauoccmr.supabase.co';
         const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
         const PADDLE_PRICE_ID = 'pri_01km9k8z59mvjdvny2fwcn109q';
+        const VERIFY_API = '/api/verify-payment';
 
         const { createClient } = supabase;
         const sb = createClient(SUPA_URL, SUPA_KEY);
@@ -581,6 +582,45 @@
                 return data && (data.is_paid === true || data.subscription_status === 'active');
             } catch (e) {
                 console.warn('checkPaidStatus failed:', e);
+                return false;
+            }
+        }
+
+        function urlParam(name) { return new URLSearchParams(window.location.search).get(name); }
+
+        async function verifyTransaction(tx) {
+            try {
+                const res = await fetch(VERIFY_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tx })
+                });
+                if (!res.ok) return { valid: false, reason: 'Verification server error.' };
+                return await res.json();
+            } catch (e) {
+                console.warn('Payment verify failed:', e);
+                return { valid: false, reason: 'Could not reach the payment server. Check your connection.' };
+            }
+        }
+
+        async function markUserAsPaid(userId) {
+            try {
+                const { error } = await sb
+                    .from('profiles')
+                    .update({
+                        is_paid: true,
+                        subscription_status: 'active',
+                        paid_at: new Date().toISOString()
+                    })
+                    .eq('id', userId);
+
+                if (error) {
+                    console.error('Mark paid error:', error);
+                    return false;
+                }
+                return true;
+            } catch (e) {
+                console.error('Mark paid failed:', e);
                 return false;
             }
         }
@@ -646,11 +686,32 @@
                 }
 
                 if (data.user) {
+                    localStorage.setItem('storm_os_auth', 'true');
                     showMsg('// CREDENTIALS VERIFIED — CHECKING SUBSCRIPTION...', 'success');
 
                     const hasPaid = await checkPaidStatus(data.user.id);
+                    const pendingTx = localStorage.getItem('storm_os_payment_tx');
+
+                    if (pendingTx && !hasPaid) {
+                        showMsg('// PAYMENT RETURN DETECTED — VERIFYING...', 'success');
+                        const result = await verifyTransaction(pendingTx);
+                        if (result.valid) {
+                            const marked = await markUserAsPaid(data.user.id);
+                            if (marked) {
+                                localStorage.removeItem('storm_os_payment_tx');
+                                localStorage.removeItem('storm_os_payment_pending');
+                                localStorage.setItem('storm_os_paid', 'true');
+                                showMsg('// PAYMENT VERIFIED — LOADING DASHBOARD...', 'success');
+                                setTimeout(() => {
+                                    window.location.href = 'dashboard.html';
+                                }, 900);
+                                return;
+                            }
+                        }
+                    }
 
                     if (hasPaid) {
+                        localStorage.setItem('storm_os_paid', 'true');
                         showMsg('// ACCESS GRANTED — LOADING DASHBOARD...', 'success');
                         setTimeout(() => {
                             window.location.href = 'dashboard.html';
@@ -682,6 +743,14 @@
                     token: 'live_b978c685c872729dcde58410fec'
                 });
                 document.getElementById('paddle-status').textContent = 'PADDLE: READY';
+
+                const tx = urlParam('tx');
+                const status = urlParam('st');
+                if (tx) {
+                    localStorage.setItem('storm_os_payment_tx', tx);
+                    if (status) localStorage.setItem('storm_os_payment_status', status);
+                    window.history.replaceState({}, '', window.location.pathname);
+                }
 
                 // Check if already logged in with active subscription
                 await redirectIfAuthenticated();
