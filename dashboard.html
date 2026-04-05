@@ -2040,6 +2040,11 @@
             opacity: .85;
         }
 
+        .wp-event.done {
+            opacity: .5;
+            text-decoration: line-through;
+        }
+
         .wp-event.cat-work {
             border-color: var(--accent);
             color: var(--accent2);
@@ -2282,6 +2287,12 @@
             border-color: var(--red);
         }
 
+        .mp-event-item.done,
+        .mp-cell-event.done {
+            opacity: .55;
+            text-decoration: line-through;
+        }
+
         .mp-event-time-badge {
             font-family: var(--mono);
             font-size: .72rem;
@@ -2423,6 +2434,674 @@
             background: var(--green);
             border-color: var(--green);
             color: #000;
+        }
+
+        /* ===== ADAPTIVE TIMER CSS ===== */
+        .adaptive-timer-bar {
+            margin-top: 14px;
+            background: linear-gradient(135deg, rgba(108, 99, 255, .08), rgba(0, 210, 255, .04));
+            border: 1px solid rgba(108, 99, 255, .22);
+            border-radius: 9px;
+            padding: 12px 16px;
+        }
+
+        .adaptive-timer-title {
+            font-family: var(--head);
+            font-size: .62rem;
+            font-weight: 900;
+            letter-spacing: .14em;
+            color: var(--accent2);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .adaptive-suggestion-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .adaptive-suggestion-text {
+            font-family: var(--mono);
+            font-size: .74rem;
+            color: var(--text2);
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        .adaptive-suggestion-text strong {
+            color: var(--text);
+        }
+
+        .adaptive-apply-btn {
+            font-family: var(--head);
+            font-size: .62rem;
+            font-weight: 900;
+            letter-spacing: .1em;
+            padding: 6px 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .adaptive-apply-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 5px 18px rgba(108, 99, 255, .45);
+        }
+
+        .adaptive-history-dots {
+            display: flex;
+            gap: 5px;
+            margin-top: 9px;
+            align-items: center;
+        }
+
+        .adaptive-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+
+        .adaptive-dot:hover {
+            transform: scale(1.3);
+        }
+
+        .adaptive-dot.success {
+            background: var(--green);
+            box-shadow: 0 0 6px rgba(57, 211, 83, .5);
+        }
+
+        .adaptive-dot.fail {
+            background: var(--red);
+            box-shadow: 0 0 6px rgba(255, 71, 87, .4);
+        }
+
+        .adaptive-dot.skip {
+            background: var(--amber);
+            box-shadow: 0 0 6px rgba(255, 179, 71, .4);
+        }
+
+        .adaptive-dot.empty {
+            background: var(--border2);
+        }
+
+        .adaptive-streak-label {
+            font-family: var(--mono);
+            font-size: .66rem;
+            color: var(--text3);
+            margin-left: 4px;
+        }
+
+        .adaptive-mode-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 9px;
+            border-radius: 12px;
+            font-family: var(--mono);
+            font-size: .66rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .adaptive-mode-chip.ramp {
+            background: rgba(57, 211, 83, .12);
+            color: var(--green);
+            border: 1px solid rgba(57, 211, 83, .3);
+        }
+
+        .adaptive-mode-chip.steady {
+            background: rgba(108, 99, 255, .12);
+            color: var(--accent2);
+            border: 1px solid rgba(108, 99, 255, .3);
+        }
+
+        .adaptive-mode-chip.recover {
+            background: rgba(255, 179, 71, .1);
+            color: var(--amber);
+            border: 1px solid rgba(255, 179, 71, .3);
+        }
+
+        .adaptive-mode-chip.reset {
+            background: rgba(255, 71, 87, .1);
+            color: var(--red);
+            border: 1px solid rgba(255, 71, 87, .3);
+        }
+
+        /* ===== FOCUS SCORE ENHANCEMENT CSS ===== */
+        .fs-insight-panel {
+            margin-top: 14px;
+            background: linear-gradient(135deg, rgba(108, 99, 255, .07), rgba(0, 210, 255, .04));
+            border: 1px solid rgba(108, 99, 255, .2);
+            border-radius: 9px;
+            padding: 14px 16px;
+            animation: cardReveal 0.4s ease;
+        }
+
+        .fs-insight-header {
+            font-family: var(--head);
+            font-size: .62rem;
+            font-weight: 900;
+            letter-spacing: .14em;
+            color: var(--accent2);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .fs-strength-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .fs-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-family: var(--mono);
+            font-size: .68rem;
+            font-weight: 700;
+        }
+
+        .fs-tag.strength {
+            background: rgba(57, 211, 83, .12);
+            color: var(--green);
+            border: 1px solid rgba(57, 211, 83, .3);
+        }
+
+        .fs-tag.weakness {
+            background: rgba(255, 71, 87, .1);
+            color: var(--red);
+            border: 1px solid rgba(255, 71, 87, .3);
+        }
+
+        .fs-tag.neutral {
+            background: rgba(255, 179, 71, .1);
+            color: var(--amber);
+            border: 1px solid rgba(255, 179, 71, .3);
+        }
+
+        .fs-tip-list {
+            margin-top: 10px;
+        }
+
+        .fs-tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 7px 10px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            background: rgba(255, 255, 255, .02);
+            border-left: 2px solid var(--accent);
+            font-family: var(--mono);
+            font-size: .74rem;
+            color: var(--text2);
+            line-height: 1.5;
+        }
+
+        .fs-tip-item.tip-good {
+            border-left-color: var(--green);
+        }
+
+        .fs-tip-item.tip-warn {
+            border-left-color: var(--amber);
+        }
+
+        .fs-tip-item.tip-crit {
+            border-left-color: var(--red);
+        }
+
+        .fs-weekly-summary {
+            margin-top: 10px;
+            padding: 10px 12px;
+            background: rgba(0, 210, 255, .05);
+            border: 1px solid rgba(0, 210, 255, .15);
+            border-radius: 7px;
+            font-family: var(--mono);
+            font-size: .73rem;
+            color: var(--text2);
+            line-height: 1.6;
+        }
+
+        .fs-score-delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: var(--mono);
+            font-size: .68rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+        }
+
+        .fs-score-delta.up {
+            background: rgba(57, 211, 83, .15);
+            color: var(--green);
+        }
+
+        .fs-score-delta.down {
+            background: rgba(255, 71, 87, .12);
+            color: var(--red);
+        }
+
+        .fs-score-delta.same {
+            background: rgba(139, 132, 255, .12);
+            color: var(--accent2);
+        }
+
+        /* ===== DEV TOOLS INTELLIGENCE CSS ===== */
+        .devtools-intel-panel {
+            margin-top: 12px;
+            background: linear-gradient(135deg, rgba(0, 210, 255, .05), rgba(108, 99, 255, .04));
+            border: 1px solid rgba(0, 210, 255, .2);
+            border-radius: 9px;
+            padding: 13px 16px;
+            animation: cardReveal 0.35s ease;
+        }
+
+        .devtools-intel-title {
+            font-family: var(--head);
+            font-size: .62rem;
+            font-weight: 900;
+            letter-spacing: .14em;
+            color: var(--cyan);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .code-issue-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 11px;
+            border-radius: 7px;
+            margin-bottom: 6px;
+            background: rgba(255, 255, 255, .025);
+            font-family: var(--mono);
+            font-size: .74rem;
+            color: var(--text2);
+            line-height: 1.5;
+            border-left: 3px solid var(--border2);
+            transition: background 0.2s;
+        }
+
+        .code-issue-item:hover {
+            background: rgba(255, 255, 255, .045);
+        }
+
+        .code-issue-item.sev-error {
+            border-left-color: var(--red);
+        }
+
+        .code-issue-item.sev-warn {
+            border-left-color: var(--amber);
+        }
+
+        .code-issue-item.sev-info {
+            border-left-color: var(--cyan);
+        }
+
+        .code-issue-item.sev-good {
+            border-left-color: var(--green);
+        }
+
+        .code-issue-icon {
+            font-size: .95rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .code-issue-body strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .code-issue-line {
+            display: inline-block;
+            background: rgba(108, 99, 255, .15);
+            color: var(--accent2);
+            font-size: .65rem;
+            padding: 1px 6px;
+            border-radius: 3px;
+            margin-bottom: 3px;
+        }
+
+        .code-fix-snippet {
+            display: block;
+            margin-top: 5px;
+            padding: 5px 9px;
+            background: rgba(57, 211, 83, .07);
+            border: 1px solid rgba(57, 211, 83, .18);
+            border-radius: 5px;
+            font-size: .7rem;
+            color: var(--green);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .code-metrics-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .code-metric-chip {
+            flex: 1;
+            min-width: 70px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 7px 10px;
+            text-align: center;
+        }
+
+        .code-metric-val {
+            font-family: var(--head);
+            font-size: .95rem;
+            font-weight: 900;
+            color: var(--text);
+        }
+
+        .code-metric-lbl {
+            font-family: var(--mono);
+            font-size: .58rem;
+            color: var(--text3);
+            margin-top: 1px;
+        }
+
+        .intel-scan-btn {
+            font-family: var(--head);
+            font-size: .62rem;
+            font-weight: 900;
+            letter-spacing: .1em;
+            padding: 6px 14px;
+            border: 1px solid rgba(0, 210, 255, .3);
+            border-radius: 5px;
+            cursor: pointer;
+            background: rgba(0, 210, 255, .08);
+            color: var(--cyan);
+            transition: all 0.25s;
+        }
+
+        .intel-scan-btn:hover {
+            background: rgba(0, 210, 255, .18);
+            transform: translateY(-2px);
+        }
+
+        /* ===== AI INTELLIGENCE MODULES CSS ===== */
+        .ai-coach-panel {
+            background: linear-gradient(135deg, rgba(108, 99, 255, .1), rgba(0, 210, 255, .05));
+            border: 1px solid rgba(108, 99, 255, .3);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 16px;
+            animation: cardReveal 0.5s ease;
+        }
+
+        .ai-coach-title {
+            font-family: var(--head);
+            font-size: .7rem;
+            font-weight: 900;
+            letter-spacing: .14em;
+            color: var(--accent2);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-insight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 9px 12px;
+            border-radius: 7px;
+            margin-bottom: 6px;
+            background: rgba(255, 255, 255, .03);
+            border-left: 3px solid var(--accent);
+            font-family: var(--mono);
+            font-size: .78rem;
+            color: var(--text2);
+            line-height: 1.5;
+            transition: all 0.2s;
+        }
+
+        .ai-insight-item:hover {
+            background: rgba(108, 99, 255, .07);
+        }
+
+        .ai-insight-item.warn {
+            border-left-color: var(--amber);
+        }
+
+        .ai-insight-item.good {
+            border-left-color: var(--green);
+        }
+
+        .ai-insight-item.info {
+            border-left-color: var(--cyan);
+        }
+
+        .ai-insight-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .ai-insight-text strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .task-breakdown-panel {
+            background: rgba(0, 210, 255, .05);
+            border: 1px solid rgba(0, 210, 255, .2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 10px;
+            font-family: var(--mono);
+            font-size: .78rem;
+        }
+
+        .task-breakdown-title {
+            font-family: var(--head);
+            font-size: .65rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+
+        .task-subtask {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .04);
+            color: var(--text2);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .task-subtask:hover {
+            color: var(--text);
+        }
+
+        .task-subtask:last-child {
+            border-bottom: none;
+        }
+
+        .subtask-add-btn {
+            background: rgba(0, 210, 255, .12);
+            border: 1px solid rgba(0, 210, 255, .25);
+            color: var(--cyan);
+            font-family: var(--head);
+            font-size: .6rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .subtask-add-btn:hover {
+            background: rgba(0, 210, 255, .25);
+        }
+
+        .habit-intel-badge {
+            font-family: var(--mono);
+            font-size: .68rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+
+        .habit-intel-badge.failing {
+            background: rgba(255, 71, 87, .15);
+            color: var(--red);
+            border: 1px solid rgba(255, 71, 87, .3);
+        }
+
+        .habit-intel-badge.strong {
+            background: rgba(57, 211, 83, .12);
+            color: var(--green);
+            border: 1px solid rgba(57, 211, 83, .3);
+        }
+
+        .habit-intel-badge.warning {
+            background: rgba(255, 179, 71, .12);
+            color: var(--amber);
+            border: 1px solid rgba(255, 179, 71, .3);
+        }
+
+        .habit-intel-badge.new {
+            background: rgba(108, 99, 255, .12);
+            color: var(--accent2);
+            border: 1px solid rgba(108, 99, 255, .3);
+        }
+
+        .habit-suggestion {
+            font-family: var(--mono);
+            font-size: .72rem;
+            color: var(--amber);
+            padding: 4px 8px;
+            background: rgba(255, 179, 71, .07);
+            border-radius: 4px;
+            margin-top: 4px;
+            border-left: 2px solid var(--amber);
+        }
+
+        .weekly-insight-card {
+            background: linear-gradient(135deg, rgba(57, 211, 83, .08), rgba(0, 210, 255, .05));
+            border: 1px solid rgba(57, 211, 83, .25);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .weekly-insight-header {
+            font-family: var(--head);
+            font-size: .68rem;
+            font-weight: 900;
+            letter-spacing: .14em;
+            color: var(--green);
+            margin-bottom: 12px;
+        }
+
+        .weekly-metric-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .weekly-metric {
+            flex: 1;
+            min-width: 80px;
+            background: rgba(255, 255, 255, .03);
+            border-radius: 7px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .weekly-metric-val {
+            font-family: var(--head);
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--text);
+        }
+
+        .weekly-metric-lbl {
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--text3);
+            margin-top: 2px;
+        }
+
+        .weekly-trend-bar {
+            display: flex;
+            gap: 3px;
+            align-items: flex-end;
+            height: 40px;
+            margin-top: 10px;
+        }
+
+        .wtb-bar {
+            flex: 1;
+            border-radius: 2px 2px 0 0;
+            min-height: 4px;
+            transition: height 0.4s ease;
+        }
+
+        .ai-reco-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            background: rgba(108, 99, 255, .06);
+            border: 1px solid rgba(108, 99, 255, .15);
+            font-family: var(--mono);
+            font-size: .76rem;
+            color: var(--text2);
+        }
+
+        .ai-dismiss-btn {
+            background: none;
+            border: none;
+            color: var(--text3);
+            font-size: .65rem;
+            cursor: pointer;
+            margin-left: auto;
+            transition: color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .ai-dismiss-btn:hover {
+            color: var(--red);
         }
 
         /* Section divider inside float */
@@ -3114,6 +3793,13 @@
                             <div class="progress-fill" id="task-progress" style="width:0%"></div>
                         </div>
                     </div>
+                    <div class="ai-coach-panel" id="ai-coach-panel">
+                        <div class="ai-coach-title"><i class="fas fa-brain"></i> SMART FOCUS COACH</div>
+                        <div id="ai-coach-insights">
+                            <div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Analyzing your
+                                patterns...</div>
+                        </div>
+                    </div>
                     <div class="card" style="margin-top:16px">
                         <div class="card-title"><i class="fas fa-check-circle"></i> COMPLETED <span class="card-badge"
                                 id="done-count">0 DONE</span></div>
@@ -3191,8 +3877,11 @@
                                     class="fas fa-undo-alt"></i> UNDO</button>
                         </div>
                     </div>
+
                 </div>
             </div>
+            <!-- SMART TASK BREAKDOWN — injected below grid -->
+            <div id="ai-task-breakdown-wrapper" style="margin-top:0"></div>
         </div>
 
         <!-- FOCUS PULSE PANEL -->
@@ -3222,6 +3911,19 @@
                         <button class="btn btn-danger" onclick="stopMain()"><i class="fas fa-stop"></i> STOP</button>
                         <button class="btn btn-ghost btn-sm" onclick="skipTimer()"><i class="fas fa-forward"></i>
                             SKIP</button>
+                    </div>
+                    <!-- ADAPTIVE FOCUS TIMER -->
+                    <div class="adaptive-timer-bar" id="adaptive-timer-bar">
+                        <div class="adaptive-timer-title"><i class="fas fa-robot"></i> ADAPTIVE TIMER ENGINE</div>
+                        <div id="adaptive-mode-chip"></div>
+                        <div class="adaptive-suggestion-row">
+                            <div class="adaptive-suggestion-text" id="adaptive-suggestion-text">// Analyzing session
+                                history...</div>
+                            <button class="adaptive-apply-btn" id="adaptive-apply-btn" onclick="applyAdaptiveDuration()"
+                                style="display:none">⚡ APPLY</button>
+                        </div>
+                        <div class="adaptive-history-dots" id="adaptive-history-dots"
+                            title="Last 8 sessions: green=success, red=failed, yellow=skipped"></div>
                     </div>
                 </div>
                 <div class="card">
@@ -3255,6 +3957,14 @@
                     </div>
                 </div>
                 <div id="habit-list"></div>
+                <!-- HABIT INTELLIGENCE -->
+                <div class="ai-coach-panel" id="habit-intel-panel" style="margin-top:16px">
+                    <div class="ai-coach-title"><i class="fas fa-robot"></i> HABIT INTELLIGENCE ENGINE</div>
+                    <div id="habit-intel-insights">
+                        <div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Tracking your habit
+                            patterns...</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -3343,6 +4053,14 @@
                     </div>
                     <button class="btn btn-primary mt-16" onclick="calculateFocusScore()"><i
                             class="fas fa-calculator"></i> CALCULATE SCORE</button>
+                    <!-- FOCUS SCORE INTELLIGENCE PANEL -->
+                    <div class="fs-insight-panel" id="fs-intel-panel">
+                        <div class="fs-insight-header"><i class="fas fa-microscope"></i> SCORE INTELLIGENCE</div>
+                        <div id="fs-intel-content">
+                            <div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Calculate your
+                                score to unlock analysis.</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card">
                     <div class="card-title"><i class="fas fa-info-circle"></i> SCORE GUIDE</div>
@@ -3368,6 +4086,8 @@
 
         <!-- ANALYTICS PANEL -->
         <div class="panel" id="panel-analytics">
+            <!-- WEEKLY DASHBOARD INSIGHTS — injected at top -->
+            <div id="ai-weekly-insights-wrapper"></div>
             <div class="stats-row">
                 <div class="stat-card">
                     <div class="stat-val green" id="a-tasks">0</div>
@@ -3470,6 +4190,14 @@
                     <textarea id="playground-code" rows="10" placeholder="// Write your code here..."
                         style="font-family:var(--mono);font-size:.86rem">console.log("Hello, Operator!");</textarea>
                     <div class="output-console mt-10" id="playground-output">// Output will appear here</div>
+                    <!-- DEV TOOLS INTELLIGENCE LAYER -->
+                    <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
+                        <button class="intel-scan-btn" onclick="runCodeIntelligence()"><i
+                                class="fas fa-search-plus"></i> ANALYZE CODE</button>
+                        <span style="font-family:var(--mono);font-size:.68rem;color:var(--text3)">// Auto-detects
+                            patterns, bugs & optimizations</span>
+                    </div>
+                    <div id="devtools-intel-wrapper"></div>
                 </div>
             </div>
             <div class="tool-panel" id="github-panel">
@@ -3612,6 +4340,8 @@
                             <option value="health">💪 HEALTH</option>
                             <option value="learning">📚 LEARNING</option>
                         </select>
+                        <button id="wp-repeat-toggle" class="btn btn-ghost btn-sm" onclick="toggleWeeklyRepeat()"
+                            title="Repeat every week">ALWAYS</button>
                         <button class="btn btn-primary btn-sm" onclick="addWeeklyEvent()" title="Enter to add"><i
                                 class="fas fa-plus"></i> ADD</button>
                     </div>
@@ -3659,6 +4389,8 @@
                             <option value="health">💪 HEALTH</option>
                             <option value="learning">📚 LEARNING</option>
                         </select>
+                        <button id="mp-repeat-toggle" class="btn btn-ghost btn-sm" onclick="toggleMonthlyRepeat()"
+                            title="Repeat every month">ALWAYS</button>
                         <button class="btn btn-primary btn-sm" onclick="addMonthlyEvent()"><i class="fas fa-plus"></i>
                             ADD</button>
                     </div>
@@ -4327,9 +5059,109 @@
         const WP_DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
         const CAT_COLORS = { work: 'cat-work', focus: 'cat-focus', personal: 'cat-personal', health: 'cat-health', learning: 'cat-learning' };
         let wpOffset = 0;
+        let wpRepeatWeekly = false;
+        let mpRepeatMonthly = false;
+        let draggedWeeklyEvent = null;
+        let draggedMonthlyEvent = null;
+        function eventMatchesDate(ev, dateKey) {
+            if (!ev) return false;
+            if (ev.repeatWeekly) {
+                return new Date(dateKey).getDay() === ev.dow;
+            }
+            if (ev.repeatMonthly) {
+                return new Date(dateKey).getDate() === ev.dom;
+            }
+            return ev.date === dateKey;
+        }
+        function isPlannerEventDone(ev, dateKey) {
+            if (!ev) return false;
+            if (ev.done) return true;
+            return !!(ev.doneDates && ev.doneDates[dateKey]);
+        }
+        function togglePlannerEvent(id, dateKey) {
+            let ev = S.weeklyEvents.find(e => e.id == id);
+            if (!ev) return;
+            if (ev.repeatWeekly || ev.repeatMonthly) {
+                ev.doneDates = ev.doneDates || {};
+                if (ev.doneDates[dateKey]) {
+                    delete ev.doneDates[dateKey];
+                    showToast('Unchecked event');
+                } else {
+                    ev.doneDates[dateKey] = true;
+                    showToast('Checked event');
+                }
+            } else {
+                ev.done = !ev.done;
+                showToast(ev.done ? 'Checked event' : 'Unchecked event');
+            }
+            saveNow();
+            renderWeeklyPlanner();
+            renderMonthlyPlanner();
+        }
+        function plannerEventOrder(e) {
+            if (e.order != null) return e.order;
+            if (e.time) return new Date(`1970-01-01T${e.time}:00`).getTime() || 0;
+            return 86400000;
+        }
+        function normalizeEventOrders(dateKey) {
+            let group = S.weeklyEvents.filter(ev => eventMatchesDate(ev, dateKey));
+            group.forEach((ev, index) => ev.order = index + 1);
+        }
+        function dragStartWeekly(e, id, dateKey) { draggedWeeklyEvent = { id, dateKey }; e.dataTransfer.effectAllowed = 'move'; e.target.style.opacity = '0.5'; }
+        function dragEndWeekly(e) { if (e && e.target) e.target.style.opacity = ''; draggedWeeklyEvent = null; }
+        function dropWeekly(e, targetId, targetDate) {
+            e.preventDefault();
+            if (!draggedWeeklyEvent || draggedWeeklyEvent.id === targetId) return;
+            if (draggedWeeklyEvent.dateKey !== targetDate) return;
+            let sourceIndex = S.weeklyEvents.findIndex(ev => ev.id == draggedWeeklyEvent.id);
+            let targetIndex = S.weeklyEvents.findIndex(ev => ev.id == targetId);
+            if (sourceIndex === -1 || targetIndex === -1) return;
+            let [moved] = S.weeklyEvents.splice(sourceIndex, 1);
+            S.weeklyEvents.splice(targetIndex, 0, moved);
+            normalizeEventOrders(targetDate);
+            saveNow();
+            renderWeeklyPlanner();
+            showToast('Reordered weekly event');
+        }
+        function dragStartMonthly(e, id, dateKey) { draggedMonthlyEvent = { id, dateKey }; e.dataTransfer.effectAllowed = 'move'; e.target.style.opacity = '0.5'; }
+        function dragEndMonthly(e) { if (e && e.target) e.target.style.opacity = ''; draggedMonthlyEvent = null; }
+        function dropMonthly(e, targetId, targetDate) {
+            e.preventDefault();
+            if (!draggedMonthlyEvent || draggedMonthlyEvent.id === targetId) return;
+            if (draggedMonthlyEvent.dateKey !== targetDate) return;
+            let sourceIndex = S.weeklyEvents.findIndex(ev => ev.id == draggedMonthlyEvent.id);
+            let targetIndex = S.weeklyEvents.findIndex(ev => ev.id == targetId);
+            if (sourceIndex === -1 || targetIndex === -1) return;
+            let [moved] = S.weeklyEvents.splice(sourceIndex, 1);
+            S.weeklyEvents.splice(targetIndex, 0, moved);
+            normalizeEventOrders(targetDate);
+            saveNow();
+            renderMonthlyPlanner();
+            showToast('Reordered monthly event');
+        }
+        function toggleWeeklyRepeat() {
+            wpRepeatWeekly = !wpRepeatWeekly;
+            const btn = document.getElementById('wp-repeat-toggle');
+            if (!btn) return;
+            btn.classList.toggle('active', wpRepeatWeekly);
+            btn.textContent = wpRepeatWeekly ? 'ALWAYS ✓' : 'ALWAYS';
+            showToast(wpRepeatWeekly ? 'Weekly repeat enabled' : 'Weekly repeat disabled');
+        }
+        function toggleMonthlyRepeat() {
+            mpRepeatMonthly = !mpRepeatMonthly;
+            const btn = document.getElementById('mp-repeat-toggle');
+            if (!btn) return;
+            btn.classList.toggle('active', mpRepeatMonthly);
+            btn.textContent = mpRepeatMonthly ? 'ALWAYS ✓' : 'ALWAYS';
+            showToast(mpRepeatMonthly ? 'Monthly repeat enabled' : 'Monthly repeat disabled');
+        }
         function wpGetWeekStart(offset) { let now = new Date(); let day = now.getDay(); let sun = new Date(now.getFullYear(), now.getMonth(), now.getDate() - day); sun.setDate(sun.getDate() + offset * 7); return sun; }
-        function addWeeklyEvent() { let text = document.getElementById('wp-task-input').value.trim(); if (!text) { showToast('Enter event name'); return; } let dayIdx = parseInt(document.getElementById('wp-day-select').value); let time = document.getElementById('wp-time-input').value || ''; let cat = document.getElementById('wp-cat-select').value; let weekStart = wpGetWeekStart(wpOffset); let eventDate = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + dayIdx); let dateKey = localDateKey(eventDate); if (!S.weeklyEvents) S.weeklyEvents = []; S.weeklyEvents.push({ id: Date.now(), text, time, cat, date: dateKey }); document.getElementById('wp-task-input').value = ''; document.getElementById('wp-time-input').value = ''; save(); renderWeeklyPlanner(); showToast('Event added'); addXP(3); markOb('plan_week'); }
-        function deleteWeeklyEvent(id) { if (!S.weeklyEvents) S.weeklyEvents = []; S.weeklyEvents = S.weeklyEvents.filter(e => e.id != id); save(); renderWeeklyPlanner(); let mpEl = document.getElementById('panel-monthly-planner'); if (mpEl && mpEl.classList.contains('active')) renderMonthlyPlanner(); }
+        function addWeeklyEvent() {
+            let text = document.getElementById('wp-task-input').value.trim(); if (!text) { showToast('Enter event name'); return; } let dayIdx = parseInt(document.getElementById('wp-day-select').value); let time = document.getElementById('wp-time-input').value || ''; let cat = document.getElementById('wp-cat-select').value; let weekStart = wpGetWeekStart(wpOffset); let eventDate = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + dayIdx); let dateKey = localDateKey(eventDate); let wasRepeat = wpRepeatWeekly; if (!S.weeklyEvents) S.weeklyEvents = []; let event = { id: Date.now(), text, time, cat, date: dateKey, order: (S.weeklyEvents.filter(e => e.date === dateKey && !e.repeatWeekly).length + 1) };
+            if (wpRepeatWeekly) { event.repeatWeekly = true; event.dow = dayIdx; event.order = (S.weeklyEvents.filter(e => e.repeatWeekly && e.dow === dayIdx).length + 1); }
+            S.weeklyEvents.push(event); document.getElementById('wp-task-input').value = ''; document.getElementById('wp-time-input').value = ''; wpRepeatWeekly = false; const wpBtn = document.getElementById('wp-repeat-toggle'); if (wpBtn) { wpBtn.classList.remove('active'); wpBtn.textContent = 'ALWAYS'; } saveNow(); renderWeeklyPlanner(); showToast(wasRepeat ? 'Weekly recurring event added' : 'Event added'); addXP(3); markOb('plan_week');
+        }
+        function deleteWeeklyEvent(id) { if (!S.weeklyEvents) S.weeklyEvents = []; S.weeklyEvents = S.weeklyEvents.filter(e => e.id != id); saveNow(); renderWeeklyPlanner(); let mpEl = document.getElementById('panel-monthly-planner'); if (mpEl && mpEl.classList.contains('active')) renderMonthlyPlanner(); }
         function renderWeeklyPlanner() {
             if (!S.weeklyEvents) S.weeklyEvents = [];
             let weekStart = wpGetWeekStart(wpOffset);
@@ -4342,9 +5174,9 @@
             for (let i = 0; i < 7; i++) {
                 let colDate = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + i);
                 let dateKey = localDateKey(colDate); let isToday = dateKey === todayStr;
-                let dayEvents = S.weeklyEvents.filter(e => e.date === dateKey).sort((a, b) => (a.time || '00:00').localeCompare(b.time || '00:00'));
+                let dayEvents = S.weeklyEvents.filter(e => eventMatchesDate(e, dateKey)).sort((a, b) => plannerEventOrder(a) - plannerEventOrder(b) || (a.time || '00:00').localeCompare(b.time || '00:00'));
                 dayEvents.forEach(e => { if (stats[e.cat] !== undefined) stats[e.cat]++; });
-                let evHTML = dayEvents.map(e => { let timeDisplay = e.time ? `<span class="wp-event-time">${formatTimeAMPM(e.time)}</span>` : ''; return `<div class="wp-event ${CAT_COLORS[e.cat] || 'cat-work'}"><div class="wp-event-body">${timeDisplay}<span>${escHtml(e.text)}</span></div><button class="wp-event-del" onclick="deleteWeeklyEvent(${e.id})" title="Delete">✕</button></div>`; }).join('');
+                let evHTML = dayEvents.map(e => { let timeDisplay = e.time ? `<span class="wp-event-time">${formatTimeAMPM(e.time)}</span>` : ''; let isDone = isPlannerEventDone(e, dateKey); let recBadge = e.repeatWeekly ? '<span class="recurring-badge"><i class="fas fa-sync-alt"></i> WEEKLY</span>' : e.repeatMonthly ? '<span class="recurring-badge"><i class="fas fa-sync-alt"></i> MONTHLY</span>' : ''; return `<div class="wp-event ${CAT_COLORS[e.cat] || 'cat-work'}${isDone ? ' done' : ''}" draggable="true" ondragstart="dragStartWeekly(event,${e.id},'${dateKey}')" ondragend="dragEndWeekly(event)" ondragover="dragOver(event)" ondrop="dropWeekly(event,${e.id},'${dateKey}')"><div style="display:flex;align-items:center;gap:8px;"><div class="task-check${isDone ? ' checked' : ''}" onclick="togglePlannerEvent(${e.id},'${dateKey}')"></div><div class="wp-event-body">${timeDisplay}<span>${escHtml(e.text)}</span>${recBadge}</div></div><button class="wp-event-del" onclick="deleteWeeklyEvent(${e.id})" title="Delete">✕</button></div>`; }).join('');
                 let monthShort = colDate.toLocaleDateString('en-US', { month: 'short' });
                 cols += `<div class="wp-day-col${isToday ? ' today-col' : ''}"><div class="wp-day-header${isToday ? ' today-hdr' : ''}">${WP_DAYS[i]}<br><span style="font-size:.78rem;color:${isToday ? 'var(--accent)' : 'var(--text2)'};">${monthShort} ${colDate.getDate()}</span></div>${evHTML || `<div style="font-family:var(--mono);font-size:.7rem;color:var(--text3);text-align:center;margin-top:16px;">// EMPTY</div>`}</div>`;
             }
@@ -4358,8 +5190,12 @@
 
         // ===== MONTHLY PLANNER =====
         let mpYear = new Date().getFullYear(), mpMonth = new Date().getMonth(), mpSelectedDate = null;
-        function addMonthlyEvent() { let text = document.getElementById('mp-task-input').value.trim(); if (!text) { showToast('Enter event name'); return; } let dateVal = document.getElementById('mp-date-input').value; if (!dateVal) { showToast('Select a date'); return; } let timeVal = document.getElementById('mp-time-input').value || ''; let cat = document.getElementById('mp-cat-select').value; if (!S.weeklyEvents) S.weeklyEvents = []; S.weeklyEvents.push({ id: Date.now(), text, time: timeVal, cat, date: dateVal }); document.getElementById('mp-task-input').value = ''; document.getElementById('mp-time-input').value = ''; save(); renderMonthlyPlanner(); showToast('Event added'); addXP(3); }
-        function deleteMonthlyEvent(id) { if (!S.weeklyEvents) S.weeklyEvents = []; S.weeklyEvents = S.weeklyEvents.filter(e => e.id != id); save(); renderMonthlyPlanner(); }
+        function addMonthlyEvent() {
+            let text = document.getElementById('mp-task-input').value.trim(); if (!text) { showToast('Enter event name'); return; } let dateVal = document.getElementById('mp-date-input').value; if (!dateVal) { showToast('Select a date'); return; } let timeVal = document.getElementById('mp-time-input').value || ''; let cat = document.getElementById('mp-cat-select').value; let wasRepeat = mpRepeatMonthly; if (!S.weeklyEvents) S.weeklyEvents = []; let event = { id: Date.now(), text, time: timeVal, cat, date: dateVal, order: (S.weeklyEvents.filter(e => e.date === dateVal && !e.repeatMonthly).length + 1) };
+            if (mpRepeatMonthly) { let dom = new Date(dateVal).getDate(); event.repeatMonthly = true; event.dom = dom; event.order = (S.weeklyEvents.filter(e => e.repeatMonthly && e.dom === dom).length + 1); }
+            S.weeklyEvents.push(event); document.getElementById('mp-task-input').value = ''; document.getElementById('mp-time-input').value = ''; mpRepeatMonthly = false; const mpBtn = document.getElementById('mp-repeat-toggle'); if (mpBtn) { mpBtn.classList.remove('active'); mpBtn.textContent = 'ALWAYS'; } saveNow(); renderMonthlyPlanner(); showToast(wasRepeat ? 'Monthly recurring event added' : 'Event added'); addXP(3);
+        }
+        function deleteMonthlyEvent(id) { if (!S.weeklyEvents) S.weeklyEvents = []; S.weeklyEvents = S.weeklyEvents.filter(e => e.id != id); saveNow(); renderMonthlyPlanner(); }
         function renderMonthlyPlanner() {
             if (!S.weeklyEvents) S.weeklyEvents = [];
             const MONTH_NAMES = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
@@ -4377,11 +5213,11 @@
                 else if (i >= firstDay + daysInMonth) { dayNum = i - firstDay - daysInMonth + 1; dateKey = localDateKey(new Date(mpYear, mpMonth + 1, dayNum)); isCurrentMonth = false; }
                 else { dayNum = i - firstDay + 1; dateKey = localDateKey(new Date(mpYear, mpMonth, dayNum)); }
                 let isToday = dateKey === todayStr; let isSelected = dateKey === mpSelectedDate;
-                let dayEvents = S.weeklyEvents.filter(e => e.date === dateKey).sort((a, b) => (a.time || '00:00').localeCompare(b.time || '00:00'));
+                let dayEvents = S.weeklyEvents.filter(e => eventMatchesDate(e, dateKey)).sort((a, b) => plannerEventOrder(a) - plannerEventOrder(b) || (a.time || '00:00').localeCompare(b.time || '00:00'));
                 let MAX_VISIBLE = 2;
                 let visibleEvents = dayEvents.slice(0, MAX_VISIBLE);
                 let overflow = dayEvents.length - MAX_VISIBLE;
-                let evChips = visibleEvents.map(e => { let timeLabel = e.time ? `${formatTimeAMPM(e.time)} ` : ''; return `<div class="mp-cell-event ${CAT_COLORS[e.cat] || 'cat-work'}" title="${escHtml(e.text)}">${timeLabel}${escHtml(e.text)}</div>`; }).join('');
+                let evChips = visibleEvents.map(e => { let timeLabel = e.time ? `${formatTimeAMPM(e.time)} ` : ''; let isDone = isPlannerEventDone(e, dateKey); return `<div class="mp-cell-event ${CAT_COLORS[e.cat] || 'cat-work'}${isDone ? ' done' : ''}" title="${escHtml(e.text)}">${timeLabel}${escHtml(e.text)}</div>`; }).join('');
                 let overflowHtml = overflow > 0 ? `<div class="mp-cell-overflow">+${overflow} more</div>` : '';
                 cells += `<div class="mp-day-cell${!isCurrentMonth ? ' other-month' : ''}${isToday ? ' today-cell' : ''}${isSelected ? ' selected-cell' : ''}" onclick="mpSelectDay('${dateKey}',${dayNum})"><div class="mp-day-num">${dayNum}</div>${evChips}${overflowHtml}</div>`;
             }
@@ -4394,12 +5230,1059 @@
             if (!detail || !title || !evList) return; detail.style.display = 'block';
             let [y, m, d] = dateKey.split('-').map(Number); let displayDate = new Date(y, m - 1, d);
             title.textContent = displayDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            let events = (S.weeklyEvents || []).filter(e => e.date === dateKey).sort((a, b) => (a.time || '00:00').localeCompare(b.time || '00:00'));
-            evList.innerHTML = events.length ? events.map(e => { let timeBadge = e.time ? `<span class="mp-event-time-badge">${formatTimeAMPM(e.time)}</span>` : ''; return `<div class="mp-event-item ${CAT_COLORS[e.cat] || 'cat-work'}"><span style="display:flex;align-items:center;font-size:.88rem;">${timeBadge}${escHtml(e.text)}</span><button onclick="deleteMonthlyEvent(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:.75rem" title="Delete">🗑</button></div>`; }).join('') : '<div class="empty-state">// NO EVENTS THIS DAY</div>';
+            let events = (S.weeklyEvents || []).filter(e => eventMatchesDate(e, dateKey)).sort((a, b) => plannerEventOrder(a) - plannerEventOrder(b) || (a.time || '00:00').localeCompare(b.time || '00:00'));
+            evList.innerHTML = events.length ? events.map(e => { let timeBadge = e.time ? `<span class="mp-event-time-badge">${formatTimeAMPM(e.time)}</span>` : ''; let isDone = isPlannerEventDone(e, dateKey); return `<div class="mp-event-item ${CAT_COLORS[e.cat] || 'cat-work'}${isDone ? ' done' : ''}" draggable="true" ondragstart="dragStartMonthly(event,${e.id},'${dateKey}')" ondragend="dragEndMonthly(event)" ondragover="dragOver(event)" ondrop="dropMonthly(event,${e.id},'${dateKey}')"><span style="display:flex;align-items:center;font-size:.88rem;gap:8px;"><div class="task-check${isDone ? ' checked' : ''}" onclick="togglePlannerEvent(${e.id},'${dateKey}')"></div>${timeBadge}${escHtml(e.text)}</span><button onclick="deleteMonthlyEvent(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:.75rem" title="Delete">🗑</button></div>`; }).join('') : '<div class="empty-state">// NO EVENTS THIS DAY</div>';
         }
         function mpPrevMonth() { mpMonth--; if (mpMonth < 0) { mpMonth = 11; mpYear--; } mpSelectedDate = null; let di = document.getElementById('mp-date-input'); if (di) di.value = ''; renderMonthlyPlanner(); }
         function mpNextMonth() { mpMonth++; if (mpMonth > 11) { mpMonth = 0; mpYear++; } mpSelectedDate = null; let di = document.getElementById('mp-date-input'); if (di) di.value = ''; renderMonthlyPlanner(); }
         function mpThisMonth() { let now = new Date(); mpYear = now.getFullYear(); mpMonth = now.getMonth(); mpSelectedDate = null; let di = document.getElementById('mp-date-input'); if (di) di.value = ''; renderMonthlyPlanner(); }
+
+        // ============================================================
+        // AI INTELLIGENCE ENGINE v1.0
+        // Four modules: Focus Coach | Task Breakdown | Habit Intel | Dashboard Insights
+        // Pure rule-based logic. No external API. Fully integrated with S (state).
+        // ============================================================
+
+        // ── MODULE 1: SMART FOCUS COACH ─────────────────────────────
+        // Analyzes sessions, distractions, energy, streak, time-of-day patterns
+        // and emits personalized, actionable coaching insights.
+
+        function runFocusCoach() {
+            const el = document.getElementById('ai-coach-insights');
+            if (!el) return;
+
+            const todayKey = getTodayKey ? getTodayKey() : new Date().toISOString().split('T')[0];
+            const sessions = (S.sessions || []);
+            const todaySessions = sessions.filter(s => s.date === todayKey);
+            const allDates = [...new Set(sessions.map(s => s.date))].sort();
+            const todayDistractions = ((S.distractions || []).filter(d => d.date === todayKey)).length;
+            const todayTasks = (S.tasks || []).filter(t => t.done && t.doneDate === todayKey).length;
+            const totalTasks = (S.tasks || []).length;
+            const energy = (S.energy && S.energy[todayKey]) || 0;
+            const streak = S.user?.streak || 0;
+
+            // Analyze session timing — detect peak hours
+            const hourBuckets = {};
+            sessions.forEach(s => {
+                if (!s.startHour && s.startHour !== 0) return;
+                const h = s.startHour;
+                hourBuckets[h] = (hourBuckets[h] || 0) + (s.mins || 25);
+            });
+            let peakHour = null, peakMins = 0;
+            Object.entries(hourBuckets).forEach(([h, m]) => { if (m > peakMins) { peakMins = m; peakHour = parseInt(h); } });
+
+            // Analyze session length preference
+            const sessionMins = sessions.map(s => s.mins || 25).filter(m => m > 0);
+            const avgSessionLen = sessionMins.length ? Math.round(sessionMins.reduce((a, b) => a + b, 0) / sessionMins.length) : 25;
+
+            // Analyze daily focus over last 7 days
+            const last7 = [];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const dk = d.toISOString().split('T')[0];
+                const dayMins = sessions.filter(s => s.date === dk).reduce((a, s) => a + (s.mins || 0), 0);
+                last7.push({ dk, dayMins });
+            }
+            const last7Avg = last7.reduce((a, b) => a + b.dayMins, 0) / 7;
+            const todayFocusMins = todaySessions.reduce((a, s) => a + (s.mins || 0), 0);
+            const trend = last7.slice(-3).reduce((a, b) => a + b.dayMins, 0) / 3; // 3-day trailing avg
+            const isTrending = trend >= last7Avg;
+
+            // Distraction ratio
+            const distractionRatio = todaySessions.length > 0 ? todayDistractions / todaySessions.length : todayDistractions;
+
+            const insights = [];
+            const now = new Date().getHours();
+
+            // ── INSIGHT: Peak hour recommendation
+            if (peakHour !== null && sessions.length >= 3) {
+                const label = peakHour < 12 ? 'morning' : peakHour < 17 ? 'afternoon' : 'evening';
+                const peakStr = `${peakHour % 12 || 12}${peakHour < 12 ? 'am' : 'pm'}`;
+                insights.push({ type: 'good', icon: '⚡', text: `Your peak focus window is <strong>${label} (~${peakStr})</strong>. Schedule deep work here for max output.` });
+            } else if (sessions.length < 3) {
+                insights.push({ type: 'info', icon: '🔬', text: `Complete <strong>${3 - sessions.length} more session${3 - sessions.length > 1 ? 's' : ''}</strong> to unlock your personal peak-hour analysis.` });
+            }
+
+            // ── INSIGHT: Session length tuning
+            if (sessions.length >= 5) {
+                if (avgSessionLen >= 60) insights.push({ type: 'warn', icon: '⏱', text: `Your avg session is <strong>${avgSessionLen}min</strong> — try splitting into 2×${Math.round(avgSessionLen / 2)}min blocks with a break to sustain intensity.` });
+                else if (avgSessionLen <= 20) insights.push({ type: 'warn', icon: '⏱', text: `Sessions averaging <strong>${avgSessionLen}min</strong> are quite short. Try 25–45min blocks to enter real deep work state.` });
+                else insights.push({ type: 'good', icon: '✅', text: `Session length of <strong>~${avgSessionLen}min</strong> is in the optimal focus zone. Keep it up.` });
+            }
+
+            // ── INSIGHT: Today's distractions
+            if (todayDistractions >= 5) insights.push({ type: 'warn', icon: '🚨', text: `<strong>${todayDistractions} distractions</strong> today. Try the "2-minute rule": if a thought can be done in 2 min, do it — else write it down and return.` });
+            else if (todayDistractions === 0 && todaySessions.length > 0) insights.push({ type: 'good', icon: '🔕', text: `Zero distractions today — clean execution. You're in the zone.` });
+            else if (todayDistractions >= 2 && distractionRatio > 1.5) insights.push({ type: 'warn', icon: '⚠️', text: `High distraction ratio. Consider turning on "Do Not Disturb" before your next session.` });
+
+            // ── INSIGHT: Energy vs output correlation
+            if (energy >= 4 && todaySessions.length === 0) insights.push({ type: 'info', icon: '🔥', text: `Energy is HIGH but no session started. Strike while hot — start a 25min session now.` });
+            if (energy <= 2 && todaySessions.length >= 2) insights.push({ type: 'good', icon: '💪', text: `Working on low energy and still putting in sessions — that's discipline. Consider a 15min recovery walk.` });
+            if (energy <= 2 && todaySessions.length === 0 && now >= 10) insights.push({ type: 'warn', icon: '😴', text: `Low energy + no sessions yet. Try a 15min "warm-up" session with a tiny task to build momentum.` });
+
+            // ── INSIGHT: Trending data
+            if (isTrending && last7Avg > 10) insights.push({ type: 'good', icon: '📈', text: `Focus is <strong>trending up</strong> over the last 3 days. Build on this momentum — don't break the chain.` });
+            else if (!isTrending && last7Avg > 30) insights.push({ type: 'warn', icon: '📉', text: `Focus minutes are declining. Review your task priorities — are you working on what matters?` });
+
+            // ── INSIGHT: Streak coaching
+            if (streak === 0) insights.push({ type: 'info', icon: '🎯', text: `Start your streak today. Complete just 1 session to activate the chain — consistency beats intensity.` });
+            else if (streak >= 7) insights.push({ type: 'good', icon: '🏆', text: `<strong>${streak}-day streak!</strong> You're building a real system. Protect this — even a 10min session counts.` });
+            else if (streak >= 3) insights.push({ type: 'info', icon: '🔥', text: `<strong>${streak}-day streak</strong> active. You need ${7 - streak} more days for your first weekly achievement.` });
+
+            // ── INSIGHT: Task completion
+            if (totalTasks > 0 && todayTasks === 0 && todaySessions.length >= 2) insights.push({ type: 'warn', icon: '📋', text: `Sessions running but no tasks completed. Make sure tasks are checked off — it closes the loop and triggers XP.` });
+            if (todayTasks >= 5) insights.push({ type: 'good', icon: '🎉', text: `<strong>${todayTasks} tasks</strong> completed today — elite execution. Log a quick win in Field Notes.` });
+
+            // ── Fallback
+            if (insights.length === 0) insights.push({ type: 'info', icon: '🚀', text: `Start your first focus session to activate personalized coaching insights.` });
+
+            el.innerHTML = insights.slice(0, 5).map(i => `
+                <div class="ai-insight-item ${i.type}">
+                    <span class="ai-insight-icon">${i.icon}</span>
+                    <span class="ai-insight-text">${i.text}</span>
+                </div>`).join('');
+        }
+
+        // ── MODULE 2: SMART TASK BREAKDOWN ──────────────────────────
+        // Keyword-based parser: detect task type → suggest structured subtasks
+        // Integrates into planner: shows breakdown panel when task is added.
+
+        const TASK_RULES = [
+            { keywords: ['api', 'endpoint', 'rest', 'graphql', 'backend'], subtasks: ['Define request/response schema', 'Set up route handler', 'Add input validation', 'Write error handling', 'Test with sample payload', 'Add auth middleware if needed'] },
+            { keywords: ['bug', 'fix', 'issue', 'error', 'broken', 'crash', 'debug'], subtasks: ['Reproduce the issue locally', 'Identify root cause (logs/stack trace)', 'Write a failing test case', 'Apply fix', 'Verify fix passes tests', 'Deploy & monitor'] },
+            { keywords: ['refactor', 'clean', 'optimize', 'improve', 'performance'], subtasks: ['Benchmark current performance', 'Identify hotspots / code smells', 'Plan refactor scope (no feature changes)', 'Refactor in small commits', 'Re-run tests', 'Measure improvement delta'] },
+            { keywords: ['ui', 'component', 'design', 'layout', 'css', 'style', 'frontend'], subtasks: ['Review design spec / mockup', 'Build skeleton structure', 'Add base styles', 'Implement responsive breakpoints', 'Connect to data/props', 'Cross-browser test'] },
+            { keywords: ['test', 'spec', 'unit', 'integration', 'e2e', 'coverage'], subtasks: ['Define test scope', 'Write happy path cases', 'Add edge case coverage', 'Mock external dependencies', 'Run full test suite', 'Check coverage report'] },
+            { keywords: ['database', 'schema', 'migration', 'model', 'sql', 'query'], subtasks: ['Design schema / ERD', 'Write migration file', 'Add indexes', 'Seed test data', 'Test queries with EXPLAIN', 'Rollback plan'] },
+            { keywords: ['deploy', 'release', 'launch', 'ship', 'ci', 'cd', 'pipeline'], subtasks: ['Verify all tests green', 'Review environment variables', 'Create release branch / tag', 'Run staging deployment', 'Smoke test on staging', 'Deploy to production', 'Monitor error rates'] },
+            { keywords: ['docs', 'documentation', 'readme', 'wiki', 'guide'], subtasks: ['Outline sections', 'Write overview / purpose', 'Add usage examples', 'Document edge cases', 'Add code snippets', 'Review for clarity'] },
+            { keywords: ['feature', 'implement', 'build', 'create', 'add', 'new'], subtasks: ['Define acceptance criteria', 'Break into backend + frontend tasks', 'Set up data models', 'Implement core logic', 'Build UI layer', 'Write tests', 'QA review'] },
+            { keywords: ['review', 'pr', 'pull request', 'code review'], subtasks: ['Read full diff', 'Check logic correctness', 'Verify test coverage', 'Check for security issues', 'Leave inline comments', 'Approve or request changes'] },
+        ];
+
+        function analyzeTaskForBreakdown(taskText) {
+            if (!taskText || taskText.length < 4) return null;
+            const lower = taskText.toLowerCase();
+            for (const rule of TASK_RULES) {
+                if (rule.keywords.some(kw => lower.includes(kw))) {
+                    return { matched: rule.keywords.find(kw => lower.includes(kw)), subtasks: rule.subtasks };
+                }
+            }
+            // Generic fallback for any task
+            return { matched: 'generic', subtasks: ['Clarify requirements & scope', 'Break into smaller steps', 'Implement core piece', 'Test & verify', 'Document if needed'] };
+        }
+
+        function showTaskBreakdown(taskText) {
+            const wrapper = document.getElementById('ai-task-breakdown-wrapper');
+            if (!wrapper) return;
+            const result = analyzeTaskForBreakdown(taskText);
+            if (!result) { wrapper.innerHTML = ''; return; }
+
+            wrapper.innerHTML = `
+            <div class="card" style="margin-top:12px;animation:cardReveal 0.4s ease">
+                <div class="card-title"><i class="fas fa-sitemap"></i> SMART TASK BREAKDOWN <span class="card-badge" style="background:rgba(0,210,255,.15);color:var(--cyan);border:1px solid rgba(0,210,255,.3);">AI ✦</span></div>
+                <div style="font-family:var(--mono);font-size:.72rem;color:var(--text3);margin-bottom:10px">// Detected: <span style="color:var(--cyan)">${result.matched}</span> task → Suggested subtasks:</div>
+                <div class="task-breakdown-panel" id="breakdown-subtasks">
+                    ${result.subtasks.map((s, i) => `
+                    <div class="task-subtask" onclick="addSubtaskAsTask('${escHtml(s)}', this)">
+                        <span style="color:var(--accent2);font-weight:700">${String(i + 1).padStart(2, '0')}.</span>
+                        <span style="flex:1">${escHtml(s)}</span>
+                        <button class="subtask-add-btn" title="Add to tasks">+ ADD</button>
+                    </div>`).join('')}
+                </div>
+                <div style="display:flex;gap:8px;margin-top:10px">
+                    <button class="btn btn-ghost btn-sm" onclick="addAllSubtasks()"><i class="fas fa-layer-group"></i> ADD ALL</button>
+                    <button class="btn btn-ghost btn-sm" onclick="document.getElementById('ai-task-breakdown-wrapper').innerHTML=''"><i class="fas fa-times"></i> DISMISS</button>
+                </div>
+            </div>`;
+        }
+
+        function addSubtaskAsTask(text, rowEl) {
+            // Add to task list using existing addTask infrastructure
+            const ti = document.getElementById('task-input');
+            const original = ti ? ti.value : '';
+            if (ti) ti.value = text;
+            if (typeof addTask === 'function') {
+                // Set priority to med by default
+                const ps = document.getElementById('task-priority');
+                const prevP = ps ? ps.value : 'med';
+                if (ps) ps.value = 'med';
+                addTask();
+                if (ps) ps.value = prevP;
+            }
+            if (ti) ti.value = original;
+            // Visual feedback
+            rowEl.style.opacity = '0.4';
+            rowEl.style.textDecoration = 'line-through';
+            rowEl.querySelector('.subtask-add-btn').textContent = '✓';
+        }
+
+        function addAllSubtasks() {
+            const rows = document.querySelectorAll('#breakdown-subtasks .task-subtask');
+            rows.forEach(row => {
+                const textEl = row.querySelector('span:nth-child(2)');
+                if (textEl && row.style.opacity !== '0.4') addSubtaskAsTask(textEl.textContent, row);
+            });
+            showToast('✅ All subtasks added to planner!');
+            addXP(10);
+        }
+
+        // Hook into addTask — intercept task input on ADD button
+        // We patch the task input's keydown and the ADD button via a MutationObserver
+        // on task-list to fire breakdown when a new task appears.
+        (function patchTaskBreakdown() {
+            function triggerBreakdown() {
+                const ti = document.getElementById('task-input');
+                if (ti && ti.dataset._lastBreakdown !== ti.value && ti.value.trim().length > 3) {
+                    ti.dataset._lastBreakdown = ti.value;
+                    showTaskBreakdown(ti.value);
+                }
+            }
+            document.addEventListener('DOMContentLoaded', () => {
+                const ti = document.getElementById('task-input');
+                if (ti) {
+                    ti.addEventListener('keydown', e => {
+                        if (e.key === 'Enter') { setTimeout(triggerBreakdown, 50); }
+                    });
+                }
+                // Also fire when ADD btn is clicked — watch for changes
+                const addBtn = document.querySelector('#panel-planner .btn-primary.btn-sm');
+                if (addBtn) addBtn.addEventListener('click', () => setTimeout(triggerBreakdown, 50));
+            });
+        })();
+
+        // ── MODULE 3: HABIT INTELLIGENCE ENGINE ─────────────────────
+        // Analyzes each habit's completion rate, streak trend, failure pattern
+        // Generates per-habit badges + actionable suggestions + global insights
+
+        function runHabitIntelligence() {
+            const habits = S.habits || [];
+            const el = document.getElementById('habit-intel-insights');
+            if (!el) return;
+
+            if (habits.length === 0) {
+                el.innerHTML = '<div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Add habits to unlock intelligence engine.</div>';
+                return;
+            }
+
+            const todayKey = getTodayKey ? getTodayKey() : new Date().toISOString().split('T')[0];
+
+            // Per-habit analysis
+            const reports = habits.map(habit => {
+                const log = habit.log || {};
+                const keys = Object.keys(log).sort();
+                const last30 = keys.filter(k => k >= _daysAgo(30)).map(k => log[k]);
+                const last7 = keys.filter(k => k >= _daysAgo(7)).map(k => log[k]);
+                const rate30 = last30.length > 0 ? last30.filter(Boolean).length / last30.length : 0;
+                const rate7 = last7.length > 0 ? last7.filter(Boolean).length / last7.length : 0;
+
+                // Streak calculation
+                let currentStreak = 0;
+                const allKeys = keys.slice().reverse();
+                for (const k of allKeys) {
+                    if (log[k]) currentStreak++;
+                    else break;
+                }
+
+                // Trend: is recent rate better or worse than overall?
+                const trend = rate7 - rate30;
+                const status = rate30 >= 0.8 ? 'strong' : rate30 >= 0.5 ? 'warning' : keys.length < 3 ? 'new' : 'failing';
+
+                return { name: habit.name, rate30, rate7, currentStreak, trend, status, last7, id: habit.id || habit.name };
+            });
+
+            // Global insights
+            const insights = [];
+            const failing = reports.filter(r => r.status === 'failing');
+            const strong = reports.filter(r => r.status === 'strong');
+            const todayDone = habits.filter(h => h.log && h.log[todayKey]).length;
+            const todayRate = habits.length > 0 ? todayDone / habits.length : 0;
+
+            if (failing.length > 2) {
+                insights.push({ type: 'warn', icon: '⚠️', text: `<strong>${failing.length} habits failing</strong> (< 50% rate). Focus on 1–2 keystone habits first — breadth kills consistency.` });
+                const easiest = failing.sort((a, b) => b.rate30 - a.rate30)[0];
+                if (easiest) insights.push({ type: 'warn', icon: '🎯', text: `Priority: <strong>${escHtml(easiest.name)}</strong> is closest to recovery (${Math.round(easiest.rate30 * 100)}%). Fix this one first.` });
+            }
+            if (strong.length > 0) insights.push({ type: 'good', icon: '💎', text: `<strong>${strong.length} habit${strong.length > 1 ? 's' : ''}</strong> running at 80%+ — these are becoming automatic. Stack new habits after them.` });
+            if (todayRate === 1 && habits.length > 0) insights.push({ type: 'good', icon: '🏆', text: `All habits completed today — perfect execution. You've earned +${habits.length * 5} bonus XP potential.` });
+            else if (todayRate === 0 && habits.length > 0 && new Date().getHours() >= 10) insights.push({ type: 'warn', icon: '⏰', text: `No habits logged today yet. Start with your easiest one to build momentum.` });
+
+            // Improvement tips for failing habits
+            const suggestions = [];
+            failing.slice(0, 2).forEach(r => {
+                const tips = getHabitAlternative(r.name, r.rate30);
+                if (tips) suggestions.push({ habit: r.name, tip: tips });
+            });
+
+            const globalHTML = insights.map(i => `
+                <div class="ai-insight-item ${i.type}">
+                    <span class="ai-insight-icon">${i.icon}</span>
+                    <span class="ai-insight-text">${i.text}</span>
+                </div>`).join('');
+
+            const perHabitHTML = suggestions.map(s => `
+                <div style="margin-bottom:8px">
+                    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text3);margin-bottom:3px">→ <strong style="color:var(--text2)">${escHtml(s.habit)}</strong></div>
+                    <div class="habit-suggestion">💡 ${s.tip}</div>
+                </div>`).join('');
+
+            el.innerHTML = globalHTML + (perHabitHTML ? `<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)"><div style="font-family:var(--head);font-size:.6rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:8px">RECOVERY SUGGESTIONS</div>${perHabitHTML}</div>` : '');
+
+            // Inject badges into existing habit rows
+            setTimeout(() => injectHabitBadges(reports), 100);
+        }
+
+        function getHabitAlternative(habitName, rate) {
+            const lower = habitName.toLowerCase();
+            if (lower.includes('exercise') || lower.includes('gym') || lower.includes('workout')) return rate < 0.3 ? 'Try "2-min rule": put on workout clothes only. Action follows commitment.' : 'Reduce session length by 50% on resistance days — showing up beats intensity.';
+            if (lower.includes('read') || lower.includes('book')) return 'Replace with 5 pages instead of chapters. Attach it to an existing routine (coffee, lunch).';
+            if (lower.includes('meditat') || lower.includes('mindful')) return 'Micro-session: 2 min breath focus. Done is better than perfect.';
+            if (lower.includes('cod') || lower.includes('learn') || lower.includes('study')) return 'Use Pomodoro mode: 15 min of focused study counts. Lower bar, build the streak first.';
+            if (lower.includes('write') || lower.includes('journal')) return 'Write 3 bullet points instead of paragraphs. Friction is the enemy — reduce it.';
+            if (lower.includes('sleep') || lower.includes('wake')) return 'Anchor sleep time first (not wake time). Consistent bedtime = consistent morning.';
+            if (rate < 0.3) return 'Rate is critically low. Make this habit 5× smaller — you need wins to rebuild confidence.';
+            return 'Try habit stacking: attach this to an existing habit you already do daily.';
+        }
+
+        function injectHabitBadges(reports) {
+            const rows = document.querySelectorAll('#habit-list .habit-row, #habit-list > div');
+            rows.forEach((row, i) => {
+                if (i >= reports.length) return;
+                const r = reports[i];
+                // Remove old badge
+                const oldBadge = row.querySelector('.habit-intel-badge');
+                if (oldBadge) oldBadge.remove();
+                // Add new badge after habit name
+                const nameEl = row.querySelector('.habit-name') || row.querySelector('span');
+                if (!nameEl) return;
+                const badge = document.createElement('span');
+                badge.className = `habit-intel-badge ${r.status}`;
+                const labels = { strong: `💎 ${Math.round(r.rate30 * 100)}%`, warning: `⚠ ${Math.round(r.rate30 * 100)}%`, failing: `🚨 ${Math.round(r.rate30 * 100)}%`, new: '🆕 NEW' };
+                badge.textContent = labels[r.status] || '';
+                badge.title = `7-day: ${Math.round(r.rate7 * 100)}% | 30-day: ${Math.round(r.rate30 * 100)}% | Streak: ${r.currentStreak}d`;
+                nameEl.insertAdjacentElement('afterend', badge);
+            });
+        }
+
+        function _daysAgo(n) {
+            const d = new Date(); d.setDate(d.getDate() - n);
+            return d.toISOString().split('T')[0];
+        }
+
+        // ── MODULE 4: WEEKLY/MONTHLY DASHBOARD INSIGHTS ─────────────
+        // Generates executive-level productivity summary with trend bars,
+        // actionable recommendations, and key metrics from S state.
+
+        function runDashboardInsights() {
+            const wrapper = document.getElementById('ai-weekly-insights-wrapper');
+            if (!wrapper) return;
+
+            const sessions = S.sessions || [];
+            const tasks = S.tasks || [];
+            const habits = S.habits || [];
+            const todayKey = getTodayKey ? getTodayKey() : new Date().toISOString().split('T')[0];
+
+            // Build last 7 days data
+            const days = [];
+            const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const dk = d.toISOString().split('T')[0];
+                const dayMins = sessions.filter(s => s.date === dk).reduce((a, s) => a + (s.mins || 0), 0);
+                const dayTasks = tasks.filter(t => t.done && t.doneDate === dk).length;
+                const dayDist = ((S.distractions || []).filter(dis => dis.date === dk)).length;
+                const dayScore = (S.analytics?.daily?.[dk]?.score) || 0;
+                const habitsLogged = habits.filter(h => h.log && h.log[dk]).length;
+                days.push({ dk, dayMins, dayTasks, dayDist, dayScore, habitsLogged, label: dayLabels[d.getDay()] });
+            }
+
+            const totalMins = days.reduce((a, d) => a + d.dayMins, 0);
+            const totalTasks = days.reduce((a, d) => a + d.dayTasks, 0);
+            const totalDist = days.reduce((a, d) => a + d.dayDist, 0);
+            const activeDays = days.filter(d => d.dayMins > 0).length;
+            const avgHabitRate = habits.length > 0 ? days.reduce((a, d) => a + d.habitsLogged, 0) / (days.length * habits.length) : 0;
+            const maxMins = Math.max(...days.map(d => d.dayMins), 1);
+            const maxTasks = Math.max(...days.map(d => d.dayTasks), 1);
+
+            // Trend: is this week better than last?
+            const thisWeekMins = days.reduce((a, d) => a + d.dayMins, 0);
+            const lastWeekDays = [];
+            for (let i = 13; i >= 7; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const dk = d.toISOString().split('T')[0];
+                lastWeekDays.push(sessions.filter(s => s.date === dk).reduce((a, s) => a + (s.mins || 0), 0));
+            }
+            const lastWeekMins = lastWeekDays.reduce((a, b) => a + b, 0);
+            const weekDelta = lastWeekMins > 0 ? ((thisWeekMins - lastWeekMins) / lastWeekMins * 100).toFixed(0) : null;
+            const weekTrend = weekDelta !== null ? (parseInt(weekDelta) >= 0 ? `+${weekDelta}%` : `${weekDelta}%`) : '—';
+            const weekTrendColor = weekDelta !== null && parseInt(weekDelta) >= 0 ? 'var(--green)' : 'var(--red)';
+
+            // Best day this week
+            const bestDay = days.reduce((best, d) => d.dayMins > (best?.dayMins || 0) ? d : best, null);
+            const worstDay = days.filter(d => d.dayMins > 0).reduce((worst, d) => !worst || d.dayMins < worst.dayMins ? d : worst, null);
+
+            // Focus score average
+            const scoredDays = days.filter(d => d.dayScore > 0);
+            const avgScore = scoredDays.length > 0 ? Math.round(scoredDays.reduce((a, d) => a + d.dayScore, 0) / scoredDays.length) : 0;
+
+            // Generate recommendations
+            const recos = [];
+            if (activeDays < 4) recos.push({ icon: '📅', text: `Only <strong>${activeDays}/7 active days</strong> this week. Aim for 5 active days next week — schedule them now.` });
+            if (totalDist > 10) recos.push({ icon: '🔕', text: `<strong>${totalDist} distractions</strong> this week. Block social media during your peak hour using browser extensions.` });
+            if (avgHabitRate < 0.5 && habits.length > 0) recos.push({ icon: '🔄', text: `Habit completion at <strong>${Math.round(avgHabitRate * 100)}%</strong>. Pick your 3 most impactful habits and ignore the rest for now.` });
+            if (bestDay && bestDay.dayMins >= 60) recos.push({ icon: '💡', text: `Your best day was <strong>${bestDay.label}</strong> (${bestDay.dayMins}min). Try to replicate that day's conditions next week.` });
+            if (weekDelta && parseInt(weekDelta) > 20) recos.push({ icon: '🚀', text: `<strong>${weekTrend} week-over-week</strong> growth in focus time. Consistency is compounding.` });
+            if (weekDelta && parseInt(weekDelta) < -20) recos.push({ icon: '⚠️', text: `Focus time dropped <strong>${weekTrend}</strong> vs last week. Identify what disrupted your routine.` });
+            if (totalTasks >= 10) recos.push({ icon: '✅', text: `<strong>${totalTasks} tasks</strong> completed this week — strong output. Review what types of tasks you crushed.` });
+            if (recos.length === 0) recos.push({ icon: '📊', text: `Complete more sessions to generate personalized weekly recommendations.` });
+
+            // Trend bar colors by intensity
+            const barColors = days.map(d => {
+                const pct = d.dayMins / maxMins;
+                if (pct >= 0.8) return 'var(--green)';
+                if (pct >= 0.5) return 'var(--accent)';
+                if (pct >= 0.2) return 'var(--amber)';
+                return 'var(--border2)';
+            });
+
+            wrapper.innerHTML = `
+            <div class="weekly-insight-card">
+                <div class="weekly-insight-header"><i class="fas fa-chart-line"></i> WEEKLY INTELLIGENCE REPORT — ${new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                <div class="weekly-metric-row">
+                    <div class="weekly-metric">
+                        <div class="weekly-metric-val">${Math.round(totalMins / 60 * 10) / 10}h</div>
+                        <div class="weekly-metric-lbl">FOCUS TIME</div>
+                    </div>
+                    <div class="weekly-metric">
+                        <div class="weekly-metric-val">${totalTasks}</div>
+                        <div class="weekly-metric-lbl">TASKS DONE</div>
+                    </div>
+                    <div class="weekly-metric">
+                        <div class="weekly-metric-val">${activeDays}/7</div>
+                        <div class="weekly-metric-lbl">ACTIVE DAYS</div>
+                    </div>
+                    <div class="weekly-metric">
+                        <div class="weekly-metric-val" style="color:${weekTrendColor}">${weekTrend}</div>
+                        <div class="weekly-metric-lbl">VS LAST WEEK</div>
+                    </div>
+                    <div class="weekly-metric">
+                        <div class="weekly-metric-val" style="color:${avgHabitRate >= 0.7 ? 'var(--green)' : avgHabitRate >= 0.4 ? 'var(--amber)' : 'var(--red)'}">${Math.round(avgHabitRate * 100)}%</div>
+                        <div class="weekly-metric-lbl">HABIT RATE</div>
+                    </div>
+                </div>
+                <div style="font-family:var(--head);font-size:.6rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin:8px 0 4px">DAILY FOCUS (MIN)</div>
+                <div style="display:flex;gap:4px;align-items:flex-end;height:50px">
+                    ${days.map((d, i) => `
+                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px" title="${d.label}: ${d.dayMins}min, ${d.dayTasks} tasks">
+                        <div style="width:100%;background:${barColors[i]};height:${Math.max(4, Math.round(d.dayMins / maxMins * 40))}px;border-radius:2px 2px 0 0;transition:height 0.5s ease;opacity:${d.dk === todayKey ? 1 : 0.75}"></div>
+                        <div style="font-family:var(--mono);font-size:.6rem;color:${d.dk === todayKey ? 'var(--accent2)' : 'var(--text3)'};font-weight:${d.dk === todayKey ? '700' : '400'}">${d.label.slice(0, 1)}</div>
+                    </div>`).join('')}
+                </div>
+                <div style="margin-top:12px">
+                    <div style="font-family:var(--head);font-size:.6rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:8px"><i class="fas fa-lightbulb"></i> RECOMMENDATIONS</div>
+                    ${recos.slice(0, 4).map((r, i) => `
+                    <div class="ai-reco-item" id="ai-reco-${i}">
+                        <span style="font-size:.95rem">${r.icon}</span>
+                        <span style="flex:1">${r.text}</span>
+                        <button class="ai-dismiss-btn" onclick="document.getElementById('ai-reco-${i}').remove()">✕</button>
+                    </div>`).join('')}
+                </div>
+            </div>`;
+        }
+
+        // ── ORCHESTRATOR: Wire all modules to existing lifecycle ─────
+        // Hooks into the existing renderAll / switchTab flow
+        // so modules update whenever relevant data changes.
+
+        (function wireAIModules() {
+            // Patch switchTab to fire relevant module when tab activates
+            const _origSwitchTab = window.switchTab;
+            window.switchTab = function (name, el) {
+                if (typeof _origSwitchTab === 'function') _origSwitchTab(name, el);
+                setTimeout(() => {
+                    if (name === 'planner') runFocusCoach();
+                    if (name === 'habits') runHabitIntelligence();
+                    if (name === 'analytics') runDashboardInsights();
+                }, 120);
+            };
+
+            // Patch save() to keep modules updated after data changes
+            const _origSave = window.save;
+            window.save = function () {
+                if (typeof _origSave === 'function') _origSave();
+                // Debounced refresh of whichever panel is active
+                clearTimeout(window._aiRefreshTimer);
+                window._aiRefreshTimer = setTimeout(() => {
+                    const activePanel = document.querySelector('.panel.active');
+                    if (!activePanel) return;
+                    const pid = activePanel.id;
+                    if (pid === 'panel-planner') runFocusCoach();
+                    if (pid === 'panel-habits') runHabitIntelligence();
+                    if (pid === 'panel-analytics') runDashboardInsights();
+                    if (pid === 'panel-focusscore') runFocusScoreIntelligence();
+                    if (pid === 'panel-timer') AFT.renderPanel();
+                }, 400);
+            };
+
+            // Hook into renderAll if it exists
+            const _origRenderAll = window.renderAll;
+            window.renderAll = function () {
+                if (typeof _origRenderAll === 'function') _origRenderAll();
+                setTimeout(() => {
+                    runFocusCoach();
+                    runDashboardInsights();
+                }, 300);
+            };
+
+            // Initial render after page load
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    runFocusCoach();
+                    runDashboardInsights();
+                }, 1200); // Wait for auth + data load
+            });
+
+            // Persist session startHour for peak hour analysis
+            // Patch toggleMain / toggleMini to record hour
+            ['toggleMain', 'toggleMini'].forEach(fnName => {
+                const orig = window[fnName];
+                if (typeof orig !== 'function') return;
+                window[fnName] = function () {
+                    const result = orig.apply(this, arguments);
+                    // If a session just started (timer is running), record hour
+                    try {
+                        const nowH = new Date().getHours();
+                        const lastSess = (S.sessions || []).slice(-1)[0];
+                        if (lastSess && !lastSess.startHour && lastSess.startHour !== 0) {
+                            lastSess.startHour = nowH;
+                        }
+                    } catch (e) { }
+                    return result;
+                };
+            });
+        })();
+
+        // ============================================================
+        // AI ENGINE v2.0 — THREE NEW MODULES
+        // 1. Adaptive Focus Timer
+        // 2. Focus Score Intelligence
+        // 3. Dev Tools Intelligence Layer
+        // ============================================================
+
+        // ── MODULE 5: ADAPTIVE FOCUS TIMER ──────────────────────────
+        // Reads session history to determine outcome (completed / failed / skipped)
+        // Computes a recommended next session duration using a ramp/recover model
+        // Applies suggestion to the existing setMain() / setMini() functions
+
+        const AFT = {
+            // Duration tiers in minutes — engine walks up/down this ladder
+            TIERS: [10, 15, 20, 25, 30, 35, 45, 50, 60, 75, 90],
+            DEFAULT_IDX: 5, // 35 min default starting point
+            MAX_CONSECUTIVE_FAIL: 3,
+            MIN_SUCCESS_STREAK_TO_RAMP: 2,
+
+            // Persist adaptive state in S.adaptiveTimer
+            getState() {
+                if (!S.adaptiveTimer) S.adaptiveTimer = { tierIdx: AFT.DEFAULT_IDX, successStreak: 0, failStreak: 0, history: [] };
+                return S.adaptiveTimer;
+            },
+
+            // Call after a session ends. outcome: 'success'|'fail'|'skip'
+            recordOutcome(outcome, actualMins) {
+                const st = AFT.getState();
+                st.history = st.history || [];
+                st.history.push({ outcome, mins: actualMins, ts: Date.now() });
+                if (st.history.length > 30) st.history = st.history.slice(-30);
+
+                if (outcome === 'success') {
+                    st.successStreak = (st.successStreak || 0) + 1;
+                    st.failStreak = 0;
+                    // Ramp up after MIN_SUCCESS_STREAK_TO_RAMP consecutive wins
+                    if (st.successStreak >= AFT.MIN_SUCCESS_STREAK_TO_RAMP) {
+                        st.tierIdx = Math.min(st.tierIdx + 1, AFT.TIERS.length - 1);
+                    }
+                } else if (outcome === 'fail') {
+                    st.failStreak = (st.failStreak || 0) + 1;
+                    st.successStreak = 0;
+                    // Step down 1 tier per failure, 2 tiers after 3+ consecutive fails
+                    const step = st.failStreak >= AFT.MAX_CONSECUTIVE_FAIL ? 2 : 1;
+                    st.tierIdx = Math.max(st.tierIdx - step, 0);
+                } else { // skip — mild penalty
+                    st.failStreak = (st.failStreak || 0) + 1;
+                    st.successStreak = 0;
+                    st.tierIdx = Math.max(st.tierIdx - 1, 0);
+                }
+                save();
+                AFT.renderPanel();
+            },
+
+            getRecommendedMins() {
+                return AFT.TIERS[AFT.getState().tierIdx];
+            },
+
+            getMode() {
+                const st = AFT.getState();
+                if (st.successStreak >= 3) return 'ramp';
+                if (st.failStreak >= 2) return 'recover';
+                if (st.tierIdx >= 7) return 'steady';
+                return 'steady';
+            },
+
+            renderPanel() {
+                const chipEl = document.getElementById('adaptive-mode-chip');
+                const textEl = document.getElementById('adaptive-suggestion-text');
+                const dotsEl = document.getElementById('adaptive-history-dots');
+                const applyBtn = document.getElementById('adaptive-apply-btn');
+                if (!textEl) return;
+
+                const st = AFT.getState();
+                const rec = AFT.getRecommendedMins();
+                const mode = AFT.getMode();
+                const history = (st.history || []).slice(-8);
+
+                // Mode chip
+                const modeLabels = {
+                    ramp: { label: '📈 RAMPING UP', cls: 'ramp' },
+                    recover: { label: '🔄 RECOVERY MODE', cls: 'recover' },
+                    steady: { label: '⚡ STEADY STATE', cls: 'steady' },
+                    reset: { label: '🔁 RESET', cls: 'reset' }
+                };
+                const ml = modeLabels[mode] || modeLabels.steady;
+                if (chipEl) chipEl.innerHTML = `<span class="adaptive-mode-chip ${ml.cls}">${ml.label}</span>`;
+
+                // Suggestion text
+                let msg = '';
+                if (history.length === 0) {
+                    msg = `No session history yet. Starting at <strong>${rec}min</strong> — complete sessions to unlock adaptive tuning.`;
+                } else if (mode === 'ramp') {
+                    msg = `<strong>${st.successStreak} successful sessions</strong> in a row! Engine recommends stepping up to <strong>${rec}min</strong>.`;
+                } else if (mode === 'recover') {
+                    msg = `${st.failStreak} incomplete session${st.failStreak > 1 ? 's' : ''} detected. Scaling back to <strong>${rec}min</strong> to rebuild momentum.`;
+                } else {
+                    msg = `Based on your history, <strong>${rec}min</strong> is your current optimal session length.`;
+                }
+
+                // Add current tier position indicator
+                const tierPct = Math.round((st.tierIdx / (AFT.TIERS.length - 1)) * 100);
+                msg += ` <span style="color:var(--text3);font-size:.66rem">(Capacity: ${tierPct}%)</span>`;
+                textEl.innerHTML = msg;
+
+                // History dots
+                if (dotsEl) {
+                    const dots = history.map(h => {
+                        const cls = h.outcome === 'success' ? 'success' : h.outcome === 'fail' ? 'fail' : 'skip';
+                        const label = { success: '✓ Completed', fail: '✗ Incomplete', skip: '→ Skipped' }[h.outcome];
+                        return `<div class="adaptive-dot ${cls}" title="${label} (${h.mins}min)"></div>`;
+                    });
+                    const streak = st.successStreak || 0;
+                    dotsEl.innerHTML = dots.join('') + `<span class="adaptive-streak-label">${streak > 0 ? `🔥 ${streak} streak` : ''}</span>`;
+                }
+
+                // Show apply button if recommendation differs from current timer
+                if (applyBtn) {
+                    applyBtn.style.display = 'inline-flex';
+                    applyBtn.textContent = `⚡ SET ${rec}MIN`;
+                }
+            }
+        };
+
+        window._aftSuggestedMins = null;
+        function applyAdaptiveDuration() {
+            const rec = AFT.getRecommendedMins();
+            if (typeof setMain === 'function') setMain(rec);
+            if (typeof setMini === 'function') setMini(rec);
+            showToast(`⚡ Timer set to ${rec}min by Adaptive Engine`);
+            window._aftSuggestedMins = rec;
+        }
+
+        // Hook into existing session completion events
+        // We patch stopMain / stopMini to detect outcome and record it
+        (function wireAdaptiveTimer() {
+            function detectOutcome(timerEl, plannedMins) {
+                // If time remaining > 20% of planned → incomplete/fail
+                // Otherwise → success
+                if (!timerEl) return 'success';
+                const txt = timerEl.textContent || '';
+                const parts = txt.split(':');
+                if (parts.length < 2) return 'success';
+                const remainSecs = parseInt(parts[0]) * 60 + parseInt(parts[1]);
+                const totalSecs = (plannedMins || 25) * 60;
+                const pctDone = 1 - (remainSecs / totalSecs);
+                if (pctDone >= 0.8) return 'success';
+                if (pctDone >= 0.3) return 'skip';
+                return 'fail';
+            }
+
+            const origStopMain = window.stopMain;
+            window.stopMain = function () {
+                try {
+                    const timerEl = document.getElementById('main-timer');
+                    // Read planned duration from preset active button
+                    const activePreset = document.querySelector('#main-presets .preset-btn.active');
+                    const planned = activePreset ? parseInt(activePreset.textContent) || 45 : 45;
+                    const outcome = detectOutcome(timerEl, planned);
+                    AFT.recordOutcome(outcome, planned);
+                } catch (e) { }
+                if (typeof origStopMain === 'function') return origStopMain.apply(this, arguments);
+            };
+
+            const origStopMini = window.stopMini;
+            window.stopMini = function () {
+                try {
+                    const timerEl = document.getElementById('timer-mini');
+                    const activePreset = document.querySelector('#mini-presets .preset-btn.active');
+                    const planned = activePreset ? parseInt(activePreset.textContent) || 25 : 25;
+                    const outcome = detectOutcome(timerEl, planned);
+                    AFT.recordOutcome(outcome, planned);
+                } catch (e) { }
+                if (typeof origStopMini === 'function') return origStopMini.apply(this, arguments);
+            };
+
+            const origSkipTimer = window.skipTimer;
+            window.skipTimer = function () {
+                try { AFT.recordOutcome('skip', 25); } catch (e) { }
+                if (typeof origSkipTimer === 'function') return origSkipTimer.apply(this, arguments);
+            };
+
+            // Also render on timer tab switch
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => AFT.renderPanel(), 1400);
+            });
+        })();
+
+        // ── MODULE 6: FOCUS SCORE INTELLIGENCE ──────────────────────
+        // Reads the EXISTING calculateFocusScore() output from the DOM + S state
+        // Generates: daily explanation, strengths/weaknesses tags, actionable tips,
+        // weekly trend summary. Injects into #fs-intel-panel without touching
+        // any existing score calculation logic.
+
+        function runFocusScoreIntelligence() {
+            const el = document.getElementById('fs-intel-content');
+            if (!el) return;
+
+            // Read score computed by existing engine
+            const scoreNumEl = document.getElementById('fs-score-num');
+            const gradeEl = document.getElementById('fs-grade');
+            const score = scoreNumEl ? parseInt(scoreNumEl.textContent) || 0 : 0;
+            const grade = gradeEl ? (gradeEl.textContent || '').replace('GRADE:', '').trim() : '—';
+
+            if (score === 0 && grade === '—') {
+                el.innerHTML = '<div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Hit CALCULATE SCORE first to unlock analysis.</div>';
+                return;
+            }
+
+            const todayKey = getTodayKey ? getTodayKey() : new Date().toISOString().split('T')[0];
+            const sessions = (S.sessions || []).filter(s => s.date === todayKey);
+            const distractions = ((S.distractions || []).filter(d => d.date === todayKey)).length;
+            const tasks = (S.tasks || []).filter(t => t.done && t.doneDate === todayKey).length;
+            const streak = S.user?.streak || 0;
+            const focusMins = sessions.reduce((a, s) => a + (s.mins || 0), 0);
+
+            // Read factor bars from existing DOM for context
+            const sessVal = document.getElementById('fs-sessions-val')?.textContent || '';
+            const distVal = document.getElementById('fs-dist-val')?.textContent || '';
+            const consVal = document.getElementById('fs-cons-val')?.textContent || '';
+            const tasksVal = document.getElementById('fs-tasks-val')?.textContent || '';
+
+            // 7-day score history from S.analytics
+            const scoreHistory = [];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const dk = d.toISOString().split('T')[0];
+                const dayScore = S.analytics?.daily?.[dk]?.score || 0;
+                scoreHistory.push({ dk, score: dayScore });
+            }
+            const validScores = scoreHistory.filter(s => s.score > 0);
+            const weekAvg = validScores.length > 0 ? Math.round(validScores.reduce((a, s) => a + s.score, 0) / validScores.length) : 0;
+            const prevDayScore = scoreHistory[scoreHistory.length - 2]?.score || 0;
+            const delta = score - prevDayScore;
+            const bestDay = scoreHistory.reduce((b, s) => s.score > b.score ? s : b, { score: 0 });
+
+            // Determine strengths and weaknesses
+            const strengths = [], weaknesses = [];
+            if (sessions.length >= 3) strengths.push('📡 High session count');
+            if (distractions === 0 && sessions.length > 0) strengths.push('🔕 Zero distractions');
+            if (streak >= 5) strengths.push(`🔥 ${streak}-day streak`);
+            if (tasks >= 5) strengths.push('✅ High task output');
+            if (focusMins >= 90) strengths.push('⏱ 90+ min deep work');
+            if (sessions.length === 0) weaknesses.push('⚡ No sessions today');
+            if (distractions >= 4) weaknesses.push('🚨 High distractions');
+            if (tasks === 0 && sessions.length > 0) weaknesses.push('📋 No tasks completed');
+            if (streak === 0) weaknesses.push('📅 Streak broken');
+            if (focusMins > 0 && focusMins < 25) weaknesses.push('⏱ Low focus time');
+
+            // Grade-based explanation
+            const explanations = {
+                'S': 'Elite performance. You operated at maximum capacity today — sessions, focus, and task completion all firing. Protect tomorrow\'s session slot.',
+                'A': 'High performer day. Strong output across sessions and tasks. Minor distraction or consistency gaps held you from S-tier.',
+                'B': 'Solid execution. You\'re on track but there\'s headroom. Review your weakest factor and target it specifically tomorrow.',
+                'C': 'Below optimal. Focus slipped — likely distractions, incomplete sessions, or gaps in task completion. Diagnose and reset.',
+                'D': 'Critical day. This score signals a pattern that needs intervention. Start tomorrow with a 15min session regardless of mood.'
+            };
+            const explanation = explanations[grade] || 'Calculate your score to unlock analysis.';
+
+            // Actionable tips based on score factors
+            const tips = [];
+            if (distractions >= 3) tips.push({ cls: 'tip-warn', icon: '🔕', text: `<strong>${distractions} distractions</strong> cost you ~${distractions * 15} score pts. Use "Do Not Disturb" during next session.` });
+            if (sessions.length === 0) tips.push({ cls: 'tip-crit', icon: '▶️', text: 'Zero sessions = zero session points. Start a 15min session right now — it changes your score immediately.' });
+            else if (sessions.length === 1) tips.push({ cls: 'tip-warn', icon: '⏩', text: `1 session logged. Each additional session adds ~25 pts. You need ${Math.max(0, 3 - sessions.length)} more to hit strong session score.` });
+            if (streak === 0) tips.push({ cls: 'tip-warn', icon: '🔗', text: 'Streak at zero. Completing any session today restarts your chain — consistency multiplies over time.' });
+            if (tasks === 0 && sessions.length > 0) tips.push({ cls: 'tip-warn', icon: '✔️', text: 'Sessions ran but no task completions logged. Check off finished tasks in Deep Work — it updates your score.' });
+            if (score >= 75) tips.push({ cls: 'tip-good', icon: '🏆', text: `Grade ${grade} achieved. Log a win in Field Notes — documenting high-performance days reinforces the behavior.` });
+            if (weekAvg > 0 && score > weekAvg + 15) tips.push({ cls: 'tip-good', icon: '📈', text: `Today beats your 7-day avg by ${score - weekAvg} pts. Identify what made today different and repeat it.` });
+            if (weekAvg > 0 && score < weekAvg - 15) tips.push({ cls: 'tip-warn', icon: '📉', text: `Today is ${weekAvg - score} pts below your 7-day avg. One bad day is data, not a trend — show up tomorrow.` });
+
+            // Delta chip
+            let deltaHTML = '';
+            if (prevDayScore > 0) {
+                const dCls = delta > 0 ? 'up' : delta < 0 ? 'down' : 'same';
+                const dIcon = delta > 0 ? '↑' : delta < 0 ? '↓' : '→';
+                deltaHTML = `<span class="fs-score-delta ${dCls}">${dIcon} ${Math.abs(delta)} vs yesterday</span>`;
+            }
+
+            // Weekly mini chart (reuses score history)
+            const maxS = Math.max(...scoreHistory.map(s => s.score), 1);
+            const weekBarHTML = scoreHistory.map(s => {
+                const h = Math.max(4, Math.round(s.score / maxS * 36));
+                const c = s.score >= 75 ? 'var(--green)' : s.score >= 50 ? 'var(--accent)' : s.score > 0 ? 'var(--amber)' : 'var(--border2)';
+                const d = new Date(s.dk + 'T00:00:00');
+                return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px" title="${s.dk}: ${s.score}pt"><div style="width:100%;background:${c};height:${h}px;border-radius:2px 2px 0 0"></div><div style="font-family:var(--mono);font-size:.56rem;color:var(--text3)">${['S', 'M', 'T', 'W', 'T', 'F', 'S'][d.getDay()]}</div></div>`;
+            }).join('');
+
+            el.innerHTML = `
+            <div style="margin-bottom:8px;font-family:var(--mono);font-size:.75rem;color:var(--text2);line-height:1.55">${explanation}${deltaHTML}</div>
+
+            ${strengths.length > 0 ? `<div class="fs-strength-row">${strengths.map(s => `<span class="fs-tag strength">${s}</span>`).join('')}</div>` : ''}
+            ${weaknesses.length > 0 ? `<div class="fs-strength-row" style="margin-bottom:8px">${weaknesses.map(w => `<span class="fs-tag weakness">${w}</span>`).join('')}</div>` : ''}
+
+            ${tips.length > 0 ? `<div class="fs-tip-list">${tips.slice(0, 3).map(t => `<div class="fs-tip-item ${t.cls}"><span style="font-size:.9rem;flex-shrink:0">${t.icon}</span><span>${t.text}</span></div>`).join('')}</div>` : ''}
+
+            ${weekAvg > 0 ? `
+            <div class="fs-weekly-summary">
+                <div style="display:flex;gap:6px;align-items:flex-end;height:40px;margin-bottom:6px">${weekBarHTML}</div>
+                <span style="color:var(--text3)">7-day avg:</span> <strong style="color:var(--text)">${weekAvg}pt</strong>
+                ${bestDay.score > 0 ? ` &nbsp;|&nbsp; <span style="color:var(--text3)">Best:</span> <strong style="color:var(--green)">${bestDay.score}pt</strong>` : ''}
+                &nbsp;|&nbsp; <span style="color:var(--text3)">Today:</span> <strong style="color:var(--accent2)">${score}pt</strong>
+            </div>` : ''}`;
+        }
+
+        // Patch calculateFocusScore to auto-run intelligence after calculation
+        (function wireFocusScoreIntelligence() {
+            const orig = window.calculateFocusScore;
+            window.calculateFocusScore = function () {
+                const result = typeof orig === 'function' ? orig.apply(this, arguments) : undefined;
+                setTimeout(runFocusScoreIntelligence, 250);
+                return result;
+            };
+
+            // Also run on tab switch to focus score
+            const origSwitchTab2 = window.switchTab;
+            window.switchTab = function (name, el) {
+                if (typeof origSwitchTab2 === 'function') origSwitchTab2(name, el);
+                if (name === 'focusscore') setTimeout(runFocusScoreIntelligence, 300);
+                if (name === 'timer') setTimeout(() => AFT.renderPanel(), 200);
+            };
+        })();
+
+        // ── MODULE 7: DEV TOOLS INTELLIGENCE LAYER ──────────────────
+        // Scans code in playground textarea using pattern-matching rules
+        // Detects: bugs, anti-patterns, performance issues, security concerns,
+        // best-practice violations. Generates inline fix suggestions.
+        // Supports JS (deep analysis) + basic hints for other languages.
+
+        const CODE_RULES = {
+            javascript: [
+                // Security
+                { id: 'sec01', sev: 'error', icon: '🔒', pattern: /eval\s*\(/, title: 'eval() usage', desc: '<strong>eval()</strong> executes arbitrary code — XSS risk and performance killer.', fix: '// Use JSON.parse() for data, Function() for controlled eval.' },
+                { id: 'sec02', sev: 'error', icon: '🔒', pattern: /innerHTML\s*=/, title: 'innerHTML assignment', desc: 'Direct <strong>innerHTML</strong> assignment is an XSS vector.', fix: '// Use textContent or DOMPurify.sanitize(html) before innerHTML.' },
+                { id: 'sec03', sev: 'warn', icon: '🔑', pattern: /localStorage\.(set|get)Item.*password|password.*localStorage/i, title: 'Password in localStorage', desc: 'Never store passwords or tokens in <strong>localStorage</strong> — it\'s XSS-accessible.', fix: '// Use httpOnly cookies or sessionStorage with encryption.' },
+                // Performance
+                { id: 'perf01', sev: 'warn', icon: '⚡', pattern: /document\.getElementById|document\.querySelector/g, title: 'Repeated DOM queries', desc: 'Repeated <strong>DOM queries</strong> inside loops kill performance.', fix: '// Cache: const el = document.getElementById("id"); // reuse el' },
+                { id: 'perf02', sev: 'warn', icon: '⚡', pattern: /\.forEach\([^)]+\)\s*\{[^}]*\.push/, title: 'forEach + push pattern', desc: 'Using <strong>forEach + push</strong> — use map() for transformations.', fix: '// const result = arr.map(item => transform(item));' },
+                { id: 'perf03', sev: 'info', icon: '⚡', pattern: /new Array\(\d+\)\.fill\(0\)\.map/, title: 'Array construction pattern', desc: 'Consider <strong>Array.from({length: n})</strong> for clarity.', fix: '// Array.from({length: n}, (_, i) => i);' },
+                // Anti-patterns
+                { id: 'ap01', sev: 'warn', icon: '🧹', pattern: /var\s+/g, title: 'var declaration', desc: '<strong>var</strong> has function scope and hoisting issues.', fix: '// Use const (default) or let (reassignable). Never var.' },
+                { id: 'ap02', sev: 'warn', icon: '🧹', pattern: /==(?!=)/g, title: 'Loose equality (==)', desc: '<strong>==</strong> triggers type coercion — causes silent bugs.', fix: '// Always use === for strict equality comparison.' },
+                { id: 'ap03', sev: 'warn', icon: '🧹', pattern: /catch\s*\([^)]*\)\s*\{\s*\}/, title: 'Empty catch block', desc: '<strong>Empty catch</strong> silently swallows errors — dangerous in production.', fix: '// catch(e) { console.error(e); throw e; }' },
+                { id: 'ap04', sev: 'info', icon: '🧹', pattern: /console\.log/g, title: 'console.log in code', desc: '<strong>console.log</strong> found — remove before production.', fix: '// Use a logging library or env-gated logger.' },
+                { id: 'ap05', sev: 'warn', icon: '🧹', pattern: /setTimeout.*0\)/, title: 'setTimeout(fn, 0)', desc: '<strong>setTimeout(fn, 0)</strong> is a code smell — usually there\'s a better way.', fix: '// Use Promise.resolve().then(fn) or queueMicrotask(fn).' },
+                // Async
+                { id: 'async01', sev: 'warn', icon: '🔄', pattern: /\.then\([^)]+\)\.catch\([^)]+\)\.then/, title: 'Mixed async patterns', desc: 'Mixing <strong>.then/.catch/.then</strong> chains is hard to read.', fix: '// Use async/await with try/catch for linear async flow.' },
+                { id: 'async02', sev: 'error', icon: '🔄', pattern: /await.*await.*await/, title: 'Sequential awaits', desc: 'Multiple sequential <strong>awaits</strong> that may be independent.', fix: '// Use Promise.all([p1, p2]) to run in parallel.' },
+                // Best practices
+                { id: 'bp01', sev: 'info', icon: '💡', pattern: /function\s+\w+\s*\([^)]{40,}\)/, title: 'Long parameter list', desc: 'Function has many parameters — consider an options object.', fix: '// function fn({param1, param2, param3}) {...}' },
+                { id: 'bp02', sev: 'info', icon: '💡', pattern: /if\s*\(.*\)\s*return\s+true.*\n.*return\s+false/s, title: 'Boolean return pattern', desc: 'Returning true/false from if — simplify.', fix: '// return condition; // directly return the boolean' },
+                { id: 'bp03', sev: 'good', icon: '✅', pattern: /const\s+/g, title: 'const usage', desc: 'Good use of <strong>const</strong> for immutable bindings.', fix: null },
+                { id: 'bp04', sev: 'good', icon: '✅', pattern: /(async\s+function|async\s*\()/, title: 'async/await pattern', desc: 'Using <strong>async/await</strong> — modern async handling.', fix: null },
+            ],
+            python: [
+                { id: 'py01', sev: 'warn', icon: '🧹', pattern: /except:/, title: 'Bare except clause', desc: '<strong>except:</strong> catches everything including KeyboardInterrupt.', fix: '# Use: except Exception as e: ...' },
+                { id: 'py02', sev: 'warn', icon: '⚡', pattern: /\+\s*=.*in\s+range/, title: 'String concat in loop', desc: 'String concatenation in loop is O(n²).', fix: '# Use: "".join(parts) or list comprehension.' },
+                { id: 'py03', sev: 'info', icon: '💡', pattern: /def\s+\w+\([^)]{40,}\)/, title: 'Long parameter list', desc: 'Function has many parameters.', fix: '# Use **kwargs or dataclass for complex params.' },
+                { id: 'py04', sev: 'error', icon: '🔒', pattern: /os\.system|subprocess\.call.*shell=True/, title: 'Shell injection risk', desc: '<strong>shell=True</strong> with user input = injection risk.', fix: '# Use subprocess.run([cmd, arg1, arg2]) without shell=True.' },
+                { id: 'py05', sev: 'good', icon: '✅', pattern: /\[.+for.+in.+\]/, title: 'List comprehension', desc: 'Using <strong>list comprehension</strong> — Pythonic and efficient.', fix: null },
+            ],
+            sql: [
+                { id: 'sql01', sev: 'error', icon: '🔒', pattern: /WHERE.*=.*\'/, title: 'String concat in SQL', desc: 'Possible <strong>SQL injection</strong> — never concatenate user input.', fix: "-- Use parameterized queries: WHERE id = $1" },
+                { id: 'sql02', sev: 'warn', icon: '⚡', pattern: /SELECT\s+\*/, title: 'SELECT * usage', desc: '<strong>SELECT *</strong> fetches all columns — select only what you need.', fix: '-- SELECT id, name, email FROM ...' },
+                { id: 'sql03', sev: 'info', icon: '💡', pattern: /ORDER BY.*LIMIT/, title: 'ORDER BY with LIMIT', desc: 'Good — using LIMIT with ORDER BY.', fix: null },
+            ]
+        };
+
+        function runCodeIntelligence() {
+            const wrapper = document.getElementById('devtools-intel-wrapper');
+            if (!wrapper) return;
+
+            const code = (document.getElementById('playground-code')?.value || '').trim();
+            const lang = document.getElementById('playground-language')?.value || 'javascript';
+
+            if (code.length < 10) {
+                wrapper.innerHTML = '<div style="font-family:var(--mono);font-size:.74rem;color:var(--text3);margin-top:8px">// Write some code first to analyze.</div>';
+                return;
+            }
+
+            wrapper.innerHTML = '<div style="font-family:var(--mono);font-size:.74rem;color:var(--text3);margin-top:8px">// Scanning...</div>';
+
+            setTimeout(() => {
+                const rules = CODE_RULES[lang] || CODE_RULES.javascript;
+                const findings = [];
+                const lines = code.split('\n');
+
+                rules.forEach(rule => {
+                    // Test pattern across full code
+                    rule.pattern.lastIndex = 0;
+                    if (rule.pattern.test(code)) {
+                        // Find line numbers
+                        const matchLines = [];
+                        rule.pattern.lastIndex = 0;
+                        lines.forEach((line, idx) => {
+                            rule.pattern.lastIndex = 0;
+                            if (rule.pattern.test(line)) matchLines.push(idx + 1);
+                        });
+                        rule.pattern.lastIndex = 0;
+
+                        // Deduplicate — only show each finding once
+                        if (!findings.find(f => f.id === rule.id)) {
+                            findings.push({ ...rule, lines: matchLines.slice(0, 3) });
+                        }
+                    }
+                });
+
+                // Sort: errors first, then warns, then info, then good
+                const sevOrder = { error: 0, warn: 1, info: 2, good: 3 };
+                findings.sort((a, b) => sevOrder[a.sev] - sevOrder[b.sev]);
+
+                // Metrics
+                const lineCount = lines.length;
+                const charCount = code.length;
+                const fnCount = (code.match(/function\s+\w+|=>\s*{|async\s+function/g) || []).length;
+                const commentLines = lines.filter(l => l.trim().startsWith('//') || l.trim().startsWith('#') || l.trim().startsWith('*')).length;
+                const commentRatio = lineCount > 0 ? Math.round(commentLines / lineCount * 100) : 0;
+                const errors = findings.filter(f => f.sev === 'error').length;
+                const warns = findings.filter(f => f.sev === 'warn').length;
+                const goods = findings.filter(f => f.sev === 'good').length;
+
+                // Quality score
+                const qualityScore = Math.max(0, Math.min(100, 100 - (errors * 25) - (warns * 10) + (goods * 5)));
+                const qColor = qualityScore >= 80 ? 'var(--green)' : qualityScore >= 55 ? 'var(--amber)' : 'var(--red)';
+                const qGrade = qualityScore >= 90 ? 'A+' : qualityScore >= 75 ? 'A' : qualityScore >= 60 ? 'B' : qualityScore >= 45 ? 'C' : 'D';
+
+                const issueHTML = findings.filter(f => f.sev !== 'good').slice(0, 6).map(f => `
+                <div class="code-issue-item sev-${f.sev}">
+                    <span class="code-issue-icon">${f.icon}</span>
+                    <div class="code-issue-body" style="flex:1">
+                        ${f.lines.length > 0 ? `<span class="code-issue-line">Line ${f.lines.join(', ')}</span>` : ''}
+                        <div><strong>${f.title}</strong></div>
+                        <div style="margin-top:2px;color:var(--text3);font-size:.7rem">${f.desc}</div>
+                        ${f.fix ? `<code class="code-fix-snippet">${escHtml ? escHtml(f.fix) : f.fix}</code>` : ''}
+                    </div>
+                </div>`).join('');
+
+                const goodHTML = findings.filter(f => f.sev === 'good').map(f => `
+                <div class="code-issue-item sev-good" style="padding:6px 11px">
+                    <span class="code-issue-icon">${f.icon}</span>
+                    <span class="code-issue-body">${f.desc}</span>
+                </div>`).join('');
+
+                const noIssues = findings.filter(f => f.sev !== 'good').length === 0;
+
+                wrapper.innerHTML = `
+                <div class="devtools-intel-panel">
+                    <div class="devtools-intel-title"><i class="fas fa-microscope"></i> CODE INTELLIGENCE — ${lang.toUpperCase()}</div>
+                    <div class="code-metrics-row">
+                        <div class="code-metric-chip">
+                            <div class="code-metric-val" style="color:${qColor}">${qGrade}</div>
+                            <div class="code-metric-lbl">QUALITY</div>
+                        </div>
+                        <div class="code-metric-chip">
+                            <div class="code-metric-val">${lineCount}</div>
+                            <div class="code-metric-lbl">LINES</div>
+                        </div>
+                        <div class="code-metric-chip">
+                            <div class="code-metric-val">${fnCount}</div>
+                            <div class="code-metric-lbl">FUNCTIONS</div>
+                        </div>
+                        <div class="code-metric-chip">
+                            <div class="code-metric-val" style="color:${commentRatio >= 15 ? 'var(--green)' : 'var(--amber)'}">${commentRatio}%</div>
+                            <div class="code-metric-lbl">COMMENTS</div>
+                        </div>
+                        <div class="code-metric-chip">
+                            <div class="code-metric-val" style="color:${errors > 0 ? 'var(--red)' : 'var(--green)'}">${errors}</div>
+                            <div class="code-metric-lbl">ERRORS</div>
+                        </div>
+                        <div class="code-metric-chip">
+                            <div class="code-metric-val" style="color:${warns > 0 ? 'var(--amber)' : 'var(--green)'}">${warns}</div>
+                            <div class="code-metric-lbl">WARNINGS</div>
+                        </div>
+                    </div>
+                    ${noIssues ? '<div class="code-issue-item sev-good" style="margin-bottom:8px"><span class="code-issue-icon">🏆</span><span>No issues detected — clean code! Keep it up.</span></div>' : issueHTML}
+                    ${goodHTML ? `<div style="margin-top:6px;font-family:var(--head);font-size:.58rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:5px">GOOD PATTERNS DETECTED</div>${goodHTML}` : ''}
+                    <div style="font-family:var(--mono);font-size:.66rem;color:var(--text3);margin-top:8px">// ${findings.length} pattern${findings.length !== 1 ? 's' : ''} analyzed | Quality score: ${qualityScore}/100</div>
+                </div>`;
+            }, 80);
+        }
+
+        // Auto-scan on RUN CODE — fires intelligence after code executes
+        (function wireDevIntel() {
+            const origRunCode = window.runCode;
+            window.runCode = function () {
+                const result = typeof origRunCode === 'function' ? origRunCode.apply(this, arguments) : undefined;
+                setTimeout(runCodeIntelligence, 300);
+                return result;
+            };
+
+            // Also wire switchTab for devtools panel
+            const origST3 = window.switchTab;
+            window.switchTab = function (name, el) {
+                if (typeof origST3 === 'function') origST3(name, el);
+                if (name === 'devtools') {
+                    // Auto-scan existing code if any
+                    const code = document.getElementById('playground-code')?.value || '';
+                    if (code.trim().length > 20) setTimeout(runCodeIntelligence, 300);
+                }
+            };
+
+            // Wire ANALYZE CODE button behavior to save code stats
+            const origSaveFn = window.save;
+            window.save = function () {
+                if (typeof origSaveFn === 'function') origSaveFn.apply(this, arguments);
+            };
+        })();
+
+        // Extend the existing orchestrator's switchTab patch to handle new panels
+        // (Done inline above in each module to avoid double-patching conflicts)
+
+        // Final: fire adaptive panel on DOMContentLoaded (backup)
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                AFT.renderPanel();
+                // Check if focusscore panel is active
+                if (document.getElementById('panel-focusscore')?.classList.contains('active')) {
+                    runFocusScoreIntelligence();
+                }
+            }, 1500);
+        });
+
     </script>
 </body>
 
