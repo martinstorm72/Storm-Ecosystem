@@ -1661,16 +1661,6 @@
                         LOCK IN. LEVEL UP.
                     </div>
                 </div>
-                <nav class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="products.html">Products</a>
-                    <a href="services.html">Docs</a>
-                    <a href="index.html#pricing">Dashboard</a>
-                    <a href="policy.html">Privacy</a>
-                    <a href="policy.html#terms">Terms</a>
-                    <a href="policy.html#refund">Refund</a>
-                    <a href="login.html">Login</a>
-                </nav>
                 <div class="footer-meta">
                     <div>STORM OS // v1.0.26</div>
                     <div>© 2026 STORM. ALL RIGHTS RESERVED.</div>
@@ -1773,7 +1763,14 @@
             const tx = urlParam("tx");
             const status = urlParam("st"); // PayPal sends st=Completed on success
 
-            if (!tx) return; // Normal page visit — nothing to do
+            if (!tx) {
+                if (sessionStorage.getItem(SESS_KEY)) {
+                    document.getElementById("buy-btn").style.display = "none";
+                    showPanel("download-success");
+                    setTimeout(executePDFDownload, 600);
+                }
+                return;
+            }
 
             // Immediately clean the URL (prevents re-trigger on refresh)
             window.history.replaceState({}, "", window.location.pathname);
