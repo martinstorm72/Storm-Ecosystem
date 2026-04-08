@@ -26,6 +26,23 @@
     <meta property="og:image" content="https://storm-os.app/og-image.png">
     <script
         type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Storm OS","applicationCategory":"ProductivityApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"9.99","priceCurrency":"USD","availability":"https://schema.org/InStock"},"description":"Storm OS is a productivity operating system for tech professionals.","url":"https://storm-os.app","creator":{"@type":"Person","name":"Martin","email":"martinsamer91@gmail.com"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"2400"}}</script>
+    <!-- ===== ENHANCED SEO ===== -->
+    <meta name="theme-color" content="#020305">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Storm OS">
+    <meta name="application-name" content="Storm OS">
+    <link rel="alternate" hreflang="en" href="https://storm-os.app/">
+
+    <!-- FAQ Schema -->
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Storm OS?","acceptedAnswer":{"@type":"Answer","text":"Storm OS is an all-in-one productivity operating system for developers and tech professionals, featuring deep work planning, focus timers, habit tracking, weekly/monthly planners, dev tools, gamification with XP, and 90-day analytics."}},{"@type":"Question","name":"How much does Storm OS cost?","acceptedAnswer":{"@type":"Answer","text":"Storm OS costs $9.99 per month with no commitment required. You can cancel anytime."}},{"@type":"Question","name":"Does Storm OS work on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes, Storm OS is fully responsive and works across all browsers and devices, with cloud sync to keep your data in sync everywhere."}},{"@type":"Question","name":"What developer tools are included?","acceptedAnswer":{"@type":"Answer","text":"Storm OS includes 7 dev tool panels: Code Playground, GitHub Stats, Code Snippets, Data Structures Visualizer, Complexity Analyzer, Markdown Editor, and Focus Score Engine."}}]}</script>
+
+    <!-- Breadcrumb Schema -->
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://storm-os.app/"},{"@type":"ListItem","position":2,"name":"Pricing","item":"https://storm-os.app/#pricing"}]}</script>
+
+    <!-- Preload critical assets -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -2164,10 +2181,811 @@
                 grid-template-columns: 1fr
             }
         }
+
+        /* ===== SCROLL PROGRESS BAR ===== */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--grad);
+            z-index: 99999;
+            width: 0%;
+            transition: width .1s linear;
+            box-shadow: 0 0 8px rgba(99, 102, 241, .6)
+        }
+
+        /* ===== FLOATING CTA ===== */
+        #floating-cta {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 9000;
+            opacity: 0;
+            transform: translateY(20px) scale(.9);
+            transition: all .4s cubic-bezier(.34, 1.56, .64, 1);
+            pointer-events: none
+        }
+
+        #floating-cta.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto
+        }
+
+        .fcta-card {
+            background: var(--card);
+            border: 1px solid var(--border2);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .6), 0 0 0 1px rgba(59, 130, 246, .1), 0 0 40px rgba(59, 130, 246, .08);
+            max-width: 320px
+        }
+
+        .fcta-content {
+            flex: 1
+        }
+
+        .fcta-label {
+            font-family: var(--mono);
+            font-size: .55rem;
+            color: var(--text3);
+            letter-spacing: .12em;
+            margin-bottom: 3px
+        }
+
+        .fcta-price {
+            font-family: var(--head);
+            font-size: .85rem;
+            font-weight: 900;
+            color: var(--text)
+        }
+
+        .fcta-close {
+            background: none;
+            border: none;
+            color: var(--text3);
+            cursor: pointer;
+            font-size: .9rem;
+            padding: 2px;
+            line-height: 1;
+            transition: color .2s
+        }
+
+        .fcta-close:hover {
+            color: var(--text)
+        }
+
+        /* ===== EXIT INTENT POPUP ===== */
+        #exit-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 3, 5, .85);
+            backdrop-filter: blur(12px);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s
+        }
+
+        #exit-overlay.show {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .exit-modal {
+            background: var(--card);
+            border: 1px solid var(--border2);
+            border-radius: 16px;
+            padding: 48px 40px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 0 1px rgba(59, 130, 246, .15), 0 40px 80px rgba(0, 0, 0, .7);
+            animation: modalIn .4s cubic-bezier(.34, 1.56, .64, 1) both
+        }
+
+        @keyframes modalIn {
+            from {
+                transform: scale(.85) translateY(20px);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1
+            }
+        }
+
+        .exit-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text3);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: .75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s
+        }
+
+        .exit-modal-close:hover {
+            border-color: var(--text2);
+            color: var(--text)
+        }
+
+        .exit-tag {
+            font-family: var(--mono);
+            font-size: .6rem;
+            color: var(--amber);
+            border: 1px solid rgba(245, 158, 11, .3);
+            background: rgba(245, 158, 11, .08);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+            letter-spacing: .12em
+        }
+
+        .exit-modal h3 {
+            font-family: var(--head);
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: -.01em;
+            margin-bottom: 12px;
+            line-height: 1.1
+        }
+
+        .exit-modal p {
+            font-size: .95rem;
+            color: var(--text2);
+            line-height: 1.6;
+            margin-bottom: 28px
+        }
+
+        .exit-dismiss {
+            font-family: var(--mono);
+            font-size: .6rem;
+            color: var(--text3);
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-top: 14px;
+            letter-spacing: .08em;
+            transition: color .2s
+        }
+
+        .exit-dismiss:hover {
+            color: var(--text2)
+        }
+
+        /* ===== LIVE SOCIAL PROOF TOASTS ===== */
+        #toast-container {
+            position: fixed;
+            bottom: 32px;
+            left: 32px;
+            z-index: 8000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .proof-toast {
+            background: var(--card);
+            border: 1px solid var(--border2);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .5);
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--text2);
+            letter-spacing: .04em;
+            max-width: 280px;
+            opacity: 0;
+            transform: translateX(-20px) scale(.95);
+            transition: all .4s cubic-bezier(.34, 1.56, .64, 1)
+        }
+
+        .proof-toast.show {
+            opacity: 1;
+            transform: translateX(0) scale(1)
+        }
+
+        .proof-toast.hide {
+            opacity: 0;
+            transform: translateX(-20px) scale(.95);
+            transition: all .3s ease
+        }
+
+        .toast-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--head);
+            font-size: .55rem;
+            font-weight: 900;
+            flex-shrink: 0;
+            color: #fff
+        }
+
+        .toast-name {
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 2px
+        }
+
+        /* ===== FAQ SECTION ===== */
+        #faq {
+            background: var(--bg);
+            border-top: 1px solid var(--border)
+        }
+
+        .faq-list {
+            max-width: 720px;
+            margin: 60px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden
+        }
+
+        .faq-item {
+            background: var(--card);
+            position: relative
+        }
+
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-family: var(--head);
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-align: left;
+            padding: 24px 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            transition: background .2s
+        }
+
+        .faq-q:hover {
+            background: var(--card2)
+        }
+
+        .faq-chevron {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--border2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: .7rem;
+            color: var(--accent);
+            transition: transform .3s, border-color .3s
+        }
+
+        .faq-item.open .faq-chevron {
+            transform: rotate(180deg);
+            border-color: var(--accent)
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .4s ease, padding .4s ease
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 400px
+        }
+
+        .faq-a-inner {
+            padding: 0 28px 24px;
+            font-size: .9rem;
+            color: var(--text2);
+            line-height: 1.7;
+            border-top: 1px solid var(--border)
+        }
+
+        /* ===== COMPARISON TABLE ===== */
+        #compare {
+            background: var(--bg2);
+            border-top: 1px solid var(--border)
+        }
+
+        .compare-table {
+            margin: 60px auto 0;
+            max-width: 800px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden
+        }
+
+        .compare-header {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr 1fr;
+            background: var(--card2);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .compare-header div,
+        .compare-row div {
+            padding: 16px 20px;
+            font-family: var(--mono);
+            font-size: .62rem;
+            letter-spacing: .1em
+        }
+
+        .compare-header div {
+            color: var(--text3);
+            font-weight: 700
+        }
+
+        .compare-header .col-storm {
+            background: rgba(59, 130, 246, .06);
+            border-left: 1px solid rgba(59, 130, 246, .2);
+            color: var(--accent);
+            text-align: center
+        }
+
+        .compare-row {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr 1fr;
+            border-bottom: 1px solid var(--border);
+            background: var(--card);
+            transition: background .2s
+        }
+
+        .compare-row:last-child {
+            border-bottom: none
+        }
+
+        .compare-row:hover {
+            background: var(--card2)
+        }
+
+        .compare-row .feat {
+            color: var(--text2);
+            font-size: .75rem
+        }
+
+        .compare-row .col-storm {
+            background: rgba(59, 130, 246, .04);
+            border-left: 1px solid rgba(59, 130, 246, .1);
+            text-align: center
+        }
+
+        .compare-row div:not(.feat) {
+            text-align: center;
+            font-size: .85rem
+        }
+
+        .c-yes {
+            color: var(--green)
+        }
+
+        .c-no {
+            color: var(--text3);
+            opacity: .4
+        }
+
+        .c-partial {
+            color: var(--amber)
+        }
+
+        /* ===== TRUST BADGES ===== */
+        .trust-badges {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 48px;
+            padding-top: 48px;
+            border-top: 1px solid var(--border)
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--mono);
+            font-size: .62rem;
+            color: var(--text3);
+            letter-spacing: .1em
+        }
+
+        .trust-badge-icon {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            background: var(--card2)
+        }
+
+        /* ===== LIVE USERS COUNTER ===== */
+        #live-bar {
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 900;
+            opacity: 0;
+            transition: opacity .5s, top .5s
+        }
+
+        #live-bar.show {
+            opacity: 1;
+            top: 78px
+        }
+
+        .live-pill {
+            background: rgba(8, 12, 20, .95);
+            border: 1px solid rgba(16, 185, 129, .3);
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-family: var(--mono);
+            font-size: .6rem;
+            color: var(--green);
+            letter-spacing: .1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            backdrop-filter: blur(12px)
+        }
+
+        .live-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: statusPulse 1.5s infinite
+        }
+
+        /* ===== PARTICLE TRAIL CANVAS ===== */
+        #particle-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9990;
+            opacity: .5
+        }
+
+        /* ===== TYPING EFFECT ===== */
+        .typed-word {
+            display: inline-block;
+            min-width: 2ch
+        }
+
+        /* ===== TOOLTIP ===== */
+        [data-tip] {
+            position: relative
+        }
+
+        [data-tip]:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card2);
+            border: 1px solid var(--border2);
+            color: var(--text2);
+            font-family: var(--mono);
+            font-size: .58rem;
+            letter-spacing: .06em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 100;
+            animation: tooltipIn .15s ease both
+        }
+
+        @keyframes tooltipIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(4px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0)
+            }
+        }
+
+        /* ===== URGENCY TIMER ===== */
+        .urgency-bar {
+            background: rgba(239, 68, 68, .07);
+            border: 1px solid rgba(239, 68, 68, .2);
+            border-radius: 8px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 28px;
+            font-family: var(--mono);
+            font-size: .65rem;
+            letter-spacing: .1em
+        }
+
+        .urgency-label {
+            color: var(--red)
+        }
+
+        .urgency-time {
+            font-family: var(--head);
+            font-size: .85rem;
+            font-weight: 900;
+            color: var(--red);
+            letter-spacing: .12em
+        }
+
+        .urgency-sub {
+            color: var(--text3)
+        }
+
+        /* ===== STAR RATING ===== */
+        .star-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 28px
+        }
+
+        .stars {
+            color: var(--amber);
+            font-size: 1rem;
+            letter-spacing: 2px
+        }
+
+        .star-count {
+            font-family: var(--mono);
+            font-size: .65rem;
+            color: var(--text3);
+            letter-spacing: .08em
+        }
+
+        /* ===== MOBILE HAMBURGER ===== */
+        #mob-menu-btn {
+            display: none;
+            background: none;
+            border: 1px solid var(--border2);
+            border-radius: 6px;
+            padding: 6px 10px;
+            cursor: pointer;
+            color: var(--text2);
+            font-size: .8rem;
+            transition: all .2s
+        }
+
+        #mob-menu-btn:hover {
+            border-color: var(--accent);
+            color: var(--text)
+        }
+
+        #mob-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 3, 5, .97);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px
+        }
+
+        #mob-menu.open {
+            display: flex
+        }
+
+        .mob-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: 1px solid var(--border2);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: var(--text2);
+            cursor: pointer;
+            font-size: .9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s
+        }
+
+        .mob-close:hover {
+            border-color: var(--accent);
+            color: var(--text)
+        }
+
+        .mob-nav-link {
+            font-family: var(--head);
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            color: var(--text2);
+            text-decoration: none;
+            transition: color .2s
+        }
+
+        .mob-nav-link:hover {
+            color: var(--text)
+        }
+
+        @media(max-width:768px) {
+            #mob-menu-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px
+            }
+
+            #floating-cta {
+                display: none
+            }
+
+            #toast-container {
+                display: none
+            }
+        }
+
+        /* ===== COPY CODE BUTTON ===== */
+        .copy-btn {
+            font-family: var(--mono);
+            font-size: .55rem;
+            background: rgba(59, 130, 246, .08);
+            border: 1px solid rgba(59, 130, 246, .2);
+            color: var(--accent);
+            padding: 3px 9px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all .2s;
+            letter-spacing: .08em
+        }
+
+        .copy-btn:hover {
+            background: rgba(59, 130, 246, .15)
+        }
+
+        .copy-btn.copied {
+            color: var(--green);
+            border-color: rgba(16, 185, 129, .3);
+            background: rgba(16, 185, 129, .08)
+        }
+
+        /* ===== TESTIMONIALS CAROUSEL (mobile) ===== */
+        @media(max-width:700px) {
+            .testi-grid {
+                overflow-x: auto;
+                flex-wrap: nowrap !important;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 12px
+            }
+
+            .testi-grid>* {
+                scroll-snap-align: start;
+                min-width: 300px
+            }
+        }
+
+        /* ===== SMOOTH ANCHOR ACTIVE PILL ===== */
+        .nav-pill-active {
+            background: rgba(59, 130, 246, .1) !important;
+            border-radius: 4px
+        }
     </style>
+
 </head>
 
 <body>
+    <!-- Scroll progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Particle canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Live users bar -->
+    <div id="live-bar">
+        <div class="live-pill">
+            <span class="live-dot"></span>
+            <span id="live-count">47</span> OPERATORS ONLINE NOW
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mob-menu">
+        <button class="mob-close" onclick="document.getElementById('mob-menu').classList.remove('open')">✕</button>
+        <a href="#os" class="mob-nav-link" onclick="document.getElementById('mob-menu').classList.remove('open')">THE
+            SYSTEM</a>
+        <a href="#benefits" class="mob-nav-link"
+            onclick="document.getElementById('mob-menu').classList.remove('open')">RESULTS</a>
+        <a href="#products" class="mob-nav-link"
+            onclick="document.getElementById('mob-menu').classList.remove('open')">PRODUCTS</a>
+        <a href="#compare" class="mob-nav-link"
+            onclick="document.getElementById('mob-menu').classList.remove('open')">COMPARE</a>
+        <a href="#faq" class="mob-nav-link"
+            onclick="document.getElementById('mob-menu').classList.remove('open')">FAQ</a>
+        <a href="#pricing" class="mob-nav-link"
+            onclick="document.getElementById('mob-menu').classList.remove('open')">PRICING</a>
+        <button onclick="handlePurchase(); document.getElementById('mob-menu').classList.remove('open')"
+            class="btn btn-primary" style="margin-top:12px;cursor:pointer;">GET STARTED — $9.99/MO</button>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container"></div>
+
+    <!-- Floating CTA -->
+    <div id="floating-cta">
+        <div class="fcta-card">
+            <div class="fcta-content">
+                <div class="fcta-label">FULL OPERATOR ACCESS</div>
+                <div class="fcta-price">$9.99/mo — <span style="color:var(--green);font-size:.75rem;">GET STARTED</span>
+                </div>
+            </div>
+            <button onclick="handlePurchase()" class="btn btn-primary"
+                style="font-size:.6rem;padding:9px 16px;white-space:nowrap;cursor:pointer;">DEPLOY →</button>
+            <button class="fcta-close"
+                onclick="document.getElementById('floating-cta').classList.remove('show');this.closest('#floating-cta').style.pointerEvents='none';">✕</button>
+        </div>
+    </div>
+
+    <!-- Exit Intent Popup -->
+    <div id="exit-overlay">
+        <div class="exit-modal">
+            <button class="exit-modal-close" onclick="closeExit()">✕</button>
+            <div class="exit-tag">⚡ WAIT — SPECIAL OFFER</div>
+            <h3>Don't lose your<br><span class="grad-text">momentum.</span></h3>
+            <p>Most developers waste 3+ hours a day without structure. Storm OS fixes that in your first week — for less
+                than a coffee.</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+                <button onclick="handlePurchase(); closeExit()" class="btn btn-primary"
+                    style="justify-content:center;padding:14px;cursor:pointer;">START FOR $9.99/MO</button>
+                <button onclick="closeExit()" class="exit-dismiss">No thanks, I'll keep drifting</button>
+            </div>
+        </div>
+    </div>
+
     <div id="cursor"></div>
     <div id="cursor-ring"></div>
     <div class="grid-bg"></div>
@@ -2182,13 +3000,16 @@
                 <a href="#os" data-section="os">System</a>
                 <a href="products.html">Products</a>
                 <a href="#benefits" data-section="benefits">Results</a>
+                <a href="#compare" data-section="compare">Compare</a>
+                <a href="#faq" data-section="faq">FAQ</a>
                 <a href="#pricing" data-section="pricing">Pricing</a>
-                <a href="services.html">Full Docs</a>
                 <div class="nav-status" role="status">
                     <div class="dot"></div>OPERATIONAL
                 </div>
                 <a href="login.html" class="btn btn-ghost" style="margin-left:4px">LOGIN</a>
                 <a href="signup.html" class="btn btn-primary" style="margin-left:4px">GET STARTED</a>
+                <button id="mob-menu-btn" onclick="document.getElementById('mob-menu').classList.add('open')">☰
+                    MENU</button>
             </div>
         </div>
     </nav>
@@ -2199,6 +3020,10 @@
                 <div class="hero-eyebrow">
                     <div class="pulse"></div>
                     STATUS: SYSTEM ACTIVE // v1.0.26
+                </div>
+                <div class="star-row" style="opacity:0;animation:heroFadeIn .8s .3s ease both;">
+                    <span class="stars">★★★★★</span>
+                    <span class="star-count">4.9 / 5 from 2,400+ operators</span>
                 </div>
                 <h1>
                     STOP DRIFTING.<br>
@@ -2799,6 +3624,11 @@
                     <div class="pricing-top-border"></div>
                     <div class="pricing-body">
                         <div class="pricing-badge">FULL OPERATOR ACCESS</div>
+                        <div class="urgency-bar">
+                            <span class="urgency-label">🔥 LIMITED TIME</span>
+                            <span class="urgency-time" id="offer-timer">23:47:12</span>
+                            <span class="urgency-sub">until price review</span>
+                        </div>
                         <div class="pricing-price">
                             <span class="pricing-dollar">$</span>
                             <span>9</span><span class="pricing-cents">.99</span>
@@ -2853,6 +3683,177 @@
                         <p
                             style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--text3);margin-top:14px;letter-spacing:.08em;">
                             NO COMMITMENT // CANCEL ANYTIME</p>
+                        <div class="trust-badges">
+                            <div class="trust-badge" data-tip="Secured via PayPal">
+                                <div class="trust-badge-icon">🔒</div>
+                                SECURE PAYMENT
+                            </div>
+                            <div class="trust-badge" data-tip="Works on all devices">
+                                <div class="trust-badge-icon">☁️</div>
+                                CLOUD SYNCED
+                            </div>
+                            <div class="trust-badge" data-tip="No hidden fees">
+                                <div class="trust-badge-icon">✓</div>
+                                NO HIDDEN FEES
+                            </div>
+                            <div class="trust-badge" data-tip="Cancel in 1 click">
+                                <div class="trust-badge-icon">↩</div>
+                                CANCEL ANYTIME
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON SECTION -->
+    <section id="compare" aria-labelledby="compare-heading">
+        <div class="container">
+            <div class="reveal" style="text-align:center;">
+                <div class="section-tag" style="justify-content:center;margin-bottom:14px;">05 // THE EDGE</div>
+                <h2 class="section-heading" id="compare-heading">Storm OS vs The<br><span
+                        class="grad-text">Alternatives</span></h2>
+                <p
+                    style="color:var(--text2);font-size:.95rem;margin-top:12px;max-width:500px;margin-left:auto;margin-right:auto;">
+                    Stop juggling 5 apps. One dashboard engineered for developers.</p>
+            </div>
+            <div class="compare-table reveal d2">
+                <div class="compare-header">
+                    <div>FEATURE</div>
+                    <div class="col-storm">⚡ STORM OS</div>
+                    <div>NOTION</div>
+                    <div>TODOIST</div>
+                </div>
+                <div class="compare-row">
+                    <div class="feat">Deep Work Planner + XP</div>
+                    <div class="col-storm c-yes">✓</div>
+                    <div class="c-no">✗</div>
+                    <div class="c-no">✗</div>
+                </div>
+                <div class="compare-row">
+                    <div class="feat">Built-in Focus Timer (Pomodoro)</div>
+                    <div class="col-storm c-yes">✓</div>
+                    <div class="c-no">✗</div>
+                    <div class="c-partial">Plugin</div>
+                </div>
+                <div class="compare-row">
+                    <div class="feat">Habit Matrix + Streaks</div>
+                    <div class="col-storm c-yes">✓</div>
+                    <div class="c-partial">Manual</div>
+                    <div class="c-no">✗</div>
+                </div>
+                <div class="compare-row">
+                    <div class="feat">Dev Tools (Code Playground, Big O)</div>
+                    <div class="col-storm c-yes">✓</div>
+                    <div class="c-no">✗</div>
+                    <div class="c-no">✗</div>
+                </div>
+                <div class="compare-row">
+                    <div class="feat">Gamification + Level System</div>
+                    <div class="col-storm c-yes">✓</div>
+                    <div class="c-no">✗</div>
+                    <div class="c-no">✗</div>
+                </div>
+                <div class="compare-row">
+                    <div class="feat">90-Day Analytics Heatmap</div>
+                    <div class="col-storm c-yes">✓</div>
+                    <div class="c-partial">Basic</div>
+                    <div class="c-partial">Basic</div>
+                </div>
+                <div class="compare-row">
+                    <div class="feat">Cloud Sync Across Devices</div>
+                    <div class="col-storm c-yes">✓</div>
+                    <div class="c-yes">✓</div>
+                    <div class="c-yes">✓</div>
+                </div>
+                <div class="compare-row">
+                    <div class="feat">All-in-one Price</div>
+                    <div class="col-storm"
+                        style="color:var(--accent);font-family:var(--head);font-weight:900;font-size:.75rem;">$9.99/mo
+                    </div>
+                    <div style="color:var(--text3);font-size:.7rem;">$16+/mo</div>
+                    <div style="color:var(--text3);font-size:.7rem;">$5/mo + extras</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" aria-labelledby="faq-heading">
+        <div class="container">
+            <div class="reveal" style="text-align:center;">
+                <div class="section-tag" style="justify-content:center;margin-bottom:14px;">06 // FAQ</div>
+                <h2 class="section-heading" id="faq-heading">Questions? <span class="grad-text">Answered.</span></h2>
+            </div>
+            <div class="faq-list reveal d2">
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                        What exactly is Storm OS? <span class="faq-chevron">▾</span>
+                    </button>
+                    <div class="faq-a" role="region">
+                        <div class="faq-a-inner">Storm OS is a web-based productivity operating system built for
+                            developers and tech professionals. It combines a Deep Work Planner, Focus Timer, Habit
+                            Matrix, Weekly & Monthly Planners, a full 7-panel Dev Tools Suite, and a Gamification engine
+                            (XP, Levels, Achievements) — all in one unified dashboard. No app-switching. No duct-tape
+                            integrations. One system to rule your day.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                        Is this a one-time purchase or subscription? <span class="faq-chevron">▾</span>
+                    </button>
+                    <div class="faq-a" role="region">
+                        <div class="faq-a-inner">Storm OS is $9.99/month with no lock-in — cancel anytime. There's also
+                            the <strong>Lock In PDF</strong> available as a one-time $14.99 purchase: a premium planning
+                            system you can print and use offline or alongside the dashboard. Both are built to
+                            complement each other.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                        Does it work on mobile? <span class="faq-chevron">▾</span>
+                    </button>
+                    <div class="faq-a" role="region">
+                        <div class="faq-a-inner">Yes. Storm OS is fully responsive and optimized for all screen sizes.
+                            Cloud sync keeps your data in perfect sync across every browser and device — desktop,
+                            tablet, or phone.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                        What dev tools are included? <span class="faq-chevron">▾</span>
+                    </button>
+                    <div class="faq-a" role="region">
+                        <div class="faq-a-inner">7 panels: <strong>Code Playground</strong> (run JS live),
+                            <strong>GitHub Stats</strong> (fetch any user's public repos), <strong>Code
+                                Snippets</strong> (save & organize reusable code), <strong>Data Structures
+                                Visualizer</strong>, <strong>Big O Complexity Analyzer</strong>, <strong>Markdown
+                                Editor</strong> with live preview, and a <strong>Focus Score Engine</strong> that grades
+                            your daily performance. All without leaving your dashboard.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                        How does the XP & leveling system work? <span class="faq-chevron">▾</span>
+                    </button>
+                    <div class="faq-a" role="region">
+                        <div class="faq-a-inner">Every action earns XP: completing a task (+15 XP), finishing a focus
+                            session (+20 XP), checking a habit (+5 XP), and more. You level up every 100 XP, earning a
+                            +50 XP bonus per level. Weekly goals, Quick Wins, and Field Notes keep you accountable,
+                            while the 90-day heatmap shows your long-term pattern. It's designed to make discipline
+                            addictive.</div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+                        Who is Storm OS built for? <span class="faq-chevron">▾</span>
+                    </button>
+                    <div class="faq-a" role="region">
+                        <div class="faq-a-inner">Developers, engineers, indie hackers, CS students, and any tech
+                            professional who wants to operate at a higher level. If you've ever felt scattered between
+                            Notion, Todoist, a timer app, a habit tracker, and your dev tools — Storm OS was designed
+                            specifically for you.</div>
                     </div>
                 </div>
             </div>
@@ -2912,67 +3913,44 @@
 
         async function verifyTransaction(tx) {
             try {
-                const res = await fetch(VERIFY_API, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ tx })
-                });
+                const res = await fetch(VERIFY_API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tx }) });
                 if (!res.ok) return { valid: false, reason: 'Verification server error.' };
                 return await res.json();
-            } catch (e) {
-                return { valid: false, reason: 'Could not reach the payment server. Check your connection.' };
-            }
+            } catch (e) { return { valid: false, reason: 'Could not reach the payment server. Check your connection.' }; }
         }
 
         async function processPaymentReturn() {
-            const tx = urlParam('tx');
-            const status = urlParam('st');
+            const tx = urlParam('tx'), status = urlParam('st');
             if (!tx) return;
-
-            if (status && status !== 'Completed') {
-                alert('Payment was not completed. Please retry or contact support.');
-                window.history.replaceState({}, '', window.location.pathname);
-                return;
-            }
-
+            if (status && status !== 'Completed') { alert('Payment was not completed. Please retry or contact support.'); window.history.replaceState({}, '', window.location.pathname); return; }
             const result = await verifyTransaction(tx);
             window.history.replaceState({}, '', window.location.pathname);
-
             if (result.valid) {
                 localStorage.setItem('storm_os_paid', 'true');
                 localStorage.setItem('storm_os_payment_tx', tx);
                 const banner = document.getElementById('payment-confirm-banner');
-                if (banner) {
-                    banner.textContent = '✅ Payment verified. Redirecting you to the dashboard...';
-                    banner.classList.add('show');
-                }
-                if (isLoggedIn()) {
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 900);
-                } else {
-                    localStorage.setItem('storm_os_payment_pending', 'true');
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 900);
-                }
-            } else {
-                alert(result.reason || 'Payment could not be verified.');
-            }
+                if (banner) { banner.textContent = '✅ Payment verified. Redirecting you to the dashboard...'; banner.classList.add('show'); }
+                if (isLoggedIn()) { setTimeout(() => { window.location.href = 'dashboard.html'; }, 900); }
+                else { localStorage.setItem('storm_os_payment_pending', 'true'); setTimeout(() => { window.location.href = 'login.html'; }, 900); }
+            } else { alert(result.reason || 'Payment could not be verified.'); }
         }
 
         function handlePurchase() {
             if (isLoggedIn() && hasPaid()) { window.location.href = 'dashboard.html'; return; }
-            if (isLoggedIn() && !hasPaid()) {
-                localStorage.setItem('return_to_pricing_after_payment', 'true');
-                window.location.href = PAYPAL_PAYMENT_URL;
-                return;
-            }
+            if (isLoggedIn() && !hasPaid()) { localStorage.setItem('return_to_pricing_after_payment', 'true'); window.location.href = PAYPAL_PAYMENT_URL; return; }
             localStorage.setItem('pending_payment_intent', 'true');
             window.location.href = 'login.html';
         }
 
-        // Mock timer countdown
+        // ===== SCROLL PROGRESS BAR =====
+        const progressBar = document.getElementById('scroll-progress');
+        function updateProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+        }
+
+        // ===== MOCK TIMER =====
         let ms = 24 * 60 + 58;
         setInterval(() => {
             ms = ms > 0 ? ms - 1 : 25 * 60;
@@ -2980,7 +3958,27 @@
             if (el) el.textContent = String(Math.floor(ms / 60)).padStart(2, '0') + ':' + String(ms % 60).padStart(2, '0');
         }, 1000);
 
-        // Count-up animation
+        // ===== OFFER COUNTDOWN TIMER =====
+        (function () {
+            // Fixed end time stored in sessionStorage so it persists through reload
+            let endTime = sessionStorage.getItem('storm_offer_end');
+            if (!endTime) {
+                endTime = Date.now() + 23 * 3600000 + 47 * 60000 + 12000;
+                sessionStorage.setItem('storm_offer_end', endTime);
+            }
+            function updateOfferTimer() {
+                const remaining = Math.max(0, endTime - Date.now());
+                const h = Math.floor(remaining / 3600000);
+                const m = Math.floor((remaining % 3600000) / 60000);
+                const s = Math.floor((remaining % 60000) / 1000);
+                const el = document.getElementById('offer-timer');
+                if (el) el.textContent = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            }
+            updateOfferTimer();
+            setInterval(updateOfferTimer, 1000);
+        })();
+
+        // ===== COUNT-UP ANIMATION =====
         function countUp(el, target, dur = 1500) {
             if (el.dataset.counted) return;
             el.dataset.counted = '1';
@@ -2991,12 +3989,8 @@
                 const e = Math.min(now - s, dur);
                 const p = 1 - Math.pow(1 - e / dur, 3);
                 const v = startVal + p * (target - startVal);
-                if (isDecimal) {
-                    el.textContent = v.toFixed(1);
-                } else {
-                    const rounded = Math.round(v);
-                    el.textContent = rounded >= 1000 ? rounded.toLocaleString() : rounded;
-                }
+                if (isDecimal) el.textContent = v.toFixed(1);
+                else { const r = Math.round(v); el.textContent = r >= 1000 ? r.toLocaleString() : r; }
                 if (e < dur) requestAnimationFrame(upd);
                 else el.textContent = isDecimal ? target.toFixed(1) : (target >= 1000 ? target.toLocaleString() : target);
             }
@@ -3016,6 +4010,7 @@
             });
         }
 
+        // ===== INTERSECTION OBSERVER =====
         const obs = new IntersectionObserver(entries => entries.forEach(e => {
             if (e.isIntersecting) {
                 e.target.classList.add('active');
@@ -3030,15 +4025,33 @@
             document.querySelectorAll('.hero-stats .count-up[data-target]').forEach(el => countUp(el, parseFloat(el.dataset.target)));
         }, 800);
 
-        const sections = ['os', 'benefits', 'products', 'pricing'];
+        // ===== SCROLL EVENTS =====
+        const sections = ['os', 'benefits', 'products', 'compare', 'faq', 'pricing'];
         const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+        let lastScrollY = 0;
 
         window.addEventListener('scroll', () => {
             const y = window.scrollY;
+            updateProgress();
+
             document.getElementById('nav').classList.toggle('scrolled', y > 40);
+
+            // Floating CTA: show after scrolling 600px
+            const fcta = document.getElementById('floating-cta');
+            if (y > 600) fcta.classList.add('show');
+            else fcta.classList.remove('show');
+
+            // Live bar: show after 200px
+            const liveBar = document.getElementById('live-bar');
+            if (y > 200) liveBar.classList.add('show');
+            else liveBar.classList.remove('show');
+
+            // Parallax orbs
             document.querySelectorAll('.orb').forEach((o, i) => {
                 o.style.transform = 'translate(0,' + y * (i + 1) * .12 + 'px) scale(1)';
             });
+
+            // Active nav link
             let current = '';
             sections.forEach(id => {
                 const el = document.getElementById(id);
@@ -3047,20 +4060,152 @@
             navLinks.forEach(a => {
                 a.classList.toggle('nav-active', a.dataset.section === current);
             });
+
+            lastScrollY = y;
         });
 
+        // ===== CURSOR =====
         const cursor = document.getElementById('cursor'), cursorRing = document.getElementById('cursor-ring');
         let mx = 0, my = 0, rx = 0, ry = 0;
         document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
         (function animRing() {
-            rx += (mx - rx) * 0.12;
-            ry += (my - ry) * 0.12;
-            cursorRing.style.left = rx + 'px';
-            cursorRing.style.top = ry + 'px';
+            rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+            cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
             requestAnimationFrame(animRing);
         })();
         document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; cursorRing.style.opacity = '0'; });
         document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; cursorRing.style.opacity = '1'; });
+
+        // ===== PARTICLE TRAIL =====
+        (function () {
+            const canvas = document.getElementById('particle-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouseX = 0, mouseY = 0;
+
+            function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            resize();
+            window.addEventListener('resize', resize);
+
+            document.addEventListener('mousemove', e => {
+                mouseX = e.clientX; mouseY = e.clientY;
+                if (Math.random() > 0.55) return; // Throttle
+                particles.push({
+                    x: mouseX, y: mouseY,
+                    vx: (Math.random() - 0.5) * 1.2,
+                    vy: (Math.random() - 0.5) * 1.2 - 0.5,
+                    life: 1,
+                    size: Math.random() * 2.5 + 0.5,
+                    color: Math.random() > 0.5 ? '59,130,246' : '99,102,241'
+                });
+            });
+
+            function animParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles = particles.filter(p => p.life > 0);
+                particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    p.life -= 0.025;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${p.color},${p.life * 0.6})`;
+                    ctx.fill();
+                });
+                requestAnimationFrame(animParticles);
+            }
+            animParticles();
+        })();
+
+        // ===== FAQ ACCORDION =====
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            const isOpen = item.classList.contains('open');
+            // Close all
+            document.querySelectorAll('.faq-item.open').forEach(el => {
+                el.classList.remove('open');
+                el.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) {
+                item.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        // ===== LIVE USER COUNTER =====
+        (function () {
+            const el = document.getElementById('live-count');
+            if (!el) return;
+            let base = 42 + Math.floor(Math.random() * 20);
+            setInterval(() => {
+                base += Math.floor(Math.random() * 3) - 1;
+                base = Math.max(28, Math.min(99, base));
+                el.textContent = base;
+            }, 4500);
+        })();
+
+        // ===== SOCIAL PROOF TOASTS =====
+        const toastData = [
+            { initials: 'AK', name: 'Alex K.', msg: 'just started a focus session', color: 'linear-gradient(135deg,#3b82f6,#6366f1)', loc: 'Berlin, DE' },
+            { initials: 'SR', name: 'Sofia R.', msg: 'reached Level 8 ⚡', color: 'linear-gradient(135deg,#8b5cf6,#ec4899)', loc: 'São Paulo, BR' },
+            { initials: 'MT', name: 'Marcus T.', msg: 'completed a 14-day streak 🔥', color: 'linear-gradient(135deg,#f59e0b,#ef4444)', loc: 'Toronto, CA' },
+            { initials: 'PV', name: 'Pavel V.', msg: 'just subscribed to Storm OS', color: 'linear-gradient(135deg,#10b981,#06b6d4)', loc: 'Prague, CZ' },
+            { initials: 'JL', name: 'Jamie L.', msg: 'logged 4.5h of deep work', color: 'linear-gradient(135deg,#06b6d4,#3b82f6)', loc: 'London, UK' },
+            { initials: 'NB', name: 'Nadia B.', msg: 'earned 500 XP today 🏆', color: 'linear-gradient(135deg,#c9a227,#e8c44a)', loc: 'Lagos, NG' },
+            { initials: 'DS', name: 'Dev Singh', msg: 'opened the Code Playground', color: 'linear-gradient(135deg,#6366f1,#8b5cf6)', loc: 'Mumbai, IN' },
+            { initials: 'CM', name: 'Carlos M.', msg: 'just hit a 21-day streak 🔥🔥', color: 'linear-gradient(135deg,#ef4444,#f59e0b)', loc: 'Madrid, ES' },
+        ];
+
+        function showToast(data) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = 'proof-toast';
+            toast.innerHTML = `
+                <div class="toast-avatar" style="background:${data.color}">${data.initials}</div>
+                <div>
+                    <div class="toast-name">${data.name} <span style="font-family:var(--mono);font-size:.52rem;color:var(--text3)">${data.loc}</span></div>
+                    <div>${data.msg}</div>
+                </div>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 50);
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        let toastIndex = 0;
+        function cycleToasts() {
+            showToast(toastData[toastIndex % toastData.length]);
+            toastIndex++;
+            setTimeout(cycleToasts, 6000 + Math.random() * 4000);
+        }
+        setTimeout(cycleToasts, 5000); // Start after 5s
+
+        // ===== EXIT INTENT =====
+        let exitShown = false;
+        document.addEventListener('mouseleave', e => {
+            if (e.clientY <= 0 && !exitShown && !sessionStorage.getItem('exit_shown')) {
+                exitShown = true;
+                sessionStorage.setItem('exit_shown', '1');
+                document.getElementById('exit-overlay').classList.add('show');
+            }
+        });
+
+        function closeExit() {
+            document.getElementById('exit-overlay').classList.remove('show');
+        }
+
+        document.getElementById('exit-overlay').addEventListener('click', function (e) {
+            if (e.target === this) closeExit();
+        });
+
+        // ===== KEYBOARD ESC CLOSE =====
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeExit();
+        });
+
         window.addEventListener('load', processPaymentReturn);
     </script>
 </body>
