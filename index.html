@@ -3830,7 +3830,8 @@
                                 Snippets</strong> (save & organize reusable code), <strong>Data Structures
                                 Visualizer</strong>, <strong>Big O Complexity Analyzer</strong>, <strong>Markdown
                                 Editor</strong> with live preview, and a <strong>Focus Score Engine</strong> that grades
-                            your daily performance. All without leaving your dashboard.</div>
+                            your daily performance. All without leaving your dashboard.
+                        </div>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -4073,8 +4074,8 @@
             cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
             requestAnimationFrame(animRing);
         })();
-        document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; cursorRing.style.opacity = '0'; });
-        document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; cursorRing.style.opacity = '1'; });
+        document.documentElement.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; cursorRing.style.opacity = '0'; });
+        document.documentElement.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; cursorRing.style.opacity = '1'; });
 
         // ===== PARTICLE TRAIL =====
         (function () {
@@ -4185,11 +4186,14 @@
 
         // ===== EXIT INTENT =====
         let exitShown = false;
-        document.addEventListener('mouseleave', e => {
+        document.documentElement.addEventListener('mouseleave', e => {
             if (e.clientY <= 0 && !exitShown && !sessionStorage.getItem('exit_shown')) {
                 exitShown = true;
                 sessionStorage.setItem('exit_shown', '1');
                 document.getElementById('exit-overlay').classList.add('show');
+                // Restore cursor visibility — mouseleave hid it, but pointer is still in viewport over the modal
+                cursor.style.opacity = '1';
+                cursorRing.style.opacity = '1';
             }
         });
 
