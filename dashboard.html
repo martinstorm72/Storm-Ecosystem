@@ -4813,6 +4813,25 @@
             }
         }
 
+        function _playTimerSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                // Three rising tones: a satisfying "mission complete" chime
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5 E5 G5 C6
+                notes.forEach((freq, i) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain); gain.connect(ctx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.18);
+                    gain.gain.setValueAtTime(0, ctx.currentTime + i * 0.18);
+                    gain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + i * 0.18 + 0.04);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.18 + 0.5);
+                    osc.start(ctx.currentTime + i * 0.18);
+                    osc.stop(ctx.currentTime + i * 0.18 + 0.55);
+                });
+            } catch(e) {}
+        }
         function _miniComplete() {
             clearInterval(miniInt); miniRun = false;
             localStorage.removeItem('timer_mini_state');
@@ -4821,6 +4840,7 @@
             document.getElementById('timer-mini').classList.remove('running');
             document.getElementById('timer-mini').classList.add('complete');
             setTimeout(() => document.getElementById('timer-mini').classList.remove('complete'), 4000);
+            _playTimerSound();
             logSess(Math.round(miniTotal / 60)); showToast('\uD83C\uDF89 Focus complete! +20 XP'); setFocusActive(false);
         }
         function _mainComplete() {
@@ -4830,6 +4850,7 @@
             document.getElementById('main-timer').classList.remove('running');
             document.getElementById('main-timer').classList.add('complete');
             setTimeout(() => document.getElementById('main-timer').classList.remove('complete'), 4000);
+            _playTimerSound();
             logSess(Math.round(mainTotal / 60)); showToast('\uD83C\uDF89 Session! +20 XP'); setFocusActive(false);
         }
 
