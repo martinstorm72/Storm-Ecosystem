@@ -4572,7 +4572,7 @@
                     // New day: carry over goals from previous day as unfinished
                     let prevDate = new Date();
                     prevDate.setDate(prevDate.getDate() - 1);
-                    let prevKey = prevDate.getFullYear() + '-' + String(prevDate.getMonth() + 1).padStart(2, '0') + '-' + String(prevDate.getDate()).padStart(2, '0');
+                    let prevKey = prevDate.getFullYear() + '-' + String(prevDate.getMonth()+1).padStart(2,'0') + '-' + String(prevDate.getDate()).padStart(2,'0');
                     let prevData = localStorage.getItem('today_goals_' + prevKey);
                     if (prevData) {
                         let prevGoals = JSON.parse(prevData);
@@ -4793,12 +4793,187 @@
         function setMain(m) { if (m === 'custom') { let v = parseInt(document.getElementById('deep-custom-minutes').value); if (v && !isNaN(v) && v > 0 && !mainRun) { mainSecs = v * 60; mainTotal = v * 60; document.getElementById('main-timer').textContent = fmt(mainSecs); document.querySelectorAll('#main-presets .preset-btn').forEach(b => b.classList.remove('active')); } } else if (!mainRun) { mainSecs = m * 60; mainTotal = m * 60; document.getElementById('main-timer').textContent = fmt(mainSecs); setMainPresetActive(m); } }
         function setFocusActive(r) { document.querySelectorAll('#focus-waveform .wave-bar').forEach(w => w.classList.toggle('paused', !r)); document.getElementById('focus-dot').style.display = r ? 'block' : 'none'; document.getElementById('focus-status').textContent = r ? 'FOCUS' : 'IDLE'; }
 
-        function toggleMini() { if (miniRun) { clearInterval(miniInt); miniRun = false; document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START'; document.getElementById('mini-badge').innerHTML = 'STANDBY'; document.getElementById('timer-mini').classList.remove('running'); setFocusActive(false); } else { miniRun = true; document.getElementById('mini-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE'; document.getElementById('mini-badge').innerHTML = 'ACTIVE'; document.getElementById('timer-mini').classList.add('running'); setFocusActive(true); markOb('start_timer'); miniInt = setInterval(() => { if (miniSecs > 0) { miniSecs--; document.getElementById('timer-mini').textContent = fmt(miniSecs); if (miniSecs === 0) { clearInterval(miniInt); miniRun = false; document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START'; document.getElementById('timer-mini').classList.remove('running'); document.getElementById('timer-mini').classList.add('complete'); setTimeout(() => document.getElementById('timer-mini').classList.remove('complete'), 4000); logSess(Math.round(miniTotal / 60)); showToast('🎉 Focus complete! +20 XP'); setFocusActive(false); } } }, 1000); } }
-        function stopMini() { if (miniRun) { clearInterval(miniInt); miniRun = false; document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START'; document.getElementById('timer-mini').classList.remove('running'); setFocusActive(false); showToast('Timer stopped'); } }
-        function resetMini() { clearInterval(miniInt); miniRun = false; miniSecs = miniTotal; document.getElementById('timer-mini').textContent = fmt(miniSecs); document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START'; document.getElementById('timer-mini').classList.remove('running', 'complete'); setFocusActive(false); }
-        function toggleMain() { if (mainRun) { clearInterval(mainInt); mainRun = false; document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START'; document.getElementById('main-timer').classList.remove('running'); setFocusActive(false); } else { mainRun = true; document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE'; document.getElementById('main-timer').classList.add('running'); setFocusActive(true); markOb('start_timer'); mainInt = setInterval(() => { if (mainSecs > 0) { mainSecs--; document.getElementById('main-timer').textContent = fmt(mainSecs); if (mainSecs === 0) { clearInterval(mainInt); mainRun = false; document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START'; document.getElementById('main-timer').classList.remove('running'); document.getElementById('main-timer').classList.add('complete'); setTimeout(() => document.getElementById('main-timer').classList.remove('complete'), 4000); logSess(Math.round(mainTotal / 60)); showToast('🎉 Session! +20 XP'); setFocusActive(false); } } }, 1000); } }
-        function stopMain() { if (mainRun) { clearInterval(mainInt); mainRun = false; document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START'; document.getElementById('main-timer').classList.remove('running'); setFocusActive(false); showToast('Timer stopped'); } }
-        function resetMain() { clearInterval(mainInt); mainRun = false; mainSecs = mainTotal; document.getElementById('main-timer').textContent = fmt(mainSecs); document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START'; document.getElementById('main-timer').classList.remove('running', 'complete'); setFocusActive(false); }
+        // ── PERSISTENT TIMERS (survive tab-switch, browser minimize, page refresh) ──
+        // Strategy: on start, store {endTimestamp, total} in localStorage.
+        // setInterval only updates the UI. On any tab-return or page-load,
+        // we recalculate remaining seconds from wall-clock time, not tick count.
+
+        function _saveMiniState() {
+            if (miniRun) {
+                localStorage.setItem('timer_mini_state', JSON.stringify({ endTs: Date.now() + miniSecs * 1000, total: miniTotal, run: true }));
+            } else {
+                localStorage.removeItem('timer_mini_state');
+            }
+        }
+        function _saveMainState() {
+            if (mainRun) {
+                localStorage.setItem('timer_main_state', JSON.stringify({ endTs: Date.now() + mainSecs * 1000, total: mainTotal, run: true }));
+            } else {
+                localStorage.removeItem('timer_main_state');
+            }
+        }
+
+        function _miniComplete() {
+            clearInterval(miniInt); miniRun = false;
+            localStorage.removeItem('timer_mini_state');
+            document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START';
+            document.getElementById('mini-badge').innerHTML = 'STANDBY';
+            document.getElementById('timer-mini').classList.remove('running');
+            document.getElementById('timer-mini').classList.add('complete');
+            setTimeout(() => document.getElementById('timer-mini').classList.remove('complete'), 4000);
+            logSess(Math.round(miniTotal / 60)); showToast('\uD83C\uDF89 Focus complete! +20 XP'); setFocusActive(false);
+        }
+        function _mainComplete() {
+            clearInterval(mainInt); mainRun = false;
+            localStorage.removeItem('timer_main_state');
+            document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
+            document.getElementById('main-timer').classList.remove('running');
+            document.getElementById('main-timer').classList.add('complete');
+            setTimeout(() => document.getElementById('main-timer').classList.remove('complete'), 4000);
+            logSess(Math.round(mainTotal / 60)); showToast('\uD83C\uDF89 Session! +20 XP'); setFocusActive(false);
+        }
+
+        function _startMiniInterval() {
+            clearInterval(miniInt);
+            miniInt = setInterval(() => {
+                // Recalculate from wall-clock so background drift is auto-corrected
+                let saved = JSON.parse(localStorage.getItem('timer_mini_state') || 'null');
+                if (saved) { miniSecs = Math.max(0, Math.round((saved.endTs - Date.now()) / 1000)); }
+                else { miniSecs = Math.max(0, miniSecs - 1); }
+                document.getElementById('timer-mini').textContent = fmt(miniSecs);
+                if (miniSecs <= 0) _miniComplete();
+            }, 1000);
+        }
+        function _startMainInterval() {
+            clearInterval(mainInt);
+            mainInt = setInterval(() => {
+                let saved = JSON.parse(localStorage.getItem('timer_main_state') || 'null');
+                if (saved) { mainSecs = Math.max(0, Math.round((saved.endTs - Date.now()) / 1000)); }
+                else { mainSecs = Math.max(0, mainSecs - 1); }
+                document.getElementById('main-timer').textContent = fmt(mainSecs);
+                if (mainSecs <= 0) _mainComplete();
+            }, 1000);
+        }
+
+        // Restore timers that were running before a page reload / tab switch
+        function _restoreTimerStates() {
+            try {
+                let ms = JSON.parse(localStorage.getItem('timer_mini_state') || 'null');
+                if (ms && ms.run) {
+                    let remaining = Math.round((ms.endTs - Date.now()) / 1000);
+                    if (remaining > 0) {
+                        miniSecs = remaining; miniTotal = ms.total; miniRun = true;
+                        document.getElementById('timer-mini').textContent = fmt(miniSecs);
+                        document.getElementById('mini-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
+                        document.getElementById('mini-badge').innerHTML = 'ACTIVE';
+                        document.getElementById('timer-mini').classList.add('running');
+                        setFocusActive(true); _startMiniInterval();
+                    } else { localStorage.removeItem('timer_mini_state'); }
+                }
+                let ss = JSON.parse(localStorage.getItem('timer_main_state') || 'null');
+                if (ss && ss.run) {
+                    let remaining = Math.round((ss.endTs - Date.now()) / 1000);
+                    if (remaining > 0) {
+                        mainSecs = remaining; mainTotal = ss.total; mainRun = true;
+                        document.getElementById('main-timer').textContent = fmt(mainSecs);
+                        document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
+                        document.getElementById('main-timer').classList.add('running');
+                        setFocusActive(true); _startMainInterval();
+                    } else { localStorage.removeItem('timer_main_state'); }
+                }
+            } catch(e) {}
+        }
+
+        // Re-sync timers when tab becomes visible again (catches background drift)
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                if (miniRun) {
+                    let saved = JSON.parse(localStorage.getItem('timer_mini_state') || 'null');
+                    if (saved) {
+                        miniSecs = Math.max(0, Math.round((saved.endTs - Date.now()) / 1000));
+                        document.getElementById('timer-mini').textContent = fmt(miniSecs);
+                        if (miniSecs <= 0) _miniComplete();
+                    }
+                }
+                if (mainRun) {
+                    let saved = JSON.parse(localStorage.getItem('timer_main_state') || 'null');
+                    if (saved) {
+                        mainSecs = Math.max(0, Math.round((saved.endTs - Date.now()) / 1000));
+                        document.getElementById('main-timer').textContent = fmt(mainSecs);
+                        if (mainSecs <= 0) _mainComplete();
+                    }
+                }
+            }
+        });
+
+        function toggleMini() {
+            if (miniRun) {
+                clearInterval(miniInt); miniRun = false;
+                localStorage.removeItem('timer_mini_state');
+                document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START';
+                document.getElementById('mini-badge').innerHTML = 'STANDBY';
+                document.getElementById('timer-mini').classList.remove('running');
+                setFocusActive(false);
+            } else {
+                miniRun = true;
+                document.getElementById('mini-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
+                document.getElementById('mini-badge').innerHTML = 'ACTIVE';
+                document.getElementById('timer-mini').classList.add('running');
+                setFocusActive(true); markOb('start_timer');
+                _saveMiniState(); _startMiniInterval();
+            }
+        }
+        function stopMini() {
+            if (miniRun) {
+                clearInterval(miniInt); miniRun = false;
+                localStorage.removeItem('timer_mini_state');
+                document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START';
+                document.getElementById('mini-badge').innerHTML = 'STANDBY';
+                document.getElementById('timer-mini').classList.remove('running');
+                setFocusActive(false); showToast('Timer stopped');
+            }
+        }
+        function resetMini() {
+            clearInterval(miniInt); miniRun = false; miniSecs = miniTotal;
+            localStorage.removeItem('timer_mini_state');
+            document.getElementById('timer-mini').textContent = fmt(miniSecs);
+            document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START';
+            document.getElementById('mini-badge').innerHTML = 'STANDBY';
+            document.getElementById('timer-mini').classList.remove('running', 'complete');
+            setFocusActive(false);
+        }
+        function toggleMain() {
+            if (mainRun) {
+                clearInterval(mainInt); mainRun = false;
+                localStorage.removeItem('timer_main_state');
+                document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
+                document.getElementById('main-timer').classList.remove('running');
+                setFocusActive(false);
+            } else {
+                mainRun = true;
+                document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
+                document.getElementById('main-timer').classList.add('running');
+                setFocusActive(true); markOb('start_timer');
+                _saveMainState(); _startMainInterval();
+            }
+        }
+        function stopMain() {
+            if (mainRun) {
+                clearInterval(mainInt); mainRun = false;
+                localStorage.removeItem('timer_main_state');
+                document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
+                document.getElementById('main-timer').classList.remove('running');
+                setFocusActive(false); showToast('Timer stopped');
+            }
+        }
+        function resetMain() {
+            clearInterval(mainInt); mainRun = false; mainSecs = mainTotal;
+            localStorage.removeItem('timer_main_state');
+            document.getElementById('main-timer').textContent = fmt(mainSecs);
+            document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
+            document.getElementById('main-timer').classList.remove('running', 'complete');
+            setFocusActive(false);
+        }
         function skipTimer() { if (mainRun) clearInterval(mainInt); resetMain(); }
 
         function logSess(mins) { if (mins <= 0) return; let task = document.getElementById('sess-task')?.value || ''; S.sessions.push({ time: new Date().toLocaleTimeString(), task: task || 'Focus', mins, date: todayKey, hour: new Date().getHours() }); S.analytics.totalSess = (S.analytics.totalSess || 0) + 1; S.analytics.totalMin = (S.analytics.totalMin || 0) + mins; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; S.analytics.daily[todayKey].sess = (S.analytics.daily[todayKey].sess || 0) + 1; S.analytics.daily[todayKey].min = (S.analytics.daily[todayKey].min || 0) + mins; updateScore(); renderSessLog(); renderWeekBars(); saveNow(); addXP(20); }
@@ -4993,7 +5168,7 @@
                 let timerMini = document.getElementById('timer-mini'); if (timerMini) timerMini.textContent = fmt(miniSecs);
                 let mainTimer = document.getElementById('main-timer'); if (mainTimer) mainTimer.textContent = fmt(mainSecs);
                 loadObStatus(); loadTodayGoals(); renderObFloat();
-                renderAll(); updateXPBar(); loadTheme(); loadQuotes(); renderSnippets(); renderFocusScoreHistory(); checkDailyOnLoad();
+                renderAll(); _restoreTimerStates(); updateXPBar(); loadTheme(); loadQuotes(); renderSnippets(); renderFocusScoreHistory(); checkDailyOnLoad();
                 setInterval(() => { let clock = document.getElementById('live-clock'); if (clock) clock.innerHTML = new Date().toTimeString().slice(0, 8); }, 1000);
                 // Flush any pending save every 30s (catches anything missed)
                 setInterval(() => { if (currentUser && _pendingCloudSave) _flushToCloud(); }, 30 * 1000);
