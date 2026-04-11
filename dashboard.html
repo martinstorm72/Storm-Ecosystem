@@ -11,32 +11,52 @@
     <meta name="apple-mobile-web-app-title" content="OPERATOR">
     <link rel="manifest" id="pwa-manifest-link">
     <link
-        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
-            --bg: #080a0c;
-            --bg2: #0d1117;
-            --card: #111418;
-            --card2: #161b22;
-            --border: #1e2530;
-            --border2: #252d3a;
-            --accent: #6c63ff;
-            --accent2: #8b84ff;
-            --accent-glow: rgba(108, 99, 255, 0.25);
-            --green: #39d353;
-            --green-dim: #1a6b29;
-            --red: #ff4757;
-            --amber: #ffb347;
-            --cyan: #00d2ff;
-            --text: #e6edf3;
-            --text2: #8b949e;
-            --text3: #484f58;
-            --mono: 'Share Tech Mono', monospace;
-            --head: 'Orbitron', sans-serif;
-            --body: 'Rajdhani', sans-serif;
+            --bg: #000000;
+            --bg2: #020202;
+            --card: #060606;
+            --card2: #0a0a0a;
+            --border: #111111;
+            --border2: #1a1a1a;
+            --accent: #ffffff;
+            --accent2: #d8d8d8;
+            --accent-glow: rgba(255, 255, 255, 0.10);
+            --green: #bbbbbb;
+            --green-dim: #444444;
+            --red: #888888;
+            --amber: #eeeeee;
+            --cyan: #cccccc;
+            --text: #f8f8f8;
+            --text2: #777777;
+            --text3: #333333;
+            --mono: 'JetBrains Mono', monospace;
+            --head: 'Cormorant Garamond', serif;
+            --body: 'EB Garamond', serif;
+        }
+
+        /* ── GLOBAL WEIGHT BOOST ── */
+        p,
+        li,
+        span,
+        div,
+        td,
+        th,
+        label {
+            font-weight: 600;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 900;
         }
 
         * {
@@ -49,8 +69,8 @@
             background: var(--bg);
             color: var(--text);
             font-family: var(--body);
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight: 600;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -69,7 +89,7 @@
 
         #loading-overlay h2 {
             font-family: var(--head);
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             font-weight: 900;
             background: linear-gradient(135deg, #fff, var(--accent2), var(--cyan));
             -webkit-background-clip: text;
@@ -80,7 +100,8 @@
 
         #loading-overlay p {
             font-family: var(--mono);
-            font-size: .85rem;
+            font-size: 1.12rem;
+            font-weight: 700;
             color: var(--text3);
             letter-spacing: .1em;
         }
@@ -184,11 +205,11 @@
 
             0%,
             100% {
-                text-shadow: 0 0 30px rgba(108, 99, 255, .4);
+                text-shadow: 0 0 30px rgba(255, 255, 255, .15);
             }
 
             50% {
-                text-shadow: 0 0 60px rgba(108, 99, 255, .9), 0 0 100px rgba(108, 99, 255, .4);
+                text-shadow: 0 0 60px rgba(255, 255, 255, .35), 0 0 100px rgba(255, 255, 255, .15);
             }
         }
 
@@ -196,11 +217,11 @@
 
             0%,
             100% {
-                text-shadow: 0 0 20px rgba(57, 211, 83, .3);
+                text-shadow: 0 0 20px rgba(200, 200, 200, .3);
             }
 
             50% {
-                text-shadow: 0 0 50px rgba(57, 211, 83, .8), 0 0 80px rgba(57, 211, 83, .3);
+                text-shadow: 0 0 50px rgba(200, 200, 200, .5), 0 0 80px rgba(200, 200, 200, .2);
             }
         }
 
@@ -351,11 +372,11 @@
 
             0%,
             100% {
-                box-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
             }
 
             50% {
-                box-shadow: 0 0 35px rgba(108, 99, 255, 0.7);
+                box-shadow: 0 0 35px rgba(255, 255, 255, 0.1);
             }
         }
 
@@ -374,7 +395,7 @@
         .grid-bg {
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(rgba(108, 99, 255, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(108, 99, 255, .04) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(255, 255, 255, .01) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .01) 1px, transparent 1px);
             background-size: 48px 48px;
             pointer-events: none;
             z-index: 0;
@@ -386,7 +407,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(108, 99, 255, .15), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .05), transparent);
             animation: scanline 8s linear infinite;
             pointer-events: none;
             z-index: 1;
@@ -421,7 +442,7 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), var(--cyan), var(--accent), transparent);
+            background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), var(--accent), transparent);
             background-size: 200% 100%;
             animation: borderFlow 4s linear infinite;
             opacity: .4;
@@ -442,7 +463,7 @@
 
         .brand .sub {
             font-family: var(--mono);
-            font-size: .88rem;
+            font-size: 0.99rem;
             font-weight: 700;
             color: var(--green);
             letter-spacing: .1em;
@@ -498,7 +519,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            border: 1px solid rgba(108, 99, 255, .2);
+            border: 1px solid rgba(255, 255, 255, .08);
             position: relative;
             overflow: hidden;
         }
@@ -507,7 +528,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, transparent, rgba(108, 99, 255, .1), transparent);
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, .04), transparent);
             transform: translateX(-100%);
             transition: transform 0.5s;
         }
@@ -527,7 +548,7 @@
             padding: 4px 12px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: .82rem;
+            font-size: 0.92rem;
             animation: pulse 3s infinite;
         }
 
@@ -552,7 +573,7 @@
             align-items: center;
             gap: 20px;
             font-family: var(--mono);
-            font-size: .84rem;
+            font-size: 0.94rem;
             font-weight: 700;
             flex-wrap: wrap;
         }
@@ -588,7 +609,7 @@
 
         .clock-display {
             font-family: var(--mono);
-            font-size: .86rem;
+            font-size: 0.96rem;
             font-weight: 700;
             color: var(--cyan);
             letter-spacing: .1em;
@@ -603,7 +624,7 @@
         .btn {
             font-family: var(--head);
             font-weight: 700;
-            font-size: .75rem;
+            font-size: 0.89rem;
             letter-spacing: .12em;
             padding: 8px 16px;
             border: none;
@@ -641,7 +662,7 @@
 
         .btn-primary:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(108, 99, 255, .5);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, .15);
         }
 
         .btn-ghost {
@@ -671,7 +692,7 @@
         .btn-sync {
             background: rgba(57, 211, 83, .12);
             color: var(--green);
-            border: 1px solid rgba(57, 211, 83, .25);
+            border: 1px solid rgba(255, 255, 255, .07);
         }
 
         .btn-sync:hover {
@@ -681,13 +702,13 @@
 
         .btn-sm {
             padding: 4px 10px;
-            font-size: .7rem;
+            font-size: 0.83rem;
         }
 
         /* ===== CHANGE 4: Single, clear main CTA ===== */
         .hero-cta-bar {
-            background: linear-gradient(135deg, rgba(108, 99, 255, 0.18), rgba(0, 210, 255, 0.08));
-            border: 1px solid rgba(108, 99, 255, 0.35);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(200, 200, 200, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 10px;
             padding: 22px 32px;
             margin: 20px 0 0 0;
@@ -701,7 +722,7 @@
 
         .hero-cta-text h2 {
             font-family: var(--head);
-            font-size: 1.15rem;
+            font-size: 1.29rem;
             font-weight: 900;
             background: linear-gradient(135deg, #fff, var(--accent2));
             -webkit-background-clip: text;
@@ -713,24 +734,23 @@
 
         .hero-cta-text p {
             font-family: var(--mono);
-            font-size: .84rem;
+            font-size: 0.94rem;
             color: var(--text2);
         }
 
         .btn-hero {
             font-family: var(--head);
             font-weight: 900;
-            font-size: 1rem;
+            font-size: 1.12rem;
             letter-spacing: .14em;
             padding: 16px 40px;
-            border: none;
-            border-radius: 8px;
+            border: 1.5px solid #cccccc;
+            border-radius: 999px;
             cursor: pointer;
-            background: linear-gradient(135deg, var(--accent), var(--accent2), var(--cyan));
+            background: #ffffff;
             background-size: 200% auto;
-            color: #fff;
-            animation: shimmer 3s linear infinite;
-            box-shadow: 0 0 40px rgba(108, 99, 255, 0.5);
+            color: #000000;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             white-space: nowrap;
             display: inline-flex;
@@ -740,16 +760,16 @@
 
         .btn-hero:hover {
             transform: translateY(-4px) scale(1.04);
-            box-shadow: 0 14px 45px rgba(108, 99, 255, 0.7);
+            box-shadow: 0 14px 45px rgba(255, 255, 255, 0.15);
         }
 
         .btn-hero i {
-            font-size: 1.1rem;
+            font-size: 1.23rem;
         }
 
         .quote-banner {
-            background: linear-gradient(135deg, rgba(108, 99, 255, 0.1), rgba(0, 210, 255, 0.05));
-            border: 1px solid rgba(108, 99, 255, 0.2);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(200, 200, 200, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 10px;
             padding: 18px 24px;
             margin: 16px 0 0 0;
@@ -768,7 +788,7 @@
 
         .quote-text {
             font-family: var(--mono);
-            font-size: .88rem;
+            font-size: 0.99rem;
             font-weight: 600;
             color: var(--text2);
             font-style: italic;
@@ -778,7 +798,7 @@
 
         .quote-refresh {
             font-family: var(--mono);
-            font-size: .72rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--text3);
             cursor: pointer;
@@ -808,7 +828,7 @@
 
         .nav-tab {
             font-family: var(--head);
-            font-size: .72rem;
+            font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: .12em;
             color: var(--text3);
@@ -884,14 +904,14 @@
         }
 
         .card:hover {
-            border-color: rgba(108, 99, 255, .3);
+            border-color: rgba(255, 255, 255, .1);
             transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, .4), 0 0 0 1px rgba(108, 99, 255, .1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .05);
         }
 
         .card-title {
             font-family: var(--head);
-            font-size: .78rem;
+            font-size: 0.92rem;
             font-weight: 700;
             letter-spacing: .15em;
             color: var(--text2);
@@ -902,7 +922,7 @@
 
         .card-badge {
             font-family: var(--mono);
-            font-size: .72rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--green);
         }
@@ -942,7 +962,7 @@
             border-radius: 5px;
             color: var(--text);
             font-family: var(--mono);
-            font-size: .88rem;
+            font-size: 0.99rem;
             font-weight: 600;
             padding: 8px 12px;
             outline: none;
@@ -954,7 +974,7 @@
         textarea:focus,
         select:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-glow), 0 0 20px rgba(108, 99, 255, .1);
+            box-shadow: 0 0 0 3px var(--accent-glow), 0 0 20px rgba(255, 255, 255, .05);
         }
 
         .timer-display {
@@ -965,12 +985,12 @@
 
         .timer-digits {
             font-family: var(--head);
-            font-size: 5rem;
+            font-size: 5.0rem;
             font-weight: 900;
             letter-spacing: .08em;
             color: var(--text);
             line-height: 1.2;
-            text-shadow: 0 0 30px rgba(108, 99, 255, .4);
+            text-shadow: 0 0 30px rgba(255, 255, 255, .15);
             transition: color 0.5s, text-shadow 0.5s;
             position: relative;
             z-index: 1;
@@ -987,7 +1007,7 @@
 
         .timer-label {
             font-family: var(--mono);
-            font-size: .86rem;
+            font-size: 0.96rem;
             font-weight: 700;
             color: var(--text3);
             margin-top: 8px;
@@ -1013,13 +1033,13 @@
 
         .preset-btn {
             font-family: var(--mono);
-            font-size: .8rem;
+            font-size: 0.9rem;
             font-weight: 700;
             padding: 6px 14px;
-            background: var(--bg2);
-            border: 1px solid var(--border2);
-            border-radius: 5px;
-            color: var(--text2);
+            background: #ffffff;
+            border: 1.5px solid #cccccc;
+            border-radius: 999px;
+            color: #000000;
             cursor: pointer;
             transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: inline-flex;
@@ -1030,25 +1050,26 @@
         }
 
         .preset-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent2);
+            border-color: #888888;
+            color: #000000;
+            background: #f0f0f0;
             transform: scale(1.05) translateY(-2px);
         }
 
         .preset-btn.active {
-            border-color: var(--accent);
-            color: var(--accent2);
-            background: var(--accent-glow);
+            border-color: #333333;
+            color: #000000;
+            background: #e8e8e8;
             transform: scale(1.05);
-            box-shadow: 0 0 12px rgba(108, 99, 255, .3);
+            box-shadow: 0 0 12px rgba(255, 255, 255, .08);
         }
 
         .preset-btn input {
             width: 70px;
             background: transparent;
             border: none;
-            color: var(--text2);
-            font-size: .78rem;
+            color: #000000;
+            font-size: 0.92rem;
             padding: 2px 6px;
         }
 
@@ -1115,7 +1136,7 @@
             content: '✓';
             display: block;
             color: #000;
-            font-size: .7rem;
+            font-size: 0.83rem;
             text-align: center;
             line-height: 14px;
         }
@@ -1123,13 +1144,13 @@
         .task-text {
             flex: 1;
             font-family: var(--mono);
-            font-size: .88rem;
+            font-size: 0.99rem;
             font-weight: 600;
         }
 
         .task-priority {
             font-family: var(--mono);
-            font-size: .72rem;
+            font-size: 0.85rem;
             font-weight: 700;
             padding: 2px 6px;
             border-radius: 3px;
@@ -1165,7 +1186,7 @@
         .recurring-badge {
             background: var(--accent-glow);
             color: var(--accent2);
-            font-size: .66rem;
+            font-size: 0.78rem;
             font-weight: 700;
             padding: 2px 6px;
             border-radius: 3px;
@@ -1201,7 +1222,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, rgba(108, 99, 255, .1), transparent);
+            background: radial-gradient(circle at center, rgba(255, 255, 255, .04), transparent);
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -1211,7 +1232,7 @@
         }
 
         .stat-card:hover {
-            border-color: rgba(108, 99, 255, .3);
+            border-color: rgba(255, 255, 255, .1);
             transform: translateY(-6px) scale(1.02);
         }
 
@@ -1239,7 +1260,7 @@
 
         .stat-label {
             font-family: var(--mono);
-            font-size: .7rem;
+            font-size: 0.83rem;
             font-weight: 700;
             color: var(--text3);
             margin-top: 5px;
@@ -1299,7 +1320,7 @@
             text-align: center;
             padding: 20px;
             font-family: var(--mono);
-            font-size: .82rem;
+            font-size: 0.92rem;
             font-weight: 600;
             color: var(--text3);
         }
@@ -1317,7 +1338,7 @@
             padding: 6px 0;
             border-bottom: 1px solid var(--border);
             font-family: var(--mono);
-            font-size: .82rem;
+            font-size: 0.92rem;
             font-weight: 600;
             gap: 8px;
             flex-wrap: wrap;
@@ -1335,7 +1356,7 @@
 
         .habit-row:hover {
             padding-left: 8px;
-            background: rgba(108, 99, 255, .03);
+            background: rgba(255, 255, 255, .02);
             border-radius: 4px;
         }
 
@@ -1354,7 +1375,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: .68rem;
+            font-size: 0.8rem;
             font-weight: 700;
             transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -1395,13 +1416,13 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(180deg, var(--accent), rgba(108, 99, 255, .4));
+            background: linear-gradient(180deg, var(--accent), rgba(255, 255, 255, .15));
             transition: height 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .week-day-label {
             font-family: var(--mono);
-            font-size: .65rem;
+            font-size: 0.77rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 4px;
@@ -1473,7 +1494,7 @@
         }
 
         .journal-meta {
-            font-size: .72rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--text3);
         }
@@ -1529,7 +1550,7 @@
             border: 2px solid var(--border2);
             background: var(--bg2);
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.34rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1540,7 +1561,7 @@
         .energy-btn.active {
             border-color: var(--accent);
             transform: scale(1.2) translateY(-3px);
-            box-shadow: 0 5px 15px rgba(108, 99, 255, .3);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, .08);
         }
 
         .distraction-count {
@@ -1567,7 +1588,7 @@
 
         .tool-tab {
             font-family: var(--mono);
-            font-size: .78rem;
+            font-size: 0.92rem;
             font-weight: 700;
             padding: 6px 14px;
             background: none;
@@ -1602,7 +1623,7 @@
             border-radius: 5px;
             padding: 10px;
             font-family: var(--mono);
-            font-size: .82rem;
+            font-size: 0.92rem;
             font-weight: 600;
             max-height: 200px;
             overflow-y: auto;
@@ -1610,8 +1631,8 @@
         }
 
         .focus-score-container {
-            background: linear-gradient(135deg, rgba(108, 99, 255, 0.15), rgba(0, 210, 255, 0.08));
-            border: 1px solid rgba(108, 99, 255, 0.4);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(200, 200, 200, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 20px;
             margin-top: 0;
@@ -1627,13 +1648,13 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(ellipse at center, rgba(108, 99, 255, .05) 0%, transparent 70%);
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, .02) 0%, transparent 70%);
             pointer-events: none;
         }
 
         .focus-score-title {
             font-family: var(--head);
-            font-size: .78rem;
+            font-size: 0.92rem;
             font-weight: 700;
             letter-spacing: .15em;
             color: var(--accent2);
@@ -1692,7 +1713,7 @@
 
         .score-label-sm {
             font-family: var(--mono);
-            font-size: .58rem;
+            font-size: 0.68rem;
             font-weight: 700;
             color: var(--text3);
             margin-top: 2px;
@@ -1715,7 +1736,7 @@
             display: flex;
             justify-content: space-between;
             font-family: var(--mono);
-            font-size: .72rem;
+            font-size: 0.85rem;
             font-weight: 700;
         }
 
@@ -1734,7 +1755,7 @@
 
         .score-grade {
             font-family: var(--head);
-            font-size: .68rem;
+            font-size: 0.8rem;
             font-weight: 700;
             padding: 3px 8px;
             border-radius: 4px;
@@ -1797,7 +1818,7 @@
             max-height: 80vh;
             overflow-y: auto;
             animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 60px rgba(108, 99, 255, .2);
+            box-shadow: 0 0 60px rgba(255, 255, 255, .05);
         }
 
         .achievement-badge {
@@ -1805,7 +1826,7 @@
             padding: 4px 10px;
             background: linear-gradient(135deg, gold, orange);
             border-radius: 20px;
-            font-size: .74rem;
+            font-size: 0.87rem;
             font-weight: bold;
             color: #000;
             margin: 3px;
@@ -1844,7 +1865,7 @@
             background: var(--card2);
             padding: 6px 10px;
             border-radius: 8px;
-            font-size: .72rem;
+            font-size: 0.85rem;
             font-family: var(--mono);
             font-weight: 700;
             color: var(--text3);
@@ -1877,7 +1898,7 @@
             padding: 6px 0;
             border-bottom: 1px solid var(--border);
             font-family: var(--mono);
-            font-size: .78rem;
+            font-size: 0.92rem;
             font-weight: 600;
         }
 
@@ -1894,7 +1915,7 @@
             align-items: center;
             gap: 5px;
             font-family: var(--mono);
-            font-size: .75rem;
+            font-size: 0.89rem;
             font-weight: 700;
             padding: 3px 8px;
             border-radius: 4px;
@@ -1925,7 +1946,7 @@
             border-radius: 6px;
             padding: 10px 18px;
             font-family: var(--mono);
-            font-size: .82rem;
+            font-size: 0.92rem;
             font-weight: 700;
             color: var(--accent2);
             transform: translateY(60px) scale(0.9);
@@ -1946,7 +1967,7 @@
             pointer-events: none;
             font-family: var(--head);
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 1.34rem;
             color: #ffd700;
             text-shadow: 0 0 10px rgba(255, 215, 0, .6);
             z-index: 9999;
@@ -2001,12 +2022,12 @@
 
         .wp-day-col.today-col {
             border-color: var(--accent);
-            background: rgba(108, 99, 255, 0.06);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .wp-day-header {
             font-family: var(--mono);
-            font-size: .82rem;
+            font-size: 0.92rem;
             /* was .65rem — CHANGE 1 */
             font-weight: 700;
             letter-spacing: .1em;
@@ -2023,7 +2044,7 @@
 
         .wp-event {
             font-family: var(--mono);
-            font-size: .78rem;
+            font-size: 0.92rem;
             /* was .65rem — CHANGE 1 */
             font-weight: 600;
             padding: 5px 8px;
@@ -2080,7 +2101,7 @@
             border: none;
             cursor: pointer;
             color: var(--text3);
-            font-size: .75rem;
+            font-size: 0.89rem;
             padding: 0 2px;
             flex-shrink: 0;
             transition: color 0.2s;
@@ -2091,7 +2112,7 @@
         }
 
         .wp-event-time {
-            font-size: .68rem;
+            font-size: 0.8rem;
             /* was .6rem — CHANGE 1 */
             font-weight: 700;
             opacity: .9;
@@ -2116,14 +2137,14 @@
 
         .wp-stat-val {
             font-family: var(--head);
-            font-size: 1.4rem;
+            font-size: 1.57rem;
             font-weight: 900;
             color: var(--accent2);
         }
 
         .wp-stat-lbl {
             font-family: var(--mono);
-            font-size: .7rem;
+            font-size: 0.83rem;
             color: var(--text3);
             margin-top: 4px;
             letter-spacing: .08em;
@@ -2140,7 +2161,7 @@
                 border-left: none !important;
                 border-right: none !important;
                 border-bottom: none !important;
-                border-top: 1px solid rgba(108, 99, 255, .35) !important;
+                border-top: 1px solid rgba(255, 255, 255, .08) !important;
                 max-height: 70vh;
                 overflow-y: auto;
             }
@@ -2176,12 +2197,12 @@
 
         .mp-day-cell:hover {
             border-color: var(--accent);
-            background: rgba(108, 99, 255, 0.04);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .mp-day-cell.today-cell {
             border-color: var(--accent);
-            background: rgba(108, 99, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .mp-day-cell.other-month {
@@ -2190,12 +2211,12 @@
 
         .mp-day-cell.selected-cell {
             border-color: var(--cyan);
-            background: rgba(0, 210, 255, 0.06);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .mp-day-num {
             font-family: var(--mono);
-            font-size: .82rem;
+            font-size: 0.92rem;
             /* was .7rem — CHANGE 1 */
             font-weight: 700;
             color: var(--text3);
@@ -2208,7 +2229,7 @@
 
         .mp-cell-event {
             font-family: var(--mono);
-            font-size: .64rem;
+            font-size: 0.76rem;
             /* was .52rem — CHANGE 1 */
             font-weight: 700;
             padding: 2px 5px;
@@ -2257,7 +2278,7 @@
 
         .mp-cell-overflow {
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             color: var(--text3);
             margin-top: 1px;
         }
@@ -2299,7 +2320,7 @@
             border-radius: 4px;
             margin-bottom: 5px;
             font-family: var(--mono);
-            font-size: .82rem;
+            font-size: 0.92rem;
             /* was .76rem — CHANGE 1 */
             border-left: 3px solid var(--accent);
             animation: slideInLeft 0.3s ease;
@@ -2333,7 +2354,7 @@
 
         .mp-event-time-badge {
             font-family: var(--mono);
-            font-size: .72rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--text3);
             margin-right: 6px;
@@ -2354,9 +2375,9 @@
             z-index: 900;
             width: 300px;
             background: var(--card);
-            border: 1px solid rgba(108, 99, 255, .35);
+            border: 1px solid rgba(255, 255, 255, .08);
             border-radius: 10px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, .5), 0 0 20px rgba(108, 99, 255, .15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .8), 0 0 20px rgba(255, 255, 255, .03);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             animation: slideInRight 0.5s ease;
         }
@@ -2376,7 +2397,7 @@
         }
 
         .ob-float-header:hover {
-            background: rgba(108, 99, 255, .05);
+            background: rgba(255, 255, 255, .03);
             border-radius: 10px 10px 0 0;
         }
 
@@ -2391,7 +2412,7 @@
 
         .ob-float-title {
             font-family: var(--head);
-            font-size: .62rem;
+            font-size: 0.73rem;
             font-weight: 700;
             letter-spacing: .12em;
             color: var(--accent2);
@@ -2403,7 +2424,7 @@
 
         .ob-float-progress {
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             font-weight: 700;
             color: var(--green);
         }
@@ -2413,7 +2434,7 @@
             border: none;
             color: var(--text3);
             cursor: pointer;
-            font-size: .7rem;
+            font-size: 0.83rem;
             transition: transform 0.3s;
             padding: 2px;
         }
@@ -2434,7 +2455,7 @@
             padding: 5px 0;
             border-bottom: 1px solid rgba(30, 37, 48, .6);
             font-family: var(--mono);
-            font-size: .7rem;
+            font-size: 0.83rem;
             font-weight: 600;
             color: var(--text2);
             cursor: pointer;
@@ -2464,7 +2485,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: .6rem;
+            font-size: 0.71rem;
             transition: all 0.2s;
         }
 
@@ -2477,15 +2498,15 @@
         /* ===== ADAPTIVE TIMER CSS ===== */
         .adaptive-timer-bar {
             margin-top: 14px;
-            background: linear-gradient(135deg, rgba(108, 99, 255, .08), rgba(0, 210, 255, .04));
-            border: 1px solid rgba(108, 99, 255, .22);
+            background: linear-gradient(135deg, rgba(255, 255, 255, .02), rgba(200, 200, 200, .01));
+            border: 1px solid rgba(255, 255, 255, .07);
             border-radius: 9px;
             padding: 12px 16px;
         }
 
         .adaptive-timer-title {
             font-family: var(--head);
-            font-size: .62rem;
+            font-size: 0.73rem;
             font-weight: 900;
             letter-spacing: .14em;
             color: var(--accent2);
@@ -2504,7 +2525,7 @@
 
         .adaptive-suggestion-text {
             font-family: var(--mono);
-            font-size: .74rem;
+            font-size: 0.87rem;
             color: var(--text2);
             flex: 1;
             line-height: 1.5;
@@ -2516,23 +2537,24 @@
 
         .adaptive-apply-btn {
             font-family: var(--head);
-            font-size: .62rem;
+            font-size: 0.73rem;
             font-weight: 900;
             letter-spacing: .1em;
             padding: 6px 14px;
-            border: none;
-            border-radius: 5px;
+            border: 1.5px solid #cccccc;
+            border-radius: 999px;
             cursor: pointer;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            color: #fff;
+            background: #ffffff;
+            color: #000000;
             transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
             white-space: nowrap;
             flex-shrink: 0;
         }
 
         .adaptive-apply-btn:hover {
+            background: #f0f0f0;
             transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 5px 18px rgba(108, 99, 255, .45);
+            box-shadow: 0 5px 18px rgba(0, 0, 0, .3);
         }
 
         .adaptive-history-dots {
@@ -2575,7 +2597,7 @@
 
         .adaptive-streak-label {
             font-family: var(--mono);
-            font-size: .66rem;
+            font-size: 0.78rem;
             color: var(--text3);
             margin-left: 4px;
         }
@@ -2587,7 +2609,7 @@
             padding: 3px 9px;
             border-radius: 12px;
             font-family: var(--mono);
-            font-size: .66rem;
+            font-size: 0.78rem;
             font-weight: 700;
             margin-bottom: 6px;
         }
@@ -2599,9 +2621,9 @@
         }
 
         .adaptive-mode-chip.steady {
-            background: rgba(108, 99, 255, .12);
+            background: rgba(255, 255, 255, .05);
             color: var(--accent2);
-            border: 1px solid rgba(108, 99, 255, .3);
+            border: 1px solid rgba(255, 255, 255, .07);
         }
 
         .adaptive-mode-chip.recover {
@@ -2619,8 +2641,8 @@
         /* ===== FOCUS SCORE ENHANCEMENT CSS ===== */
         .fs-insight-panel {
             margin-top: 14px;
-            background: linear-gradient(135deg, rgba(108, 99, 255, .07), rgba(0, 210, 255, .04));
-            border: 1px solid rgba(108, 99, 255, .2);
+            background: linear-gradient(135deg, rgba(255, 255, 255, .02), rgba(200, 200, 200, .01));
+            border: 1px solid rgba(255, 255, 255, .06);
             border-radius: 9px;
             padding: 14px 16px;
             animation: cardReveal 0.4s ease;
@@ -2628,7 +2650,7 @@
 
         .fs-insight-header {
             font-family: var(--head);
-            font-size: .62rem;
+            font-size: 0.73rem;
             font-weight: 900;
             letter-spacing: .14em;
             color: var(--accent2);
@@ -2652,7 +2674,7 @@
             padding: 4px 10px;
             border-radius: 12px;
             font-family: var(--mono);
-            font-size: .68rem;
+            font-size: 0.8rem;
             font-weight: 700;
         }
 
@@ -2688,7 +2710,7 @@
             background: rgba(255, 255, 255, .02);
             border-left: 2px solid var(--accent);
             font-family: var(--mono);
-            font-size: .74rem;
+            font-size: 0.87rem;
             color: var(--text2);
             line-height: 1.5;
         }
@@ -2708,11 +2730,11 @@
         .fs-weekly-summary {
             margin-top: 10px;
             padding: 10px 12px;
-            background: rgba(0, 210, 255, .05);
-            border: 1px solid rgba(0, 210, 255, .15);
+            background: rgba(255, 255, 255, .02);
+            border: 1px solid rgba(255, 255, 255, .06);
             border-radius: 7px;
             font-family: var(--mono);
-            font-size: .73rem;
+            font-size: 0.86rem;
             color: var(--text2);
             line-height: 1.6;
         }
@@ -2722,7 +2744,7 @@
             align-items: center;
             gap: 4px;
             font-family: var(--mono);
-            font-size: .68rem;
+            font-size: 0.8rem;
             font-weight: 700;
             padding: 2px 8px;
             border-radius: 10px;
@@ -2747,8 +2769,8 @@
         /* ===== DEV TOOLS INTELLIGENCE CSS ===== */
         .devtools-intel-panel {
             margin-top: 12px;
-            background: linear-gradient(135deg, rgba(0, 210, 255, .05), rgba(108, 99, 255, .04));
-            border: 1px solid rgba(0, 210, 255, .2);
+            background: linear-gradient(135deg, rgba(255, 255, 255, .02), rgba(200, 200, 200, .01));
+            border: 1px solid rgba(255, 255, 255, .06);
             border-radius: 9px;
             padding: 13px 16px;
             animation: cardReveal 0.35s ease;
@@ -2756,7 +2778,7 @@
 
         .devtools-intel-title {
             font-family: var(--head);
-            font-size: .62rem;
+            font-size: 0.73rem;
             font-weight: 900;
             letter-spacing: .14em;
             color: var(--cyan);
@@ -2775,7 +2797,7 @@
             margin-bottom: 6px;
             background: rgba(255, 255, 255, .025);
             font-family: var(--mono);
-            font-size: .74rem;
+            font-size: 0.87rem;
             color: var(--text2);
             line-height: 1.5;
             border-left: 3px solid var(--border2);
@@ -2803,7 +2825,7 @@
         }
 
         .code-issue-icon {
-            font-size: .95rem;
+            font-size: 1.06rem;
             flex-shrink: 0;
             margin-top: 1px;
         }
@@ -2815,9 +2837,9 @@
 
         .code-issue-line {
             display: inline-block;
-            background: rgba(108, 99, 255, .15);
+            background: rgba(255, 255, 255, .06);
             color: var(--accent2);
-            font-size: .65rem;
+            font-size: 0.77rem;
             padding: 1px 6px;
             border-radius: 3px;
             margin-bottom: 3px;
@@ -2830,7 +2852,7 @@
             background: rgba(57, 211, 83, .07);
             border: 1px solid rgba(57, 211, 83, .18);
             border-radius: 5px;
-            font-size: .7rem;
+            font-size: 0.83rem;
             color: var(--green);
             white-space: pre-wrap;
             word-break: break-word;
@@ -2855,41 +2877,41 @@
 
         .code-metric-val {
             font-family: var(--head);
-            font-size: .95rem;
+            font-size: 1.06rem;
             font-weight: 900;
             color: var(--text);
         }
 
         .code-metric-lbl {
             font-family: var(--mono);
-            font-size: .58rem;
+            font-size: 0.68rem;
             color: var(--text3);
             margin-top: 1px;
         }
 
         .intel-scan-btn {
             font-family: var(--head);
-            font-size: .62rem;
+            font-size: 0.73rem;
             font-weight: 900;
             letter-spacing: .1em;
             padding: 6px 14px;
-            border: 1px solid rgba(0, 210, 255, .3);
+            border: 1px solid rgba(255, 255, 255, .08);
             border-radius: 5px;
             cursor: pointer;
-            background: rgba(0, 210, 255, .08);
+            background: rgba(255, 255, 255, .02);
             color: var(--cyan);
             transition: all 0.25s;
         }
 
         .intel-scan-btn:hover {
-            background: rgba(0, 210, 255, .18);
+            background: rgba(255, 255, 255, .05);
             transform: translateY(-2px);
         }
 
         /* ===== AI INTELLIGENCE MODULES CSS ===== */
         .ai-coach-panel {
-            background: linear-gradient(135deg, rgba(108, 99, 255, .1), rgba(0, 210, 255, .05));
-            border: 1px solid rgba(108, 99, 255, .3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, .02), rgba(200, 200, 200, .01));
+            border: 1px solid rgba(255, 255, 255, .07);
             border-radius: 10px;
             padding: 16px 20px;
             margin-top: 16px;
@@ -2898,7 +2920,7 @@
 
         .ai-coach-title {
             font-family: var(--head);
-            font-size: .7rem;
+            font-size: 0.83rem;
             font-weight: 900;
             letter-spacing: .14em;
             color: var(--accent2);
@@ -2918,14 +2940,14 @@
             background: rgba(255, 255, 255, .03);
             border-left: 3px solid var(--accent);
             font-family: var(--mono);
-            font-size: .78rem;
+            font-size: 0.92rem;
             color: var(--text2);
             line-height: 1.5;
             transition: all 0.2s;
         }
 
         .ai-insight-item:hover {
-            background: rgba(108, 99, 255, .07);
+            background: rgba(255, 255, 255, .03);
         }
 
         .ai-insight-item.warn {
@@ -2941,7 +2963,7 @@
         }
 
         .ai-insight-icon {
-            font-size: 1rem;
+            font-size: 1.12rem;
             flex-shrink: 0;
             margin-top: 1px;
         }
@@ -2952,18 +2974,18 @@
         }
 
         .task-breakdown-panel {
-            background: rgba(0, 210, 255, .05);
-            border: 1px solid rgba(0, 210, 255, .2);
+            background: rgba(255, 255, 255, .02);
+            border: 1px solid rgba(255, 255, 255, .06);
             border-radius: 8px;
             padding: 12px 16px;
             margin-top: 10px;
             font-family: var(--mono);
-            font-size: .78rem;
+            font-size: 0.92rem;
         }
 
         .task-breakdown-title {
             font-family: var(--head);
-            font-size: .65rem;
+            font-size: 0.77rem;
             font-weight: 900;
             letter-spacing: .12em;
             color: var(--cyan);
@@ -2990,11 +3012,11 @@
         }
 
         .subtask-add-btn {
-            background: rgba(0, 210, 255, .12);
-            border: 1px solid rgba(0, 210, 255, .25);
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08);
             color: var(--cyan);
             font-family: var(--head);
-            font-size: .6rem;
+            font-size: 0.71rem;
             font-weight: 700;
             letter-spacing: .1em;
             padding: 3px 8px;
@@ -3004,12 +3026,12 @@
         }
 
         .subtask-add-btn:hover {
-            background: rgba(0, 210, 255, .25);
+            background: rgba(255, 255, 255, .08);
         }
 
         .habit-intel-badge {
             font-family: var(--mono);
-            font-size: .68rem;
+            font-size: 0.8rem;
             font-weight: 700;
             padding: 2px 7px;
             border-radius: 4px;
@@ -3035,14 +3057,14 @@
         }
 
         .habit-intel-badge.new {
-            background: rgba(108, 99, 255, .12);
+            background: rgba(255, 255, 255, .05);
             color: var(--accent2);
-            border: 1px solid rgba(108, 99, 255, .3);
+            border: 1px solid rgba(255, 255, 255, .12);
         }
 
         .habit-suggestion {
             font-family: var(--mono);
-            font-size: .72rem;
+            font-size: 0.85rem;
             color: var(--amber);
             padding: 4px 8px;
             background: rgba(255, 179, 71, .07);
@@ -3052,7 +3074,7 @@
         }
 
         .weekly-insight-card {
-            background: linear-gradient(135deg, rgba(57, 211, 83, .08), rgba(0, 210, 255, .05));
+            background: linear-gradient(135deg, rgba(255, 255, 255, .02), rgba(200, 200, 200, .01));
             border: 1px solid rgba(57, 211, 83, .25);
             border-radius: 10px;
             padding: 16px 20px;
@@ -3061,7 +3083,7 @@
 
         .weekly-insight-header {
             font-family: var(--head);
-            font-size: .68rem;
+            font-size: 0.8rem;
             font-weight: 900;
             letter-spacing: .14em;
             color: var(--green);
@@ -3086,14 +3108,14 @@
 
         .weekly-metric-val {
             font-family: var(--head);
-            font-size: 1.3rem;
+            font-size: 1.46rem;
             font-weight: 900;
             color: var(--text);
         }
 
         .weekly-metric-lbl {
             font-family: var(--mono);
-            font-size: .62rem;
+            font-size: 0.73rem;
             color: var(--text3);
             margin-top: 2px;
         }
@@ -3120,10 +3142,10 @@
             padding: 8px 10px;
             border-radius: 6px;
             margin-bottom: 5px;
-            background: rgba(108, 99, 255, .06);
-            border: 1px solid rgba(108, 99, 255, .15);
+            background: rgba(255, 255, 255, .02);
+            border: 1px solid rgba(255, 255, 255, .06);
             font-family: var(--mono);
-            font-size: .76rem;
+            font-size: 0.9rem;
             color: var(--text2);
         }
 
@@ -3131,7 +3153,7 @@
             background: none;
             border: none;
             color: var(--text3);
-            font-size: .65rem;
+            font-size: 0.77rem;
             cursor: pointer;
             margin-left: auto;
             transition: color 0.2s;
@@ -3145,7 +3167,7 @@
         /* Section divider inside float */
         .ob-section-label {
             font-family: var(--head);
-            font-size: .55rem;
+            font-size: 0.65rem;
             font-weight: 700;
             letter-spacing: .14em;
             color: var(--text3);
@@ -3162,14 +3184,14 @@
         }
 
         .ob-goal-input-row input {
-            font-size: .7rem;
+            font-size: 0.83rem;
             padding: 5px 8px;
             flex: 1;
         }
 
         .ob-goal-add-btn {
             font-family: var(--head);
-            font-size: .58rem;
+            font-size: 0.68rem;
             font-weight: 700;
             letter-spacing: .08em;
             padding: 5px 10px;
@@ -3185,7 +3207,7 @@
 
         .ob-goal-add-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 3px 10px rgba(108, 99, 255, .4);
+            box-shadow: 0 3px 10px rgba(255, 255, 255, .06);
         }
 
         /* Today goal checklist items */
@@ -3196,7 +3218,7 @@
             padding: 4px 0;
             border-bottom: 1px solid rgba(30, 37, 48, .5);
             font-family: var(--mono);
-            font-size: .7rem;
+            font-size: 0.83rem;
             font-weight: 600;
             color: var(--text2);
         }
@@ -3220,7 +3242,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: .6rem;
+            font-size: 0.71rem;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -3242,7 +3264,7 @@
             border: none;
             color: var(--text3);
             cursor: pointer;
-            font-size: .62rem;
+            font-size: 0.73rem;
             transition: color 0.2s;
             padding: 0 2px;
             flex-shrink: 0;
@@ -3256,12 +3278,12 @@
         .btn-home {
             font-family: var(--head);
             font-weight: 700;
-            font-size: .72rem;
+            font-size: 0.85rem;
             letter-spacing: .12em;
             padding: 8px 14px;
-            border: 1px solid rgba(108, 99, 255, .3);
+            border: 1px solid rgba(255, 255, 255, .1);
             border-radius: 5px;
-            background: rgba(108, 99, 255, .08);
+            background: rgba(255, 255, 255, .03);
             color: var(--accent2);
             cursor: pointer;
             transition: all 0.25s;
@@ -3272,10 +3294,10 @@
         }
 
         .btn-home:hover {
-            background: rgba(108, 99, 255, .18);
+            background: rgba(255, 255, 255, .06);
             border-color: var(--accent);
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(108, 99, 255, .25);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, .06);
         }
 
         /* ===== MOBILE RESPONSIVE ===== */
@@ -3293,17 +3315,17 @@
             }
 
             .brand h1 {
-                font-size: 1.1rem;
+                font-size: 1.23rem;
             }
 
             .brand .sub {
-                font-size: .72rem;
+                font-size: 0.85rem;
             }
 
             /* Hide secondary sys-info items on mobile to prevent overflow */
             .sys-info {
                 gap: 10px;
-                font-size: .75rem;
+                font-size: 0.89rem;
                 width: 100%;
                 justify-content: flex-start;
                 flex-wrap: nowrap;
@@ -3312,7 +3334,7 @@
             }
 
             .clock-display {
-                font-size: .72rem;
+                font-size: 0.85rem;
                 white-space: nowrap;
             }
 
@@ -3329,7 +3351,7 @@
             .header-actions .btn-home {
                 white-space: nowrap;
                 flex-shrink: 0;
-                font-size: .65rem;
+                font-size: 0.77rem;
                 padding: 6px 10px;
             }
 
@@ -3340,7 +3362,7 @@
             }
 
             .quote-text {
-                font-size: .78rem;
+                font-size: 0.92rem;
             }
 
             /* Hero CTA bar: stack vertically */
@@ -3352,17 +3374,17 @@
             }
 
             .hero-cta-text h2 {
-                font-size: .95rem;
+                font-size: 1.06rem;
             }
 
             .hero-cta-text p {
-                font-size: .76rem;
+                font-size: 0.9rem;
             }
 
             .btn-hero {
                 width: 100%;
                 justify-content: center;
-                font-size: .85rem;
+                font-size: 0.95rem;
                 padding: 13px 20px;
             }
 
@@ -3382,7 +3404,7 @@
             }
 
             .nav-tab {
-                font-size: .62rem;
+                font-size: 0.73rem;
                 padding: 8px 10px;
                 white-space: nowrap;
                 flex-shrink: 0;
@@ -3409,7 +3431,7 @@
             }
 
             .timer-controls .btn {
-                font-size: .65rem;
+                font-size: 0.77rem;
                 padding: 7px 10px;
             }
 
@@ -3430,7 +3452,7 @@
 
             .preset-btn {
                 flex-shrink: 0;
-                font-size: .75rem;
+                font-size: 0.89rem;
                 padding: 7px 12px;
             }
 
@@ -3471,7 +3493,7 @@
             }
 
             .task-text {
-                font-size: .84rem;
+                font-size: 0.94rem;
             }
 
             /* Habit rows: allow wrapping */
@@ -3488,7 +3510,7 @@
             .habit-day {
                 width: 30px;
                 height: 30px;
-                font-size: .72rem;
+                font-size: 0.85rem;
             }
 
             /* Stats row: always 2 columns on mobile */
@@ -3497,7 +3519,7 @@
             }
 
             .stat-val {
-                font-size: 1.3rem;
+                font-size: 1.46rem;
             }
 
             /* Weekly planner: single column scroll */
@@ -3513,7 +3535,7 @@
             }
 
             .wp-day-header {
-                font-size: .88rem;
+                font-size: 0.99rem;
             }
 
             /* Weekly planner controls: wrap */
@@ -3528,11 +3550,11 @@
             }
 
             .mp-day-num {
-                font-size: .72rem;
+                font-size: 0.85rem;
             }
 
             .mp-cell-event {
-                font-size: .56rem;
+                font-size: 0.66rem;
                 padding: 1px 3px;
             }
 
@@ -3581,7 +3603,7 @@
             .tool-tab {
                 white-space: nowrap;
                 flex-shrink: 0;
-                font-size: .72rem;
+                font-size: 0.85rem;
                 padding: 6px 10px;
             }
 
@@ -3604,17 +3626,17 @@
             .energy-btn {
                 width: 42px;
                 height: 42px;
-                font-size: 1.3rem;
+                font-size: 1.46rem;
             }
 
             /* Session log entries */
             .session-entry {
-                font-size: .76rem;
+                font-size: 0.9rem;
             }
 
             /* Card titles */
             .card-title {
-                font-size: .75rem;
+                font-size: 0.89rem;
                 flex-wrap: wrap;
                 gap: 6px;
             }
@@ -3660,7 +3682,7 @@
         /* Very small screens */
         @media (max-width: 380px) {
             .brand h1 {
-                font-size: .95rem;
+                font-size: 1.06rem;
             }
 
             .timer-digits {
@@ -3668,9 +3690,357 @@
             }
 
             .nav-tab {
-                font-size: .58rem;
+                font-size: 0.68rem;
                 padding: 7px 8px;
             }
+        }
+
+        /* ===== PILL BUTTON OVERRIDES ===== */
+        .btn-primary {
+            background: #ffffff !important;
+            color: #000000 !important;
+            font-weight: 700 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+            letter-spacing: .12em !important;
+        }
+
+        .btn-primary:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15), 0 6px 24px rgba(0, 0, 0, 0.7) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .btn {
+            border-radius: 999px !important;
+        }
+
+        .btn-gold {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+        }
+
+        .btn-gold:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 24px rgba(255, 255, 255, 0.1), 0 6px 24px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        /* ===== SMALL TEXT — less bold, lighter ===== */
+        .stat-label {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .feature-num {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .section-tag {
+            font-weight: 500 !important;
+            font-size: 0.82rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 400 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 400 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .metric-label {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 400 !important;
+        }
+
+        .pricing-features li {
+            font-weight: 400 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .footer-meta,
+        .footer-links a {
+            font-weight: 400 !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 500 !important;
+        }
+
+        .testi-role,
+        .testi-since {
+            font-weight: 400 !important;
+        }
+
+        .trust-badge {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        /* ===== PILL BUTTON OVERRIDES ===== */
+        .btn-primary {
+            background: #ffffff !important;
+            color: #000000 !important;
+            font-weight: 700 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+            letter-spacing: .12em !important;
+        }
+
+        .btn-primary:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15), 0 6px 24px rgba(0, 0, 0, 0.7) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .btn {
+            border-radius: 999px !important;
+        }
+
+        .btn-gold {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+        }
+
+        .btn-gold:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 24px rgba(255, 255, 255, 0.1), 0 6px 24px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        /* ===== SMALL TEXT — less bold, lighter ===== */
+        .stat-label {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .feature-num {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .section-tag {
+            font-weight: 500 !important;
+            font-size: 0.82rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 400 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 400 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .metric-label {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 400 !important;
+        }
+
+        .pricing-features li {
+            font-weight: 400 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .footer-meta,
+        .footer-links a {
+            font-weight: 400 !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 500 !important;
+        }
+
+        .testi-role,
+        .testi-since {
+            font-weight: 400 !important;
+        }
+
+        .trust-badge {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        /* ===== SMALL TEXT — readable size, moderate weight ===== */
+        .stat-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .feature-num {
+            font-weight: 500 !important;
+            font-size: 0.73rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 500 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .section-tag {
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 500 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 500 !important;
+            font-size: 0.78rem !important;
+        }
+
+        .metric-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .pricing-features li {
+            font-weight: 500 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .footer-meta {
+            font-weight: 400 !important;
+            font-size: 0.76rem !important;
+        }
+
+        .footer-links a {
+            font-weight: 500 !important;
+            font-size: 0.76rem !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 600 !important;
+            font-size: 0.94rem !important;
+        }
+
+        .testi-role {
+            font-weight: 500 !important;
+            font-size: 0.74rem !important;
+        }
+
+        .testi-since {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        .trust-badge {
+            font-weight: 500 !important;
+            font-size: 0.74rem !important;
+        }
+
+        .coming-mini-title {
+            font-weight: 600 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .showcase-price-sub,
+        .sec-price-sub {
+            font-weight: 500 !important;
+            font-size: 0.68rem !important;
+        }
+
+        .star-count {
+            font-weight: 500 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .result-content p {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .faq-a-inner {
+            font-weight: 400 !important;
+            font-size: 1.0rem !important;
+        }
+
+        .testi-quote {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .pricing-desc {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .showcase-desc,
+        .sec-desc {
+            font-weight: 400 !important;
+            font-size: 1.0rem !important;
         }
     </style>
 </head>
@@ -3682,15 +4052,15 @@
         style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center">
         <div
             style="background:var(--card);border:1px solid rgba(255,179,71,.4);border-radius:14px;padding:32px;max-width:380px;width:90%;text-align:center;box-shadow:0 0 60px rgba(255,179,71,.2);animation:slideUp .4s ease">
-            <div style="font-size:3rem;margin-bottom:12px">🔥</div>
-            <div style="font-family:var(--head);font-size:1.3rem;font-weight:900;color:var(--amber);letter-spacing:.08em;margin-bottom:8px"
+            <div style="font-size: 3.0rem;margin-bottom:12px">🔥</div>
+            <div style="font-family:var(--head);font-size: 1.46rem;font-weight:900;color:var(--amber);letter-spacing:.08em;margin-bottom:8px"
                 id="streak-risk-title">STREAK AT RISK</div>
-            <div style="font-family:var(--mono);font-size:.84rem;color:var(--text2);margin-bottom:24px;line-height:1.6"
+            <div style="font-family:var(--mono);font-size: 0.94rem;color:var(--text2);margin-bottom:24px;line-height:1.6"
                 id="streak-risk-msg">Your streak is at risk. Complete a session to keep it alive.</div>
             <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
                 <button class="btn btn-primary" onclick="closeStreakModal();quickStartSession && quickStartSession()"
-                    style="font-size:.85rem;padding:12px 24px"><i class="fas fa-play"></i> START SESSION NOW</button>
-                <button class="btn btn-ghost" onclick="closeStreakModal()" style="font-size:.8rem">Remind me
+                    style="font-size: 0.95rem;padding:12px 24px"><i class="fas fa-play"></i> START SESSION NOW</button>
+                <button class="btn btn-ghost" onclick="closeStreakModal()" style="font-size: 0.9rem">Remind me
                     later</button>
             </div>
         </div>
@@ -3698,7 +4068,7 @@
 
     <!-- SYNC FLOAT INDICATOR -->
     <div id="sync-float"
-        style="position:fixed;bottom:20px;left:20px;z-index:1000;font-family:var(--mono);font-size:.72rem;font-weight:700;padding:6px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);display:none;align-items:center;gap:6px;transition:all .3s">
+        style="position:fixed;bottom:20px;left:20px;z-index:1000;font-family:var(--mono);font-size: 0.85rem;font-weight:700;padding:6px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);display:none;align-items:center;gap:6px;transition:all .3s">
         <span id="sync-float-dot"
             style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span>
         <span id="sync-float-text">SYNCED</span>
@@ -3731,7 +4101,7 @@
                     <div class="xp-bar">
                         <div class="xp-fill" id="xp-fill" style="width:0%"></div>
                     </div>
-                    <div style="font-size:0.7rem;font-weight:700;" id="xp-text">0/100 XP</div>
+                    <div style="font-size: 0.83rem;font-weight:700;" id="xp-text">0/100 XP</div>
                 </div>
                 <div class="sys-badge">
                     <div class="dot"></div><i class="fas fa-fire"></i> <span id="streak-badge">STREAK:0d</span>
@@ -3819,7 +4189,7 @@
             <button class="nav-tab" onclick="switchTab('habits',this)"><i class="fas fa-chart-line"></i> HABITS</button>
             <button class="nav-tab" onclick="switchTab('focusscore',this)"><i class="fas fa-bullseye"></i> FOCUS SCORE
                 <span id="nav-score-badge"
-                    style="display:none;background:var(--accent);color:#fff;font-size:.6rem;padding:1px 5px;border-radius:8px;margin-left:4px">NEW</span></button>
+                    style="display:none;background:var(--accent);color:#fff;font-size: 0.71rem;padding:1px 5px;border-radius:8px;margin-left:4px">NEW</span></button>
             <button class="nav-tab" onclick="switchTab('analytics',this)"><i class="fas fa-chart-bar"></i>
                 ANALYTICS</button>
             <button class="nav-tab" onclick="switchTab('weekly-planner',this)"><i class="fas fa-calendar-alt"></i>
@@ -3849,7 +4219,7 @@
                             <input type="number" id="task-mins" placeholder="⏱️ Min" min="1" style="max-width:70px" />
                             <div style="display:flex;gap:5px;align-items:center;">
                                 <input type="checkbox" id="task-recurring" style="width:auto;" />
-                                <label style="font-size:.76rem;font-weight:700;"><i class="fas fa-sync-alt"></i>
+                                <label style="font-size: 0.9rem;font-weight:700;"><i class="fas fa-sync-alt"></i>
                                     Daily</label>
                             </div>
                             <button class="btn btn-primary btn-sm" onclick="addTask()"><i class="fas fa-plus"></i>
@@ -3865,10 +4235,10 @@
                             style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
                             <span><i class="fas fa-brain"></i> SMART FOCUS COACH</span>
                             <span id="ai-coach-mode-badge"
-                                style="font-family:var(--mono);font-size:.62rem;padding:2px 8px;border-radius:10px;background:rgba(108,99,255,.15);color:var(--accent2);border:1px solid rgba(108,99,255,.3)">RULE-BASED</span>
+                                style="font-family:var(--mono);font-size: 0.73rem;padding:2px 8px;border-radius:10px;background:rgba(108,99,255,.15);color:var(--accent2);border:1px solid rgba(108,99,255,.3)">RULE-BASED</span>
                         </div>
                         <div id="ai-coach-insights">
-                            <div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Analyzing your
+                            <div style="font-family:var(--mono);font-size: 0.87rem;color:var(--text3)">// Analyzing your
                                 patterns...</div>
                         </div>
                         <!-- Gemini AI upgrade panel -->
@@ -3879,23 +4249,24 @@
                             <div id="gemini-active-panel" style="display:block">
                                 <div
                                     style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
-                                    <span style="font-family:var(--mono);font-size:.68rem;color:var(--green)"><i
-                                            class="fas fa-circle" style="font-size:.5rem"></i> GEMINI AI ACTIVE</span>
+                                    <span style="font-family:var(--mono);font-size: 0.8rem;color:var(--green)"><i
+                                            class="fas fa-circle" style="font-size: 0.59rem"></i> GEMINI AI
+                                        ACTIVE</span>
                                     <span id="gemini-daily-counter"
-                                        style="font-family:var(--mono);font-size:.65rem;color:var(--text3)"><!-- filled by JS --></span>
+                                        style="font-family:var(--mono);font-size: 0.77rem;color:var(--text3)"><!-- filled by JS --></span>
                                     <button onclick="askGeminiCoach()" id="gemini-ask-btn"
                                         class="btn btn-primary btn-sm"><i class="fas fa-sparkles"></i> ASK AI
                                         COACH</button>
                                 </div>
                                 <div id="gemini-coach-output"
-                                    style="display:none;font-family:var(--mono);font-size:.76rem;color:var(--text2);line-height:1.7;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:12px;margin-top:8px;white-space:pre-wrap">
+                                    style="display:none;font-family:var(--mono);font-size: 0.9rem;color:var(--text2);line-height:1.7;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:12px;margin-top:8px;white-space:pre-wrap">
                                 </div>
                                 <div id="gemini-coach-loading"
-                                    style="display:none;font-family:var(--mono);font-size:.72rem;color:var(--accent2);text-align:center;padding:12px">
+                                    style="display:none;font-family:var(--mono);font-size: 0.85rem;color:var(--accent2);text-align:center;padding:12px">
                                     <i class="fas fa-circle-notch fa-spin"></i> AI is analyzing your patterns...
                                 </div>
                                 <div id="gemini-coach-error"
-                                    style="display:none;font-family:var(--mono);font-size:.72rem;color:var(--red);padding:8px;background:rgba(255,71,87,.08);border-radius:5px;margin-top:8px">
+                                    style="display:none;font-family:var(--mono);font-size: 0.85rem;color:var(--red);padding:8px;background:rgba(255,71,87,.08);border-radius:5px;margin-top:8px">
                                 </div>
                             </div>
                         </div>
@@ -3924,7 +4295,7 @@
                                     min="1"><button onclick="setMini('custom')">✓</button></div>
                         </div>
                         <div id="mini-last-session-chip"
-                            style="display:none;text-align:center;margin-top:8px;font-family:var(--mono);font-size:.7rem;color:var(--text3);background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px">
+                            style="display:none;text-align:center;margin-top:8px;font-family:var(--mono);font-size: 0.83rem;color:var(--text3);background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px">
                             LAST: <span id="mini-last-session-text">—</span></div>
                         <div class="timer-controls">
                             <button class="btn btn-primary" id="mini-btn" onclick="toggleMini()"><i
@@ -3956,7 +4327,8 @@
                             </div>
                         </div>
                         <div>
-                            <div style="font-size:.72rem;font-weight:700;margin-bottom:8px"><i class="fas fa-bolt"></i>
+                            <div style="font-size: 0.85rem;font-weight:700;margin-bottom:8px"><i
+                                    class="fas fa-bolt"></i>
                                 ENERGY</div>
                             <div style="display:flex;gap:6px;justify-content:center" id="energy-btns">
                                 <div class="energy-btn" onclick="setEnergy(1)">😴</div>
@@ -3966,7 +4338,8 @@
                                 <div class="energy-btn" onclick="setEnergy(5)">🔥</div>
                             </div>
                             <div id="energy-label"
-                                style="text-align:center;font-size:.72rem;font-weight:700;margin-top:6px">NOT SET</div>
+                                style="text-align:center;font-size: 0.85rem;font-weight:700;margin-top:6px">NOT SET
+                            </div>
                         </div>
                     </div>
                     <div class="card" style="margin-top:16px">
@@ -4006,7 +4379,7 @@
                                 min="1"><button onclick="setMain('custom')"><i class="fas fa-check"></i></button></div>
                     </div>
                     <div id="main-last-session-chip"
-                        style="display:none;text-align:center;margin-top:8px;font-family:var(--mono);font-size:.7rem;color:var(--text3);background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px">
+                        style="display:none;text-align:center;margin-top:8px;font-family:var(--mono);font-size: 0.83rem;color:var(--text3);background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px">
                         LAST: <span id="main-last-session-text">—</span></div>
                     <div class="mt-16"><input type="text" id="sess-task" placeholder="📋 Session directive" /></div>
                     <div class="timer-controls">
@@ -4067,7 +4440,8 @@
                 <div class="ai-coach-panel" id="habit-intel-panel" style="margin-top:16px">
                     <div class="ai-coach-title"><i class="fas fa-robot"></i> HABIT INTELLIGENCE ENGINE</div>
                     <div id="habit-intel-insights">
-                        <div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Tracking your habit
+                        <div style="font-family:var(--mono);font-size: 0.87rem;color:var(--text3)">// Tracking your
+                            habit
                             patterns...</div>
                     </div>
                 </div>
@@ -4078,12 +4452,12 @@
         <div class="panel" id="panel-focusscore">
             <div
                 style="background:linear-gradient(135deg,rgba(108,99,255,.12),rgba(0,210,255,.06));border:1px solid rgba(108,99,255,.25);border-radius:10px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px">
-                <div style="font-size:1.8rem">🎯</div>
+                <div style="font-size: 1.8rem">🎯</div>
                 <div>
                     <div
-                        style="font-family:var(--head);font-size:.9rem;font-weight:900;letter-spacing:.06em;margin-bottom:3px">
+                        style="font-family:var(--head);font-size: 1.01rem;font-weight:900;letter-spacing:.06em;margin-bottom:3px">
                         YOUR DAILY PERFORMANCE GRADE</div>
-                    <div style="font-family:var(--mono);font-size:.78rem;color:var(--text2)">Tracks sessions, tasks,
+                    <div style="font-family:var(--mono);font-size: 0.92rem;color:var(--text2)">Tracks sessions, tasks,
                         focus quality &amp; consistency. Hit Calculate to see today's grade — or it auto-calculates
                         every time you open this tab.</div>
                 </div>
@@ -4158,14 +4532,14 @@
                             </div>
                         </div>
                         <div id="fs-verdict"
-                            style="font-family:var(--mono);font-size:.78rem;color:var(--text2);margin-top:12px">//
+                            style="font-family:var(--mono);font-size: 0.92rem;color:var(--text2);margin-top:12px">//
                             Calculate your score</div>
                         <div style="margin-top:16px">
                             <div
-                                style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--text3);margin-bottom:8px">
+                                style="font-family:var(--mono);font-size: 0.85rem;font-weight:700;color:var(--text3);margin-bottom:8px">
                                 7-DAY HISTORY</div>
                             <div style="display:flex;gap:4px;align-items:flex-end;height:70px" id="fs-history"></div>
-                            <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:.64rem;color:var(--text3);margin-top:4px"
+                            <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size: 0.76rem;color:var(--text3);margin-top:4px"
                                 id="fs-history-labels"></div>
                         </div>
                     </div>
@@ -4175,14 +4549,14 @@
                     <div class="fs-insight-panel" id="fs-intel-panel">
                         <div class="fs-insight-header"><i class="fas fa-microscope"></i> SCORE INTELLIGENCE</div>
                         <div id="fs-intel-content">
-                            <div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Calculate your
+                            <div style="font-family:var(--mono);font-size: 0.87rem;color:var(--text3)">// Calculate your
                                 score to unlock analysis.</div>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-title"><i class="fas fa-info-circle"></i> SCORE GUIDE</div>
-                    <div style="font-family:var(--mono);font-size:.82rem;line-height:2;color:var(--text2)">
+                    <div style="font-family:var(--mono);font-size: 0.92rem;line-height:2;color:var(--text2)">
                         <p>🏆 <strong style="color:#ffd700">S (90-100)</strong> — Elite Operator</p>
                         <p>✅ <strong style="color:var(--green)">A (75-89)</strong> — High Performer</p>
                         <p>💡 <strong style="color:var(--cyan)">B (60-74)</strong> — On Track</p>
@@ -4190,7 +4564,7 @@
                         <p>⚠️ <strong style="color:var(--red)">D (0-39)</strong> — Critical</p>
                     </div>
                     <div
-                        style="margin-top:20px;font-family:var(--mono);font-size:.78rem;color:var(--text3);line-height:1.8">
+                        style="margin-top:20px;font-family:var(--mono);font-size: 0.92rem;color:var(--text3);line-height:1.8">
                         <p>• Sessions: 25 pts each (max 100)</p>
                         <p>• Distractions: -15 pts each</p>
                         <p>• Streak: up to 100 pts (7d full)</p>
@@ -4306,13 +4680,13 @@
                             CLEAR</button>
                     </div>
                     <textarea id="playground-code" rows="10" placeholder="// Write your code here..."
-                        style="font-family:var(--mono);font-size:.86rem">console.log("Hello, Operator!");</textarea>
+                        style="font-family:var(--mono);font-size: 0.96rem">console.log("Hello, Operator!");</textarea>
                     <div class="output-console mt-10" id="playground-output">// Output will appear here</div>
                     <!-- DEV TOOLS INTELLIGENCE LAYER -->
                     <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
                         <button class="intel-scan-btn" onclick="runCodeIntelligence()"><i
                                 class="fas fa-search-plus"></i> ANALYZE CODE</button>
-                        <span style="font-family:var(--mono);font-size:.68rem;color:var(--text3)">// Auto-detects
+                        <span style="font-family:var(--mono);font-size: 0.8rem;color:var(--text3)">// Auto-detects
                             patterns, bugs & optimizations</span>
                     </div>
                     <div id="devtools-intel-wrapper"></div>
@@ -4341,7 +4715,7 @@
                             SAVE</button>
                     </div>
                     <textarea id="snip-code" rows="5" placeholder="// Paste your code..."
-                        style="margin-top:8px;font-family:var(--mono);font-size:.86rem"></textarea>
+                        style="margin-top:8px;font-family:var(--mono);font-size: 0.96rem"></textarea>
                     <div id="snippet-list" class="mt-10"></div>
                 </div>
             </div>
@@ -4366,7 +4740,7 @@
                 <div class="card">
                     <div class="card-title"><i class="fas fa-tachometer-alt"></i> COMPLEXITY ANALYZER</div>
                     <textarea id="complexity-input" rows="8" placeholder="// Paste code to analyze..."
-                        style="font-family:var(--mono);font-size:.86rem"></textarea>
+                        style="font-family:var(--mono);font-size: 0.96rem"></textarea>
                     <button class="btn btn-primary mt-10" onclick="analyzeComplexity()"><i class="fas fa-search"></i>
                         ANALYZE</button>
                     <div class="output-console mt-10" id="complexity-output">// Results will appear here</div>
@@ -4377,9 +4751,9 @@
                     <div class="card-title"><i class="fas fa-file-alt"></i> MARKDOWN RENDERER</div>
                     <div class="grid-2">
                         <textarea id="markdown-input" rows="12" placeholder="# Write Markdown here..."
-                            style="font-family:var(--mono);font-size:.86rem"></textarea>
+                            style="font-family:var(--mono);font-size: 0.96rem"></textarea>
                         <div id="markdown-preview"
-                            style="background:var(--bg2);padding:12px;border-radius:5px;min-height:200px;font-size:.92rem;line-height:1.6">
+                            style="background:var(--bg2);padding:12px;border-radius:5px;min-height:200px;font-size: 1.03rem;line-height:1.6">
                         </div>
                     </div>
                     <button class="btn btn-primary mt-10" onclick="renderMarkdown()"><i class="fas fa-eye"></i>
@@ -4393,7 +4767,7 @@
             <div class="grid-2">
                 <div class="card">
                     <div class="card-title"><i class="fas fa-question-circle"></i> HOW IT WORKS</div>
-                    <div style="font-family:var(--mono);font-size:.86rem;line-height:2;color:var(--text2)">
+                    <div style="font-family:var(--mono);font-size: 0.96rem;line-height:2;color:var(--text2)">
                         <p>🎯 <strong>Deep Work</strong> — Add tasks, set priorities, track completion</p>
                         <p>⏱️ <strong>Focus Pulse</strong> — Timed focus sessions with session log</p>
                         <p>📈 <strong>Habit Matrix</strong> — Track daily habits with streak counts</p>
@@ -4408,7 +4782,7 @@
                     <!-- Change 8: restore default tab order link -->
                     <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
                         <button onclick="_restoreDefaultTabOrder()" class="btn btn-ghost btn-sm"
-                            style="font-size:.7rem"><i class="fas fa-undo"></i> Restore default tab order</button>
+                            style="font-size: 0.83rem"><i class="fas fa-undo"></i> Restore default tab order</button>
                     </div>
                 </div>
                 <div class="card">
@@ -4472,12 +4846,12 @@
                 <div id="wp-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;min-height:400px;">
                 </div>
                 <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
-                    <span style="font-family:var(--mono);font-size:.7rem;color:var(--text3);">CATEGORIES:</span>
-                    <span style="font-family:var(--mono);font-size:.7rem;color:#6c63ff;">💼 WORK</span>
-                    <span style="font-family:var(--mono);font-size:.7rem;color:#ffb347;">⚡ FOCUS</span>
-                    <span style="font-family:var(--mono);font-size:.7rem;color:#39d353;">🏠 PERSONAL</span>
-                    <span style="font-family:var(--mono);font-size:.7rem;color:#00d2ff;">💪 HEALTH</span>
-                    <span style="font-family:var(--mono);font-size:.7rem;color:#ff4757;">📚 LEARNING</span>
+                    <span style="font-family:var(--mono);font-size: 0.83rem;color:var(--text3);">CATEGORIES:</span>
+                    <span style="font-family:var(--mono);font-size: 0.83rem;color:#6c63ff;">💼 WORK</span>
+                    <span style="font-family:var(--mono);font-size: 0.83rem;color:#ffb347;">⚡ FOCUS</span>
+                    <span style="font-family:var(--mono);font-size: 0.83rem;color:#39d353;">🏠 PERSONAL</span>
+                    <span style="font-family:var(--mono);font-size: 0.83rem;color:#00d2ff;">💪 HEALTH</span>
+                    <span style="font-family:var(--mono);font-size: 0.83rem;color:#ff4757;">📚 LEARNING</span>
                 </div>
             </div>
             <div class="card" style="margin-top:16px;">
@@ -4520,25 +4894,25 @@
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px;">
                     <div
-                        style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        style="font-family:var(--mono);font-size: 0.85rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
                         SUN</div>
                     <div
-                        style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        style="font-family:var(--mono);font-size: 0.85rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
                         MON</div>
                     <div
-                        style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        style="font-family:var(--mono);font-size: 0.85rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
                         TUE</div>
                     <div
-                        style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        style="font-family:var(--mono);font-size: 0.85rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
                         WED</div>
                     <div
-                        style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        style="font-family:var(--mono);font-size: 0.85rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
                         THU</div>
                     <div
-                        style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        style="font-family:var(--mono);font-size: 0.85rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
                         FRI</div>
                     <div
-                        style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
+                        style="font-family:var(--mono);font-size: 0.85rem;font-weight:700;color:var(--text3);text-align:center;padding:6px 0;">
                         SAT</div>
                 </div>
                 <div id="mp-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;"></div>
@@ -4608,7 +4982,7 @@
     <div class="shortcut-hint" onclick="showShortcuts()"><i class="fas fa-keyboard"></i> Press <kbd>?</kbd></div>
     <div id="toast"></div>
     <div id="fs-bar-tooltip"
-        style="display:none;position:fixed;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:5px;padding:5px 10px;font-family:var(--mono);font-size:.72rem;color:var(--text);pointer-events:none;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.5)">
+        style="display:none;position:fixed;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:5px;padding:5px 10px;font-family:var(--mono);font-size: 0.85rem;color:var(--text);pointer-events:none;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.5)">
     </div>
 
     <!-- RESET CONFIRMATION MODAL -->
@@ -4617,10 +4991,11 @@
         <div
             style="background:var(--card);border:1px solid var(--red);border-radius:12px;padding:28px 32px;max-width:420px;width:90%;box-shadow:0 0 60px rgba(255,71,87,.25);animation:slideUp .3s cubic-bezier(.16,1,.3,1)">
             <div
-                style="font-family:var(--head);font-size:1rem;font-weight:900;letter-spacing:.1em;color:var(--red);margin-bottom:8px">
+                style="font-family:var(--head);font-size: 1.12rem;font-weight:900;letter-spacing:.1em;color:var(--red);margin-bottom:8px">
                 <i class="fas fa-exclamation-triangle"></i> DANGER ZONE
             </div>
-            <div style="font-family:var(--mono);font-size:.84rem;color:var(--text2);margin-bottom:18px;line-height:1.7">
+            <div
+                style="font-family:var(--mono);font-size: 0.94rem;color:var(--text2);margin-bottom:18px;line-height:1.7">
                 This will permanently erase <strong style="color:var(--text)">ALL data</strong> — tasks, sessions,
                 habits, notes, analytics. This cannot be undone.<br><br>Type <strong
                     style="color:var(--red);letter-spacing:.08em">RESET</strong> below to confirm.</div>
@@ -4628,14 +5003,15 @@
                 onkeydown="if(event.key==='Enter')_confirmReset();if(event.key==='Escape')_closeResetModal();"
                 style="border-color:rgba(255,71,87,.4);margin-bottom:8px" />
             <div id="reset-error-msg"
-                style="display:none;font-family:var(--mono);font-size:.78rem;color:var(--red);margin-bottom:10px"></div>
+                style="display:none;font-family:var(--mono);font-size: 0.92rem;color:var(--red);margin-bottom:10px">
+            </div>
             <div style="display:flex;gap:10px;margin-top:6px">
                 <button onclick="_confirmReset()"
-                    style="flex:1;font-family:var(--head);font-size:.76rem;font-weight:900;letter-spacing:.1em;padding:10px;border:none;border-radius:6px;cursor:pointer;background:var(--red);color:#fff;transition:all .2s"
+                    style="flex:1;font-family:var(--head);font-size: 0.9rem;font-weight:900;letter-spacing:.1em;padding:10px;border:none;border-radius:6px;cursor:pointer;background:var(--red);color:#fff;transition:all .2s"
                     onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><i
                         class="fas fa-trash-alt"></i> ERASE EVERYTHING</button>
                 <button onclick="_closeResetModal()"
-                    style="font-family:var(--head);font-size:.76rem;font-weight:700;letter-spacing:.1em;padding:10px 18px;border:1px solid var(--border2);border-radius:6px;cursor:pointer;background:var(--card2);color:var(--text2);transition:all .2s"
+                    style="font-family:var(--head);font-size: 0.9rem;font-weight:700;letter-spacing:.1em;padding:10px 18px;border:1px solid var(--border2);border-radius:6px;cursor:pointer;background:var(--card2);color:var(--text2);transition:all .2s"
                     onmouseover="this.style.borderColor='var(--accent)'"
                     onmouseout="this.style.borderColor='var(--border2)'">CANCEL</button>
             </div>
@@ -4656,7 +5032,7 @@
         async function protectDashboard() { if (!supabaseClient) { window.location.href = 'login.html'; return false; } const user = await getCurrentUser(); if (!user) { window.location.href = 'login.html'; return false; } const hasPaid = await checkPaidStatus(user.id); if (!hasPaid) { window.location.href = 'index.html#pricing'; return false; } currentUser = user; return true; }
         async function handleLogout() { if (!supabaseClient) return; try { await saveCloudData(); await supabaseClient.auth.signOut(); localStorage.removeItem('storm_os_auth'); localStorage.removeItem('storm_os_paid'); localStorage.removeItem('storm_os_payment_tx'); localStorage.removeItem('storm_os_payment_pending'); showToast('✅ Logged out'); setTimeout(() => window.location.href = 'login.html', 500); } catch (e) { showToast('⚠ Logout failed'); } }
         function addLogoutButton() { const ha = document.querySelector('.header-actions'); if (ha && !document.getElementById('logout-btn')) { const btn = document.createElement('button'); btn.id = 'logout-btn'; btn.className = 'btn btn-ghost btn-sm'; btn.innerHTML = '<i class="fas fa-sign-out-alt"></i> LOGOUT'; btn.onclick = handleLogout; ha.appendChild(btn); } }
-        function updateHeaderUserArea(user) { let el = document.getElementById('header-user-area'); if (!el) return; if (user) { let initials = (user.email || 'OP').substring(0, 2).toUpperCase(); let name = user.user_metadata?.full_name || user.user_metadata?.display_name || user.email?.split('@')[0] || 'OPERATOR'; el.innerHTML = `<div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--cyan));display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:.7rem;font-weight:900;color:#fff;cursor:pointer;border:2px solid rgba(108,99,255,0.4);" title="${user.email}">${initials}</div>`; document.getElementById('user-name').innerHTML = name.toUpperCase(); if (window.S && window.S.user) S.user.name = name.toUpperCase(); } else { el.innerHTML = ''; } }
+        function updateHeaderUserArea(user) { let el = document.getElementById('header-user-area'); if (!el) return; if (user) { let initials = (user.email || 'OP').substring(0, 2).toUpperCase(); let name = user.user_metadata?.full_name || user.user_metadata?.display_name || user.email?.split('@')[0] || 'OPERATOR'; el.innerHTML = `<div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--cyan));display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size: 0.83rem;font-weight:900;color:#fff;cursor:pointer;border:2px solid rgba(108,99,255,0.4);" title="${user.email}">${initials}</div>`; document.getElementById('user-name').innerHTML = name.toUpperCase(); if (window.S && window.S.user) S.user.name = name.toUpperCase(); } else { el.innerHTML = ''; } }
 
         const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
         function getTodayKey() { let d = new Date(); let y = d.getFullYear(); let m = String(d.getMonth() + 1).padStart(2, '0'); let day = String(d.getDate()).padStart(2, '0'); return `${y}-${m}-${day}`; }
@@ -4825,7 +5201,7 @@
             let list = document.getElementById('today-goals-list');
             if (!list) return;
             if (!todayGoals.length) {
-                list.innerHTML = '<div style="font-family:var(--mono);font-size:.65rem;color:var(--text3);padding:4px 0;">No goals yet — add one below</div>';
+                list.innerHTML = '<div style="font-family:var(--mono);font-size: 0.77rem;color:var(--text3);padding:4px 0;">No goals yet — add one below</div>';
                 return;
             }
             list.innerHTML = todayGoals.map(g => `
@@ -5009,7 +5385,7 @@
 
         function addXP(amt) { S.user.xp = (S.user.xp || 0) + amt; let nl = Math.floor(S.user.xp / 100) + 1; if (nl > (S.user.level || 1)) { S.user.level = nl; showToast(`🎉 LEVEL ${nl}! +50 XP!`); S.user.xp += 50; } updateXPBar(); save(); }
         function updateXPBar() { let xp = S.user.xp || 0, lvl = S.user.level || 1, inLvl = xp - ((lvl - 1) * 100), pct = Math.min((inLvl / 100) * 100, 100); let f = document.getElementById('xp-fill'); if (f) f.style.width = pct + '%'; let b = document.getElementById('level-badge'); if (b) b.innerHTML = `Lv.${lvl}`; let tx = document.getElementById('xp-text'); if (tx) tx.innerHTML = `${Math.max(0, inLvl)}/100 XP`; }
-        function showLevelDetails() { let xp = S.user.xp || 0, lvl = S.user.level || 1, inLvl = xp - ((lvl - 1) * 100), pct = ((inLvl / 100) * 100).toFixed(1); document.getElementById('level-details').innerHTML = `<div style="text-align:center"><div class="level-badge" style="font-size:1.8rem;padding:10px">Lv.${lvl}</div><div class="xp-bar" style="width:100%;margin:10px 0"><div class="xp-fill" style="width:${pct}%;height:8px"></div></div><p><strong>${Math.max(0, inLvl)}/100 XP</strong> to next level</p><p>Total: ${xp} XP</p><h4>How to Earn:</h4><ul><li>✓ Complete task: +15 XP</li><li>✓ Focus session: +20 XP</li><li>✓ Complete habit: +5 XP</li><li>✓ Journal entry: +5 XP</li><li>✓ Quick win: +10 XP</li><li>✓ Level up: +50 XP</li></ul></div>`; document.getElementById('achievements-list-modal').innerHTML = achievements.length ? achievements.map(a => `<span class="achievement-badge">${a}</span>`).join('') : '<span class="achievement-badge">No achievements yet</span>'; document.getElementById('level-modal').classList.add('open'); }
+        function showLevelDetails() { let xp = S.user.xp || 0, lvl = S.user.level || 1, inLvl = xp - ((lvl - 1) * 100), pct = ((inLvl / 100) * 100).toFixed(1); document.getElementById('level-details').innerHTML = `<div style="text-align:center"><div class="level-badge" style="font-size: 1.8rem;padding:10px">Lv.${lvl}</div><div class="xp-bar" style="width:100%;margin:10px 0"><div class="xp-fill" style="width:${pct}%;height:8px"></div></div><p><strong>${Math.max(0, inLvl)}/100 XP</strong> to next level</p><p>Total: ${xp} XP</p><h4>How to Earn:</h4><ul><li>✓ Complete task: +15 XP</li><li>✓ Focus session: +20 XP</li><li>✓ Complete habit: +5 XP</li><li>✓ Journal entry: +5 XP</li><li>✓ Quick win: +10 XP</li><li>✓ Level up: +50 XP</li></ul></div>`; document.getElementById('achievements-list-modal').innerHTML = achievements.length ? achievements.map(a => `<span class="achievement-badge">${a}</span>`).join('') : '<span class="achievement-badge">No achievements yet</span>'; document.getElementById('level-modal').classList.add('open'); }
         function closeLevelModal() { document.getElementById('level-modal').classList.remove('open'); }
 
         function setMiniPresetActive(mins) { document.querySelectorAll('#mini-presets .preset-btn').forEach((b, i) => { const l = [15, 25, 45, 60, 90]; b.classList.toggle('active', l[i] === mins); }); }
@@ -5240,7 +5616,7 @@
 
         function logSess(mins) { if (mins <= 0) return; let task = document.getElementById('sess-task')?.value || ''; S.sessions.push({ time: new Date().toLocaleTimeString(), task: task || 'Focus', mins, date: todayKey, hour: new Date().getHours() }); S.analytics.totalSess = (S.analytics.totalSess || 0) + 1; S.analytics.totalMin = (S.analytics.totalMin || 0) + mins; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; S.analytics.daily[todayKey].sess = (S.analytics.daily[todayKey].sess || 0) + 1; S.analytics.daily[todayKey].min = (S.analytics.daily[todayKey].min || 0) + mins; updateScore(); renderSessLog(); renderWeekBars(); saveNow(); addXP(20); }
         function renderSessLog() {
-            let ts = S.sessions.filter(s => s.date === todayKey); let sc = document.getElementById('sess-count-badge'); if (sc) sc.innerHTML = ts.length + ' TODAY'; let tdS = document.getElementById('today-sess'); if (tdS) tdS.textContent = ts.length; let tot = ts.reduce((a, s) => a + s.mins, 0); let tdM = document.getElementById('today-mins'); if (tdM) tdM.textContent = tot >= 60 ? (tot / 60).toFixed(1) + 'h' : tot + 'm'; let log = document.getElementById('sess-log'); if (log) log.innerHTML = ts.length ? ts.slice(-5).reverse().map((s, idx) => `<div class="session-entry"><span>${s.time}</span><span style="flex:1">${escHtml(s.task)}</span><span>${s.mins}m</span><button onclick="editSessionEntry(${idx})" style="background:none;border:none;cursor:pointer;color:var(--accent);font-size:.75rem" title="Edit duration">✏️</button><button onclick="deleteSessionEntry(${idx})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:.75rem">🗑</button></div>`).join('') : '<div class="empty-state" style="text-align:center;padding:16px 10px"><div style="font-size:1.4rem;margin-bottom:6px">⏱</div><div style="font-size:.8rem;font-weight:700">No sessions yet today</div></div>';
+            let ts = S.sessions.filter(s => s.date === todayKey); let sc = document.getElementById('sess-count-badge'); if (sc) sc.innerHTML = ts.length + ' TODAY'; let tdS = document.getElementById('today-sess'); if (tdS) tdS.textContent = ts.length; let tot = ts.reduce((a, s) => a + s.mins, 0); let tdM = document.getElementById('today-mins'); if (tdM) tdM.textContent = tot >= 60 ? (tot / 60).toFixed(1) + 'h' : tot + 'm'; let log = document.getElementById('sess-log'); if (log) log.innerHTML = ts.length ? ts.slice(-5).reverse().map((s, idx) => `<div class="session-entry"><span>${s.time}</span><span style="flex:1">${escHtml(s.task)}</span><span>${s.mins}m</span><button onclick="editSessionEntry(${idx})" style="background:none;border:none;cursor:pointer;color:var(--accent);font-size: 0.89rem" title="Edit duration">✏️</button><button onclick="deleteSessionEntry(${idx})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size: 0.89rem">🗑</button></div>`).join('') : '<div class="empty-state" style="text-align:center;padding:16px 10px"><div style="font-size: 1.57rem;margin-bottom:6px">⏱</div><div style="font-size: 0.9rem;font-weight:700">No sessions yet today</div></div>';
             // Change 5: update last session chips
             let allSess = S.sessions || [];
             if (allSess.length > 0) {
@@ -5258,8 +5634,8 @@
         function addTask() { let v = document.getElementById('task-input').value.trim(); if (!v) { showToast('Enter task'); return; } let pri = document.getElementById('task-priority').value, mins = parseInt(document.getElementById('task-mins').value) || 30, rec = document.getElementById('task-recurring').checked; S.tasks.push({ id: Date.now(), text: v, priority: pri, mins, done: false, date: todayKey, recurring: rec }); document.getElementById('task-input').value = ''; document.getElementById('task-mins').value = ''; document.getElementById('task-recurring').checked = false; saveNow(); renderTasks(); updateScore(); showToast(rec ? 'Daily task added' : 'Task added'); addXP(5); markOb('add_task'); }
         function toggleTask(id) { let t = S.tasks.find(t => t.id == id); if (t && !t.done) { t.done = true; renderTasks(); updateScore(); saveNow(); showToast('🎉 +15 XP!'); addXP(15); } else if (t && t.done) { t.done = false; renderTasks(); updateScore(); saveNow(); showToast('Task reopened'); } }
         function deleteTask(id) { S.tasks = S.tasks.filter(t => t.id != id && t.parentId != id); renderTasks(); updateScore(); save(); showToast('Deleted'); }
-        function taskHTML(t) { let recBadge = t.recurring ? '<span class="recurring-badge"><i class="fas fa-sync-alt"></i> Daily</span>' : ''; return `<div class="task-item${t.done ? ' done' : ''}" draggable="true" ondragstart="dragStart(event,${t.id})" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="drop(event,${t.id})"><div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div><div class="task-text">${escHtml(t.text)}${recBadge}</div><span class="task-priority priority-${t.priority}">${t.priority === 'high' ? '🔴 HIGH' : t.priority === 'med' ? '🟡 MED' : '🟢 LOW'}</span><span style="font-size:.82rem;font-weight:600">${t.mins}m</span><span class="task-del" onclick="deleteTask(${t.id})"><i class="fas fa-trash-alt"></i></span></div>`; }
-        function renderTasks() { let act = S.tasks.filter(t => t.date === todayKey && !t.done), done = S.tasks.filter(t => t.date === todayKey && t.done); let tl = document.getElementById('task-list'); if (tl) tl.innerHTML = act.length ? act.map(taskHTML).join('') : '<div class="empty-state" style="text-align:center;padding:24px 10px"><div style="font-size:1.8rem;margin-bottom:8px">📋</div><div style="font-weight:700;margin-bottom:4px">No tasks today</div><div style="font-size:.76rem;color:var(--text3)">Type a task above and press ADD</div></div>'; let dl = document.getElementById('done-list'); if (dl) dl.innerHTML = done.length ? done.map(taskHTML).join('') : '<div class="empty-state">// NONE COMPLETED YET</div>'; let dc = document.getElementById('done-count'); if (dc) dc.innerHTML = done.length + ' DONE'; let tt = document.getElementById('today-tasks'); if (tt) tt.textContent = done.length; let pct = (act.length + done.length) ? Math.round(done.length / (act.length + done.length) * 100) : 0; let tp = document.getElementById('task-progress'); if (tp) tp.style.width = pct + '%'; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; S.analytics.daily[todayKey].tasks = done.length; }
+        function taskHTML(t) { let recBadge = t.recurring ? '<span class="recurring-badge"><i class="fas fa-sync-alt"></i> Daily</span>' : ''; return `<div class="task-item${t.done ? ' done' : ''}" draggable="true" ondragstart="dragStart(event,${t.id})" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="drop(event,${t.id})"><div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div><div class="task-text">${escHtml(t.text)}${recBadge}</div><span class="task-priority priority-${t.priority}">${t.priority === 'high' ? '🔴 HIGH' : t.priority === 'med' ? '🟡 MED' : '🟢 LOW'}</span><span style="font-size: 0.92rem;font-weight:600">${t.mins}m</span><span class="task-del" onclick="deleteTask(${t.id})"><i class="fas fa-trash-alt"></i></span></div>`; }
+        function renderTasks() { let act = S.tasks.filter(t => t.date === todayKey && !t.done), done = S.tasks.filter(t => t.date === todayKey && t.done); let tl = document.getElementById('task-list'); if (tl) tl.innerHTML = act.length ? act.map(taskHTML).join('') : '<div class="empty-state" style="text-align:center;padding:24px 10px"><div style="font-size: 1.8rem;margin-bottom:8px">📋</div><div style="font-weight:700;margin-bottom:4px">No tasks today</div><div style="font-size: 0.9rem;color:var(--text3)">Type a task above and press ADD</div></div>'; let dl = document.getElementById('done-list'); if (dl) dl.innerHTML = done.length ? done.map(taskHTML).join('') : '<div class="empty-state">// NONE COMPLETED YET</div>'; let dc = document.getElementById('done-count'); if (dc) dc.innerHTML = done.length + ' DONE'; let tt = document.getElementById('today-tasks'); if (tt) tt.textContent = done.length; let pct = (act.length + done.length) ? Math.round(done.length / (act.length + done.length) * 100) : 0; let tp = document.getElementById('task-progress'); if (tp) tp.style.width = pct + '%'; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; S.analytics.daily[todayKey].tasks = done.length; }
         function dragStart(e, id) { draggedItem = id; e.dataTransfer.effectAllowed = 'move'; e.target.style.opacity = '0.5'; }
         function dragEnd(e) { e.target.style.opacity = ''; draggedItem = null; }
         function dragOver(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }
@@ -5268,28 +5644,28 @@
         function addHabit() { let v = document.getElementById('habit-input').value.trim(); if (!v) return; S.habits.push({ id: Date.now(), name: v, streak: 0, best: 0, days: {} }); document.getElementById('habit-input').value = ''; save(); renderHabits(); addXP(5); markOb('add_habit'); }
         function toggleHabit(id, dateKey) { let h = S.habits.find(h => h.id == id); if (!h) return; let key = dateKey || todayKey; if (h.days[key]) delete h.days[key]; else h.days[key] = true; let str = 0, d = new Date(); for (let i = 0; i < 365; i++) { let k = localDateKey(d); if (h.days[k]) str++; else break; d.setDate(d.getDate() - 1); } h.streak = str; h.best = Math.max(h.best || 0, str); save(); renderHabits(); addXP(5); }
         function deleteHabit(id) { S.habits = S.habits.filter(h => h.id != id); save(); renderHabits(); }
-        function renderHabits() { let labels = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); labels.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); } let hl = document.getElementById('habit-list'); if (hl) hl.innerHTML = S.habits.length ? S.habits.map(h => `<div class="habit-row"><div style="flex:1;font-size:.88rem;font-weight:600">${escHtml(h.name)}</div><div class="habit-days">${labels.map(d => `<div class="habit-day${h.days[d.key] ? ' done' : ''}" onclick="toggleHabit(${h.id},'${d.key}')">${h.days[d.key] ? '✓' : d.lbl[0]}</div>`).join('')}</div><div style="font-size:.86rem;font-weight:700">🔥${h.streak}</div><span class="task-del" onclick="deleteHabit(${h.id})"><i class="fas fa-trash-alt"></i></span></div>`).join('') : '<div class="empty-state" style="text-align:center;padding:20px 10px"><div style="font-size:1.8rem;margin-bottom:8px">💪</div><div style="font-weight:700;margin-bottom:4px">No habits tracked</div><div style="font-size:.76rem;color:var(--text3)">Add a habit above to start your streak</div></div>'; let ht = document.getElementById('h-total'); if (ht) ht.textContent = S.habits.length; let hb = document.getElementById('h-best'); if (hb) hb.textContent = Math.max(...S.habits.map(h => h.best), 0) + 'd'; let hto = document.getElementById('h-today'); if (hto) hto.textContent = S.habits.length ? Math.round(S.habits.filter(h => h.days[todayKey]).length / S.habits.length * 100) + '%' : '0%'; }
+        function renderHabits() { let labels = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); labels.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); } let hl = document.getElementById('habit-list'); if (hl) hl.innerHTML = S.habits.length ? S.habits.map(h => `<div class="habit-row"><div style="flex:1;font-size: 0.99rem;font-weight:600">${escHtml(h.name)}</div><div class="habit-days">${labels.map(d => `<div class="habit-day${h.days[d.key] ? ' done' : ''}" onclick="toggleHabit(${h.id},'${d.key}')">${h.days[d.key] ? '✓' : d.lbl[0]}</div>`).join('')}</div><div style="font-size: 0.96rem;font-weight:700">🔥${h.streak}</div><span class="task-del" onclick="deleteHabit(${h.id})"><i class="fas fa-trash-alt"></i></span></div>`).join('') : '<div class="empty-state" style="text-align:center;padding:20px 10px"><div style="font-size: 1.8rem;margin-bottom:8px">💪</div><div style="font-weight:700;margin-bottom:4px">No habits tracked</div><div style="font-size: 0.9rem;color:var(--text3)">Add a habit above to start your streak</div></div>'; let ht = document.getElementById('h-total'); if (ht) ht.textContent = S.habits.length; let hb = document.getElementById('h-best'); if (hb) hb.textContent = Math.max(...S.habits.map(h => h.best), 0) + 'd'; let hto = document.getElementById('h-today'); if (hto) hto.textContent = S.habits.length ? Math.round(S.habits.filter(h => h.days[todayKey]).length / S.habits.length * 100) + '%' : '0%'; }
 
         function addGoal() { let v = document.getElementById('goal-input')?.value.trim(); if (!v) return; S.goals.push({ id: Date.now(), text: v, done: false, week: getWeekKey() }); const _gi = document.getElementById('goal-input'); if (_gi) _gi.value = ''; save(); renderGoals(); addXP(5); }
         function getWeekKey() { let d = new Date(), day = d.getDay() || 7; d.setDate(d.getDate() + 4 - day); let yr = d.getFullYear(), wk = Math.ceil(((d - new Date(yr, 0, 1)) / 86400000 + 1) / 7); return yr + '-W' + String(wk).padStart(2, '0'); }
         function toggleGoal(id) { let g = S.goals.find(g => g.id == id); if (g) { g.done = !g.done; save(); renderGoals(); addXP(5); } }
         function deleteGoal(id) { S.goals = S.goals.filter(g => g.id != id); save(); renderGoals(); }
-        function renderGoals() { let goals = S.goals.filter(g => g.week === getWeekKey()); let gl = document.getElementById('goal-list'); if (gl) gl.innerHTML = goals.length ? goals.map(g => `<div class="task-item${g.done ? ' done' : ''}"><div class="task-check${g.done ? ' checked' : ''}" onclick="toggleGoal(${g.id})"></div><div style="flex:1;font-size:.88rem;font-weight:600">${escHtml(g.text)}</div><span class="task-del" onclick="deleteGoal(${g.id})"><i class="fas fa-trash-alt"></i></span></div>`).join('') : '<div class="empty-state">// NO GOALS</div>'; }
+        function renderGoals() { let goals = S.goals.filter(g => g.week === getWeekKey()); let gl = document.getElementById('goal-list'); if (gl) gl.innerHTML = goals.length ? goals.map(g => `<div class="task-item${g.done ? ' done' : ''}"><div class="task-check${g.done ? ' checked' : ''}" onclick="toggleGoal(${g.id})"></div><div style="flex:1;font-size: 0.99rem;font-weight:600">${escHtml(g.text)}</div><span class="task-del" onclick="deleteGoal(${g.id})"><i class="fas fa-trash-alt"></i></span></div>`).join('') : '<div class="empty-state">// NO GOALS</div>'; }
 
         function addJournal() { let t = document.getElementById('journal-input').value.trim(); if (!t) return; let tag = document.getElementById('journal-tag').value; S.journal.unshift({ id: Date.now(), text: t, tag, date: todayKey, time: new Date().toLocaleTimeString() }); document.getElementById('journal-input').value = ''; save(); renderJournal(); addXP(5); markOb('write_note'); }
         function deleteJournalEntry(id) { S.journal = S.journal.filter(j => j.id != id); save(); renderJournal(); }
-        function renderJournal() { let tl = { win: '🟢 WIN', blocker: '🔴 BLOCKER', insight: '🔵 INSIGHT' }; let jl = document.getElementById('journal-list'); if (jl) jl.innerHTML = S.journal.length ? S.journal.slice(0, 10).map(j => `<div class="journal-entry"><div class="journal-header"><div class="journal-meta">${j.date} ${j.time} | ${tl[j.tag] || j.tag}</div><button class="journal-delete" onclick="deleteJournalEntry(${j.id})">🗑</button></div><div style="font-size:.86rem;font-weight:500">${escHtml(j.text)}</div></div>`).join('') : '<div class="empty-state" style="text-align:center;padding:20px 10px"><div style="font-size:1.8rem;margin-bottom:8px">📓</div><div style="font-weight:700;margin-bottom:4px">No field notes yet</div><div style="font-size:.76rem;color:var(--text3)">Log wins, blockers, and insights here</div></div>'; }
+        function renderJournal() { let tl = { win: '🟢 WIN', blocker: '🔴 BLOCKER', insight: '🔵 INSIGHT' }; let jl = document.getElementById('journal-list'); if (jl) jl.innerHTML = S.journal.length ? S.journal.slice(0, 10).map(j => `<div class="journal-entry"><div class="journal-header"><div class="journal-meta">${j.date} ${j.time} | ${tl[j.tag] || j.tag}</div><button class="journal-delete" onclick="deleteJournalEntry(${j.id})">🗑</button></div><div style="font-size: 0.96rem;font-weight:500">${escHtml(j.text)}</div></div>`).join('') : '<div class="empty-state" style="text-align:center;padding:20px 10px"><div style="font-size: 1.8rem;margin-bottom:8px">📓</div><div style="font-weight:700;margin-bottom:4px">No field notes yet</div><div style="font-size: 0.9rem;color:var(--text3)">Log wins, blockers, and insights here</div></div>'; }
 
         function addWin() { let v = document.getElementById('win-input')?.value.trim(); if (!v) return; S.wins.unshift({ id: Date.now(), text: v, date: todayKey }); const _wi = document.getElementById('win-input'); if (_wi) _wi.value = ''; save(); renderWins(); showToast('🏆 +10 XP'); addXP(10); }
         function deleteWin(id) { S.wins = S.wins.filter(w => w.id != id); save(); renderWins(); }
-        function renderWins() { let wl = document.getElementById('wins-list'); if (wl) wl.innerHTML = S.wins.length ? S.wins.slice(0, 5).map(w => `<div class="win-item"><span style="font-size:.86rem;font-weight:600">🏆 ${escHtml(w.text)}</span><button class="win-delete" onclick="deleteWin(${w.id})">🗑</button></div>`).join('') : '<div class="empty-state">// NO WINS</div>'; }
+        function renderWins() { let wl = document.getElementById('wins-list'); if (wl) wl.innerHTML = S.wins.length ? S.wins.slice(0, 5).map(w => `<div class="win-item"><span style="font-size: 0.96rem;font-weight:600">🏆 ${escHtml(w.text)}</span><button class="win-delete" onclick="deleteWin(${w.id})">🗑</button></div>`).join('') : '<div class="empty-state">// NO WINS</div>'; }
 
         function updateScore() { let stats = getDayStats(todayKey); let ts = document.getElementById('today-score'); if (ts) ts.textContent = stats.score + '%'; updateStreak(); save(); }
         function getDayStats(dateKey) { let daily = S.analytics.daily[dateKey] || { min: 0 }; let done = S.tasks.filter(t => t.date === dateKey && t.done), all = S.tasks.filter(t => t.date === dateKey); let mins = daily.min || 0, tPct = all.length ? (done.length / all.length * 100) : 0; let mPct = S.user.target ? Math.min(mins / (S.user.target * 60) * 100, 100) : 0; let score = all.length ? Math.round((tPct + mPct) / 2) : Math.round(mPct); return { tasks: done.length, min: mins, score: Math.min(score, 100) }; }
-        function renderWeekBars() { let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); days.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); } let stats = days.map(d => ({ ...d, ...getDayStats(d.key) })), maxM = Math.max(...stats.map(s => s.min), 1); let wb = document.getElementById('week-bars'); if (wb) wb.innerHTML = stats.map(s => `<div><div class="week-day-label">${s.lbl}</div><div class="week-score-bar"><div class="week-score-fill" style="height:${Math.round(s.min / maxM * 100)}%"></div></div><div style="font-size:.65rem;font-weight:700;text-align:center;margin-top:4px">${s.min > 0 ? s.min + 'm' : '—'}</div></div>`).join(''); let wt = document.getElementById('w-tasks'); if (wt) wt.textContent = stats.reduce((a, s) => a + s.tasks, 0); let wf = document.getElementById('w-focus'); if (wf) wf.textContent = (stats.reduce((a, s) => a + s.min, 0) / 60).toFixed(1) + 'h'; let ws = document.getElementById('w-streak'); if (ws) ws.textContent = (S.analytics.curStreak || 0) + 'd'; }
-        function renderDayBreak() { let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); days.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); } let db = document.getElementById('day-breakdown'); if (db) db.innerHTML = days.map(d => { let s = getDayStats(d.key); return `<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:.86rem;font-weight:600"><span>${d.lbl}</span><span>${s.score}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${s.score}%"></div></div></div>`; }).join(''); }
-        function renderAnalytics() { let allDone = S.tasks.filter(t => t.done).length, totalMin = S.sessions.reduce((a, s) => a + s.mins, 0); let at = document.getElementById('a-tasks'); if (at) at.textContent = allDone; let ah = document.getElementById('a-hours'); if (ah) ah.textContent = (totalMin / 60).toFixed(1) + 'h'; let as = document.getElementById('a-streak'); if (as) as.textContent = (S.analytics.maxStreak || 0) + 'd'; let ase = document.getElementById('a-sess'); if (ase) ase.textContent = S.sessions.length; let ins = document.getElementById('insights'); if (ins) ins.innerHTML = `<div style="font-size:.86rem;font-weight:600;line-height:2">📊 Focus: ${(totalMin / 60).toFixed(1)}h<br>✅ Tasks: ${allDone}<br>🔥 Streak: ${S.analytics.curStreak || 0}d<br>💪 Habits: ${S.habits.length}</div>`; let pm = document.getElementById('productivity-metrics'); if (pm) { let total = S.sessions.length, avg = total > 0 ? Math.round(S.analytics.totalMin / total) : 0, rate = S.tasks.length > 0 ? Math.round((S.tasks.filter(t => t.done).length / S.tasks.length) * 100) : 0; pm.innerHTML = `<div style="font-size:.86rem;font-weight:600;line-height:2">📈 Rate: ${rate}%<br>⏱️ Avg: ${avg} min<br>📅 Active: ${Object.keys(S.analytics.daily).filter(d => S.analytics.daily[d]?.min > 0).length}d</div>`; } }
-        function renderPeakHours() { let hm = new Array(24).fill(0); S.sessions.forEach(s => { if (s.hour != null) hm[s.hour] += s.mins; }); let max = Math.max(...hm, 1), hrs = [6, 8, 10, 12, 14, 16, 18, 20, 22]; let pc = document.getElementById('peak-hours-chart'); if (pc) pc.innerHTML = hrs.map(h => `<div style="display:flex;flex-direction:column;align-items:center"><div style="height:${Math.max(10, (hm[h] / max) * 60)}px;width:28px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:4px 4px 0 0;transition:height 0.8s"></div><div style="font-size:.62rem;font-weight:700;margin-top:2px">${h}</div></div>`).join(''); }
+        function renderWeekBars() { let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); days.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); } let stats = days.map(d => ({ ...d, ...getDayStats(d.key) })), maxM = Math.max(...stats.map(s => s.min), 1); let wb = document.getElementById('week-bars'); if (wb) wb.innerHTML = stats.map(s => `<div><div class="week-day-label">${s.lbl}</div><div class="week-score-bar"><div class="week-score-fill" style="height:${Math.round(s.min / maxM * 100)}%"></div></div><div style="font-size: 0.77rem;font-weight:700;text-align:center;margin-top:4px">${s.min > 0 ? s.min + 'm' : '—'}</div></div>`).join(''); let wt = document.getElementById('w-tasks'); if (wt) wt.textContent = stats.reduce((a, s) => a + s.tasks, 0); let wf = document.getElementById('w-focus'); if (wf) wf.textContent = (stats.reduce((a, s) => a + s.min, 0) / 60).toFixed(1) + 'h'; let ws = document.getElementById('w-streak'); if (ws) ws.textContent = (S.analytics.curStreak || 0) + 'd'; }
+        function renderDayBreak() { let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); days.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); } let db = document.getElementById('day-breakdown'); if (db) db.innerHTML = days.map(d => { let s = getDayStats(d.key); return `<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size: 0.96rem;font-weight:600"><span>${d.lbl}</span><span>${s.score}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${s.score}%"></div></div></div>`; }).join(''); }
+        function renderAnalytics() { let allDone = S.tasks.filter(t => t.done).length, totalMin = S.sessions.reduce((a, s) => a + s.mins, 0); let at = document.getElementById('a-tasks'); if (at) at.textContent = allDone; let ah = document.getElementById('a-hours'); if (ah) ah.textContent = (totalMin / 60).toFixed(1) + 'h'; let as = document.getElementById('a-streak'); if (as) as.textContent = (S.analytics.maxStreak || 0) + 'd'; let ase = document.getElementById('a-sess'); if (ase) ase.textContent = S.sessions.length; let ins = document.getElementById('insights'); if (ins) ins.innerHTML = `<div style="font-size: 0.96rem;font-weight:600;line-height:2">📊 Focus: ${(totalMin / 60).toFixed(1)}h<br>✅ Tasks: ${allDone}<br>🔥 Streak: ${S.analytics.curStreak || 0}d<br>💪 Habits: ${S.habits.length}</div>`; let pm = document.getElementById('productivity-metrics'); if (pm) { let total = S.sessions.length, avg = total > 0 ? Math.round(S.analytics.totalMin / total) : 0, rate = S.tasks.length > 0 ? Math.round((S.tasks.filter(t => t.done).length / S.tasks.length) * 100) : 0; pm.innerHTML = `<div style="font-size: 0.96rem;font-weight:600;line-height:2">📈 Rate: ${rate}%<br>⏱️ Avg: ${avg} min<br>📅 Active: ${Object.keys(S.analytics.daily).filter(d => S.analytics.daily[d]?.min > 0).length}d</div>`; } }
+        function renderPeakHours() { let hm = new Array(24).fill(0); S.sessions.forEach(s => { if (s.hour != null) hm[s.hour] += s.mins; }); let max = Math.max(...hm, 1), hrs = [6, 8, 10, 12, 14, 16, 18, 20, 22]; let pc = document.getElementById('peak-hours-chart'); if (pc) pc.innerHTML = hrs.map(h => `<div style="display:flex;flex-direction:column;align-items:center"><div style="height:${Math.max(10, (hm[h] / max) * 60)}px;width:28px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:4px 4px 0 0;transition:height 0.8s"></div><div style="font-size: 0.73rem;font-weight:700;margin-top:2px">${h}</div></div>`).join(''); }
         function buildContrib() { let cells = []; for (let i = 89; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); let k = localDateKey(d), s = getDayStats(k), act = s.min + s.tasks * 20, l = ''; if (act > 0) l = 'l1'; if (act >= 60) l = 'l2'; if (act >= 120) l = 'l3'; if (act >= 240) l = 'l4'; cells.push(`<div class="contrib-cell ${l}" title="${k}: ${s.min}m"></div>`); } let weeks = []; for (let i = 0; i < cells.length; i += 7)weeks.push(`<div class="contrib-week">${cells.slice(i, i + 7).join('')}</div>`); let cg = document.getElementById('contrib-graph'); if (cg) cg.innerHTML = weeks.join(''); }
         function updateStreak() { let act = {}; S.tasks.forEach(t => { if (t.done) act[t.date] = (act[t.date] || 0) + 1; }); S.sessions.forEach(s => { act[s.date] = (act[s.date] || 0) + 1; }); let str = 0, d = new Date(); for (let i = 0; i < 365; i++) { let k = localDateKey(d); if (act[k]) str++; else break; d.setDate(d.getDate() - 1); } S.analytics.curStreak = str; S.analytics.maxStreak = Math.max(S.analytics.maxStreak || 0, str); let sb = document.getElementById('streak-badge'); if (sb) sb.innerHTML = `STREAK: ${str}d`; }
 
@@ -5342,7 +5718,7 @@
             let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); let k = localDateKey(d); let score = S.analytics.daily[k]?.focusScore || 0; if (i === 0 && todayScore !== undefined) score = todayScore; days.push({ lbl: DAYS[d.getDay()], score, k }); }
             let hist = document.getElementById('fs-history'), lbls = document.getElementById('fs-history-labels');
             if (hist) {
-                hist.innerHTML = days.map((d, idx) => { let pct = Math.max(8, (d.score / 100) * 60); let col = d.score >= 90 ? '#ffd700' : d.score >= 75 ? 'var(--green)' : d.score >= 60 ? 'var(--cyan)' : d.score >= 40 ? 'var(--amber)' : 'var(--red)'; return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end" data-fsidx="${idx}"><div class="fs-hist-bar" data-date="${d.k}" data-score="${d.score}" style="width:100%;max-width:28px;height:${pct}px;background:${col};border-radius:4px 4px 0 0;transition:height 0.8s;opacity:${d.score > 0 ? 1 : 0.2};cursor:pointer"></div><div style="font-size:.64rem;font-weight:700;margin-top:4px;color:var(--text3)">${d.score > 0 ? d.score : '-'}</div></div>`; }).join('');
+                hist.innerHTML = days.map((d, idx) => { let pct = Math.max(8, (d.score / 100) * 60); let col = d.score >= 90 ? '#ffd700' : d.score >= 75 ? 'var(--green)' : d.score >= 60 ? 'var(--cyan)' : d.score >= 40 ? 'var(--amber)' : 'var(--red)'; return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end" data-fsidx="${idx}"><div class="fs-hist-bar" data-date="${d.k}" data-score="${d.score}" style="width:100%;max-width:28px;height:${pct}px;background:${col};border-radius:4px 4px 0 0;transition:height 0.8s;opacity:${d.score > 0 ? 1 : 0.2};cursor:pointer"></div><div style="font-size: 0.76rem;font-weight:700;margin-top:4px;color:var(--text3)">${d.score > 0 ? d.score : '-'}</div></div>`; }).join('');
                 // Change 6: wire tooltip on each bar
                 hist.querySelectorAll('.fs-hist-bar').forEach(bar => {
                     bar.addEventListener('mouseenter', function (e) {
@@ -5376,9 +5752,9 @@
         function renderSnippets() {
             let cont = document.getElementById('snippet-list'); if (!cont) return;
             // CHANGE 3: No share button in snippet render
-            cont.innerHTML = S.snippets.length ? S.snippets.map(s => `<div style="background:var(--bg2);padding:10px;margin-bottom:8px;border-radius:5px;border-left:3px solid var(--accent)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><strong style="font-size:.86rem">${escHtml(s.title)}</strong><button class="btn btn-ghost btn-sm" onclick="deleteSnippet(${s.id})">DELETE</button></div><pre style="background:var(--bg);padding:6px;margin:0;border-radius:4px;max-height:80px;overflow:auto;font-size:.78rem">${escHtml(s.code.substring(0, 150))}</pre></div>`).join('') : '<div class="empty-state">// NO SNIPPETS</div>';
+            cont.innerHTML = S.snippets.length ? S.snippets.map(s => `<div style="background:var(--bg2);padding:10px;margin-bottom:8px;border-radius:5px;border-left:3px solid var(--accent)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><strong style="font-size: 0.96rem">${escHtml(s.title)}</strong><button class="btn btn-ghost btn-sm" onclick="deleteSnippet(${s.id})">DELETE</button></div><pre style="background:var(--bg);padding:6px;margin:0;border-radius:4px;max-height:80px;overflow:auto;font-size: 0.92rem">${escHtml(s.code.substring(0, 150))}</pre></div>`).join('') : '<div class="empty-state">// NO SNIPPETS</div>';
         }
-        function visualizeDataStructure() { let type = document.getElementById('ds-type').value, vals = document.getElementById('ds-input').value.split(',').map(v => v.trim()), cont = document.getElementById('ds-visualization'); if (type === 'array') { cont.innerHTML = vals.map(v => `<span style="display:inline-block;background:var(--accent);padding:8px;margin:4px;border-radius:4px;font-size:.86rem;font-weight:700">${v}</span>`).join(''); } else if (type === 'linkedlist') { cont.innerHTML = vals.map(v => `<span style="display:inline-block;background:var(--accent);padding:8px;margin:4px;border-radius:4px;font-size:.86rem;font-weight:700">${v} → </span>`).join('') + 'null'; } else { cont.innerHTML = 'Tree: ' + vals.join(' → '); } }
+        function visualizeDataStructure() { let type = document.getElementById('ds-type').value, vals = document.getElementById('ds-input').value.split(',').map(v => v.trim()), cont = document.getElementById('ds-visualization'); if (type === 'array') { cont.innerHTML = vals.map(v => `<span style="display:inline-block;background:var(--accent);padding:8px;margin:4px;border-radius:4px;font-size: 0.96rem;font-weight:700">${v}</span>`).join(''); } else if (type === 'linkedlist') { cont.innerHTML = vals.map(v => `<span style="display:inline-block;background:var(--accent);padding:8px;margin:4px;border-radius:4px;font-size: 0.96rem;font-weight:700">${v} → </span>`).join('') + 'null'; } else { cont.innerHTML = 'Tree: ' + vals.join(' → '); } }
         function analyzeComplexity() { let code = document.getElementById('complexity-input').value; let comp = 'O(1)'; if (code.includes('for') || code.includes('while')) comp = 'O(n)'; if (code.match(/for.*for/)) comp = 'O(n²)'; if (code.includes('fibonacci')) comp = 'O(2ⁿ)'; document.getElementById('complexity-output').innerHTML = `Time: ${comp}\nLines: ${code.split('\n').length}`; }
         function renderMarkdown() { let text = document.getElementById('markdown-input').value; let html = text.replace(/^# (.*$)/gm, '<h1>$1</h1>').replace(/^## (.*$)/gm, '<h2>$2</h2>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/^- (.*$)/gm, '<li>$1</li>').replace(/\n/g, '<br>'); document.getElementById('markdown-preview').innerHTML = html; }
 
@@ -5721,7 +6097,7 @@
                 dayEvents.forEach(e => { if (stats[e.cat] !== undefined) stats[e.cat]++; });
                 let evHTML = dayEvents.map(e => { let timeDisplay = e.time ? `<span class="wp-event-time">${formatTimeAMPM(e.time)}</span>` : ''; let isDone = isPlannerEventDone(e, dateKey); let recBadge = e.repeatWeekly ? '<span class="recurring-badge"><i class="fas fa-sync-alt"></i> WEEKLY</span>' : e.repeatMonthly ? '<span class="recurring-badge"><i class="fas fa-sync-alt"></i> MONTHLY</span>' : ''; return `<div class="wp-event ${CAT_COLORS[e.cat] || 'cat-work'}${isDone ? ' done' : ''}" draggable="true" ondragstart="dragStartWeekly(event,${e.id},'${dateKey}')" ondragend="dragEndWeekly(event)" ondragover="dragOver(event)" ondrop="dropWeekly(event,${e.id},'${dateKey}')"><div style="display:flex;align-items:center;gap:8px;"><div class="task-check${isDone ? ' checked' : ''}" onclick="togglePlannerEvent(${e.id},'${dateKey}')"></div><div class="wp-event-body">${timeDisplay}<span>${escHtml(e.text)}</span>${recBadge}</div></div><button class="wp-event-del" onclick="deleteWeeklyEvent(${e.id})" title="Delete">✕</button></div>`; }).join('');
                 let monthShort = colDate.toLocaleDateString('en-US', { month: 'short' });
-                cols += `<div class="wp-day-col${isToday ? ' today-col' : ''}"><div class="wp-day-header${isToday ? ' today-hdr' : ''}">${WP_DAYS[i]}<br><span style="font-size:.78rem;color:${isToday ? 'var(--accent)' : 'var(--text2)'};">${monthShort} ${colDate.getDate()}</span></div>${evHTML || `<div style="font-family:var(--mono);font-size:.7rem;color:var(--text3);text-align:center;margin-top:16px;">// EMPTY</div>`}</div>`;
+                cols += `<div class="wp-day-col${isToday ? ' today-col' : ''}"><div class="wp-day-header${isToday ? ' today-hdr' : ''}">${WP_DAYS[i]}<br><span style="font-size: 0.92rem;color:${isToday ? 'var(--accent)' : 'var(--text2)'};">${monthShort} ${colDate.getDate()}</span></div>${evHTML || `<div style="font-family:var(--mono);font-size: 0.83rem;color:var(--text3);text-align:center;margin-top:16px;">// EMPTY</div>`}</div>`;
             }
             grid.innerHTML = cols;
             let statsEl = document.getElementById('wp-stats');
@@ -5774,7 +6150,7 @@
             let [y, m, d] = dateKey.split('-').map(Number); let displayDate = new Date(y, m - 1, d);
             title.textContent = displayDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             let events = (S.weeklyEvents || []).filter(e => eventMatchesDate(e, dateKey)).sort((a, b) => plannerEventOrder(a) - plannerEventOrder(b) || (a.time || '00:00').localeCompare(b.time || '00:00'));
-            evList.innerHTML = events.length ? events.map(e => { let timeBadge = e.time ? `<span class="mp-event-time-badge">${formatTimeAMPM(e.time)}</span>` : ''; let isDone = isPlannerEventDone(e, dateKey); return `<div class="mp-event-item ${CAT_COLORS[e.cat] || 'cat-work'}${isDone ? ' done' : ''}" draggable="true" ondragstart="dragStartMonthly(event,${e.id},'${dateKey}')" ondragend="dragEndMonthly(event)" ondragover="dragOver(event)" ondrop="dropMonthly(event,${e.id},'${dateKey}')"><span style="display:flex;align-items:center;font-size:.88rem;gap:8px;"><div class="task-check${isDone ? ' checked' : ''}" onclick="togglePlannerEvent(${e.id},'${dateKey}')"></div>${timeBadge}${escHtml(e.text)}</span><button onclick="deleteMonthlyEvent(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:.75rem" title="Delete">🗑</button></div>`; }).join('') : '<div class="empty-state">// NO EVENTS THIS DAY</div>';
+            evList.innerHTML = events.length ? events.map(e => { let timeBadge = e.time ? `<span class="mp-event-time-badge">${formatTimeAMPM(e.time)}</span>` : ''; let isDone = isPlannerEventDone(e, dateKey); return `<div class="mp-event-item ${CAT_COLORS[e.cat] || 'cat-work'}${isDone ? ' done' : ''}" draggable="true" ondragstart="dragStartMonthly(event,${e.id},'${dateKey}')" ondragend="dragEndMonthly(event)" ondragover="dragOver(event)" ondrop="dropMonthly(event,${e.id},'${dateKey}')"><span style="display:flex;align-items:center;font-size: 0.99rem;gap:8px;"><div class="task-check${isDone ? ' checked' : ''}" onclick="togglePlannerEvent(${e.id},'${dateKey}')"></div>${timeBadge}${escHtml(e.text)}</span><button onclick="deleteMonthlyEvent(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size: 0.89rem" title="Delete">🗑</button></div>`; }).join('') : '<div class="empty-state">// NO EVENTS THIS DAY</div>';
         }
         function mpPrevMonth() { mpMonth--; if (mpMonth < 0) { mpMonth = 11; mpYear--; } mpSelectedDate = null; let di = document.getElementById('mp-date-input'); if (di) di.value = ''; renderMonthlyPlanner(); }
         function mpNextMonth() { mpMonth++; if (mpMonth > 11) { mpMonth = 0; mpYear++; } mpSelectedDate = null; let di = document.getElementById('mp-date-input'); if (di) di.value = ''; renderMonthlyPlanner(); }
@@ -6333,7 +6709,7 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
             wrapper.innerHTML = `
             <div class="card" style="margin-top:12px;animation:cardReveal 0.4s ease">
                 <div class="card-title"><i class="fas fa-sitemap"></i> SMART TASK BREAKDOWN <span class="card-badge" style="background:rgba(0,210,255,.15);color:var(--cyan);border:1px solid rgba(0,210,255,.3);">AI ✦</span></div>
-                <div style="font-family:var(--mono);font-size:.72rem;color:var(--text3);margin-bottom:10px">// Detected: <span style="color:var(--cyan)">${result.matched}</span> task → Suggested subtasks:</div>
+                <div style="font-family:var(--mono);font-size: 0.85rem;color:var(--text3);margin-bottom:10px">// Detected: <span style="color:var(--cyan)">${result.matched}</span> task → Suggested subtasks:</div>
                 <div class="task-breakdown-panel" id="breakdown-subtasks">
                     ${result.subtasks.map((s, i) => `
                     <div class="task-subtask" onclick="addSubtaskAsTask('${escHtml(s)}', this)">
@@ -6413,7 +6789,7 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
             if (!el) return;
 
             if (habits.length === 0) {
-                el.innerHTML = '<div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Add habits to unlock intelligence engine.</div>';
+                el.innerHTML = '<div style="font-family:var(--mono);font-size: 0.87rem;color:var(--text3)">// Add habits to unlock intelligence engine.</div>';
                 return;
             }
 
@@ -6474,11 +6850,11 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
 
             const perHabitHTML = suggestions.map(s => `
                 <div style="margin-bottom:8px">
-                    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text3);margin-bottom:3px">→ <strong style="color:var(--text2)">${escHtml(s.habit)}</strong></div>
+                    <div style="font-family:var(--mono);font-size: 0.85rem;color:var(--text3);margin-bottom:3px">→ <strong style="color:var(--text2)">${escHtml(s.habit)}</strong></div>
                     <div class="habit-suggestion">💡 ${s.tip}</div>
                 </div>`).join('');
 
-            el.innerHTML = globalHTML + (perHabitHTML ? `<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)"><div style="font-family:var(--head);font-size:.6rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:8px">RECOVERY SUGGESTIONS</div>${perHabitHTML}</div>` : '');
+            el.innerHTML = globalHTML + (perHabitHTML ? `<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)"><div style="font-family:var(--head);font-size: 0.71rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:8px">RECOVERY SUGGESTIONS</div>${perHabitHTML}</div>` : '');
 
             // Inject badges into existing habit rows
             setTimeout(() => injectHabitBadges(reports), 100);
@@ -6622,19 +6998,19 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
                         <div class="weekly-metric-lbl">HABIT RATE</div>
                     </div>
                 </div>
-                <div style="font-family:var(--head);font-size:.6rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin:8px 0 4px">DAILY FOCUS (MIN)</div>
+                <div style="font-family:var(--head);font-size: 0.71rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin:8px 0 4px">DAILY FOCUS (MIN)</div>
                 <div style="display:flex;gap:4px;align-items:flex-end;height:50px">
                     ${days.map((d, i) => `
                     <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px" title="${d.label}: ${d.dayMins}min, ${d.dayTasks} tasks">
                         <div style="width:100%;background:${barColors[i]};height:${Math.max(4, Math.round(d.dayMins / maxMins * 40))}px;border-radius:2px 2px 0 0;transition:height 0.5s ease;opacity:${d.dk === todayKey ? 1 : 0.75}"></div>
-                        <div style="font-family:var(--mono);font-size:.6rem;color:${d.dk === todayKey ? 'var(--accent2)' : 'var(--text3)'};font-weight:${d.dk === todayKey ? '700' : '400'}">${d.label.slice(0, 1)}</div>
+                        <div style="font-family:var(--mono);font-size: 0.71rem;color:${d.dk === todayKey ? 'var(--accent2)' : 'var(--text3)'};font-weight:${d.dk === todayKey ? '700' : '400'}">${d.label.slice(0, 1)}</div>
                     </div>`).join('')}
                 </div>
                 <div style="margin-top:12px">
-                    <div style="font-family:var(--head);font-size:.6rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:8px"><i class="fas fa-lightbulb"></i> RECOMMENDATIONS</div>
+                    <div style="font-family:var(--head);font-size: 0.71rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:8px"><i class="fas fa-lightbulb"></i> RECOMMENDATIONS</div>
                     ${recos.slice(0, 4).map((r, i) => `
                     <div class="ai-reco-item" id="ai-reco-${i}">
-                        <span style="font-size:.95rem">${r.icon}</span>
+                        <span style="font-size: 1.06rem">${r.icon}</span>
                         <span style="flex:1">${r.text}</span>
                         <button class="ai-dismiss-btn" onclick="document.getElementById('ai-reco-${i}').remove()">✕</button>
                     </div>`).join('')}
@@ -6816,7 +7192,7 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
 
                 // Add current tier position indicator
                 const tierPct = Math.round((st.tierIdx / (AFT.TIERS.length - 1)) * 100);
-                msg += ` <span style="color:var(--text3);font-size:.66rem">(Capacity: ${tierPct}%)</span>`;
+                msg += ` <span style="color:var(--text3);font-size: 0.78rem">(Capacity: ${tierPct}%)</span>`;
                 textEl.innerHTML = msg;
 
                 // History dots
@@ -6919,7 +7295,7 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
             const grade = gradeEl ? (gradeEl.textContent || '').replace('GRADE:', '').trim() : '—';
 
             if (score === 0 && grade === '—') {
-                el.innerHTML = '<div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Hit CALCULATE SCORE first to unlock analysis.</div>';
+                el.innerHTML = '<div style="font-family:var(--mono);font-size: 0.87rem;color:var(--text3)">// Hit CALCULATE SCORE first to unlock analysis.</div>';
                 return;
             }
 
@@ -6998,16 +7374,16 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
                 const h = Math.max(4, Math.round(s.score / maxS * 36));
                 const c = s.score >= 75 ? 'var(--green)' : s.score >= 50 ? 'var(--accent)' : s.score > 0 ? 'var(--amber)' : 'var(--border2)';
                 const d = new Date(s.dk + 'T00:00:00');
-                return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px" title="${s.dk}: ${s.score}pt"><div style="width:100%;background:${c};height:${h}px;border-radius:2px 2px 0 0"></div><div style="font-family:var(--mono);font-size:.56rem;color:var(--text3)">${['S', 'M', 'T', 'W', 'T', 'F', 'S'][d.getDay()]}</div></div>`;
+                return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px" title="${s.dk}: ${s.score}pt"><div style="width:100%;background:${c};height:${h}px;border-radius:2px 2px 0 0"></div><div style="font-family:var(--mono);font-size: 0.66rem;color:var(--text3)">${['S', 'M', 'T', 'W', 'T', 'F', 'S'][d.getDay()]}</div></div>`;
             }).join('');
 
             el.innerHTML = `
-            <div style="margin-bottom:8px;font-family:var(--mono);font-size:.75rem;color:var(--text2);line-height:1.55">${explanation}${deltaHTML}</div>
+            <div style="margin-bottom:8px;font-family:var(--mono);font-size: 0.89rem;color:var(--text2);line-height:1.55">${explanation}${deltaHTML}</div>
 
             ${strengths.length > 0 ? `<div class="fs-strength-row">${strengths.map(s => `<span class="fs-tag strength">${s}</span>`).join('')}</div>` : ''}
             ${weaknesses.length > 0 ? `<div class="fs-strength-row" style="margin-bottom:8px">${weaknesses.map(w => `<span class="fs-tag weakness">${w}</span>`).join('')}</div>` : ''}
 
-            ${tips.length > 0 ? `<div class="fs-tip-list">${tips.slice(0, 3).map(t => `<div class="fs-tip-item ${t.cls}"><span style="font-size:.9rem;flex-shrink:0">${t.icon}</span><span>${t.text}</span></div>`).join('')}</div>` : ''}
+            ${tips.length > 0 ? `<div class="fs-tip-list">${tips.slice(0, 3).map(t => `<div class="fs-tip-item ${t.cls}"><span style="font-size: 1.01rem;flex-shrink:0">${t.icon}</span><span>${t.text}</span></div>`).join('')}</div>` : ''}
 
             ${weekAvg > 0 ? `
             <div class="fs-weekly-summary">
@@ -7096,11 +7472,11 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
             const lang = document.getElementById('playground-language')?.value || 'javascript';
 
             if (code.length < 10) {
-                wrapper.innerHTML = '<div style="font-family:var(--mono);font-size:.74rem;color:var(--text3);margin-top:8px">// Write some code first to analyze.</div>';
+                wrapper.innerHTML = '<div style="font-family:var(--mono);font-size: 0.87rem;color:var(--text3);margin-top:8px">// Write some code first to analyze.</div>';
                 return;
             }
 
-            wrapper.innerHTML = '<div style="font-family:var(--mono);font-size:.74rem;color:var(--text3);margin-top:8px">// Scanning...</div>';
+            wrapper.innerHTML = '<div style="font-family:var(--mono);font-size: 0.87rem;color:var(--text3);margin-top:8px">// Scanning...</div>';
 
             setTimeout(() => {
                 const rules = CODE_RULES[lang] || CODE_RULES.javascript;
@@ -7152,7 +7528,7 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
                     <div class="code-issue-body" style="flex:1">
                         ${f.lines.length > 0 ? `<span class="code-issue-line">Line ${f.lines.join(', ')}</span>` : ''}
                         <div><strong>${f.title}</strong></div>
-                        <div style="margin-top:2px;color:var(--text3);font-size:.7rem">${f.desc}</div>
+                        <div style="margin-top:2px;color:var(--text3);font-size: 0.83rem">${f.desc}</div>
                         ${f.fix ? `<code class="code-fix-snippet">${escHtml ? escHtml(f.fix) : f.fix}</code>` : ''}
                     </div>
                 </div>`).join('');
@@ -7195,8 +7571,8 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
                         </div>
                     </div>
                     ${noIssues ? '<div class="code-issue-item sev-good" style="margin-bottom:8px"><span class="code-issue-icon">🏆</span><span>No issues detected — clean code! Keep it up.</span></div>' : issueHTML}
-                    ${goodHTML ? `<div style="margin-top:6px;font-family:var(--head);font-size:.58rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:5px">GOOD PATTERNS DETECTED</div>${goodHTML}` : ''}
-                    <div style="font-family:var(--mono);font-size:.66rem;color:var(--text3);margin-top:8px">// ${findings.length} pattern${findings.length !== 1 ? 's' : ''} analyzed | Quality score: ${qualityScore}/100</div>
+                    ${goodHTML ? `<div style="margin-top:6px;font-family:var(--head);font-size: 0.68rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:5px">GOOD PATTERNS DETECTED</div>${goodHTML}` : ''}
+                    <div style="font-family:var(--mono);font-size: 0.78rem;color:var(--text3);margin-top:8px">// ${findings.length} pattern${findings.length !== 1 ? 's' : ''} analyzed | Quality score: ${qualityScore}/100</div>
                 </div>`;
             }, 80);
         }
