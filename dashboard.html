@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>OPERATOR COMMAND // EXECUTION OS v5.0</title>
+    <meta name="theme-color" content="#080a0c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="OPERATOR">
+    <link rel="manifest" id="pwa-manifest-link">
     <link
         href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap"
         rel="stylesheet">
@@ -2124,7 +2129,40 @@
             letter-spacing: .08em;
         }
 
-        /* ===== CHANGE 1: BIGGER fonts in monthly planner ===== */
+        /* ===== CHANGE 7: Mobile onboarding — full-width bottom bar on small screens ===== */
+        @media (max-width: 768px) {
+            .ob-float {
+                bottom: 0 !important;
+                right: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                border-radius: 12px 12px 0 0 !important;
+                border-left: none !important;
+                border-right: none !important;
+                border-bottom: none !important;
+                border-top: 1px solid rgba(108, 99, 255, .35) !important;
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+
+            .ob-float.collapsed {
+                border-radius: 12px 12px 0 0 !important;
+            }
+
+            .ob-float.collapsed .ob-float-header {
+                border-radius: 12px 12px 0 0 !important;
+            }
+
+            .ob-float.collapsed .ob-float-header:hover {
+                border-radius: 12px 12px 0 0 !important;
+            }
+
+            /* wrapper bottom padding accounts for collapsed pill height ~44px */
+            .wrapper {
+                padding-bottom: 120px !important;
+            }
+        }
+
         .mp-day-cell {
             background: var(--card2);
             border: 1px solid var(--border);
@@ -3639,6 +3677,33 @@
 
 <body>
 
+    <!-- STREAK AT RISK MODAL -->
+    <div id="streak-risk-modal"
+        style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center">
+        <div
+            style="background:var(--card);border:1px solid rgba(255,179,71,.4);border-radius:14px;padding:32px;max-width:380px;width:90%;text-align:center;box-shadow:0 0 60px rgba(255,179,71,.2);animation:slideUp .4s ease">
+            <div style="font-size:3rem;margin-bottom:12px">🔥</div>
+            <div style="font-family:var(--head);font-size:1.3rem;font-weight:900;color:var(--amber);letter-spacing:.08em;margin-bottom:8px"
+                id="streak-risk-title">STREAK AT RISK</div>
+            <div style="font-family:var(--mono);font-size:.84rem;color:var(--text2);margin-bottom:24px;line-height:1.6"
+                id="streak-risk-msg">Your streak is at risk. Complete a session to keep it alive.</div>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+                <button class="btn btn-primary" onclick="closeStreakModal();quickStartSession && quickStartSession()"
+                    style="font-size:.85rem;padding:12px 24px"><i class="fas fa-play"></i> START SESSION NOW</button>
+                <button class="btn btn-ghost" onclick="closeStreakModal()" style="font-size:.8rem">Remind me
+                    later</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SYNC FLOAT INDICATOR -->
+    <div id="sync-float"
+        style="position:fixed;bottom:20px;left:20px;z-index:1000;font-family:var(--mono);font-size:.72rem;font-weight:700;padding:6px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);display:none;align-items:center;gap:6px;transition:all .3s">
+        <span id="sync-float-dot"
+            style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span>
+        <span id="sync-float-text">SYNCED</span>
+    </div>
+
     <!-- LOADING OVERLAY -->
     <div id="loading-overlay">
         <div class="loading-spinner"></div>
@@ -3695,6 +3760,8 @@
                 <button class="btn btn-sync btn-sm" onclick="forceSyncNow()" title="Force sync to cloud">
                     <i class="fas fa-sync"></i> SYNC
                 </button>
+                <button class="btn btn-ghost btn-sm" id="pwa-install-btn" style="display:none" onclick="installPWA()"><i
+                        class="fas fa-download"></i> INSTALL APP</button>
                 <button class="btn btn-ghost btn-sm" onclick="showShortcuts()"><i class="fas fa-keyboard"></i></button>
                 <button class="btn btn-ghost btn-sm" onclick="exportData()"><i class="fas fa-download"></i>
                     EXPORT</button>
@@ -3724,7 +3791,7 @@
         </div>
 
         <!-- CHANGE 2: Old onboarding section hidden via CSS; replaced by floating panel below -->
-        <div class="onboarding-section" id="onboarding-section" style="display:none">
+        <div class="onboarding-section" id="onboarding-section">
             <div class="onboarding-title">
                 <span><i class="fas fa-rocket"></i> GETTING STARTED — OPERATOR CHECKLIST</span>
                 <button class="ob-action-btn" onclick="toggleOnboarding()" id="ob-toggle-btn">HIDE</button>
@@ -3749,16 +3816,16 @@
                 WORK</button>
             <button class="nav-tab" onclick="switchTab('timer',this)"><i class="fas fa-hourglass-half"></i> FOCUS
                 PULSE</button>
-            <button class="nav-tab" onclick="switchTab('habits',this)"><i class="fas fa-chart-line"></i> HABIT
-                MATRIX</button>
-            <button class="nav-tab" onclick="switchTab('weekly-planner',this)"><i class="fas fa-calendar-alt"></i>
-                WEEKLY PLAN</button>
-            <button class="nav-tab" onclick="switchTab('monthly-planner',this)"><i class="fas fa-calendar"></i> MONTHLY
-                PLAN</button>
-            <button class="nav-tab" onclick="switchTab('focusscore',this)"><i class="fas fa-bullseye"></i> FOCUS
-                SCORE</button>
+            <button class="nav-tab" onclick="switchTab('habits',this)"><i class="fas fa-chart-line"></i> HABITS</button>
+            <button class="nav-tab" onclick="switchTab('focusscore',this)"><i class="fas fa-bullseye"></i> FOCUS SCORE
+                <span id="nav-score-badge"
+                    style="display:none;background:var(--accent);color:#fff;font-size:.6rem;padding:1px 5px;border-radius:8px;margin-left:4px">NEW</span></button>
             <button class="nav-tab" onclick="switchTab('analytics',this)"><i class="fas fa-chart-bar"></i>
                 ANALYTICS</button>
+            <button class="nav-tab" onclick="switchTab('weekly-planner',this)"><i class="fas fa-calendar-alt"></i>
+                WEEKLY</button>
+            <button class="nav-tab" onclick="switchTab('monthly-planner',this)"><i class="fas fa-calendar"></i>
+                MONTHLY</button>
             <button class="nav-tab" onclick="switchTab('journal',this)"><i class="fas fa-book"></i> FIELD NOTES</button>
             <button class="nav-tab" onclick="switchTab('devtools',this)"><i class="fas fa-code"></i> DEV TOOLS</button>
             <button class="nav-tab" onclick="switchTab('help',this)"><i class="fas fa-question-circle"></i>
@@ -3794,10 +3861,43 @@
                         </div>
                     </div>
                     <div class="ai-coach-panel" id="ai-coach-panel">
-                        <div class="ai-coach-title"><i class="fas fa-brain"></i> SMART FOCUS COACH</div>
+                        <div class="ai-coach-title"
+                            style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+                            <span><i class="fas fa-brain"></i> SMART FOCUS COACH</span>
+                            <span id="ai-coach-mode-badge"
+                                style="font-family:var(--mono);font-size:.62rem;padding:2px 8px;border-radius:10px;background:rgba(108,99,255,.15);color:var(--accent2);border:1px solid rgba(108,99,255,.3)">RULE-BASED</span>
+                        </div>
                         <div id="ai-coach-insights">
                             <div style="font-family:var(--mono);font-size:.74rem;color:var(--text3)">// Analyzing your
                                 patterns...</div>
+                        </div>
+                        <!-- Gemini AI upgrade panel -->
+                        <div id="gemini-coach-panel"
+                            style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px">
+                            <!-- Key setup hidden — AI is pre-configured -->
+                            <div id="gemini-key-setup" style="display:none"></div>
+                            <div id="gemini-active-panel" style="display:block">
+                                <div
+                                    style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
+                                    <span style="font-family:var(--mono);font-size:.68rem;color:var(--green)"><i
+                                            class="fas fa-circle" style="font-size:.5rem"></i> GEMINI AI ACTIVE</span>
+                                    <span id="gemini-daily-counter"
+                                        style="font-family:var(--mono);font-size:.65rem;color:var(--text3)"><!-- filled by JS --></span>
+                                    <button onclick="askGeminiCoach()" id="gemini-ask-btn"
+                                        class="btn btn-primary btn-sm"><i class="fas fa-sparkles"></i> ASK AI
+                                        COACH</button>
+                                </div>
+                                <div id="gemini-coach-output"
+                                    style="display:none;font-family:var(--mono);font-size:.76rem;color:var(--text2);line-height:1.7;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:12px;margin-top:8px;white-space:pre-wrap">
+                                </div>
+                                <div id="gemini-coach-loading"
+                                    style="display:none;font-family:var(--mono);font-size:.72rem;color:var(--accent2);text-align:center;padding:12px">
+                                    <i class="fas fa-circle-notch fa-spin"></i> AI is analyzing your patterns...
+                                </div>
+                                <div id="gemini-coach-error"
+                                    style="display:none;font-family:var(--mono);font-size:.72rem;color:var(--red);padding:8px;background:rgba(255,71,87,.08);border-radius:5px;margin-top:8px">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card" style="margin-top:16px">
@@ -3823,6 +3923,9 @@
                             <div class="preset-btn"><input type="number" id="focus-custom-minutes" placeholder="Custom"
                                     min="1"><button onclick="setMini('custom')">✓</button></div>
                         </div>
+                        <div id="mini-last-session-chip"
+                            style="display:none;text-align:center;margin-top:8px;font-family:var(--mono);font-size:.7rem;color:var(--text3);background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px">
+                            LAST: <span id="mini-last-session-text">—</span></div>
                         <div class="timer-controls">
                             <button class="btn btn-primary" id="mini-btn" onclick="toggleMini()"><i
                                     class="fas fa-play"></i> START</button>
@@ -3902,6 +4005,9 @@
                         <div class="preset-btn"><input type="number" id="deep-custom-minutes" placeholder="Custom"
                                 min="1"><button onclick="setMain('custom')"><i class="fas fa-check"></i></button></div>
                     </div>
+                    <div id="main-last-session-chip"
+                        style="display:none;text-align:center;margin-top:8px;font-family:var(--mono);font-size:.7rem;color:var(--text3);background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px">
+                        LAST: <span id="main-last-session-text">—</span></div>
                     <div class="mt-16"><input type="text" id="sess-task" placeholder="📋 Session directive" /></div>
                     <div class="timer-controls">
                         <button class="btn btn-primary" id="main-btn" onclick="toggleMain()"><i class="fas fa-play"></i>
@@ -3970,6 +4076,18 @@
 
         <!-- FOCUS SCORE PANEL -->
         <div class="panel" id="panel-focusscore">
+            <div
+                style="background:linear-gradient(135deg,rgba(108,99,255,.12),rgba(0,210,255,.06));border:1px solid rgba(108,99,255,.25);border-radius:10px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px">
+                <div style="font-size:1.8rem">🎯</div>
+                <div>
+                    <div
+                        style="font-family:var(--head);font-size:.9rem;font-weight:900;letter-spacing:.06em;margin-bottom:3px">
+                        YOUR DAILY PERFORMANCE GRADE</div>
+                    <div style="font-family:var(--mono);font-size:.78rem;color:var(--text2)">Tracks sessions, tasks,
+                        focus quality &amp; consistency. Hit Calculate to see today's grade — or it auto-calculates
+                        every time you open this tab.</div>
+                </div>
+            </div>
             <div class="grid-2">
                 <div class="card">
                     <div class="card-title"><i class="fas fa-bullseye"></i> FOCUS SCORE ENGINE</div>
@@ -4287,6 +4405,11 @@
                         <p>💻 <strong>Dev Tools</strong> — Code playground, snippets, GitHub stats</p>
                         <p>☁️ <strong>Cloud Sync</strong> — Data syncs across all your browsers</p>
                     </div>
+                    <!-- Change 8: restore default tab order link -->
+                    <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
+                        <button onclick="_restoreDefaultTabOrder()" class="btn btn-ghost btn-sm"
+                            style="font-size:.7rem"><i class="fas fa-undo"></i> Restore default tab order</button>
+                    </div>
                 </div>
                 <div class="card">
                     <div class="card-title"><i class="fas fa-keyboard"></i> KEYBOARD SHORTCUTS</div>
@@ -4430,7 +4553,7 @@
     </div><!-- end .wrapper -->
 
     <!-- CHANGE 2: Compact floating onboarding + Today Goals panel (bottom-right) -->
-    <div class="ob-float" id="ob-float">
+    <div class="ob-float collapsed" id="ob-float">
         <div class="ob-float-header" onclick="toggleObFloat()">
             <div class="ob-float-title">
                 <i class="fas fa-rocket"></i> GETTING STARTED
@@ -4484,6 +4607,40 @@
 
     <div class="shortcut-hint" onclick="showShortcuts()"><i class="fas fa-keyboard"></i> Press <kbd>?</kbd></div>
     <div id="toast"></div>
+    <div id="fs-bar-tooltip"
+        style="display:none;position:fixed;z-index:9999;background:var(--card2);border:1px solid var(--border2);border-radius:5px;padding:5px 10px;font-family:var(--mono);font-size:.72rem;color:var(--text);pointer-events:none;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.5)">
+    </div>
+
+    <!-- RESET CONFIRMATION MODAL -->
+    <div id="reset-confirm-modal"
+        style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);align-items:center;justify-content:center;z-index:99999;backdrop-filter:blur(6px)">
+        <div
+            style="background:var(--card);border:1px solid var(--red);border-radius:12px;padding:28px 32px;max-width:420px;width:90%;box-shadow:0 0 60px rgba(255,71,87,.25);animation:slideUp .3s cubic-bezier(.16,1,.3,1)">
+            <div
+                style="font-family:var(--head);font-size:1rem;font-weight:900;letter-spacing:.1em;color:var(--red);margin-bottom:8px">
+                <i class="fas fa-exclamation-triangle"></i> DANGER ZONE
+            </div>
+            <div style="font-family:var(--mono);font-size:.84rem;color:var(--text2);margin-bottom:18px;line-height:1.7">
+                This will permanently erase <strong style="color:var(--text)">ALL data</strong> — tasks, sessions,
+                habits, notes, analytics. This cannot be undone.<br><br>Type <strong
+                    style="color:var(--red);letter-spacing:.08em">RESET</strong> below to confirm.</div>
+            <input id="reset-type-input" type="text" placeholder="Type RESET to confirm" autocomplete="off"
+                onkeydown="if(event.key==='Enter')_confirmReset();if(event.key==='Escape')_closeResetModal();"
+                style="border-color:rgba(255,71,87,.4);margin-bottom:8px" />
+            <div id="reset-error-msg"
+                style="display:none;font-family:var(--mono);font-size:.78rem;color:var(--red);margin-bottom:10px"></div>
+            <div style="display:flex;gap:10px;margin-top:6px">
+                <button onclick="_confirmReset()"
+                    style="flex:1;font-family:var(--head);font-size:.76rem;font-weight:900;letter-spacing:.1em;padding:10px;border:none;border-radius:6px;cursor:pointer;background:var(--red);color:#fff;transition:all .2s"
+                    onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'"><i
+                        class="fas fa-trash-alt"></i> ERASE EVERYTHING</button>
+                <button onclick="_closeResetModal()"
+                    style="font-family:var(--head);font-size:.76rem;font-weight:700;letter-spacing:.1em;padding:10px 18px;border:1px solid var(--border2);border-radius:6px;cursor:pointer;background:var(--card2);color:var(--text2);transition:all .2s"
+                    onmouseover="this.style.borderColor='var(--accent)'"
+                    onmouseout="this.style.borderColor='var(--border2)'">CANCEL</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ===== SUPABASE CONFIG =====
@@ -4520,7 +4677,7 @@
             { id: 'check_score', label: 'Check Focus Score', tab: 'focusscore' },
         ];
         let obStatus = {};
-        let obFloatCollapsed = false;
+        let obFloatCollapsed = true; // collapsed by default (Change 7: especially important on mobile)
 
         // Today Goals
         let todayGoals = [];
@@ -4528,7 +4685,60 @@
         function loadObStatus() { try { let d = localStorage.getItem('ob_status'); if (d) obStatus = JSON.parse(d); } catch (e) { } }
         function saveObStatus() { try { localStorage.setItem('ob_status', JSON.stringify(obStatus)); } catch (e) { } }
         function markOb(id) { if (!obStatus[id]) { obStatus[id] = true; saveObStatus(); renderObFloat(); checkAllObDone(); } }
-        function checkAllObDone() { let all = OB_STEPS.every(s => obStatus[s.id]); if (all) { showToast('🎉 Onboarding complete! +50 XP'); addXP(50); } }
+        function checkAllObDone() {
+            let all = OB_STEPS.every(s => obStatus[s.id]);
+            if (all) {
+                showToast('🎉 Onboarding complete! +50 XP');
+                addXP(50);
+                // Change 8: reorder tabs
+                _applyPostObTabOrder();
+                // Auto-collapse the float panel after a short delay
+                setTimeout(() => {
+                    const el = document.getElementById('ob-float');
+                    if (el) {
+                        el.style.transition = 'opacity .5s, transform .5s';
+                        el.style.opacity = '0';
+                        el.style.transform = 'translateY(20px)';
+                        setTimeout(() => { if (el) el.style.display = 'none'; }, 500);
+                    }
+                }, 2000);
+            }
+        }
+
+        // Change 8: Tab reorder logic
+        const _POST_OB_TAB_ORDER = ['timer', 'planner', 'habits', 'focusscore', 'analytics', 'weekly-planner', 'monthly-planner', 'journal', 'devtools', 'help'];
+        const _DEFAULT_TAB_ORDER = ['planner', 'timer', 'habits', 'focusscore', 'analytics', 'weekly-planner', 'monthly-planner', 'journal', 'devtools', 'help'];
+
+        function _applyPostObTabOrder() {
+            try {
+                let reordered = OB_STEPS.every(s => obStatus[s.id]);
+                if (!reordered) return;
+                let order = _POST_OB_TAB_ORDER;
+                let saved = localStorage.getItem('tab_order_custom');
+                if (saved) order = JSON.parse(saved);
+                _reorderNavTabs(order);
+                localStorage.setItem('tab_order_custom', JSON.stringify(order));
+            } catch (e) { }
+        }
+
+        function _reorderNavTabs(order) {
+            let nav = document.querySelector('.nav-tabs');
+            if (!nav) return;
+            let tabs = Array.from(nav.querySelectorAll('.nav-tab'));
+            // Map tab id -> element by extracting id from onclick
+            let tabMap = {};
+            tabs.forEach(t => {
+                let m = t.getAttribute('onclick')?.match(/switchTab\('([^']+)'/);
+                if (m) tabMap[m[1]] = t;
+            });
+            order.forEach(id => { if (tabMap[id]) nav.appendChild(tabMap[id]); });
+        }
+
+        function _restoreDefaultTabOrder() {
+            localStorage.removeItem('tab_order_custom');
+            _reorderNavTabs(_DEFAULT_TAB_ORDER);
+            showToast('Tab order restored to default');
+        }
 
         // CHANGE 2: Floating onboarding panel
         function toggleObFloat() {
@@ -4572,7 +4782,7 @@
                     // New day: carry over goals from previous day as unfinished
                     let prevDate = new Date();
                     prevDate.setDate(prevDate.getDate() - 1);
-                    let prevKey = prevDate.getFullYear() + '-' + String(prevDate.getMonth()+1).padStart(2,'0') + '-' + String(prevDate.getDate()).padStart(2,'0');
+                    let prevKey = prevDate.getFullYear() + '-' + String(prevDate.getMonth() + 1).padStart(2, '0') + '-' + String(prevDate.getDate()).padStart(2, '0');
                     let prevData = localStorage.getItem('today_goals_' + prevKey);
                     if (prevData) {
                         let prevGoals = JSON.parse(prevData);
@@ -4644,7 +4854,22 @@
             markOb('add_task');
         }
 
-        function updateSyncStatus(status) { const el = document.getElementById('sync-status'); if (!el) return; if (currentUser) { el.style.display = 'inline-flex'; if (status === 'synced') { el.innerHTML = '<i class="fas fa-cloud"></i> SYNCED'; el.className = 'sync-indicator'; } if (status === 'syncing') { el.innerHTML = '<i class="fas fa-sync fa-spin"></i> SYNCING'; el.className = 'sync-indicator syncing'; } if (status === 'error') { el.innerHTML = '<i class="fas fa-exclamation-triangle"></i> SYNC ERROR'; el.className = 'sync-indicator error'; } } else { el.style.display = 'none'; } }
+        let _lastSyncedAt = null;
+        function updateSyncStatus(status) {
+            const el = document.getElementById('sync-status');
+            if (!el) return;
+            if (status === 'synced') _lastSyncedAt = new Date();
+            if (currentUser) {
+                el.style.display = 'inline-flex';
+                if (status === 'synced') {
+                    const timeStr = _lastSyncedAt ? _lastSyncedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+                    el.innerHTML = `<i class="fas fa-cloud-check"></i> SYNCED${timeStr ? ' ' + timeStr : ''}`;
+                    el.className = 'sync-indicator';
+                }
+                if (status === 'syncing') { el.innerHTML = '<i class="fas fa-sync fa-spin"></i> SYNCING'; el.className = 'sync-indicator syncing'; }
+                if (status === 'error') { el.innerHTML = '<i class="fas fa-exclamation-triangle"></i> SYNC ERROR'; el.className = 'sync-indicator error'; }
+            } else { el.style.display = 'none'; }
+        }
 
         async function loadCloudData(userId) {
             if (!isSupabaseReady || !supabaseClient || !userId) return false;
@@ -4830,7 +5055,7 @@
                     osc.start(ctx.currentTime + i * 0.18);
                     osc.stop(ctx.currentTime + i * 0.18 + 0.55);
                 });
-            } catch(e) {}
+            } catch (e) { }
         }
         function _miniComplete() {
             clearInterval(miniInt); miniRun = false;
@@ -4841,6 +5066,7 @@
             document.getElementById('timer-mini').classList.add('complete');
             setTimeout(() => document.getElementById('timer-mini').classList.remove('complete'), 4000);
             _playTimerSound();
+            if (!mainRun) _setHeroCta(false);
             logSess(Math.round(miniTotal / 60)); showToast('\uD83C\uDF89 Focus complete! +20 XP'); setFocusActive(false);
         }
         function _mainComplete() {
@@ -4851,6 +5077,7 @@
             document.getElementById('main-timer').classList.add('complete');
             setTimeout(() => document.getElementById('main-timer').classList.remove('complete'), 4000);
             _playTimerSound();
+            if (!miniRun) _setHeroCta(false);
             logSess(Math.round(mainTotal / 60)); showToast('\uD83C\uDF89 Session! +20 XP'); setFocusActive(false);
         }
 
@@ -4889,6 +5116,7 @@
                         document.getElementById('mini-badge').innerHTML = 'ACTIVE';
                         document.getElementById('timer-mini').classList.add('running');
                         setFocusActive(true); _startMiniInterval();
+                        _setHeroCta(true);
                     } else { localStorage.removeItem('timer_mini_state'); }
                 }
                 let ss = JSON.parse(localStorage.getItem('timer_main_state') || 'null');
@@ -4900,9 +5128,10 @@
                         document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
                         document.getElementById('main-timer').classList.add('running');
                         setFocusActive(true); _startMainInterval();
+                        _setHeroCta(true);
                     } else { localStorage.removeItem('timer_main_state'); }
                 }
-            } catch(e) {}
+            } catch (e) { }
         }
 
         // Re-sync timers when tab becomes visible again (catches background drift)
@@ -4927,6 +5156,12 @@
             }
         });
 
+        function _setHeroCta(timerActive) {
+            let hero = document.getElementById('hero-cta');
+            if (!hero) return;
+            if (timerActive) { hero.style.transition = 'opacity .4s, max-height .4s'; hero.style.opacity = '0'; hero.style.pointerEvents = 'none'; hero.style.maxHeight = '0'; hero.style.overflow = 'hidden'; hero.style.marginTop = '0'; hero.style.padding = '0'; }
+            else { hero.style.transition = 'opacity .4s, max-height .4s'; hero.style.opacity = '1'; hero.style.pointerEvents = ''; hero.style.maxHeight = '200px'; hero.style.overflow = ''; hero.style.marginTop = ''; hero.style.padding = ''; }
+        }
         function toggleMini() {
             if (miniRun) {
                 clearInterval(miniInt); miniRun = false;
@@ -4935,6 +5170,7 @@
                 document.getElementById('mini-badge').innerHTML = 'STANDBY';
                 document.getElementById('timer-mini').classList.remove('running');
                 setFocusActive(false);
+                if (!mainRun) _setHeroCta(false);
             } else {
                 miniRun = true;
                 document.getElementById('mini-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
@@ -4942,6 +5178,7 @@
                 document.getElementById('timer-mini').classList.add('running');
                 setFocusActive(true); markOb('start_timer');
                 _saveMiniState(); _startMiniInterval();
+                _setHeroCta(true);
             }
         }
         function stopMini() {
@@ -4952,6 +5189,7 @@
                 document.getElementById('mini-badge').innerHTML = 'STANDBY';
                 document.getElementById('timer-mini').classList.remove('running');
                 setFocusActive(false); showToast('Timer stopped');
+                if (!mainRun) _setHeroCta(false);
             }
         }
         function resetMini() {
@@ -4970,12 +5208,14 @@
                 document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
                 document.getElementById('main-timer').classList.remove('running');
                 setFocusActive(false);
+                if (!miniRun) _setHeroCta(false);
             } else {
                 mainRun = true;
                 document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
                 document.getElementById('main-timer').classList.add('running');
                 setFocusActive(true); markOb('start_timer');
                 _saveMainState(); _startMainInterval();
+                _setHeroCta(true);
             }
         }
         function stopMain() {
@@ -4985,6 +5225,7 @@
                 document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
                 document.getElementById('main-timer').classList.remove('running');
                 setFocusActive(false); showToast('Timer stopped');
+                if (!miniRun) _setHeroCta(false);
             }
         }
         function resetMain() {
@@ -4998,7 +5239,19 @@
         function skipTimer() { if (mainRun) clearInterval(mainInt); resetMain(); }
 
         function logSess(mins) { if (mins <= 0) return; let task = document.getElementById('sess-task')?.value || ''; S.sessions.push({ time: new Date().toLocaleTimeString(), task: task || 'Focus', mins, date: todayKey, hour: new Date().getHours() }); S.analytics.totalSess = (S.analytics.totalSess || 0) + 1; S.analytics.totalMin = (S.analytics.totalMin || 0) + mins; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; S.analytics.daily[todayKey].sess = (S.analytics.daily[todayKey].sess || 0) + 1; S.analytics.daily[todayKey].min = (S.analytics.daily[todayKey].min || 0) + mins; updateScore(); renderSessLog(); renderWeekBars(); saveNow(); addXP(20); }
-        function renderSessLog() { let ts = S.sessions.filter(s => s.date === todayKey); let sc = document.getElementById('sess-count-badge'); if (sc) sc.innerHTML = ts.length + ' TODAY'; let tdS = document.getElementById('today-sess'); if (tdS) tdS.textContent = ts.length; let tot = ts.reduce((a, s) => a + s.mins, 0); let tdM = document.getElementById('today-mins'); if (tdM) tdM.textContent = tot >= 60 ? (tot / 60).toFixed(1) + 'h' : tot + 'm'; let log = document.getElementById('sess-log'); if (log) log.innerHTML = ts.length ? ts.slice(-5).reverse().map((s, idx) => `<div class="session-entry"><span>${s.time}</span><span style="flex:1">${escHtml(s.task)}</span><span>${s.mins}m</span><button onclick="editSessionEntry(${idx})" style="background:none;border:none;cursor:pointer;color:var(--accent);font-size:.75rem" title="Edit duration">✏️</button><button onclick="deleteSessionEntry(${idx})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:.75rem">🗑</button></div>`).join('') : '<div class="empty-state">// NO SESSIONS</div>'; }
+        function renderSessLog() {
+            let ts = S.sessions.filter(s => s.date === todayKey); let sc = document.getElementById('sess-count-badge'); if (sc) sc.innerHTML = ts.length + ' TODAY'; let tdS = document.getElementById('today-sess'); if (tdS) tdS.textContent = ts.length; let tot = ts.reduce((a, s) => a + s.mins, 0); let tdM = document.getElementById('today-mins'); if (tdM) tdM.textContent = tot >= 60 ? (tot / 60).toFixed(1) + 'h' : tot + 'm'; let log = document.getElementById('sess-log'); if (log) log.innerHTML = ts.length ? ts.slice(-5).reverse().map((s, idx) => `<div class="session-entry"><span>${s.time}</span><span style="flex:1">${escHtml(s.task)}</span><span>${s.mins}m</span><button onclick="editSessionEntry(${idx})" style="background:none;border:none;cursor:pointer;color:var(--accent);font-size:.75rem" title="Edit duration">✏️</button><button onclick="deleteSessionEntry(${idx})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:.75rem">🗑</button></div>`).join('') : '<div class="empty-state" style="text-align:center;padding:16px 10px"><div style="font-size:1.4rem;margin-bottom:6px">⏱</div><div style="font-size:.8rem;font-weight:700">No sessions yet today</div></div>';
+            // Change 5: update last session chips
+            let allSess = S.sessions || [];
+            if (allSess.length > 0) {
+                let last = allSess[allSess.length - 1];
+                let chipTxt = `${escHtml(last.task || 'Focus')} · ${last.mins}m`;
+                ['mini-last-session-chip', 'main-last-session-chip'].forEach(id => { let c = document.getElementById(id); if (c) c.style.display = 'block'; });
+                ['mini-last-session-text', 'main-last-session-text'].forEach(id => { let t = document.getElementById(id); if (t) t.textContent = chipTxt; });
+            } else {
+                ['mini-last-session-chip', 'main-last-session-chip'].forEach(id => { let c = document.getElementById(id); if (c) c.style.display = 'none'; });
+            }
+        }
         function editSessionEntry(idx) { let ts = S.sessions.filter(s => s.date === todayKey); let displayIdx = ts.length - 1 - idx; let s = ts[displayIdx]; if (!s) return; let newMins = prompt('Edit session duration (minutes):', s.mins); if (newMins === null) return; newMins = parseInt(newMins); if (isNaN(newMins) || newMins <= 0) { showToast('\u26a0 Enter a valid number of minutes'); return; } let i = S.sessions.findIndex(s2 => s2.time === s.time && s2.task === s.task && s2.mins === s.mins && s2.date === s.date); if (i !== -1) { let oldMins = S.sessions[i].mins; S.sessions[i].mins = newMins; S.analytics.totalMin = Math.max(0, (S.analytics.totalMin || 0) - oldMins + newMins); if (S.analytics.daily[todayKey]) { S.analytics.daily[todayKey].min = Math.max(0, (S.analytics.daily[todayKey].min || 0) - oldMins + newMins); } save(); renderSessLog(); renderWeekBars(); updateScore(); showToast('\u2705 Session updated to ' + newMins + ' min'); } }
         function deleteSessionEntry(idx) { let ts = S.sessions.filter(s => s.date === todayKey); let displayIdx = ts.length - 1 - idx; let s = ts[displayIdx]; if (s) { let i = S.sessions.findIndex(s2 => s2.time === s.time && s2.task === s.task && s2.mins === s.mins && s2.date === s.date); if (i !== -1) { S.sessions.splice(i, 1); S.analytics.totalSess = Math.max(0, (S.analytics.totalSess || 0) - 1); S.analytics.totalMin = Math.max(0, (S.analytics.totalMin || 0) - s.mins); if (S.analytics.daily[todayKey]) { S.analytics.daily[todayKey].sess = Math.max(0, (S.analytics.daily[todayKey].sess || 0) - 1); S.analytics.daily[todayKey].min = Math.max(0, (S.analytics.daily[todayKey].min || 0) - s.mins); } save(); renderSessLog(); renderWeekBars(); updateScore(); showToast('Session deleted'); } } }
 
@@ -5006,7 +5259,7 @@
         function toggleTask(id) { let t = S.tasks.find(t => t.id == id); if (t && !t.done) { t.done = true; renderTasks(); updateScore(); saveNow(); showToast('🎉 +15 XP!'); addXP(15); } else if (t && t.done) { t.done = false; renderTasks(); updateScore(); saveNow(); showToast('Task reopened'); } }
         function deleteTask(id) { S.tasks = S.tasks.filter(t => t.id != id && t.parentId != id); renderTasks(); updateScore(); save(); showToast('Deleted'); }
         function taskHTML(t) { let recBadge = t.recurring ? '<span class="recurring-badge"><i class="fas fa-sync-alt"></i> Daily</span>' : ''; return `<div class="task-item${t.done ? ' done' : ''}" draggable="true" ondragstart="dragStart(event,${t.id})" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="drop(event,${t.id})"><div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div><div class="task-text">${escHtml(t.text)}${recBadge}</div><span class="task-priority priority-${t.priority}">${t.priority === 'high' ? '🔴 HIGH' : t.priority === 'med' ? '🟡 MED' : '🟢 LOW'}</span><span style="font-size:.82rem;font-weight:600">${t.mins}m</span><span class="task-del" onclick="deleteTask(${t.id})"><i class="fas fa-trash-alt"></i></span></div>`; }
-        function renderTasks() { let act = S.tasks.filter(t => t.date === todayKey && !t.done), done = S.tasks.filter(t => t.date === todayKey && t.done); let tl = document.getElementById('task-list'); if (tl) tl.innerHTML = act.length ? act.map(taskHTML).join('') : '<div class="empty-state">// NO ACTIVE TASKS</div>'; let dl = document.getElementById('done-list'); if (dl) dl.innerHTML = done.length ? done.map(taskHTML).join('') : '<div class="empty-state">// NONE COMPLETED YET</div>'; let dc = document.getElementById('done-count'); if (dc) dc.innerHTML = done.length + ' DONE'; let tt = document.getElementById('today-tasks'); if (tt) tt.textContent = done.length; let pct = (act.length + done.length) ? Math.round(done.length / (act.length + done.length) * 100) : 0; let tp = document.getElementById('task-progress'); if (tp) tp.style.width = pct + '%'; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; S.analytics.daily[todayKey].tasks = done.length; }
+        function renderTasks() { let act = S.tasks.filter(t => t.date === todayKey && !t.done), done = S.tasks.filter(t => t.date === todayKey && t.done); let tl = document.getElementById('task-list'); if (tl) tl.innerHTML = act.length ? act.map(taskHTML).join('') : '<div class="empty-state" style="text-align:center;padding:24px 10px"><div style="font-size:1.8rem;margin-bottom:8px">📋</div><div style="font-weight:700;margin-bottom:4px">No tasks today</div><div style="font-size:.76rem;color:var(--text3)">Type a task above and press ADD</div></div>'; let dl = document.getElementById('done-list'); if (dl) dl.innerHTML = done.length ? done.map(taskHTML).join('') : '<div class="empty-state">// NONE COMPLETED YET</div>'; let dc = document.getElementById('done-count'); if (dc) dc.innerHTML = done.length + ' DONE'; let tt = document.getElementById('today-tasks'); if (tt) tt.textContent = done.length; let pct = (act.length + done.length) ? Math.round(done.length / (act.length + done.length) * 100) : 0; let tp = document.getElementById('task-progress'); if (tp) tp.style.width = pct + '%'; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; S.analytics.daily[todayKey].tasks = done.length; }
         function dragStart(e, id) { draggedItem = id; e.dataTransfer.effectAllowed = 'move'; e.target.style.opacity = '0.5'; }
         function dragEnd(e) { e.target.style.opacity = ''; draggedItem = null; }
         function dragOver(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }
@@ -5015,9 +5268,9 @@
         function addHabit() { let v = document.getElementById('habit-input').value.trim(); if (!v) return; S.habits.push({ id: Date.now(), name: v, streak: 0, best: 0, days: {} }); document.getElementById('habit-input').value = ''; save(); renderHabits(); addXP(5); markOb('add_habit'); }
         function toggleHabit(id, dateKey) { let h = S.habits.find(h => h.id == id); if (!h) return; let key = dateKey || todayKey; if (h.days[key]) delete h.days[key]; else h.days[key] = true; let str = 0, d = new Date(); for (let i = 0; i < 365; i++) { let k = localDateKey(d); if (h.days[k]) str++; else break; d.setDate(d.getDate() - 1); } h.streak = str; h.best = Math.max(h.best || 0, str); save(); renderHabits(); addXP(5); }
         function deleteHabit(id) { S.habits = S.habits.filter(h => h.id != id); save(); renderHabits(); }
-        function renderHabits() { let labels = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); labels.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); } let hl = document.getElementById('habit-list'); if (hl) hl.innerHTML = S.habits.length ? S.habits.map(h => `<div class="habit-row"><div style="flex:1;font-size:.88rem;font-weight:600">${escHtml(h.name)}</div><div class="habit-days">${labels.map(d => `<div class="habit-day${h.days[d.key] ? ' done' : ''}" onclick="toggleHabit(${h.id},'${d.key}')">${h.days[d.key] ? '✓' : d.lbl[0]}</div>`).join('')}</div><div style="font-size:.86rem;font-weight:700">🔥${h.streak}</div><span class="task-del" onclick="deleteHabit(${h.id})"><i class="fas fa-trash-alt"></i></span></div>`).join('') : '<div class="empty-state">// NO HABITS</div>'; let ht = document.getElementById('h-total'); if (ht) ht.textContent = S.habits.length; let hb = document.getElementById('h-best'); if (hb) hb.textContent = Math.max(...S.habits.map(h => h.best), 0) + 'd'; let hto = document.getElementById('h-today'); if (hto) hto.textContent = S.habits.length ? Math.round(S.habits.filter(h => h.days[todayKey]).length / S.habits.length * 100) + '%' : '0%'; }
+        function renderHabits() { let labels = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); labels.push({ key: localDateKey(d), lbl: DAYS[d.getDay()] }); } let hl = document.getElementById('habit-list'); if (hl) hl.innerHTML = S.habits.length ? S.habits.map(h => `<div class="habit-row"><div style="flex:1;font-size:.88rem;font-weight:600">${escHtml(h.name)}</div><div class="habit-days">${labels.map(d => `<div class="habit-day${h.days[d.key] ? ' done' : ''}" onclick="toggleHabit(${h.id},'${d.key}')">${h.days[d.key] ? '✓' : d.lbl[0]}</div>`).join('')}</div><div style="font-size:.86rem;font-weight:700">🔥${h.streak}</div><span class="task-del" onclick="deleteHabit(${h.id})"><i class="fas fa-trash-alt"></i></span></div>`).join('') : '<div class="empty-state" style="text-align:center;padding:20px 10px"><div style="font-size:1.8rem;margin-bottom:8px">💪</div><div style="font-weight:700;margin-bottom:4px">No habits tracked</div><div style="font-size:.76rem;color:var(--text3)">Add a habit above to start your streak</div></div>'; let ht = document.getElementById('h-total'); if (ht) ht.textContent = S.habits.length; let hb = document.getElementById('h-best'); if (hb) hb.textContent = Math.max(...S.habits.map(h => h.best), 0) + 'd'; let hto = document.getElementById('h-today'); if (hto) hto.textContent = S.habits.length ? Math.round(S.habits.filter(h => h.days[todayKey]).length / S.habits.length * 100) + '%' : '0%'; }
 
-        function addGoal() { let v = document.getElementById('goal-input')?.value.trim(); if (!v) return; S.goals.push({ id: Date.now(), text: v, done: false, week: getWeekKey() }); document.getElementById('goal-input').value = ''; save(); renderGoals(); addXP(5); }
+        function addGoal() { let v = document.getElementById('goal-input')?.value.trim(); if (!v) return; S.goals.push({ id: Date.now(), text: v, done: false, week: getWeekKey() }); const _gi = document.getElementById('goal-input'); if (_gi) _gi.value = ''; save(); renderGoals(); addXP(5); }
         function getWeekKey() { let d = new Date(), day = d.getDay() || 7; d.setDate(d.getDate() + 4 - day); let yr = d.getFullYear(), wk = Math.ceil(((d - new Date(yr, 0, 1)) / 86400000 + 1) / 7); return yr + '-W' + String(wk).padStart(2, '0'); }
         function toggleGoal(id) { let g = S.goals.find(g => g.id == id); if (g) { g.done = !g.done; save(); renderGoals(); addXP(5); } }
         function deleteGoal(id) { S.goals = S.goals.filter(g => g.id != id); save(); renderGoals(); }
@@ -5025,9 +5278,9 @@
 
         function addJournal() { let t = document.getElementById('journal-input').value.trim(); if (!t) return; let tag = document.getElementById('journal-tag').value; S.journal.unshift({ id: Date.now(), text: t, tag, date: todayKey, time: new Date().toLocaleTimeString() }); document.getElementById('journal-input').value = ''; save(); renderJournal(); addXP(5); markOb('write_note'); }
         function deleteJournalEntry(id) { S.journal = S.journal.filter(j => j.id != id); save(); renderJournal(); }
-        function renderJournal() { let tl = { win: '🟢 WIN', blocker: '🔴 BLOCKER', insight: '🔵 INSIGHT' }; let jl = document.getElementById('journal-list'); if (jl) jl.innerHTML = S.journal.length ? S.journal.slice(0, 10).map(j => `<div class="journal-entry"><div class="journal-header"><div class="journal-meta">${j.date} ${j.time} | ${tl[j.tag] || j.tag}</div><button class="journal-delete" onclick="deleteJournalEntry(${j.id})">🗑</button></div><div style="font-size:.86rem;font-weight:500">${escHtml(j.text)}</div></div>`).join('') : '<div class="empty-state">// NO ENTRIES</div>'; }
+        function renderJournal() { let tl = { win: '🟢 WIN', blocker: '🔴 BLOCKER', insight: '🔵 INSIGHT' }; let jl = document.getElementById('journal-list'); if (jl) jl.innerHTML = S.journal.length ? S.journal.slice(0, 10).map(j => `<div class="journal-entry"><div class="journal-header"><div class="journal-meta">${j.date} ${j.time} | ${tl[j.tag] || j.tag}</div><button class="journal-delete" onclick="deleteJournalEntry(${j.id})">🗑</button></div><div style="font-size:.86rem;font-weight:500">${escHtml(j.text)}</div></div>`).join('') : '<div class="empty-state" style="text-align:center;padding:20px 10px"><div style="font-size:1.8rem;margin-bottom:8px">📓</div><div style="font-weight:700;margin-bottom:4px">No field notes yet</div><div style="font-size:.76rem;color:var(--text3)">Log wins, blockers, and insights here</div></div>'; }
 
-        function addWin() { let v = document.getElementById('win-input')?.value.trim(); if (!v) return; S.wins.unshift({ id: Date.now(), text: v, date: todayKey }); document.getElementById('win-input').value = ''; save(); renderWins(); showToast('🏆 +10 XP'); addXP(10); }
+        function addWin() { let v = document.getElementById('win-input')?.value.trim(); if (!v) return; S.wins.unshift({ id: Date.now(), text: v, date: todayKey }); const _wi = document.getElementById('win-input'); if (_wi) _wi.value = ''; save(); renderWins(); showToast('🏆 +10 XP'); addXP(10); }
         function deleteWin(id) { S.wins = S.wins.filter(w => w.id != id); save(); renderWins(); }
         function renderWins() { let wl = document.getElementById('wins-list'); if (wl) wl.innerHTML = S.wins.length ? S.wins.slice(0, 5).map(w => `<div class="win-item"><span style="font-size:.86rem;font-weight:600">🏆 ${escHtml(w.text)}</span><button class="win-delete" onclick="deleteWin(${w.id})">🗑</button></div>`).join('') : '<div class="empty-state">// NO WINS</div>'; }
 
@@ -5088,7 +5341,27 @@
         function renderFocusScoreHistory(todayScore) {
             let days = []; for (let i = 6; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); let k = localDateKey(d); let score = S.analytics.daily[k]?.focusScore || 0; if (i === 0 && todayScore !== undefined) score = todayScore; days.push({ lbl: DAYS[d.getDay()], score, k }); }
             let hist = document.getElementById('fs-history'), lbls = document.getElementById('fs-history-labels');
-            if (hist) hist.innerHTML = days.map(d => { let pct = Math.max(8, (d.score / 100) * 60); let col = d.score >= 90 ? '#ffd700' : d.score >= 75 ? 'var(--green)' : d.score >= 60 ? 'var(--cyan)' : d.score >= 40 ? 'var(--amber)' : 'var(--red)'; return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end"><div style="width:100%;max-width:28px;height:${pct}px;background:${col};border-radius:4px 4px 0 0;transition:height 0.8s;opacity:${d.score > 0 ? 1 : 0.2}"></div><div style="font-size:.64rem;font-weight:700;margin-top:4px;color:var(--text3)">${d.score > 0 ? d.score : '-'}</div></div>`; }).join('');
+            if (hist) {
+                hist.innerHTML = days.map((d, idx) => { let pct = Math.max(8, (d.score / 100) * 60); let col = d.score >= 90 ? '#ffd700' : d.score >= 75 ? 'var(--green)' : d.score >= 60 ? 'var(--cyan)' : d.score >= 40 ? 'var(--amber)' : 'var(--red)'; return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end" data-fsidx="${idx}"><div class="fs-hist-bar" data-date="${d.k}" data-score="${d.score}" style="width:100%;max-width:28px;height:${pct}px;background:${col};border-radius:4px 4px 0 0;transition:height 0.8s;opacity:${d.score > 0 ? 1 : 0.2};cursor:pointer"></div><div style="font-size:.64rem;font-weight:700;margin-top:4px;color:var(--text3)">${d.score > 0 ? d.score : '-'}</div></div>`; }).join('');
+                // Change 6: wire tooltip on each bar
+                hist.querySelectorAll('.fs-hist-bar').forEach(bar => {
+                    bar.addEventListener('mouseenter', function (e) {
+                        let tip = document.getElementById('fs-bar-tooltip'); if (!tip) return;
+                        let score = this.dataset.score, date = this.dataset.date;
+                        let d = new Date(date + 'T00:00:00'), dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d.getDay()];
+                        tip.textContent = `${dayName} ${date} — Score: ${score > 0 ? score + '/100' : 'No data'}`;
+                        tip.style.display = 'block';
+                    });
+                    bar.addEventListener('mousemove', function (e) {
+                        let tip = document.getElementById('fs-bar-tooltip'); if (!tip) return;
+                        tip.style.left = (e.clientX - tip.offsetWidth / 2) + 'px';
+                        tip.style.top = (e.clientY - tip.offsetHeight - 10) + 'px';
+                    });
+                    bar.addEventListener('mouseleave', function () {
+                        let tip = document.getElementById('fs-bar-tooltip'); if (tip) tip.style.display = 'none';
+                    });
+                });
+            }
             if (lbls) lbls.innerHTML = days.map(d => `<span>${d.lbl}</span>`).join('');
         }
 
@@ -5122,6 +5395,15 @@
         function switchToolTab(id, el) { document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active')); document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active')); let panel = document.getElementById(id + '-panel'); if (panel) panel.classList.add('active'); if (el) el.classList.add('active'); }
         function showShortcuts() { document.getElementById('shortcuts-modal').classList.add('open'); }
         function closeShortcuts() { document.getElementById('shortcuts-modal').classList.remove('open'); }
+        // Change 3: Escape key closes all modals
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                if (typeof closeStreakModal === 'function') { let sm = document.getElementById('streak-risk-modal'); if (sm && sm.style.display !== 'none') { closeStreakModal(); return; } }
+                if (typeof closeLevelModal === 'function') { let lm = document.getElementById('level-modal'); if (lm && lm.classList.contains('open')) { closeLevelModal(); return; } }
+                if (typeof closeShortcuts === 'function') { let sc = document.getElementById('shortcuts-modal'); if (sc && sc.classList.contains('open')) { closeShortcuts(); return; } }
+                _closeResetModal();
+            }
+        });
         function changeTheme(theme) { let c = { default: { accent: '#6c63ff', accent2: '#8b84ff' }, cyan: { accent: '#00d2ff', accent2: '#33dbff' }, green: { accent: '#39d353', accent2: '#5fe077' }, red: { accent: '#ff4757', accent2: '#ff6b78' }, orange: { accent: '#ffb347', accent2: '#ffc46a' } }[theme]; document.documentElement.style.setProperty('--accent', c.accent); document.documentElement.style.setProperty('--accent2', c.accent2); localStorage.setItem('theme', theme); showToast(`Theme: ${theme}`); }
         function loadTheme() { let s = localStorage.getItem('theme'); if (s) changeTheme(s); }
         function spawnDailyTasks() {
@@ -5149,11 +5431,51 @@
             if (s > 0) { saveNow(); renderTasks(); showToast('✨ Daily tasks ready!'); }
         }
         function exportData() { let blob = new Blob([JSON.stringify(S, null, 2)], { type: 'application/json' }); let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `storm-os-${todayKey}.json`; a.click(); showToast('Exported'); }
-        function clearData() { if (confirm('⚠️ RESET ALL DATA?')) { localStorage.clear(); location.reload(); } }
-        function renderAll() { renderTasks(); renderHabits(); renderWeekBars(); renderGoals(); renderJournal(); renderWins(); renderSessLog(); renderAnalytics(); updateStreak(); renderEnergyButtons(); renderDistractions(); buildContrib(); renderPeakHours(); renderObFloat(); }
+        function clearData() { _showResetModal(); }
+        function _showResetModal() {
+            let m = document.getElementById('reset-confirm-modal');
+            if (m) { m.style.display = 'flex'; document.getElementById('reset-type-input').value = ''; document.getElementById('reset-error-msg').style.display = 'none'; setTimeout(() => document.getElementById('reset-type-input').focus(), 100); }
+        }
+        function _closeResetModal() {
+            let m = document.getElementById('reset-confirm-modal');
+            if (m) m.style.display = 'none';
+        }
+        function _confirmReset() {
+            let val = (document.getElementById('reset-type-input').value || '').trim();
+            if (val === 'RESET') { _closeResetModal(); localStorage.clear(); location.reload(); }
+            else { let e = document.getElementById('reset-error-msg'); if (e) { e.style.display = 'block'; e.textContent = '⚠ Type exactly: RESET'; } }
+        }
+        function renderAll() {
+            renderTasks(); renderHabits(); renderWeekBars(); renderGoals(); renderJournal(); renderWins(); renderSessLog(); renderAnalytics(); updateStreak(); renderEnergyButtons(); renderDistractions(); buildContrib(); renderPeakHours(); renderObFloat();
+            // Change 4: update quote/stats banner on every renderAll
+            if ((S.analytics.totalSess || 0) >= 3 && !_quoteMode) _renderStatsBanner();
+        }
 
         const QUOTES = ["The secret of getting ahead is getting started. — Mark Twain", "Productivity is never an accident. — Paul J. Meyer", "Focus on being productive instead of busy. — Tim Ferriss", "Do the hard jobs first. The easy jobs will take care of themselves. — Dale Carnegie", "Your future is created by what you do today, not tomorrow. — Robert Kiyosaki", "The key is not to prioritize what's on your schedule, but to schedule your priorities. — Stephen Covey", "Either you run the day, or the day runs you. — Jim Rohn", "You don't rise to the level of your goals. You fall to the level of your systems. — James Clear", "Small steps every day become big leaps across years. — Anonymous", "Discipline is choosing between what you want now and what you want most. — Anonymous"];
-        function loadQuotes() { let q = QUOTES[Math.floor(Math.random() * QUOTES.length)]; let el = document.getElementById('quote-banner-text'); if (el) el.textContent = q; let qd = document.getElementById('quote-of-day'); if (qd) qd.innerHTML = `<i class="fas fa-quote-left"></i> ${q}`; }
+        let _quoteMode = false; // false = stats (when eligible), true = forced quote
+        function loadQuotes() {
+            // Change 4: if returning user (3+ sessions) toggle between stats and quote
+            if ((S.analytics.totalSess || 0) >= 3) {
+                _quoteMode = !_quoteMode;
+                if (_quoteMode) {
+                    let q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+                    let el = document.getElementById('quote-banner-text'); if (el) el.textContent = q;
+                    let qd = document.getElementById('quote-of-day'); if (qd) qd.innerHTML = `<i class="fas fa-quote-left"></i> ${q}`;
+                } else { _renderStatsBanner(); }
+            } else {
+                let q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+                let el = document.getElementById('quote-banner-text'); if (el) el.textContent = q;
+                let qd = document.getElementById('quote-of-day'); if (qd) qd.innerHTML = `<i class="fas fa-quote-left"></i> ${q}`;
+            }
+        }
+        function _renderStatsBanner() {
+            let el = document.getElementById('quote-banner-text'); if (!el) return;
+            let streak = S.analytics.curStreak || 0;
+            let totalSess = S.analytics.totalSess || 0;
+            let totalHours = ((S.analytics.totalMin || 0) / 60).toFixed(1);
+            let level = S.user.level || 1;
+            el.innerHTML = `🔥 <strong style="color:var(--green)">${streak}d streak</strong> &nbsp;|&nbsp; ⚡ <strong style="color:var(--accent2)">${totalSess} sessions</strong> &nbsp;|&nbsp; ⏱ <strong style="color:var(--cyan)">${totalHours}h focus</strong> &nbsp;|&nbsp; 🏅 <strong style="color:#ffd700">Lv.${level}</strong>`;
+        }
 
         // ===== SUPABASE INIT =====
         async function initSupabase() {
@@ -5189,7 +5511,15 @@
                 let timerMini = document.getElementById('timer-mini'); if (timerMini) timerMini.textContent = fmt(miniSecs);
                 let mainTimer = document.getElementById('main-timer'); if (mainTimer) mainTimer.textContent = fmt(mainSecs);
                 loadObStatus(); loadTodayGoals(); renderObFloat();
-                renderAll(); _restoreTimerStates(); updateXPBar(); loadTheme(); loadQuotes(); renderSnippets(); renderFocusScoreHistory(); checkDailyOnLoad();
+                // Hide onboarding float if already completed
+                const allObDone = OB_STEPS.every(s => obStatus[s.id]);
+                if (allObDone) {
+                    const obEl = document.getElementById('ob-float');
+                    if (obEl) obEl.style.display = 'none';
+                    // Change 8: restore persisted tab order on page load
+                    _applyPostObTabOrder();
+                }
+                renderAll(); _restoreTimerStates(); updateXPBar(); loadTheme(); loadQuotes(); renderSnippets(); renderFocusScoreHistory(); checkDailyOnLoad(); _initGeminiUI();
                 setInterval(() => { let clock = document.getElementById('live-clock'); if (clock) clock.innerHTML = new Date().toTimeString().slice(0, 8); }, 1000);
                 // Flush any pending save every 30s (catches anything missed)
                 setInterval(() => { if (currentUser && _pendingCloudSave) _flushToCloud(); }, 30 * 1000);
@@ -5451,6 +5781,121 @@
         function mpThisMonth() { let now = new Date(); mpYear = now.getFullYear(); mpMonth = now.getMonth(); mpSelectedDate = null; let di = document.getElementById('mp-date-input'); if (di) di.value = ''; renderMonthlyPlanner(); }
 
         // ============================================================
+        // PWA INSTALL PROMPT
+        // ============================================================
+        let _pwaInstallEvent = null;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            _pwaInstallEvent = e;
+            const btn = document.getElementById('pwa-install-btn');
+            if (btn) btn.style.display = 'inline-flex';
+        });
+        window.addEventListener('appinstalled', () => {
+            const btn = document.getElementById('pwa-install-btn');
+            if (btn) btn.style.display = 'none';
+            showToast('✅ App installed! Launch from your home screen.');
+        });
+        function installPWA() {
+            if (_pwaInstallEvent) {
+                _pwaInstallEvent.prompt();
+                _pwaInstallEvent.userChoice.then(choice => {
+                    if (choice.outcome === 'accepted') showToast('🚀 Installing Operator Command...');
+                    _pwaInstallEvent = null;
+                    const btn = document.getElementById('pwa-install-btn');
+                    if (btn) btn.style.display = 'none';
+                });
+            }
+        }
+
+        // ============================================================
+        // STREAK AT RISK ENGINE
+        // Checks if user has a streak but hasn't done a session today — warns them
+        // ============================================================
+        function checkStreakAtRisk() {
+            try {
+                const streak = S.analytics?.curStreak || 0;
+                if (streak === 0) return; // no streak to protect
+                const todayKey = localDateKey(new Date());
+                const sessions = (S.sessions || []).filter(s => s.date === todayKey || (s.ts && localDateKey(new Date(s.ts)) === todayKey));
+                if (sessions.length > 0) return; // already did a session today
+                // Check if we already warned today
+                const lastWarn = localStorage.getItem('streak_warn_date');
+                if (lastWarn === todayKey) return;
+                // Check time — only warn after 6pm or if streak is >= 3 and it's after noon
+                const hour = new Date().getHours();
+                const shouldWarn = hour >= 18 || (streak >= 3 && hour >= 12);
+                if (!shouldWarn) return;
+                localStorage.setItem('streak_warn_date', todayKey);
+                const hoursLeft = 24 - hour;
+                document.getElementById('streak-risk-title').textContent = `⚠ ${streak}-DAY STREAK AT RISK`;
+                document.getElementById('streak-risk-msg').textContent = `You have a ${streak}-day streak but no session logged today. You have ~${hoursLeft} hours left to protect it. One 15-minute session is all it takes.`;
+                const modal = document.getElementById('streak-risk-modal');
+                modal.style.display = 'flex';
+                // Auto-dismiss after 30s if ignored
+                setTimeout(() => { if (modal.style.display !== 'none') closeStreakModal(); }, 30000);
+            } catch (e) { }
+        }
+        function closeStreakModal() {
+            document.getElementById('streak-risk-modal').style.display = 'none';
+        }
+
+        // ── SYNC FLOAT INDICATOR ──────────────────────────────────────
+        function showSyncFloat(state) {
+            // state: 'syncing' | 'synced' | 'error' | 'offline'
+            const el = document.getElementById('sync-float');
+            const dot = document.getElementById('sync-float-dot');
+            const txt = document.getElementById('sync-float-text');
+            if (!el) return;
+            el.style.display = 'flex';
+            clearTimeout(el._hideTimer);
+            if (state === 'synced') {
+                dot.style.background = 'var(--green)';
+                txt.textContent = 'ALL SYNCED';
+                el._hideTimer = setTimeout(() => { el.style.display = 'none'; }, 3000);
+            } else if (state === 'syncing') {
+                dot.style.background = 'var(--amber)';
+                txt.textContent = 'SYNCING...';
+            } else if (state === 'error') {
+                dot.style.background = 'var(--red)';
+                txt.textContent = 'SYNC FAILED';
+                el._hideTimer = setTimeout(() => { el.style.display = 'none'; }, 5000);
+            } else if (state === 'offline') {
+                dot.style.background = 'var(--text3)';
+                txt.textContent = 'OFFLINE';
+                el._hideTimer = setTimeout(() => { el.style.display = 'none'; }, 4000);
+            }
+        }
+
+        // Patch updateSyncStatus to also drive the float indicator
+        (function patchSyncStatus() {
+            const origUpdate = window.updateSyncStatus;
+            window.updateSyncStatus = function (state) {
+                if (typeof origUpdate === 'function') origUpdate(state);
+                showSyncFloat(state);
+            };
+        })();
+
+        // ── PWA MANIFEST (injected dynamically so it works as single-file) ──
+        (function injectPWAManifest() {
+            const manifest = {
+                name: 'Operator Command',
+                short_name: 'OPERATOR',
+                description: 'Execution OS — Focus, Habits, Deep Work',
+                start_url: window.location.pathname,
+                display: 'standalone',
+                background_color: '#080a0c',
+                theme_color: '#6c63ff',
+                icons: [
+                    { src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%236c63ff"/><text y=".9em" font-size="80" x="10">⚡</text></svg>', sizes: '192x192', type: 'image/svg+xml' }
+                ]
+            };
+            const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.getElementById('pwa-manifest-link');
+            if (link) link.href = url;
+        })();
+
+        // ============================================================
         // AI INTELLIGENCE ENGINE v1.0
         // Four modules: Focus Coach | Task Breakdown | Habit Intel | Dashboard Insights
         // Pure rule-based logic. No external API. Fully integrated with S (state).
@@ -5498,7 +5943,7 @@
             }
             const last7Avg = last7.reduce((a, b) => a + b.dayMins, 0) / 7;
             const todayFocusMins = todaySessions.reduce((a, s) => a + (s.mins || 0), 0);
-            const trend = last7.slice(-3).reduce((a, b) => a + b.dayMins, 0) / 3; // 3-day trailing avg
+            const trend = last7.slice(-3).reduce((a, b) => a + b.dayMins, 0) / 3;
             const isTrending = trend >= last7Avg;
 
             // Distraction ratio
@@ -5546,14 +5991,308 @@
             if (totalTasks > 0 && todayTasks === 0 && todaySessions.length >= 2) insights.push({ type: 'warn', icon: '📋', text: `Sessions running but no tasks completed. Make sure tasks are checked off — it closes the loop and triggers XP.` });
             if (todayTasks >= 5) insights.push({ type: 'good', icon: '🎉', text: `<strong>${todayTasks} tasks</strong> completed today — elite execution. Log a quick win in Field Notes.` });
 
+            // ── CHANGE 9: DEEPER INTELLIGENCE LAYERS ─────────────────
+
+            // Layer 1: Day-of-week performance pattern (last 4 weeks)
+            try {
+                const daily = S.analytics.daily || {};
+                const dowMins = [0, 0, 0, 0, 0, 0, 0]; // Sun=0..Sat=6
+                const dowCount = [0, 0, 0, 0, 0, 0, 0];
+                for (let w = 0; w < 4; w++) {
+                    for (let d = 0; d < 7; d++) {
+                        const date = new Date(); date.setDate(date.getDate() - (w * 7 + d));
+                        const dk = localDateKey(date); const dow = date.getDay();
+                        const dayMins = sessions.filter(s => s.date === dk).reduce((a, s) => a + (s.mins || 0), 0);
+                        dowMins[dow] += dayMins; dowCount[dow]++;
+                    }
+                }
+                const dowAvg = dowMins.map((m, i) => dowCount[i] > 0 ? m / dowCount[i] : 0);
+                const peakDow = dowAvg.indexOf(Math.max(...dowAvg));
+                const todayDow = new Date().getDay();
+                const dowLabels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const weakDow = dowAvg.indexOf(Math.min(...dowAvg.filter(v => v >= 0)));
+                if (sessions.length >= 7) {
+                    if (peakDow === todayDow) insights.push({ type: 'good', icon: '📅', text: `Today is <strong>${dowLabels[todayDow]}</strong> — historically your best focus day. Schedule your hardest work now.` });
+                    else if (weakDow === todayDow && dowAvg[weakDow] < last7Avg * 0.5) insights.push({ type: 'warn', icon: '📅', text: `Heads up: <strong>${dowLabels[todayDow]}</strong> is historically a weak day for you. Plan a lighter session and protect it.` });
+                    else insights.push({ type: 'info', icon: '📅', text: `You peak on <strong>${dowLabels[peakDow]}s</strong> — schedule your hardest work then.` });
+                }
+            } catch (e) { }
+
+            // Layer 2: Session count vs task completion correlation
+            try {
+                const daily = S.analytics.daily || {};
+                const highSessLowTask = Object.values(daily).filter(d => (d.sess || 0) >= 2 && (d.tasks || 0) === 0).length;
+                const totalActiveDays = Object.values(daily).filter(d => (d.sess || 0) >= 1).length;
+                if (totalActiveDays >= 5 && highSessLowTask / totalActiveDays > 0.4) {
+                    insights.push({ type: 'warn', icon: '🔍', text: `You're logging sessions but not completing tasks on many days. Check if your tasks are too vague or too large — break them down further.` });
+                }
+            } catch (e) { }
+
+            // Layer 3: Habit weekend abandonment pattern
+            try {
+                const habits = S.habits || [];
+                habits.forEach(h => {
+                    if (!h.log && !h.days) return;
+                    const log = h.log || h.days || {};
+                    const logEntries = Object.entries(log);
+                    if (logEntries.length < 5) return;
+                    const failures = logEntries.filter(([k]) => !log[k]);
+                    const weekendFails = logEntries.filter(([k]) => { try { const d = new Date(k + 'T00:00:00'); return (d.getDay() === 0 || d.getDay() === 6) && !log[k]; } catch (e2) { return false; } });
+                    // Count total weekend days logged
+                    const weekendDays = logEntries.filter(([k]) => { try { const d = new Date(k + 'T00:00:00'); return d.getDay() === 0 || d.getDay() === 6; } catch (e2) { return false; } });
+                    if (weekendDays.length >= 4 && weekendFails.length / weekendDays.length > 0.7) {
+                        insights.push({ type: 'warn', icon: '📆', text: `You tend to drop <strong>${escHtml(h.name)}</strong> on weekends (${Math.round(weekendFails.length / weekendDays.length * 100)}% fail rate). Set a shorter weekend version.` });
+                    }
+                });
+            } catch (e) { }
+
+            // Layer 4: Distraction spike detection (3+ distractions in 30-min window, last 7 days)
+            try {
+                const distractions = S.distractions || [];
+                const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+                const recent = distractions.filter(d => {
+                    if (!d.ts && !d.time) return false;
+                    // Try to reconstruct timestamp from date+time
+                    try {
+                        const ts = d.ts || new Date(d.date + ' ' + d.time).getTime();
+                        return ts >= cutoff;
+                    } catch (e2) { return false; }
+                });
+                if (recent.length >= 3) {
+                    // Slide 30-min window
+                    let spikeFound = false;
+                    for (let i = 0; i < recent.length && !spikeFound; i++) {
+                        const base = recent[i].ts || new Date((recent[i].date || '') + ' ' + (recent[i].time || '00:00:00')).getTime();
+                        if (!base || isNaN(base)) continue;
+                        const inWindow = recent.filter(d => {
+                            const ts = d.ts || new Date((d.date || '') + ' ' + (d.time || '00:00:00')).getTime();
+                            return ts >= base && ts <= base + 30 * 60 * 1000;
+                        });
+                        if (inWindow.length >= 3) {
+                            spikeFound = true;
+                            const spikeDate = new Date(base);
+                            const dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][spikeDate.getDay()];
+                            const hour = spikeDate.getHours();
+                            const timeLabel = `${hour % 12 || 12}${hour < 12 ? 'am' : 'pm'}`;
+                            insights.push({ type: 'warn', icon: '💥', text: `Distraction spike detected on <strong>${dayName}</strong> around <strong>${timeLabel}</strong> (${inWindow.length} in 30 min). Identify the trigger and block it.` });
+                        }
+                    }
+                }
+            } catch (e) { }
+
+            // Layer 5: Momentum detection (last 3 days)
+            try {
+                const daily = S.analytics.daily || {};
+                const last3 = [];
+                for (let i = 1; i <= 3; i++) {
+                    const d = new Date(); d.setDate(d.getDate() - i);
+                    const dk = localDateKey(d);
+                    last3.push(daily[dk] || { sess: 0, tasks: 0 });
+                }
+                const allActive = last3.every(d => (d.sess || 0) >= 1 && (d.tasks || 0) >= 1);
+                const allInactive = last3.every(d => (d.sess || 0) === 0);
+                if (allActive) insights.push({ type: 'good', icon: '🚀', text: `3-day execution streak — you're building real momentum. Protect tomorrow's session slot now.` });
+                else if (allInactive && sessions.length > 0) insights.push({ type: 'warn', icon: '🔄', text: `No sessions in the last 3 days. One small session today breaks the pattern — even 10 minutes counts.` });
+            } catch (e) { }
+
+            // Layer 6: Optimal session length learning (after 10+ sessions)
+            try {
+                if (sessions.length >= 10) {
+                    const daily = S.analytics.daily || {};
+                    // Group sessions by length bucket (10-min buckets), find which correlates with most tasks done that day
+                    const bucketTasks = {};
+                    const bucketCount = {};
+                    sessions.forEach(s => {
+                        const bucket = Math.round((s.mins || 25) / 10) * 10;
+                        const dk = s.date;
+                        const dayTasks = daily[dk]?.tasks || 0;
+                        if (!bucketTasks[bucket]) { bucketTasks[bucket] = 0; bucketCount[bucket] = 0; }
+                        bucketTasks[bucket] += dayTasks;
+                        bucketCount[bucket]++;
+                    });
+                    let bestBucket = null, bestAvg = 0;
+                    Object.keys(bucketTasks).forEach(b => {
+                        if (bucketCount[b] >= 3) {
+                            const avg = bucketTasks[b] / bucketCount[b];
+                            if (avg > bestAvg) { bestAvg = avg; bestBucket = parseInt(b); }
+                        }
+                    });
+                    if (bestBucket && bestBucket !== avgSessionLen) {
+                        insights.push({ type: 'info', icon: '🧠', text: `Your most productive days follow <strong>${bestBucket}min sessions</strong> (avg ${bestAvg.toFixed(1)} tasks/day). Consider making that your default.` });
+                    }
+                }
+            } catch (e) { }
+
             // ── Fallback
             if (insights.length === 0) insights.push({ type: 'info', icon: '🚀', text: `Start your first focus session to activate personalized coaching insights.` });
 
-            el.innerHTML = insights.slice(0, 5).map(i => `
+            el.innerHTML = insights.slice(0, 6).map(i => `
                 <div class="ai-insight-item ${i.type}">
                     <span class="ai-insight-icon">${i.icon}</span>
                     <span class="ai-insight-text">${i.text}</span>
                 </div>`).join('');
+
+            // Update mode badge
+            const badge = document.getElementById('ai-coach-mode-badge');
+            if (badge) badge.textContent = 'RULE-BASED';
+        }
+
+        // ── GEMINI AI COACH INTEGRATION ──────────────────────────────
+        // Uses Gemini 2.0 Flash — API key pre-configured, 30 requests/day limit
+
+        const _GEMINI_API_KEY = 'AIzaSyDCbGsPiudpk1dDKfqAzd1mKjmAOYEqjG0';
+        const GEMINI_DAILY_LIMIT = 30;
+        const GEMINI_USAGE_KEY = 'operator_gemini_usage';
+
+        function _getGeminiUsage() {
+            try {
+                const today = new Date().toISOString().split('T')[0];
+                const raw = localStorage.getItem(GEMINI_USAGE_KEY);
+                const data = raw ? JSON.parse(raw) : {};
+                if (data.date !== today) return { date: today, count: 0 };
+                return data;
+            } catch (e) { return { date: new Date().toISOString().split('T')[0], count: 0 }; }
+        }
+
+        function _incrementGeminiUsage() {
+            const usage = _getGeminiUsage();
+            usage.count = (usage.count || 0) + 1;
+            localStorage.setItem(GEMINI_USAGE_KEY, JSON.stringify(usage));
+            _updateGeminiCounter();
+        }
+
+        function _updateGeminiCounter() {
+            const usage = _getGeminiUsage();
+            const remaining = Math.max(0, GEMINI_DAILY_LIMIT - usage.count);
+            const el = document.getElementById('gemini-daily-counter');
+            if (el) {
+                const color = remaining <= 5 ? 'var(--red)' : remaining <= 10 ? 'var(--amber)' : 'var(--text3)';
+                el.innerHTML = `<span style="color:${color}">${remaining}/${GEMINI_DAILY_LIMIT} requests left today</span>`;
+            }
+            const btn = document.getElementById('gemini-ask-btn');
+            if (btn) btn.disabled = remaining <= 0;
+        }
+
+        // No-op stubs kept for compatibility
+        function saveGeminiKey() { }
+        function clearGeminiKey() { }
+
+        function _activateGeminiUI(active) {
+            const setup = document.getElementById('gemini-key-setup');
+            const panel = document.getElementById('gemini-active-panel');
+            if (setup) setup.style.display = 'none';
+            if (panel) panel.style.display = 'block';
+        }
+
+        function _initGeminiUI() {
+            _activateGeminiUI(true);
+            _updateGeminiCounter();
+            const badge = document.getElementById('ai-coach-mode-badge');
+            if (badge) { badge.textContent = '✦ AI POWERED'; badge.style.background = 'rgba(57,211,83,.15)'; badge.style.color = 'var(--green)'; badge.style.borderColor = 'rgba(57,211,83,.3)'; }
+        }
+
+        function _buildCoachContext() {
+            // Build a compact but rich context snapshot from S for Gemini
+            const today = getTodayKey ? getTodayKey() : new Date().toISOString().split('T')[0];
+            const sessions = S.sessions || [];
+            const todaySess = sessions.filter(s => s.date === today);
+            const todayTasks = (S.tasks || []).filter(t => t.done && (t.doneDate === today || t.date === today));
+            const pendingTasks = (S.tasks || []).filter(t => !t.done && t.date === today);
+            const streak = S.analytics?.curStreak || 0;
+            const totalSess = S.analytics?.totalSess || 0;
+            const totalMins = S.analytics?.totalMin || 0;
+            const energy = (S.energy && S.energy[today]) || 0;
+            const energyLabel = ['', 'exhausted', 'low', 'neutral', 'good', 'on fire'][energy] || 'not set';
+            const distractions = (S.distractions || []).filter(d => d.date === today).length;
+            const habits = (S.habits || []).map(h => ({
+                name: h.name,
+                streak: h.streak || 0,
+                todayDone: !!(h.days && h.days[today])
+            }));
+
+            // Last 7 days summary
+            const last7 = [];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const dk = localDateKey(d);
+                const day = S.analytics?.daily?.[dk];
+                if (day && (day.sess > 0 || day.tasks > 0)) {
+                    last7.push(`${dk}: ${day.sess || 0} sessions, ${day.tasks || 0} tasks, ${day.min || 0}min focus`);
+                }
+            }
+
+            return `You are a direct, data-driven productivity coach called OPERATOR AI. Analyze this user's actual performance data and give them 3-5 sharp, personalized insights. Be specific — reference their actual numbers. No generic advice. Be honest, not flattering. Use plain text, no markdown symbols.
+
+USER DATA SNAPSHOT:
+- Today: ${today}, Energy level: ${energyLabel}
+- Today's sessions: ${todaySess.length} (${todaySess.reduce((a, s) => a + (s.mins || 0), 0)} min total focus)
+- Today's tasks completed: ${todayTasks.length}, pending: ${pendingTasks.length}
+- Today's distractions logged: ${distractions}
+- Current streak: ${streak} days
+- All-time: ${totalSess} sessions, ${Math.round(totalMins / 60 * 10) / 10}h total focus
+- Active habits (${habits.length}): ${habits.map(h => `${h.name} (streak:${h.streak}, today:${h.todayDone ? 'done' : 'not done'})`).join(', ') || 'none'}
+- Last 7 days: ${last7.length > 0 ? last7.join(' | ') : 'no data yet'}
+- Pending tasks today: ${pendingTasks.slice(0, 5).map(t => t.text).join(', ') || 'none'}
+
+Give 3-5 numbered insights. Each should be one or two sentences. Start with the most urgent observation.`;
+        }
+
+        async function askGeminiCoach() {
+            const usage = _getGeminiUsage();
+            if (usage.count >= GEMINI_DAILY_LIMIT) {
+                showToast('⚠ Daily limit reached (30 requests). Come back tomorrow!');
+                const error = document.getElementById('gemini-coach-error');
+                if (error) { error.textContent = `⚠ Daily limit of ${GEMINI_DAILY_LIMIT} AI requests reached. Resets at midnight.`; error.style.display = 'block'; }
+                return;
+            }
+
+            const btn = document.getElementById('gemini-ask-btn');
+            const loading = document.getElementById('gemini-coach-loading');
+            const output = document.getElementById('gemini-coach-output');
+            const error = document.getElementById('gemini-coach-error');
+
+            if (btn) btn.disabled = true;
+            if (loading) loading.style.display = 'block';
+            if (output) output.style.display = 'none';
+            if (error) error.style.display = 'none';
+
+            try {
+                const prompt = _buildCoachContext();
+                const res = await fetch(
+                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${_GEMINI_API_KEY}`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: prompt }] }],
+                            generationConfig: { temperature: 0.7, maxOutputTokens: 512 }
+                        })
+                    }
+                );
+
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    const msg = errData?.error?.message || `HTTP ${res.status}`;
+                    if (res.status === 429) throw new Error('Rate limit hit — try again in a moment.');
+                    throw new Error(msg);
+                }
+
+                const data = await res.json();
+                const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!text) throw new Error('Empty response from Gemini');
+
+                _incrementGeminiUsage();
+                if (output) { output.textContent = text; output.style.display = 'block'; }
+                if (loading) loading.style.display = 'none';
+                if (btn) { btn.disabled = false; _updateGeminiCounter(); }
+                addXP(5);
+
+            } catch (err) {
+                if (loading) loading.style.display = 'none';
+                if (btn) { btn.disabled = false; _updateGeminiCounter(); }
+                if (error) { error.textContent = '⚠ ' + err.message; error.style.display = 'block'; }
+                showToast('⚠ AI Coach error — see panel');
+            }
         }
 
         // ── MODULE 2: SMART TASK BREAKDOWN ──────────────────────────
@@ -6292,7 +7031,14 @@
             const origSwitchTab2 = window.switchTab;
             window.switchTab = function (name, el) {
                 if (typeof origSwitchTab2 === 'function') origSwitchTab2(name, el);
-                if (name === 'focusscore') setTimeout(runFocusScoreIntelligence, 300);
+                if (name === 'focusscore') {
+                    setTimeout(runFocusScoreIntelligence, 300);
+                    setTimeout(() => { if (typeof calculateFocusScore === 'function') calculateFocusScore(); }, 100);
+                    // Hide NEW badge once visited
+                    try { localStorage.setItem('visited_focusscore', '1'); } catch (e) { }
+                    const badge = document.getElementById('nav-score-badge');
+                    if (badge) badge.style.display = 'none';
+                }
                 if (name === 'timer') setTimeout(() => AFT.renderPanel(), 200);
             };
         })();
@@ -6493,6 +7239,15 @@
                 if (document.getElementById('panel-focusscore')?.classList.contains('active')) {
                     runFocusScoreIntelligence();
                 }
+                // Streak at risk check — fires 8 seconds after load so user settles in
+                setTimeout(checkStreakAtRisk, 8000);
+                // Mark Focus Score tab with badge if user has data and hasn't visited
+                try {
+                    const visited = localStorage.getItem('visited_focusscore');
+                    if (!visited && (S.sessions?.length > 0 || S.analytics?.totalSess > 0)) {
+                        document.getElementById('nav-score-badge') && (document.getElementById('nav-score-badge').style.display = 'inline');
+                    }
+                } catch (e) { }
             }, 1500);
         });
 
