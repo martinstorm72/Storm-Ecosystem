@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "api/gemini.js": {
+      "memory": 128,
+      "maxDuration": 15
+    }
+  },
+  "routes": [
+    { "src": "/api/gemini", "dest": "/api/gemini.js" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}
