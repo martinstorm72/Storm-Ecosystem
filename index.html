@@ -27,7 +27,7 @@
     <script
         type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Storm OS","applicationCategory":"ProductivityApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"9.99","priceCurrency":"USD","availability":"https://schema.org/InStock"},"description":"Storm OS is a productivity operating system for tech professionals.","url":"https://storm-os.app","creator":{"@type":"Person","name":"Martin","email":"martinsamer91@gmail.com"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"2400"}}</script>
     <!-- ===== ENHANCED SEO ===== -->
-    <meta name="theme-color" content="#020305">
+    <meta name="theme-color" content="#020202">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Storm OS">
     <meta name="application-name" content="Storm OS">
@@ -41,38 +41,57 @@
     <script
         type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://storm-os.app/"},{"@type":"ListItem","position":2,"name":"Pricing","item":"https://storm-os.app/#pricing"}]}</script>
 
+    <!-- THREE.JS 3D ENGINE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- REACT + R3F IMPORT MAP -->
+    <script type="importmap">
+    {
+      "imports": {
+        "react":              "https://esm.sh/react@18.2.0",
+        "react-dom/client":   "https://esm.sh/react-dom@18.2.0/client",
+        "react/jsx-runtime":  "https://esm.sh/react@18.2.0/jsx-runtime",
+        "three":              "https://esm.sh/three@0.155.0",
+        "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.13.6?deps=react@18.2.0,three@0.155.0",
+        "@react-three/drei":  "https://esm.sh/@react-three/drei@9.80.2?deps=react@18.2.0,three@0.155.0,@react-three/fiber@8.13.6"
+      }
+    }
+    </script>
+
     <!-- Preload critical assets -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --bg: #020305;
-            --bg2: #050810;
-            --card: #080c14;
-            --card2: #0c1220;
-            --border: #131d30;
-            --border2: #1c2a42;
-            --accent: #3b82f6;
-            --accent2: #6366f1;
-            --accent-glow: rgba(59, 130, 246, 0.2);
-            --purple: #8b5cf6;
-            --cyan: #06b6d4;
-            --green: #10b981;
-            --red: #ef4444;
-            --amber: #f59e0b;
-            --text: #f0f4ff;
-            --text2: #7a90b8;
-            --text3: #2d3f60;
-            --grad: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
-            --gold: #c9a227;
-            --gold2: #e8c44a;
-            --head: 'Orbitron', sans-serif;
+            /* ── ULTIMATE BLACK & WHITE PALETTE ── */
+            --bg: #000000;
+            --bg2: #020202;
+            --card: #060606;
+            --card2: #0a0a0a;
+            --border: #111111;
+            --border2: #1a1a1a;
+            --accent: #ffffff;
+            --accent2: #d8d8d8;
+            --accent-glow: rgba(255, 255, 255, 0.10);
+            --purple: #aaaaaa;
+            --cyan: #cccccc;
+            --green: #bbbbbb;
+            --red: #888888;
+            --amber: #eeeeee;
+            --text: #f8f8f8;
+            --text2: #777777;
+            --text3: #333333;
+            --grad: linear-gradient(135deg, #ffffff 0%, #aaaaaa 50%, #ffffff 100%);
+            --gold: #ffffff;
+            --gold2: #dddddd;
+            --velvet: linear-gradient(160deg, #060606 0%, #000000 40%, #060606 100%);
+            --head: 'Cormorant Garamond', serif;
             --mono: 'JetBrains Mono', monospace;
-            --body: 'Rajdhani', sans-serif;
+            --body: 'EB Garamond', serif;
         }
 
         *,
@@ -91,6 +110,8 @@
             background: var(--bg);
             color: var(--text);
             font-family: var(--body);
+            font-size: 18px;
+            font-weight: 600;
             overflow-x: hidden;
             cursor: none
         }
@@ -112,12 +133,12 @@
             position: fixed;
             width: 36px;
             height: 36px;
-            border: 1px solid rgba(59, 130, 246, .5);
+            border: 1px solid rgba(255, 255, 255, 0.24);
             border-radius: 50%;
             pointer-events: none;
             z-index: 99998;
             transform: translate(-50%, -50%);
-            transition: all .12s ease
+            transition: all .15s ease
         }
 
         body:has(a:hover) #cursor {
@@ -136,8 +157,8 @@
             content: '';
             position: fixed;
             inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-            opacity: .35;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+            opacity: .3;
             pointer-events: none;
             z-index: 9998
         }
@@ -146,7 +167,7 @@
             content: '';
             position: fixed;
             inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, .05) 3px, rgba(0, 0, 0, .05) 4px);
+            background: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0, 0, 0, .03) 4px, rgba(0, 0, 0, .03) 5px);
             pointer-events: none;
             z-index: 9997
         }
@@ -154,9 +175,9 @@
         .grid-bg {
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(rgba(59, 130, 246, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, .04) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridDrift 25s linear infinite;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: gridDrift 60s linear infinite;
             pointer-events: none;
             z-index: 0
         }
@@ -181,29 +202,29 @@
         }
 
         .orb-1 {
-            width: 600px;
-            height: 600px;
-            background: rgba(59, 130, 246, .07);
-            top: -200px;
-            left: -200px
+            width: 700px;
+            height: 700px;
+            background: rgba(255, 255, 255, 0.02);
+            top: -300px;
+            left: -300px
         }
 
         .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: rgba(99, 102, 241, .07);
-            bottom: -200px;
-            right: -200px;
-            animation-delay: 6s
+            width: 600px;
+            height: 600px;
+            background: rgba(200, 200, 200, 0.02);
+            bottom: -250px;
+            right: -250px;
+            animation-delay: 8s
         }
 
         .orb-3 {
-            width: 300px;
-            height: 300px;
-            background: rgba(139, 92, 246, .05);
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.01);
             top: 40%;
             left: 40%;
-            animation-delay: 3s
+            animation-delay: 4s
         }
 
         @keyframes orbFloat {
@@ -214,7 +235,7 @@
             }
 
             50% {
-                transform: translate(30px, -30px) scale(1.05)
+                transform: translate(20px, -20px) scale(1.03)
             }
         }
 
@@ -223,11 +244,11 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            transition: all .4s ease
+            transition: all .6s ease
         }
 
         nav.scrolled {
-            background: rgba(2, 3, 5, .85);
+            background: rgba(0, 0, 0, .92);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border)
         }
@@ -244,7 +265,7 @@
 
         .logo {
             font-family: var(--head);
-            font-size: 1.3rem;
+            font-size: 1.46rem;
             font-weight: 900;
             letter-spacing: .12em;
             color: var(--text);
@@ -284,7 +305,8 @@
 
         .nav-links a {
             font-family: var(--mono);
-            font-size: .7rem;
+            font-size: 0.92rem;
+            font-weight: 700;
             color: var(--text2);
             text-decoration: none;
             padding: 6px 14px;
@@ -323,13 +345,13 @@
 
         .nav-status {
             font-family: var(--mono);
-            font-size: .62rem;
+            font-size: 0.73rem;
             color: var(--green);
             letter-spacing: .1em;
             display: flex;
             align-items: center;
             gap: 6px;
-            border: 1px solid rgba(16, 185, 129, .25);
+            border: 1px solid rgba(180, 180, 180, 0.15);
             padding: 4px 12px;
             border-radius: 20px
         }
@@ -346,17 +368,17 @@
 
             0%,
             100% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, .4)
+                box-shadow: 0 0 0 0 rgba(180, 180, 180, 0.24)
             }
 
             50% {
-                box-shadow: 0 0 0 4px rgba(16, 185, 129, 0)
+                box-shadow: 0 0 0 4px rgba(180, 180, 180, 0.00)
             }
         }
 
         .btn {
             font-family: var(--head);
-            font-size: .65rem;
+            font-size: 0.77rem;
             font-weight: 700;
             letter-spacing: .16em;
             padding: 11px 24px;
@@ -378,7 +400,7 @@
             inset: 0;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .08), transparent);
             transform: translateX(-100%);
-            transition: transform .5s
+            transition: transform .8s
         }
 
         .btn:hover::before {
@@ -395,7 +417,7 @@
         }
 
         .btn-primary:hover {
-            box-shadow: 0 0 30px rgba(59, 130, 246, .4), 0 8px 24px rgba(99, 102, 241, .3);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.24), 0 8px 24px rgba(200, 200, 200, 0.18);
             transform: translateY(-2px)
         }
 
@@ -408,12 +430,12 @@
         .btn-ghost:hover {
             border-color: var(--accent);
             color: var(--text);
-            box-shadow: 0 0 16px var(--accent-glow)
+            box-shadow: 0 0 20px var(--accent-glow)
         }
 
         .btn-gold {
             background: linear-gradient(135deg, var(--gold), var(--gold2));
-            color: #1a0e00
+            color: #050505
         }
 
         .btn-gold:hover {
@@ -422,7 +444,7 @@
         }
 
         .btn-lg {
-            font-size: .72rem;
+            font-size: 0.85rem;
             padding: 15px 36px;
             letter-spacing: .18em
         }
@@ -437,7 +459,8 @@
 
         .section-tag {
             font-family: var(--mono);
-            font-size: .65rem;
+            font-size: 0.92rem;
+            font-weight: 700;
             color: var(--accent);
             letter-spacing: .2em;
             margin-bottom: 14px;
@@ -463,7 +486,7 @@
 
         .section-heading {
             font-family: var(--head);
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
             font-weight: 900;
             letter-spacing: -.01em;
             line-height: 1.1;
@@ -489,16 +512,16 @@
             align-items: center;
             gap: 10px;
             font-family: var(--mono);
-            font-size: .68rem;
+            font-size: 0.8rem;
             color: var(--text2);
             letter-spacing: .15em;
             border: 1px solid var(--border2);
             padding: 7px 16px;
             border-radius: 20px;
             margin-bottom: 32px;
-            background: rgba(8, 12, 20, .8);
+            background: rgba(0, 0, 0, .85);
             opacity: 0;
-            animation: heroFadeIn .8s .2s ease both
+            animation: heroFadeIn 1.2s .3s ease both
         }
 
         .hero-eyebrow .pulse {
@@ -529,7 +552,7 @@
             letter-spacing: -.02em;
             margin-bottom: 24px;
             opacity: 0;
-            animation: heroFadeIn .8s .4s ease both
+            animation: heroFadeIn 1.2s .5s ease both
         }
 
         h1 .grad-text {
@@ -610,13 +633,13 @@
         }
 
         .hero p {
-            font-size: 1.15rem;
+            font-size: 1.29rem;
             color: var(--text2);
             max-width: 600px;
             margin: 0 auto 40px;
-            line-height: 1.7;
+            line-height: 1.9;
             opacity: 0;
-            animation: heroFadeIn .8s .6s ease both
+            animation: heroFadeIn 1.2s .7s ease both
         }
 
         .hero-cta {
@@ -625,7 +648,7 @@
             justify-content: center;
             flex-wrap: wrap;
             opacity: 0;
-            animation: heroFadeIn .8s .8s ease both
+            animation: heroFadeIn 1.2s .9s ease both
         }
 
         .hero-banner {
@@ -633,11 +656,11 @@
             max-width: 760px;
             padding: 14px 18px;
             border-radius: 999px;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.25);
+            background: rgba(160, 160, 160, 0.05);
+            border: 1px solid rgba(160, 160, 160, 0.12);
             color: var(--green);
             font-family: var(--mono);
-            font-size: .9rem;
+            font-size: 1.01rem;
             letter-spacing: .08em;
             display: none;
             align-items: center;
@@ -660,7 +683,7 @@
             background: var(--card);
             overflow: hidden;
             opacity: 0;
-            animation: heroFadeIn .8s 1s ease both;
+            animation: heroFadeIn 1.2s 1.1s ease both;
             max-width: 640px;
             margin-left: auto;
             margin-right: auto
@@ -705,14 +728,14 @@
 
         .stat-suffix {
             font-family: var(--head);
-            font-size: 1rem;
+            font-size: 1.12rem;
             font-weight: 900;
             color: var(--text2)
         }
 
         .stat-label {
             font-family: var(--mono);
-            font-size: .58rem;
+            font-size: 0.68rem;
             color: var(--text3);
             letter-spacing: .12em;
             margin-top: 5px;
@@ -724,7 +747,7 @@
             max-width: 1000px;
             margin: 80px auto 0;
             opacity: 0;
-            animation: heroFadeIn 1s 1.2s ease both
+            animation: heroFadeIn 1.4s 1.3s ease both
         }
 
         .preview-frame {
@@ -733,7 +756,7 @@
             border: 1px solid var(--border2);
             overflow: hidden;
             position: relative;
-            box-shadow: 0 0 0 1px rgba(59, 130, 246, .1), 0 40px 80px rgba(0, 0, 0, .7), 0 0 80px rgba(59, 130, 246, .08)
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 40px 80px rgba(0, 0, 0, .7), 0 0 80px rgba(255, 255, 255, 0.05)
         }
 
         .preview-bar {
@@ -757,22 +780,22 @@
         }
 
         .pd-r {
-            background: #ef4444
+            background: #666666
         }
 
         .pd-y {
-            background: #f59e0b
+            background: #cccccc
         }
 
         .pd-g {
-            background: #10b981
+            background: #aaaaaa
         }
 
         .preview-url {
             flex: 1;
             text-align: center;
             font-family: var(--mono);
-            font-size: .62rem;
+            font-size: 0.73rem;
             color: var(--text3);
             letter-spacing: .06em
         }
@@ -782,11 +805,11 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, .6), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.36), transparent);
             top: 0;
             pointer-events: none;
             z-index: 3;
-            animation: scanDown 5s linear infinite
+            animation: scanDown 8s linear infinite
         }
 
         @keyframes scanDown {
@@ -808,13 +831,13 @@
         .preview-badge {
             position: absolute;
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             letter-spacing: .1em;
             padding: 5px 12px;
             border-radius: 4px;
             border: 1px solid;
             backdrop-filter: blur(8px);
-            animation: badgeFloat 4s ease-in-out infinite;
+            animation: badgeFloat 7s ease-in-out infinite;
             z-index: 4
         }
 
@@ -831,16 +854,16 @@
         }
 
         .badge-green {
-            background: rgba(16, 185, 129, .1);
-            border-color: rgba(16, 185, 129, .3);
+            background: rgba(180, 180, 180, 0.06);
+            border-color: rgba(180, 180, 180, 0.18);
             color: var(--green);
             bottom: 20%;
             left: -40px
         }
 
         .badge-blue {
-            background: rgba(59, 130, 246, .1);
-            border-color: rgba(59, 130, 246, .3);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.18);
             color: var(--accent);
             top: 20%;
             right: -30px;
@@ -859,7 +882,7 @@
             gap: 1px;
             background: var(--border);
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 6px;
             overflow: hidden;
             margin-top: 60px
         }
@@ -906,7 +929,7 @@
 
         .feature-num {
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             color: var(--text3);
             letter-spacing: .15em;
             margin-bottom: 20px;
@@ -931,18 +954,18 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
-            font-size: 1.2rem;
+            font-size: 1.34rem;
             transition: border-color .3s, box-shadow .3s
         }
 
         .feature-card:hover .feature-icon {
             border-color: var(--accent);
-            box-shadow: 0 0 16px var(--accent-glow)
+            box-shadow: 0 0 20px var(--accent-glow)
         }
 
         .feature-title {
             font-family: var(--head);
-            font-size: .85rem;
+            font-size: 0.95rem;
             font-weight: 700;
             letter-spacing: .1em;
             color: var(--text);
@@ -950,7 +973,7 @@
         }
 
         .feature-desc {
-            font-size: .9rem;
+            font-size: 1.01rem;
             color: var(--text2);
             line-height: 1.6
         }
@@ -965,7 +988,7 @@
 
         .feature-list li {
             font-family: var(--mono);
-            font-size: .62rem;
+            font-size: 0.73rem;
             color: var(--text3);
             letter-spacing: .04em;
             display: flex;
@@ -989,7 +1012,7 @@
 
         .ftag {
             font-family: var(--mono);
-            font-size: .57rem;
+            font-size: 0.67rem;
             padding: 2px 7px;
             border-radius: 3px;
             border: 1px solid var(--border2);
@@ -999,13 +1022,13 @@
 
         .ftag-new {
             font-family: var(--mono);
-            font-size: .57rem;
+            font-size: 0.67rem;
             padding: 2px 7px;
             border-radius: 3px;
-            border: 1px solid rgba(16, 185, 129, .3);
+            border: 1px solid rgba(180, 180, 180, 0.18);
             color: var(--green);
             letter-spacing: .04em;
-            background: rgba(16, 185, 129, .08)
+            background: rgba(180, 180, 180, 0.05)
         }
 
         #benefits {
@@ -1040,7 +1063,7 @@
 
         .result-num {
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             color: var(--accent);
             letter-spacing: .1em;
             flex-shrink: 0;
@@ -1049,7 +1072,7 @@
 
         .result-content h4 {
             font-family: var(--head);
-            font-size: .78rem;
+            font-size: 0.92rem;
             font-weight: 700;
             letter-spacing: .12em;
             color: var(--text);
@@ -1057,7 +1080,7 @@
         }
 
         .result-content p {
-            font-size: .9rem;
+            font-size: 1.01rem;
             color: var(--text2);
             line-height: 1.6
         }
@@ -1083,7 +1106,7 @@
 
         .metric-val {
             font-family: var(--head);
-            font-size: 2rem;
+            font-size: 2.0rem;
             font-weight: 900;
             line-height: 1;
             margin-bottom: 4px
@@ -1111,7 +1134,7 @@
 
         .metric-label {
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             color: var(--text3);
             letter-spacing: .1em
         }
@@ -1205,7 +1228,7 @@
         }
 
         .showcase-icon {
-            font-size: 4rem;
+            font-size: 4.0rem;
             position: relative;
             z-index: 1
         }
@@ -1215,7 +1238,7 @@
             bottom: 12px;
             right: 12px;
             font-family: var(--mono);
-            font-size: .55rem;
+            font-size: 0.65rem;
             color: var(--gold);
             letter-spacing: .1em;
             border: 1px solid rgba(201, 162, 39, .3);
@@ -1229,12 +1252,12 @@
             top: 12px;
             left: 12px;
             font-family: var(--mono);
-            font-size: .58rem;
+            font-size: 0.68rem;
             letter-spacing: .1em;
             padding: 4px 10px;
             border-radius: 4px;
-            background: rgba(16, 185, 129, .15);
-            border: 1px solid rgba(16, 185, 129, .3);
+            background: rgba(180, 180, 180, 0.09);
+            border: 1px solid rgba(180, 180, 180, 0.18);
             color: var(--green);
             z-index: 2
         }
@@ -1245,7 +1268,7 @@
 
         .showcase-cat {
             font-family: var(--mono);
-            font-size: .58rem;
+            font-size: 0.68rem;
             color: var(--text3);
             letter-spacing: .14em;
             margin-bottom: 8px
@@ -1253,7 +1276,7 @@
 
         .showcase-title {
             font-family: var(--head);
-            font-size: 1rem;
+            font-size: 1.12rem;
             font-weight: 900;
             letter-spacing: .08em;
             line-height: 1.2;
@@ -1263,7 +1286,7 @@
         }
 
         .showcase-desc {
-            font-size: .9rem;
+            font-size: 1.01rem;
             color: var(--text2);
             line-height: 1.6;
             margin-bottom: 18px
@@ -1278,7 +1301,7 @@
 
         .stag {
             font-family: var(--mono);
-            font-size: .55rem;
+            font-size: 0.65rem;
             padding: 2px 7px;
             border-radius: 3px;
             letter-spacing: .04em
@@ -1312,7 +1335,7 @@
 
         .showcase-price-sub {
             font-family: var(--mono);
-            font-size: .55rem;
+            font-size: 0.65rem;
             color: var(--text3);
             letter-spacing: .08em;
             margin-top: 2px
@@ -1323,7 +1346,7 @@
             align-items: center;
             gap: 6px;
             font-family: var(--head);
-            font-size: .6rem;
+            font-size: 0.71rem;
             font-weight: 700;
             letter-spacing: .14em;
             color: var(--gold);
@@ -1358,12 +1381,12 @@
         }
 
         .showcase-secondary:hover {
-            box-shadow: 0 0 40px rgba(59, 130, 246, .12), 0 20px 40px rgba(0, 0, 0, .4);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.07), 0 20px 40px rgba(0, 0, 0, .4);
             transform: translateY(-4px)
         }
 
         .showcase-secondary .showcase-top {
-            background: linear-gradient(90deg, var(--accent), var(--purple))
+            background: linear-gradient(90deg, #111111, #333333)
         }
 
         .sec-body {
@@ -1372,7 +1395,7 @@
 
         .sec-cat {
             font-family: var(--mono);
-            font-size: .58rem;
+            font-size: 0.68rem;
             color: var(--text3);
             letter-spacing: .14em;
             margin-bottom: 8px
@@ -1380,7 +1403,7 @@
 
         .sec-title {
             font-family: var(--head);
-            font-size: .82rem;
+            font-size: 0.92rem;
             font-weight: 900;
             letter-spacing: .08em;
             margin-bottom: 8px;
@@ -1393,7 +1416,7 @@
         }
 
         .sec-desc {
-            font-size: .85rem;
+            font-size: 0.95rem;
             color: var(--text2);
             line-height: 1.5;
             margin-bottom: 14px
@@ -1407,14 +1430,14 @@
 
         .sec-price {
             font-family: var(--head);
-            font-size: 1.3rem;
+            font-size: 1.46rem;
             font-weight: 900;
             color: var(--accent)
         }
 
         .sec-price-sub {
             font-family: var(--mono);
-            font-size: .52rem;
+            font-size: 0.61rem;
             color: var(--text3);
             letter-spacing: .08em;
             margin-top: 2px
@@ -1448,7 +1471,7 @@
             top: 8px;
             right: 8px;
             font-family: var(--mono);
-            font-size: .5rem;
+            font-size: 0.59rem;
             color: var(--text3);
             border: 1px solid var(--border);
             padding: 2px 6px;
@@ -1456,14 +1479,14 @@
         }
 
         .coming-mini-icon {
-            font-size: 1.4rem;
+            font-size: 1.57rem;
             margin-bottom: 8px;
             opacity: .5
         }
 
         .coming-mini-title {
             font-family: var(--head);
-            font-size: .65rem;
+            font-size: 0.77rem;
             font-weight: 700;
             letter-spacing: .08em;
             color: var(--text3);
@@ -1472,7 +1495,7 @@
 
         .coming-mini-label {
             font-family: var(--mono);
-            font-size: .52rem;
+            font-size: 0.61rem;
             color: var(--text3);
             opacity: .6
         }
@@ -1497,7 +1520,7 @@
         }
 
         .pricing-card:hover {
-            box-shadow: 0 0 60px rgba(59, 130, 246, .15), 0 40px 80px rgba(0, 0, 0, .4)
+            box-shadow: 0 0 60px rgba(255, 255, 255, 0.09), 0 40px 80px rgba(0, 0, 0, .4)
         }
 
         .pricing-top-border {
@@ -1511,10 +1534,10 @@
 
         .pricing-badge {
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             letter-spacing: .14em;
-            background: rgba(59, 130, 246, .1);
-            border: 1px solid rgba(59, 130, 246, .25);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             color: var(--accent);
             padding: 4px 12px;
             border-radius: 20px;
@@ -1524,7 +1547,7 @@
 
         .pricing-price {
             font-family: var(--head);
-            font-size: 4rem;
+            font-size: 4.0rem;
             font-weight: 900;
             line-height: 1;
             margin-bottom: 8px;
@@ -1547,7 +1570,7 @@
 
         .pricing-period {
             font-family: var(--mono);
-            font-size: .7rem;
+            font-size: 0.83rem;
             color: var(--text3);
             align-self: flex-end;
             margin-bottom: 6px;
@@ -1555,7 +1578,7 @@
         }
 
         .pricing-desc {
-            font-size: .9rem;
+            font-size: 1.01rem;
             color: var(--text2);
             margin-bottom: 32px;
             line-height: 1.6
@@ -1580,7 +1603,7 @@
             align-items: center;
             gap: 12px;
             font-family: var(--mono);
-            font-size: .72rem;
+            font-size: 0.85rem;
             color: var(--text2);
             letter-spacing: .04em
         }
@@ -1589,14 +1612,14 @@
             width: 18px;
             height: 18px;
             border-radius: 4px;
-            background: rgba(16, 185, 129, .1);
-            border: 1px solid rgba(16, 185, 129, .25);
+            background: rgba(180, 180, 180, 0.06);
+            border: 1px solid rgba(180, 180, 180, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             color: var(--green);
-            font-size: .7rem
+            font-size: 0.83rem
         }
 
         .marquee-wrap {
@@ -1613,7 +1636,7 @@
             display: flex;
             gap: 60px;
             width: max-content;
-            animation: marqueeScroll 25s linear infinite
+            animation: marqueeScroll 45s linear infinite
         }
 
         @keyframes marqueeScroll {
@@ -1628,7 +1651,7 @@
 
         .marquee-item {
             font-family: var(--mono);
-            font-size: .65rem;
+            font-size: 0.77rem;
             color: var(--text3);
             letter-spacing: .15em;
             white-space: nowrap;
@@ -1644,7 +1667,7 @@
         .reveal {
             opacity: 0;
             transform: translateY(24px);
-            transition: opacity .7s ease, transform .7s ease
+            transition: opacity 1s ease, transform 1s ease
         }
 
         .reveal.active {
@@ -1655,7 +1678,7 @@
         .reveal-left {
             opacity: 0;
             transform: translateX(-30px);
-            transition: opacity .7s ease, transform .7s ease
+            transition: opacity 1s ease, transform 1s ease
         }
 
         .reveal-left.active {
@@ -1666,7 +1689,7 @@
         .reveal-right {
             opacity: 0;
             transform: translateX(30px);
-            transition: opacity .7s ease, transform .7s ease
+            transition: opacity 1s ease, transform 1s ease
         }
 
         .reveal-right.active {
@@ -1704,7 +1727,7 @@
         .cta-glow {
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at center, rgba(59, 130, 246, .08) 0%, transparent 70%);
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
             pointer-events: none
         }
 
@@ -1718,7 +1741,7 @@
         }
 
         .cta-section p {
-            font-size: 1.05rem;
+            font-size: 1.18rem;
             color: var(--text2);
             max-width: 480px;
             margin: 0 auto 40px;
@@ -1756,14 +1779,14 @@
 
         .footer-logo {
             font-family: var(--head);
-            font-size: 1rem;
+            font-size: 1.12rem;
             font-weight: 900;
             letter-spacing: .1em
         }
 
         .footer-meta {
             font-family: var(--mono);
-            font-size: .62rem;
+            font-size: 0.73rem;
             color: var(--text3);
             letter-spacing: .1em;
             line-height: 1.8;
@@ -1778,7 +1801,7 @@
 
         .footer-links a {
             font-family: var(--mono);
-            font-size: .62rem;
+            font-size: 0.73rem;
             color: var(--text3);
             text-decoration: none;
             letter-spacing: .08em;
@@ -1865,7 +1888,7 @@
 
         .testi-card:hover {
             border-color: var(--border2);
-            box-shadow: 0 0 30px rgba(59, 130, 246, .07)
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.04)
         }
 
         .testi-top-bar {
@@ -1885,7 +1908,7 @@
         }
 
         .testi-quote {
-            font-size: .98rem;
+            font-size: 1.1rem;
             color: var(--text2);
             line-height: 1.75;
             margin-bottom: 24px;
@@ -1908,7 +1931,7 @@
             align-items: center;
             justify-content: center;
             font-family: var(--head);
-            font-size: .7rem;
+            font-size: 0.83rem;
             font-weight: 900;
             color: #fff;
             letter-spacing: .05em;
@@ -1917,7 +1940,7 @@
 
         .testi-name {
             font-family: var(--head);
-            font-size: .72rem;
+            font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: .08em;
             color: var(--text);
@@ -1926,7 +1949,7 @@
 
         .testi-role {
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             color: var(--text2);
             letter-spacing: .06em;
             margin-bottom: 3px
@@ -1934,7 +1957,7 @@
 
         .testi-since {
             font-family: var(--mono);
-            font-size: .55rem;
+            font-size: 0.65rem;
             color: var(--text3);
             letter-spacing: .1em
         }
@@ -1978,7 +2001,7 @@
             }
 
             .logo {
-                font-size: 1rem
+                font-size: 1.12rem
             }
 
             /* Hide text nav links, keep only buttons */
@@ -1987,7 +2010,7 @@
             }
 
             .nav-links .btn {
-                font-size: .58rem;
+                font-size: 0.68rem;
                 padding: 8px 14px;
                 letter-spacing: .1em
             }
@@ -2007,12 +2030,12 @@
             }
 
             .hero p {
-                font-size: .95rem;
+                font-size: 1.06rem;
                 margin-bottom: 28px
             }
 
             .hero-eyebrow {
-                font-size: .6rem;
+                font-size: 0.71rem;
                 padding: 6px 12px;
                 margin-bottom: 20px
             }
@@ -2022,7 +2045,7 @@
             }
 
             .btn-lg {
-                font-size: .65rem;
+                font-size: 0.77rem;
                 padding: 12px 22px;
                 letter-spacing: .12em
             }
@@ -2037,7 +2060,7 @@
             }
 
             .stat-num {
-                font-size: 1.3rem
+                font-size: 1.46rem
             }
 
             /* Dashboard preview mockup: hide on small screens */
@@ -2115,16 +2138,16 @@
             }
 
             .pricing-price {
-                font-size: 3rem
+                font-size: 3.0rem
             }
 
             .pricing-dollar {
-                font-size: 1.2rem;
+                font-size: 1.34rem;
                 margin-top: 7px
             }
 
             .pricing-cents {
-                font-size: 1.4rem;
+                font-size: 1.57rem;
                 margin-top: 6px
             }
 
@@ -2155,7 +2178,7 @@
 
             /* Marquee: smaller text */
             .marquee-item {
-                font-size: .58rem
+                font-size: 0.68rem
             }
         }
 
@@ -2187,12 +2210,12 @@
             position: fixed;
             top: 0;
             left: 0;
-            height: 2px;
+            height: 1px;
             background: var(--grad);
             z-index: 99999;
             width: 0%;
             transition: width .1s linear;
-            box-shadow: 0 0 8px rgba(99, 102, 241, .6)
+            box-shadow: 0 0 8px rgba(200, 200, 200, 0.36)
         }
 
         /* ===== FLOATING CTA ===== */
@@ -2221,7 +2244,7 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, .6), 0 0 0 1px rgba(59, 130, 246, .1), 0 0 40px rgba(59, 130, 246, .08);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, 0.06), 0 0 40px rgba(255, 255, 255, 0.05);
             max-width: 320px
         }
 
@@ -2231,7 +2254,7 @@
 
         .fcta-label {
             font-family: var(--mono);
-            font-size: .55rem;
+            font-size: 0.65rem;
             color: var(--text3);
             letter-spacing: .12em;
             margin-bottom: 3px
@@ -2239,7 +2262,7 @@
 
         .fcta-price {
             font-family: var(--head);
-            font-size: .85rem;
+            font-size: 0.95rem;
             font-weight: 900;
             color: var(--text)
         }
@@ -2249,7 +2272,7 @@
             border: none;
             color: var(--text3);
             cursor: pointer;
-            font-size: .9rem;
+            font-size: 1.01rem;
             padding: 2px;
             line-height: 1;
             transition: color .2s
@@ -2263,7 +2286,7 @@
         #exit-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(2, 3, 5, .85);
+            background: rgba(0, 0, 0, .92);
             backdrop-filter: blur(12px);
             z-index: 100000;
             display: flex;
@@ -2288,7 +2311,7 @@
             width: 90%;
             text-align: center;
             position: relative;
-            box-shadow: 0 0 0 1px rgba(59, 130, 246, .15), 0 40px 80px rgba(0, 0, 0, .7);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.09), 0 40px 80px rgba(0, 0, 0, .7);
             animation: modalIn .4s cubic-bezier(.34, 1.56, .64, 1) both
         }
 
@@ -2315,7 +2338,7 @@
             height: 28px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: .75rem;
+            font-size: 0.89rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2329,7 +2352,7 @@
 
         .exit-tag {
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             color: var(--amber);
             border: 1px solid rgba(245, 158, 11, .3);
             background: rgba(245, 158, 11, .08);
@@ -2350,7 +2373,7 @@
         }
 
         .exit-modal p {
-            font-size: .95rem;
+            font-size: 1.06rem;
             color: var(--text2);
             line-height: 1.6;
             margin-bottom: 28px
@@ -2358,7 +2381,7 @@
 
         .exit-dismiss {
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             color: var(--text3);
             background: none;
             border: none;
@@ -2393,7 +2416,7 @@
             gap: 12px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, .5);
             font-family: var(--mono);
-            font-size: .62rem;
+            font-size: 0.73rem;
             color: var(--text2);
             letter-spacing: .04em;
             max-width: 280px;
@@ -2421,7 +2444,7 @@
             align-items: center;
             justify-content: center;
             font-family: var(--head);
-            font-size: .55rem;
+            font-size: 0.65rem;
             font-weight: 900;
             flex-shrink: 0;
             color: #fff
@@ -2462,7 +2485,7 @@
             border: none;
             color: var(--text);
             font-family: var(--head);
-            font-size: .78rem;
+            font-size: 0.92rem;
             font-weight: 700;
             letter-spacing: .08em;
             text-align: left;
@@ -2488,7 +2511,7 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            font-size: .7rem;
+            font-size: 0.83rem;
             color: var(--accent);
             transition: transform .3s, border-color .3s
         }
@@ -2510,7 +2533,7 @@
 
         .faq-a-inner {
             padding: 0 28px 24px;
-            font-size: .9rem;
+            font-size: 1.01rem;
             color: var(--text2);
             line-height: 1.7;
             border-top: 1px solid var(--border)
@@ -2541,7 +2564,7 @@
         .compare-row div {
             padding: 16px 20px;
             font-family: var(--mono);
-            font-size: .62rem;
+            font-size: 0.73rem;
             letter-spacing: .1em
         }
 
@@ -2551,8 +2574,8 @@
         }
 
         .compare-header .col-storm {
-            background: rgba(59, 130, 246, .06);
-            border-left: 1px solid rgba(59, 130, 246, .2);
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 1px solid rgba(255, 255, 255, 0.12);
             color: var(--accent);
             text-align: center
         }
@@ -2575,18 +2598,18 @@
 
         .compare-row .feat {
             color: var(--text2);
-            font-size: .75rem
+            font-size: 0.89rem
         }
 
         .compare-row .col-storm {
-            background: rgba(59, 130, 246, .04);
-            border-left: 1px solid rgba(59, 130, 246, .1);
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 1px solid rgba(255, 255, 255, 0.06);
             text-align: center
         }
 
         .compare-row div:not(.feat) {
             text-align: center;
-            font-size: .85rem
+            font-size: 0.95rem
         }
 
         .c-yes {
@@ -2619,7 +2642,7 @@
             align-items: center;
             gap: 10px;
             font-family: var(--mono);
-            font-size: .62rem;
+            font-size: 0.73rem;
             color: var(--text3);
             letter-spacing: .1em
         }
@@ -2632,7 +2655,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 1.12rem;
             background: var(--card2)
         }
 
@@ -2653,12 +2676,12 @@
         }
 
         .live-pill {
-            background: rgba(8, 12, 20, .95);
-            border: 1px solid rgba(16, 185, 129, .3);
+            background: rgba(0, 0, 0, .97);
+            border: 1px solid rgba(180, 180, 180, 0.18);
             border-radius: 20px;
             padding: 5px 14px;
             font-family: var(--mono);
-            font-size: .6rem;
+            font-size: 0.71rem;
             color: var(--green);
             letter-spacing: .1em;
             display: flex;
@@ -2706,7 +2729,7 @@
             border: 1px solid var(--border2);
             color: var(--text2);
             font-family: var(--mono);
-            font-size: .58rem;
+            font-size: 0.68rem;
             letter-spacing: .06em;
             padding: 5px 10px;
             border-radius: 5px;
@@ -2730,8 +2753,8 @@
 
         /* ===== URGENCY TIMER ===== */
         .urgency-bar {
-            background: rgba(239, 68, 68, .07);
-            border: 1px solid rgba(239, 68, 68, .2);
+            background: rgba(100, 100, 100, 0.03);
+            border: 1px solid rgba(100, 100, 100, 0.11);
             border-radius: 8px;
             padding: 12px 20px;
             display: flex;
@@ -2740,7 +2763,7 @@
             gap: 16px;
             margin-bottom: 28px;
             font-family: var(--mono);
-            font-size: .65rem;
+            font-size: 0.77rem;
             letter-spacing: .1em
         }
 
@@ -2750,7 +2773,7 @@
 
         .urgency-time {
             font-family: var(--head);
-            font-size: .85rem;
+            font-size: 0.95rem;
             font-weight: 900;
             color: var(--red);
             letter-spacing: .12em
@@ -2771,13 +2794,13 @@
 
         .stars {
             color: var(--amber);
-            font-size: 1rem;
+            font-size: 1.12rem;
             letter-spacing: 2px
         }
 
         .star-count {
             font-family: var(--mono);
-            font-size: .65rem;
+            font-size: 0.77rem;
             color: var(--text3);
             letter-spacing: .08em
         }
@@ -2791,7 +2814,7 @@
             padding: 6px 10px;
             cursor: pointer;
             color: var(--text2);
-            font-size: .8rem;
+            font-size: 0.9rem;
             transition: all .2s
         }
 
@@ -2804,7 +2827,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(2, 3, 5, .97);
+            background: rgba(0, 0, 0, .98);
             backdrop-filter: blur(20px);
             z-index: 999;
             flex-direction: column;
@@ -2828,7 +2851,7 @@
             height: 36px;
             color: var(--text2);
             cursor: pointer;
-            font-size: .9rem;
+            font-size: 1.01rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2842,7 +2865,7 @@
 
         .mob-nav-link {
             font-family: var(--head);
-            font-size: 1.4rem;
+            font-size: 1.57rem;
             font-weight: 900;
             letter-spacing: .12em;
             color: var(--text2);
@@ -2873,9 +2896,9 @@
         /* ===== COPY CODE BUTTON ===== */
         .copy-btn {
             font-family: var(--mono);
-            font-size: .55rem;
-            background: rgba(59, 130, 246, .08);
-            border: 1px solid rgba(59, 130, 246, .2);
+            font-size: 0.65rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             color: var(--accent);
             padding: 3px 9px;
             border-radius: 4px;
@@ -2885,13 +2908,13 @@
         }
 
         .copy-btn:hover {
-            background: rgba(59, 130, 246, .15)
+            background: rgba(255, 255, 255, 0.09)
         }
 
         .copy-btn.copied {
             color: var(--green);
-            border-color: rgba(16, 185, 129, .3);
-            background: rgba(16, 185, 129, .08)
+            border-color: rgba(180, 180, 180, 0.18);
+            background: rgba(180, 180, 180, 0.05)
         }
 
         /* ===== TESTIMONIALS CAROUSEL (mobile) ===== */
@@ -2911,14 +2934,1184 @@
 
         /* ===== SMOOTH ANCHOR ACTIVE PILL ===== */
         .nav-pill-active {
-            background: rgba(59, 130, 246, .1) !important;
+            background: rgba(255, 255, 255, 0.06) !important;
             border-radius: 4px
+        }
+
+        /* ===== SPYLT-STYLE HERO ===== */
+        .spylt-hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        #spylt-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Chunky slamming headline — Spylt style */
+        .spylt-h1 {
+            font-family: var(--head) !important;
+            font-size: clamp(2.8rem, 8.5vw, 6.5rem) !important;
+            font-weight: 900 !important;
+            line-height: 0.95 !important;
+            letter-spacing: -.02em !important;
+            margin-bottom: 28px !important;
+            opacity: 1 !important;
+            animation: none !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .spylt-line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .spylt-line-1 {
+            animation: spyltSlam1 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+            color: var(--text);
+        }
+
+        .spylt-line-2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: spyltSlam2 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+
+        .spylt-block {
+            display: inline-block;
+            padding: 4px 16px 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .spylt-block-accent {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 4px 20px 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spylt-block-accent::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.15) 50%, transparent 100%);
+            animation: spyltShine 3s ease-in-out infinite;
+        }
+
+        @keyframes spyltShine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(200%);
+            }
+        }
+
+        @keyframes spyltSlam1 {
+            from {
+                transform: translateY(-80px) skewY(-4deg);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) skewY(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes spyltSlam2 {
+            from {
+                transform: translateY(80px) skewY(4deg);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) skewY(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* ===== REACT TORUS KNOT SECTION ===== */
+        #react-torus-section {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background: transparent;
+            overflow: hidden;
+            z-index: 1;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        #react-torus-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                    var(--bg) 0%,
+                    transparent 15%,
+                    transparent 85%,
+                    var(--bg) 100%);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        #react-torus-root {
+            width: 100%;
+            height: 100%;
+        }
+
+        .torus-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .torus-label-tag {
+            font-family: var(--mono);
+            font-size: 0.73rem;
+            color: var(--text3);
+            letter-spacing: .25em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .torus-label-title {
+            font-family: var(--head);
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 900;
+            letter-spacing: .15em;
+            color: var(--text);
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.30);
+        }
+
+        .torus-label-sub {
+            font-family: var(--mono);
+            font-size: 0.77rem;
+            color: var(--text2);
+            letter-spacing: .12em;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .torus-scroll-hint {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--text3);
+            letter-spacing: .15em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+            animation: hintPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes hintPulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(-4px);
+            }
+        }
+
+        .torus-corner {
+            position: absolute;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--text3);
+            letter-spacing: .1em;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .torus-corner-tl {
+            top: 20px;
+            left: 24px;
+        }
+
+        .torus-corner-tr {
+            top: 20px;
+            right: 24px;
+            text-align: right;
+        }
+
+        .torus-corner-bl {
+            bottom: 20px;
+            left: 24px;
+        }
+
+        .torus-corner-br {
+            bottom: 20px;
+            right: 24px;
+            text-align: right;
+        }
+
+
+        #three-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.85;
+        }
+
+        /* ===== 3D PERSPECTIVE SCENE ===== */
+        .perspective-scene {
+            perspective: 1200px;
+            perspective-origin: 50% 40%;
+        }
+
+        /* ===== 3D CARD TILT ===== */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+            will-change: transform;
+        }
+
+        .tilt-card-inner {
+            transform-style: preserve-3d;
+        }
+
+        .tilt-card .tilt-shine {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: 10;
+            background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.11) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tilt-card:hover .tilt-shine {
+            opacity: 1;
+        }
+
+        /* 3D floating elements */
+        @keyframes float3d {
+            0% {
+                transform: translateZ(0px) translateY(0px) rotateX(0deg);
+            }
+
+            33% {
+                transform: translateZ(20px) translateY(-12px) rotateX(3deg);
+            }
+
+            66% {
+                transform: translateZ(10px) translateY(-6px) rotateX(-2deg);
+            }
+
+            100% {
+                transform: translateZ(0px) translateY(0px) rotateX(0deg);
+            }
+        }
+
+        @keyframes float3d-reverse {
+            0% {
+                transform: translateZ(0px) translateY(0px) rotateY(0deg);
+            }
+
+            33% {
+                transform: translateZ(30px) translateY(-8px) rotateY(-4deg);
+            }
+
+            66% {
+                transform: translateZ(15px) translateY(-16px) rotateY(3deg);
+            }
+
+            100% {
+                transform: translateZ(0px) translateY(0px) rotateY(0deg);
+            }
+        }
+
+        @keyframes depth-pulse {
+
+            0%,
+            100% {
+                transform: translateZ(0px) scale(1);
+                box-shadow: 0 0 0 rgba(255, 255, 255, 0.00);
+            }
+
+            50% {
+                transform: translateZ(30px) scale(1.02);
+                box-shadow: 0 30px 80px rgba(255, 255, 255, 0.15);
+            }
+        }
+
+        @keyframes orbit3d {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+
+            100% {
+                transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg);
+            }
+        }
+
+        /* ===== 3D HERO ENHANCEMENT ===== */
+        .hero {
+            perspective: 1000px;
+        }
+
+        .hero-content {
+            transform-style: preserve-3d;
+            animation: heroFloat3d 8s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat3d {
+
+            0%,
+            100% {
+                transform: translateZ(0) rotateX(0deg);
+            }
+
+            50% {
+                transform: translateZ(20px) rotateX(1.5deg);
+            }
+        }
+
+        /* ===== 3D PREVIEW FRAME ===== */
+        .preview-wrap {
+            transform-style: preserve-3d;
+            animation: previewFloat 10s ease-in-out infinite;
+        }
+
+        @keyframes previewFloat {
+
+            0%,
+            100% {
+                transform: perspective(1200px) rotateX(4deg) rotateY(-2deg) translateZ(0);
+            }
+
+            25% {
+                transform: perspective(1200px) rotateX(2deg) rotateY(3deg) translateZ(20px);
+            }
+
+            50% {
+                transform: perspective(1200px) rotateX(5deg) rotateY(0deg) translateZ(30px);
+            }
+
+            75% {
+                transform: perspective(1200px) rotateX(3deg) rotateY(-3deg) translateZ(15px);
+            }
+        }
+
+        .preview-frame {
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.09),
+                0 60px 120px rgba(0, 0, 0, 0.8),
+                0 0 120px rgba(255, 255, 255, 0.07),
+                0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+        }
+
+        /* ===== 3D FEATURE CARDS ===== */
+        .feature-card {
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease, background 0.3s, box-shadow 0.3s !important;
+        }
+
+        .feature-card:hover {
+            transform: translateZ(18px) scale(1.01) !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 255, 255, 0.09) !important;
+            z-index: 2;
+        }
+
+        /* ===== 3D METRIC CARDS ===== */
+        .metric-card {
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease, box-shadow 0.2s !important;
+        }
+
+        .metric-card:hover {
+            transform: translateZ(24px) rotateX(-3deg) !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 255, 255, 0.12) !important;
+        }
+
+        /* ===== 3D HERO STATS ===== */
+        .hero-stats {
+            transform-style: preserve-3d;
+            animation: statsFloat 7s ease-in-out infinite;
+        }
+
+        @keyframes statsFloat {
+
+            0%,
+            100% {
+                transform: perspective(800px) rotateX(2deg) translateZ(0);
+            }
+
+            50% {
+                transform: perspective(800px) rotateX(0deg) translateZ(10px);
+            }
+        }
+
+        .hero-stat {
+            transition: transform 0.3s ease;
+        }
+
+        .hero-stat:hover {
+            transform: translateZ(16px) scale(1.04);
+        }
+
+        /* ===== 3D PRICING CARD ===== */
+        .pricing-card {
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease !important;
+        }
+
+        .pricing-card:hover {
+            transform: translateZ(28px) rotateX(-2deg) scale(1.02) !important;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7), 0 0 60px rgba(200, 200, 200, 0.15) !important;
+        }
+
+        /* ===== 3D SECTION HEADINGS ===== */
+        .section-heading {
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            transform-style: preserve-3d;
+        }
+
+        /* ===== 3D COMPARISON TABLE ===== */
+        .compare-table {
+            transform-style: preserve-3d;
+            animation: tableFloat 9s ease-in-out infinite;
+        }
+
+        @keyframes tableFloat {
+
+            0%,
+            100% {
+                transform: perspective(1000px) rotateX(1.5deg) translateZ(0);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateX(0deg) translateZ(12px);
+            }
+        }
+
+        /* ===== 3D TESTIMONIAL CARDS ===== */
+        .testi-card {
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease, box-shadow 0.2s !important;
+        }
+
+        .testi-card:hover {
+            transform: translateZ(20px) rotateX(-2deg) rotateY(2deg) !important;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 40px rgba(150, 150, 150, 0.09) !important;
+        }
+
+        /* ===== 3D NAV ===== */
+        nav {
+            transform-style: preserve-3d;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.09) !important;
+        }
+
+        /* ===== DEPTH LAYERS (parallax effect) ===== */
+        .depth-1 {
+            will-change: transform;
+        }
+
+        .depth-2 {
+            will-change: transform;
+        }
+
+        .depth-3 {
+            will-change: transform;
+        }
+
+        /* ===== 3D BUTTONS ===== */
+        .btn {
+            transform-style: preserve-3d;
+            transition: all 0.25s, transform 0.15s !important;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) translateZ(8px) !important;
+        }
+
+        .btn-ghost:hover {
+            transform: translateY(-2px) translateZ(6px) !important;
+        }
+
+        /* ===== 3D FLOATING GEOMETRIC SHAPES ===== */
+        .geo-3d {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            transform-style: preserve-3d;
+            opacity: 0.06;
+        }
+
+        /* ===== 3D SCROLLING PARALLAX ===== */
+        .parallax-3d {
+            will-change: transform;
+        }
+
+        /* ===== 3D GLOW RING on Hero ===== */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) translateZ(-100px);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(200, 200, 200, 0.02) 40%, transparent 70%);
+            animation: ringPulse3d 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes ringPulse3d {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1) translateZ(-100px);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.15) translateZ(-50px);
+                opacity: 1;
+            }
+        }
+
+        /* ===== 3D ORBS ENHANCEMENT ===== */
+        .orb {
+            animation: orbFloat3d 12s ease-in-out infinite !important;
+        }
+
+        .orb-2 {
+            animation-delay: 4s !important;
+        }
+
+        .orb-3 {
+            animation-delay: 8s !important;
+        }
+
+        @keyframes orbFloat3d {
+            0% {
+                transform: translate(0, 0) scale(1) translateZ(0);
+            }
+
+            25% {
+                transform: translate(20px, -25px) scale(1.05) translateZ(40px);
+            }
+
+            50% {
+                transform: translate(40px, -10px) scale(1.1) translateZ(80px);
+            }
+
+            75% {
+                transform: translate(15px, -35px) scale(1.03) translateZ(50px);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1) translateZ(0);
+            }
+        }
+
+        /* ===== 3D BADGE FLOATS ===== */
+        .preview-badge {
+            transform-style: preserve-3d;
+        }
+
+        .badge-green {
+            animation: badge3dFloat 5s ease-in-out infinite !important;
+        }
+
+        .badge-blue {
+            animation: badge3dFloat 5s ease-in-out infinite !important;
+            animation-delay: 2.5s !important;
+        }
+
+        @keyframes badge3dFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) translateZ(0) rotateX(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) translateZ(30px) rotateX(5deg);
+            }
+        }
+
+        /* ===== 3D RESULT ITEMS ===== */
+        .result-item {
+            transition: all 0.3s, transform 0.2s !important;
+        }
+
+        .result-item:hover {
+            padding-left: 8px;
+            transform: translateX(4px) translateZ(10px) !important;
+        }
+
+        /* ===== 3D FAQ ===== */
+        .faq-item {
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateX(4px) translateZ(8px);
+            box-shadow: -4px 0 20px rgba(255, 255, 255, 0.06);
+        }
+
+        /* ===== SCAN LINE ENHANCEMENT ===== */
+        @keyframes scanDown {
+            0% {
+                top: 42px;
+                opacity: 0;
+                transform: scaleX(0.5);
+            }
+
+            10% {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: calc(100% - 2px);
+                opacity: 0;
+                transform: scaleX(0.7);
+            }
+        }
+
+        /* ===== 3D SHOWCASE CARDS ===== */
+        .showcase-main,
+        .showcase-item {
+            transform-style: preserve-3d;
+            transition: all 0.4s, transform 0.2s !important;
+        }
+
+        .showcase-main:hover {
+            transform: translateY(-10px) translateZ(20px) rotateX(-2deg) !important;
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-6px) translateZ(14px) !important;
+        }
+
+        /* ── ULTIMATE BLACK & WHITE ENHANCEMENTS ── */
+
+        /* White shimmer text animation */
+        @keyframes whiteShimmer {
+            0% {
+                background-position: -200% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .grad-text {
+            background: linear-gradient(90deg, #444 0%, #ffffff 30%, #cccccc 50%, #ffffff 70%, #444 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: whiteShimmer 7s linear infinite;
+        }
+
+        /* Pure white accent line */
+        .section-tag::before {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), transparent);
+        }
+
+        /* Buttons - stark white on black */
+        .btn-primary {
+            background: #ffffff;
+            color: #000000 !important;
+            font-weight: 900;
+            letter-spacing: .2em;
+            border: none;
+            transition: background .4s ease, box-shadow .4s ease, transform .3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #e8e8e8;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.12), 0 8px 32px rgba(0, 0, 0, 0.8);
+            transform: translateY(-3px);
+        }
+
+        .btn-primary::before {
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+        }
+
+        /* Ghost button - white outline */
+        .btn-ghost {
+            border-color: #222222 !important;
+            color: #666666 !important;
+        }
+
+        .btn-ghost:hover {
+            border-color: #ffffff !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.06) !important;
+        }
+
+        /* Gold button - repurposed as white */
+        .btn-gold {
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        .btn-gold:hover {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1), 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        /* Feature cards */
+        .feature-card {
+            background: #080808;
+        }
+
+        .feature-card:hover {
+            background: #0e0e0e;
+        }
+
+        /* Pricing divider */
+        .pricing-divider {
+            background: linear-gradient(90deg, transparent, #222, transparent);
+        }
+
+        /* Nav scrolled */
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.97) !important;
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid #111111 !important;
+        }
+
+        /* Hero stats */
+        .hero-stats {
+            background: #050505;
+            border-color: #111111;
+        }
+
+        /* Preview frame */
+        .preview-frame {
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 60px 120px rgba(0, 0, 0, 1), 0 0 60px rgba(255, 255, 255, 0.02) !important;
+        }
+
+        .preview-badge {
+            backdrop-filter: blur(16px);
+            background: rgba(0, 0, 0, 0.95) !important;
+        }
+
+        /* Torus corner labels */
+        .torus-corner {
+            color: rgba(255, 255, 255, 0.15) !important;
+        }
+
+        /* Marquee */
+        .marquee-item {
+            letter-spacing: .25em;
+            color: #1e1e1e !important;
+        }
+
+        .marquee-item span {
+            color: rgba(255, 255, 255, 0.25) !important;
+        }
+
+        /* Trust badges */
+        .trust-badge-icon {
+            background: #0a0a0a;
+            border-color: #1a1a1a;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: #080808;
+        }
+
+        .faq-q {
+            background: transparent !important;
+        }
+
+        .faq-q:hover {
+            background: #0c0c0c !important;
+        }
+
+        .faq-chevron {
+            border-color: #222 !important;
+            color: #ffffff !important;
+        }
+
+        /* Compare table */
+        .compare-header {
+            background: #080808;
+        }
+
+        .compare-row {
+            background: #050505;
+        }
+
+        .compare-row:hover {
+            background: #0c0c0c;
+        }
+
+        /* Spylt blocks */
+        .spylt-block {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border-color: rgba(255, 255, 255, 0.06) !important;
+        }
+
+        .spylt-block-accent {
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+
+        .spylt-block-accent::after {
+            background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
+        }
+
+        /* Live pill */
+        .live-pill {
+            background: rgba(0, 0, 0, 0.99) !important;
+            border-color: #222 !important;
+        }
+
+        /* Floating CTA */
+        .fcta-card {
+            background: rgba(0, 0, 0, 0.98) !important;
+            border-color: #222 !important;
+        }
+
+        /* Exit modal */
+        .exit-modal {
+            background: #080808 !important;
+            border-color: #1a1a1a !important;
+        }
+
+        /* Mobile menu */
+        #mob-menu {
+            background: rgba(0, 0, 0, 0.99) !important;
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: #070707;
+            border-color: #181818;
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 0 60px rgba(255, 255, 255, 0.04), 0 40px 80px rgba(0, 0, 0, 0.9) !important;
+        }
+
+        .pricing-top-border {
+            background: linear-gradient(90deg, transparent, #ffffff, transparent) !important;
+        }
+
+        .pricing-badge {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+        }
+
+        .pricing-features li .check {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border-color: rgba(255, 255, 255, 0.15) !important;
+            color: #ffffff !important;
+        }
+
+        /* Testimonials */
+        .testi-card {
+            background: #080808;
+        }
+
+        .testi-top-bar {
+            background: linear-gradient(90deg, transparent, #ffffff, transparent) !important;
+        }
+
+        .testi-card:hover {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.03) !important;
+        }
+
+        .testi-avatar {
+            filter: grayscale(1);
+        }
+
+        /* Result items */
+        .result-item:hover {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        /* Hero eyebrow */
+        .hero-eyebrow {
+            border-color: rgba(255, 255, 255, 0.08) !important;
+            background: rgba(0, 0, 0, 0.8) !important;
+        }
+
+        /* Hero banner */
+        .hero-banner {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
+            color: #cccccc !important;
+        }
+
+        /* Nav status */
+        .nav-status {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            color: #888888 !important;
+        }
+
+        .nav-status .dot {
+            background: #888888 !important;
+        }
+
+        @keyframes statusPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(200, 200, 200, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 0 4px rgba(200, 200, 200, 0);
+            }
+        }
+
+        /* Noise overlay - nearly invisible */
+        body::before {
+            opacity: .15 !important;
+        }
+
+        /* Scanlines - very subtle */
+        body::after {
+            background: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(255, 255, 255, 0.008) 4px, rgba(255, 255, 255, 0.008) 5px) !important;
+        }
+
+        /* Grid background - ultra subtle white */
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px) !important;
+        }
+
+        /* Orbs - near black */
+        .orb-1 {
+            background: rgba(255, 255, 255, 0.025) !important;
+        }
+
+        .orb-2 {
+            background: rgba(255, 255, 255, 0.015) !important;
+        }
+
+        .orb-3 {
+            background: rgba(255, 255, 255, 0.012) !important;
+        }
+
+        /* Scroll progress - white */
+        #scroll-progress {
+            background: linear-gradient(90deg, #333, #ffffff, #aaa) !important;
+            height: 1px !important;
+        }
+
+        /* Cursor */
+        #cursor {
+            background: #ffffff !important;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4) !important;
+        }
+
+        #cursor-ring {
+            border-color: rgba(255, 255, 255, 0.3) !important;
+        }
+
+        /* Footer */
+        footer {
+            border-color: #0f0f0f;
+            background: #000000;
+        }
+
+        .footer-logo {
+            color: #ffffff;
+        }
+
+        /* Section tag accent */
+        .section-tag {
+            color: #ffffff;
+        }
+
+        /* Metric bars */
+        .metric-bar-fill {
+            background: linear-gradient(90deg, #333, #ffffff) !important;
+        }
+
+        /* Feature card top border on hover */
+        .feature-card::before {
+            background: linear-gradient(90deg, transparent, #ffffff, transparent) !important;
+        }
+
+        /* Hero stat hover bar */
+        .hero-stat::before {
+            background: linear-gradient(90deg, transparent, #ffffff, transparent) !important;
+        }
+
+        /* Urgency bar */
+        .urgency-bar {
+            background: rgba(255, 255, 255, 0.02) !important;
+            border-color: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .urgency-label,
+        .urgency-time {
+            color: #aaaaaa !important;
+        }
+
+        /* Stars */
+        .stars {
+            color: #cccccc !important;
+        }
+
+        /* Copy btn */
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            color: #aaaaaa !important;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        /* Showcase CTA links */
+        .showcase-cta {
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.15) !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        .showcase-main:hover .showcase-cta {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.05) !important;
+        }
+
+        /* XP/level badge in dashboard */
+        .sec-price {
+            color: #ffffff !important;
+        }
+
+        /* Comparison table storm column */
+        .compare-header .col-storm {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border-color: rgba(255, 255, 255, 0.08) !important;
+            color: #ffffff !important;
+        }
+
+        .compare-row .col-storm {
+            background: rgba(255, 255, 255, 0.015) !important;
+            border-color: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .c-yes {
+            color: #ffffff !important;
+        }
+
+        .c-partial {
+            color: #888888 !important;
+        }
+
+        .c-no {
+            color: #2a2a2a !important;
+            opacity: 1 !important;
+        }
+
+        /* Mobile hamburger */
+        #mob-menu-btn {
+            border-color: #1a1a1a !important;
+            color: #555 !important;
+        }
+
+        #mob-menu-btn:hover {
+            border-color: #ffffff !important;
+            color: #ffffff !important;
+        }
+
+        /* Mob close */
+        .mob-close {
+            border-color: #1a1a1a !important;
+            color: #555 !important;
+        }
+
+        .mob-close:hover {
+            border-color: #fff !important;
+            color: #fff !important;
+        }
+
+        /* Tooltip */
+        [data-tip]:hover::after {
+            background: #0a0a0a !important;
+            border-color: #1a1a1a !important;
+            color: #888 !important;
+        }
+
+        /* Nav links underline accent */
+        .nav-links a::after {
+            background: #ffffff !important;
+        }
+
+        /* Hero eyebrow pulse dot */
+        .hero-eyebrow .pulse {
+            background: #888888 !important;
+        }
+
+        /* Scroll progress track */
+        #scroll-progress {
+            background: linear-gradient(90deg, #222, #ffffff) !important;
         }
     </style>
 
 </head>
 
 <body>
+    <!-- THREE.JS 3D BACKGROUND CANVAS -->
+    <canvas id="three-canvas"></canvas>
+
     <!-- Scroll progress -->
     <div id="scroll-progress"></div>
 
@@ -2960,11 +4153,12 @@
         <div class="fcta-card">
             <div class="fcta-content">
                 <div class="fcta-label">FULL OPERATOR ACCESS</div>
-                <div class="fcta-price">$9.99/mo — <span style="color:var(--green);font-size:.75rem;">GET STARTED</span>
+                <div class="fcta-price">$9.99/mo — <span style="color:var(--green);font-size: 0.89rem;">GET
+                        STARTED</span>
                 </div>
             </div>
             <button onclick="handlePurchase()" class="btn btn-primary"
-                style="font-size:.6rem;padding:9px 16px;white-space:nowrap;cursor:pointer;">DEPLOY →</button>
+                style="font-size: 0.71rem;padding:9px 16px;white-space:nowrap;cursor:pointer;">DEPLOY →</button>
             <button class="fcta-close"
                 onclick="document.getElementById('floating-cta').classList.remove('show');this.closest('#floating-cta').style.pointerEvents='none';">✕</button>
         </div>
@@ -3014,8 +4208,12 @@
         </div>
     </nav>
 
-    <header class="hero" role="banner">
-        <div class="container">
+    <header class="hero spylt-hero" role="banner">
+
+        <!-- SPYLT-STYLE EXPLOSION CANVAS -->
+        <canvas id="spylt-canvas"></canvas>
+
+        <div class="container" style="position:relative;z-index:5;">
             <div class="hero-content">
                 <div class="hero-eyebrow">
                     <div class="pulse"></div>
@@ -3025,11 +4223,18 @@
                     <span class="stars">★★★★★</span>
                     <span class="star-count">4.9 / 5 from 2,400+ operators</span>
                 </div>
-                <h1>
-                    STOP DRIFTING.<br>
-                    START <span class="grad-text glitch" data-text="LOCKING IN.">LOCKING IN.</span>
+
+                <!-- SPYLT-STYLE CHUNKY HEADLINE SLAM -->
+                <h1 class="spylt-h1">
+                    <span class="spylt-line spylt-line-1">STOP DRIFTING.</span>
+                    <span class="spylt-line spylt-line-2">
+                        <span class="spylt-block">START</span>
+                        <span class="spylt-block spylt-block-accent">LOCKING IN.</span>
+                    </span>
                 </h1>
-                <p>The high-performance productivity operating system for tech professionals. Build discipline, track
+
+                <p style="position:relative;z-index:5;">The high-performance productivity operating system for tech
+                    professionals. Build discipline, track
                     deep work, plan your week and month, and level up your career through structural consistency.</p>
                 <div class="hero-cta">
                     <button onclick="handlePurchase()" class="btn btn-primary btn-lg">
@@ -3072,16 +4277,17 @@
                         <div class="preview-url">storm-os.app/dashboard</div>
                     </div>
                     <div
-                        style="background:#050810;padding:20px;height:360px;display:flex;flex-direction:column;gap:12px;overflow:hidden;">
+                        style="background:#040404;padding:20px;height:360px;display:flex;flex-direction:column;gap:12px;overflow:hidden;">
                         <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <div style="font-family:var(--head);font-size:.85rem;font-weight:900;letter-spacing:.12em;">
+                            <div
+                                style="font-family:var(--head);font-size: 0.95rem;font-weight:900;letter-spacing:.12em;">
                                 OPERATOR COMMAND</div>
                             <div style="display:flex;gap:8px;align-items:center;">
                                 <div
-                                    style="font-family:var(--mono);font-size:.58rem;color:var(--amber);border:1px solid rgba(245,158,11,.3);padding:3px 10px;border-radius:3px;">
+                                    style="font-family:var(--mono);font-size: 0.68rem;color:var(--accent2);border:1px solid rgba(255,255,255,.12);padding:3px 10px;border-radius:3px;">
                                     LVL 7 // 340 XP</div>
                                 <div
-                                    style="font-family:var(--mono);font-size:.6rem;color:var(--green);border:1px solid rgba(16,185,129,.3);padding:3px 10px;border-radius:3px;">
+                                    style="font-family:var(--mono);font-size: 0.71rem;color:var(--green);border:1px solid rgba(180,180,180,0.18);padding:3px 10px;border-radius:3px;">
                                     ACTIVE_OS</div>
                             </div>
                         </div>
@@ -3089,45 +4295,45 @@
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
                                 <div
-                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
+                                    style="font-family:var(--mono);font-size: 0.65rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
                                     TASKS DONE</div>
-                                <div
-                                    style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--green);">
+                                <div style="font-family:var(--head);font-size: 1.57rem;font-weight:900;color:#ffffff;">
                                     7</div>
-                                <div style="font-family:var(--mono);font-size:.5rem;color:var(--amber);margin-top:4px;">
+                                <div
+                                    style="font-family:var(--mono);font-size: 0.59rem;color:var(--text2);margin-top:4px;">
                                     +105 XP</div>
                             </div>
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
                                 <div
-                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
+                                    style="font-family:var(--mono);font-size: 0.65rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
                                     FOCUSED</div>
-                                <div
-                                    style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--accent);">
+                                <div style="font-family:var(--head);font-size: 1.57rem;font-weight:900;color:#ffffff;">
                                     4.5h</div>
-                                <div style="font-family:var(--mono);font-size:.5rem;color:var(--amber);margin-top:4px;">
+                                <div
+                                    style="font-family:var(--mono);font-size: 0.59rem;color:var(--text2);margin-top:4px;">
                                     +20 XP/session</div>
                             </div>
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
                                 <div
-                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
+                                    style="font-family:var(--mono);font-size: 0.65rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
                                     STREAK</div>
-                                <div
-                                    style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--amber);">
+                                <div style="font-family:var(--head);font-size: 1.57rem;font-weight:900;color:#cccccc;">
                                     14d🔥</div>
-                                <div style="font-family:var(--mono);font-size:.5rem;color:var(--green);margin-top:4px;">
+                                <div
+                                    style="font-family:var(--mono);font-size: 0.59rem;color:var(--green);margin-top:4px;">
                                     +5 XP/habit</div>
                             </div>
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:12px;">
                                 <div
-                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
+                                    style="font-family:var(--mono);font-size: 0.65rem;color:var(--text3);letter-spacing:.1em;margin-bottom:6px;">
                                     DAY SCORE</div>
-                                <div
-                                    style="font-family:var(--head);font-size:1.4rem;font-weight:900;color:var(--cyan);">
+                                <div style="font-family:var(--head);font-size: 1.57rem;font-weight:900;color:#aaaaaa;">
                                     91%</div>
-                                <div style="font-family:var(--mono);font-size:.5rem;color:var(--amber);margin-top:4px;">
+                                <div
+                                    style="font-family:var(--mono);font-size: 0.59rem;color:var(--text2);margin-top:4px;">
                                     ELITE ⚡</div>
                             </div>
                         </div>
@@ -3135,44 +4341,48 @@
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:14px;overflow:hidden;">
                                 <div
-                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;margin-bottom:10px;">
+                                    style="font-family:var(--mono);font-size: 0.65rem;color:var(--text3);letter-spacing:.1em;margin-bottom:10px;">
                                     90-DAY ACTIVITY</div>
                                 <div style="display:flex;gap:2px;flex-wrap:wrap;overflow:hidden;max-height:120px;">
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.3)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(255,255,255,0.18)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.6)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(255,255,255,0.36)">
                                     </div>
                                     <div style="width:11px;height:11px;border-radius:2px;background:var(--border)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.9)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
-                                    </div>
-                                    <div style="width:11px;height:11px;border-radius:2px;background:var(--accent)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(255,255,255,0.54)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.4)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(255,255,255,.85)">
                                     </div>
                                     <div
-                                        style="width:11px;height:11px;border-radius:2px;background:rgba(59,130,246,.7)">
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(255,255,255,.85)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(255,255,255,0.24)">
+                                    </div>
+                                    <div
+                                        style="width:11px;height:11px;border-radius:2px;background:rgba(255,255,255,0.42)">
                                     </div>
                                 </div>
                             </div>
                             <div
                                 style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
                                 <div
-                                    style="font-family:var(--mono);font-size:.55rem;color:var(--text3);letter-spacing:.1em;">
+                                    style="font-family:var(--mono);font-size: 0.65rem;color:var(--text3);letter-spacing:.1em;">
                                     FOCUS PULSE</div>
-                                <div style="font-family:var(--head);font-size:2.2rem;font-weight:900;color:var(--accent2);text-shadow:0 0 20px rgba(99,102,241,.5);"
+                                <div style="font-family:var(--head);font-size: 2.2rem;font-weight:900;color:var(--accent2);text-shadow:0 0 20px rgba(200,200,200,0.30);"
                                     id="mock-timer">24:58</div>
-                                <div style="font-family:var(--mono);font-size:.55rem;color:var(--text3);">ACTIVE SESSION
+                                <div style="font-family:var(--mono);font-size: 0.65rem;color:var(--text3);">ACTIVE
+                                    SESSION
                                 </div>
                                 <div
                                     style="width:60px;height:3px;background:var(--border);border-radius:2px;overflow:hidden;">
-                                    <div style="height:100%;width:65%;background:var(--accent2);"></div>
+                                    <div style="height:100%;width:65%;background:linear-gradient(90deg,#333,#ffffff);">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -3209,13 +4419,37 @@
         </div>
     </div>
 
+    <!-- ======================================================= -->
+    <!-- REACT TORUS KNOT — @react-three/fiber + @react-three/drei -->
+    <!-- ======================================================= -->
+    <div id="react-torus-section" aria-hidden="true">
+        <div id="react-torus-root"></div>
+
+        <!-- Overlay labels (pure HTML, outside React canvas) -->
+        <div class="torus-label">
+            <span class="torus-label-tag">// CORE ENGINE</span>
+            <span class="torus-label-title">STORM<span style="color:var(--accent)">OS</span></span>
+            <span class="torus-label-sub">SCROLL TO ACCELERATE ↓</span>
+        </div>
+
+        <div class="torus-corner torus-corner-tl">RENDERER_v1.0<br>STATUS: ACTIVE</div>
+        <div class="torus-corner torus-corner-tr">@react-three/fiber<br>@react-three/drei</div>
+        <div class="torus-corner torus-corner-bl">MESH_DISTORT_MATERIAL<br>TORUS_KNOT_GEOMETRY</div>
+        <div class="torus-corner torus-corner-br">ORBIT_CONTROLS<br>ZOOM: DISABLED</div>
+
+        <div class="torus-scroll-hint">
+            <span>▼</span> SCROLL TO ACCELERATE ROTATION <span>▼</span>
+        </div>
+    </div>
+
     <!-- SYSTEM SECTION -->
     <section id="os" aria-labelledby="os-heading">
         <div class="container">
             <div class="reveal">
                 <div class="section-tag">01 // THE SYSTEM</div>
                 <h2 class="section-heading" id="os-heading">What is Storm OS?</h2>
-                <p style="color:var(--text2);max-width:580px;font-size:1rem;line-height:1.7;margin-top:12px;">More than
+                <p style="color:var(--text2);max-width:580px;font-size: 1.12rem;line-height:1.7;margin-top:12px;">More
+                    than
                     a habit tracker. A full productivity operating system with deep work tools, weekly and monthly
                     planners, developer utilities, and a gamification engine — engineered for the tech mindset.</p>
             </div>
@@ -3255,7 +4489,7 @@
                     <div class="feature-num">04</div>
                     <div class="feature-icon">📅</div>
                     <h3 class="feature-title">WEEKLY PLANNER <span class="ftag-new"
-                            style="font-size:.55rem;vertical-align:middle;">NEW</span></h3>
+                            style="font-size: 0.65rem;vertical-align:middle;">NEW</span></h3>
                     <p class="feature-desc">Plan your entire week in a 7-column visual grid. Add events by day, time,
                         and category. Navigate between weeks, see category stats, and manage your schedule at a glance.
                     </p>
@@ -3272,7 +4506,7 @@
                     <div class="feature-num">05</div>
                     <div class="feature-icon">🗓️</div>
                     <h3 class="feature-title">MONTHLY PLANNER <span class="ftag-new"
-                            style="font-size:.55rem;vertical-align:middle;">NEW</span></h3>
+                            style="font-size: 0.65rem;vertical-align:middle;">NEW</span></h3>
                     <p class="feature-desc">Full calendar view of any month. Click any date to add events, see colored
                         dots for event categories, and view detailed event lists per day.</p>
                     <ul class="feature-list">
@@ -3334,7 +4568,8 @@
                 <div class="reveal-left">
                     <div class="section-tag">02 // RESULTS</div>
                     <h2 class="section-heading" id="benefits-heading">Built for the<br>Ambitious</h2>
-                    <p style="color:var(--text2);font-size:.95rem;line-height:1.7;margin-top:16px;margin-bottom:40px;">
+                    <p
+                        style="color:var(--text2);font-size: 1.06rem;line-height:1.7;margin-top:16px;margin-bottom:40px;">
                         Every feature is engineered for one outcome: making you perform at the highest level, every
                         single day.</p>
                     <div class="result-item">
@@ -3374,7 +4609,7 @@
                     <div class="metrics-grid">
                         <div class="metric-card">
                             <div class="metric-val blue"><span class="count-up" data-target="91">0</span><span
-                                    style="font-size:1.2rem">%</span></div>
+                                    style="font-size: 1.34rem">%</span></div>
                             <div class="metric-label">% CONSISTENCY</div>
                             <div class="metric-bar">
                                 <div class="metric-bar-fill" data-width="91"></div>
@@ -3382,7 +4617,7 @@
                         </div>
                         <div class="metric-card">
                             <div class="metric-val purple"><span class="count-up" data-target="4.5"
-                                    data-decimal="true">0</span><span style="font-size:1.2rem">h</span></div>
+                                    data-decimal="true">0</span><span style="font-size: 1.34rem">h</span></div>
                             <div class="metric-label">H AVG DEEP WORK</div>
                             <div class="metric-bar">
                                 <div class="metric-bar-fill purple" data-width="70"></div>
@@ -3390,7 +4625,7 @@
                         </div>
                         <div class="metric-card">
                             <div class="metric-val amber"><span class="count-up" data-target="14">0</span><span
-                                    style="font-size:1.2rem">d</span></div>
+                                    style="font-size: 1.34rem">d</span></div>
                             <div class="metric-label">DAY BEST STREAK</div>
                             <div class="metric-bar">
                                 <div class="metric-bar-fill amber" data-width="45"></div>
@@ -3416,7 +4651,7 @@
                 <div class="section-tag gold-tag">03 // PRODUCTS</div>
                 <h2 class="section-heading" id="products-heading">Premium<br><span class="gold-text">Discipline
                         Systems</span></h2>
-                <p style="color:var(--text2);max-width:560px;font-size:1rem;line-height:1.7;margin-top:12px;">PDF
+                <p style="color:var(--text2);max-width:560px;font-size: 1.12rem;line-height:1.7;margin-top:12px;">PDF
                     planners and digital tools engineered for high performers. Printable, iPad-ready, built for those
                     who are done drifting.</p>
             </div>
@@ -3475,12 +4710,12 @@
                             <div class="sec-footer">
                                 <div>
                                     <div class="sec-price">$9.99<span
-                                            style="font-size:.9rem;color:var(--text3);font-family:var(--mono);font-weight:400;">/mo</span>
+                                            style="font-size: 1.01rem;color:var(--text3);font-family:var(--mono);font-weight:400;">/mo</span>
                                     </div>
                                     <div class="sec-price-sub">CANCEL ANYTIME · CLOUD SYNC</div>
                                 </div>
                                 <span
-                                    style="font-family:var(--head);font-size:.58rem;font-weight:700;letter-spacing:.12em;padding:8px 14px;background:var(--grad);color:#fff;border-radius:4px;">GET
+                                    style="font-family:var(--head);font-size: 0.68rem;font-weight:700;letter-spacing:.12em;padding:8px 14px;background:var(--grad);color:#fff;border-radius:4px;">GET
                                     STARTED →</span>
                             </div>
                         </div>
@@ -3489,24 +4724,24 @@
                     <!-- COMING SOON MINI CARDS -->
                     <div>
                         <div
-                            style="font-family:var(--mono);font-size:.6rem;color:var(--text3);letter-spacing:.14em;margin-bottom:12px;">
+                            style="font-family:var(--mono);font-size: 0.71rem;color:var(--text3);letter-spacing:.14em;margin-bottom:12px;">
                             MORE PRODUCTS // COMING Q3–Q4 2026</div>
                         <div class="coming-row">
-                            <a href="/cdn-cgi/l/email-protection#3f525e4d4b56514c5e525a4d060e7f58525e5653115c5052004c4a5d555a5c4b027a5e4d53461a0d0f7e5c5c5a4c4c1a0c7e1a0d0f7b5a491a0d0f704f5a4d5e4b504d1a0d0f6c464c4b5a52"
+                            <a href="/cdn-cgi/l/email-protection#3333334d4b56514c5e525a4d060e7f58525e5653115c5052004c4a5d555a5c4b027a5e4d53461a0d0f7e5c5c5a4c4c1a0c7e1a0d0f7b5a491a0d0f704f5a4d5e4b504d1a0d0f6c464c4b5a52"
                                 class="coming-mini">
                                 <div class="coming-mini-lock">SOON</div>
                                 <div class="coming-mini-icon">💻</div>
                                 <div class="coming-mini-title">DEV OPERATOR</div>
                                 <div class="coming-mini-label">Q3 2026</div>
                             </a>
-                            <a href="/cdn-cgi/l/email-protection#e18c809395888f92808c8493d8d0a1868c80888dcf828e8cde9294838b848295dca480938d98c4d3d1a08282849292c4d2a0c4d3d1b684808d9589c4d3d1a394888d858493c4d3d1b18d808f8f8493"
+                            <a href="/cdn-cgi/l/email-protection#aaaaaa9395888f92808c8493d8d0a1868c80888dcf828e8cde9294838b848295dca480938d98c4d3d1a08282849292c4d2a0c4d3d1b684808d9589c4d3d1a394888d858493c4d3d1b18d808f8f8493"
                                 class="coming-mini">
                                 <div class="coming-mini-lock">SOON</div>
                                 <div class="coming-mini-icon">💰</div>
                                 <div class="coming-mini-title">WEALTH BUILDER</div>
                                 <div class="coming-mini-label">Q3 2026</div>
                             </a>
-                            <a href="/cdn-cgi/l/email-protection#2c414d5e5845425f4d41495e151d6c4b414d4540024f4341135f594e46494f5811694d5e4055091e1c6d4f4f495f5f091f6d091e1c614942584d40091e1c7c495e4a435e414d424f49091e1c674558"
+                            <a href="/cdn-cgi/l/email-protection#2222225e5845425f4d41495e151d6c4b414d4540024f4341135f594e46494f5811694d5e4055091e1c6d4f4f495f5f091f6d091e1c614942584d40091e1c7c495e4a435e414d424f49091e1c674558"
                                 class="coming-mini">
                                 <div class="coming-mini-lock">SOON</div>
                                 <div class="coming-mini-icon">🧠</div>
@@ -3539,19 +4774,20 @@
                 <h2 class="section-heading" id="testimonials-heading">What <span class="grad-text">Operators</span> Say
                 </h2>
                 <p
-                    style="color:var(--text2);font-size:.95rem;margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;">
+                    style="color:var(--text2);font-size: 1.06rem;margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;">
                     2,400+ tech professionals already locked in. Here's what they're reporting from the field.</p>
             </div>
             <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:960px;margin:0 auto;"
                 class="reveal d1 testi-grid">
                 <div class="testi-card">
                     <div class="testi-top-bar"></div>
-                    <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
+                    <div style="color:var(--amber);font-size: 1.01rem;letter-spacing:2px;margin-bottom:18px;">★★★★★
+                    </div>
                     <p class="testi-quote">"The Deep Work Planner completely changed how I approach my study sessions. I
                         went from maybe 90 minutes of real focus a day to consistently hitting 4+ hours. Got my first
                         internship offer within 6 weeks of locking in."</p>
                     <div class="testi-footer">
-                        <div class="testi-avatar" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">KL</div>
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#e0e0e0,#a0a0a0);">KL</div>
                         <div>
                             <div class="testi-name">Adam Ahmed</div>
                             <div class="testi-role">CS Student, Year 3 // Singapore</div>
@@ -3561,12 +4797,13 @@
                 </div>
                 <div class="testi-card">
                     <div class="testi-top-bar"></div>
-                    <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
+                    <div style="color:var(--amber);font-size: 1.01rem;letter-spacing:2px;margin-bottom:18px;">★★★★★
+                    </div>
                     <p class="testi-quote">"I was jumping between Notion, Todoist, and three different timers. Storm OS
                         killed all the noise. The XP system sounds gimmicky but it genuinely works — I've had a 14-day
                         streak going and I won't break it. My sprint velocity at work has visibly improved."</p>
                     <div class="testi-footer">
-                        <div class="testi-avatar" style="background:linear-gradient(135deg,#10b981,#06b6d4);">AN</div>
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#aaaaaa,#666666);">AN</div>
                         <div>
                             <div class="testi-name">Amara Nwosu</div>
                             <div class="testi-role">Junior Frontend Dev // Lagos, Nigeria</div>
@@ -3576,12 +4813,13 @@
                 </div>
                 <div class="testi-card">
                     <div class="testi-top-bar"></div>
-                    <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
+                    <div style="color:var(--amber);font-size: 1.01rem;letter-spacing:2px;margin-bottom:18px;">★★★★★
+                    </div>
                     <p class="testi-quote">"Finished a bootcamp and had zero structure after graduation. The Habit
                         Matrix helped me build a daily coding practice I actually stuck to. Within 7 weeks I landed my
                         first freelance contract. The Focus Pulse timer alone is worth the $9.99."</p>
                     <div class="testi-footer">
-                        <div class="testi-avatar" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);">SR</div>
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#777777,#888888);">SR</div>
                         <div>
                             <div class="testi-name">Sofia Reyes</div>
                             <div class="testi-role">Bootcamp Grad → Freelance Dev // Mexico City</div>
@@ -3591,12 +4829,13 @@
                 </div>
                 <div class="testi-card">
                     <div class="testi-top-bar"></div>
-                    <div style="color:var(--amber);font-size:.9rem;letter-spacing:2px;margin-bottom:18px;">★★★★★</div>
+                    <div style="color:var(--amber);font-size: 1.01rem;letter-spacing:2px;margin-bottom:18px;">★★★★★
+                    </div>
                     <p class="testi-quote">"The dev tools suite saved me a ridiculous amount of tab-switching — JSON
                         formatter, regex tester, all right there. But the real win was the 90-Day Analytics showing me
                         exactly where I was wasting time. Consistency went from 60% to 91% in my first month."</p>
                     <div class="testi-footer">
-                        <div class="testi-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">PV</div>
+                        <div class="testi-avatar" style="background:linear-gradient(135deg,#cccccc,#666666);">PV</div>
                         <div>
                             <div class="testi-name">Pavel Voronov</div>
                             <div class="testi-role">Junior Backend Dev // Prague, Czech Republic</div>
@@ -3616,7 +4855,8 @@
             <div style="text-align:center;" class="reveal">
                 <div class="section-tag" style="justify-content:center;margin-bottom:14px;">04 // PRICING</div>
                 <h2 class="section-heading" id="pricing-heading">Commit to Excellence</h2>
-                <p style="color:var(--text2);font-size:.95rem;margin-top:12px;">One plan. Everything you need to operate
+                <p style="color:var(--text2);font-size: 1.06rem;margin-top:12px;">One plan. Everything you need to
+                    operate
                     at maximum capacity.</p>
             </div>
             <div class="pricing-wrap reveal d2">
@@ -3681,7 +4921,7 @@
                             </svg>
                         </button>
                         <p
-                            style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--text3);margin-top:14px;letter-spacing:.08em;">
+                            style="text-align:center;font-family:var(--mono);font-size: 0.71rem;color:var(--text3);margin-top:14px;letter-spacing:.08em;">
                             NO COMMITMENT // CANCEL ANYTIME</p>
                         <div class="trust-badges">
                             <div class="trust-badge" data-tip="Secured via PayPal">
@@ -3715,7 +4955,7 @@
                 <h2 class="section-heading" id="compare-heading">Storm OS vs The<br><span
                         class="grad-text">Alternatives</span></h2>
                 <p
-                    style="color:var(--text2);font-size:.95rem;margin-top:12px;max-width:500px;margin-left:auto;margin-right:auto;">
+                    style="color:var(--text2);font-size: 1.06rem;margin-top:12px;max-width:500px;margin-left:auto;margin-right:auto;">
                     Stop juggling 5 apps. One dashboard engineered for developers.</p>
             </div>
             <div class="compare-table reveal d2">
@@ -3770,10 +5010,10 @@
                 <div class="compare-row">
                     <div class="feat">All-in-one Price</div>
                     <div class="col-storm"
-                        style="color:var(--accent);font-family:var(--head);font-weight:900;font-size:.75rem;">$9.99/mo
+                        style="color:var(--accent);font-family:var(--head);font-weight:900;font-size: 0.89rem;">$9.99/mo
                     </div>
-                    <div style="color:var(--text3);font-size:.7rem;">$16+/mo</div>
-                    <div style="color:var(--text3);font-size:.7rem;">$5/mo + extras</div>
+                    <div style="color:var(--text3);font-size: 0.83rem;">$16+/mo</div>
+                    <div style="color:var(--text3);font-size: 0.83rem;">$5/mo + extras</div>
                 </div>
             </div>
         </div>
@@ -3889,7 +5129,7 @@
                 <div>
                     <div class="footer-logo">STORM<span style="color:var(--accent)">_</span></div>
                     <div
-                        style="font-family:var(--mono);font-size:.6rem;color:var(--text3);margin-top:6px;letter-spacing:.08em;">
+                        style="font-family:var(--mono);font-size: 0.71rem;color:var(--text3);margin-top:6px;letter-spacing:.08em;">
                         LOCK IN. LEVEL UP.</div>
                 </div>
                 <div class="footer-meta">
@@ -4098,7 +5338,7 @@
                     vy: (Math.random() - 0.5) * 1.2 - 0.5,
                     life: 1,
                     size: Math.random() * 2.5 + 0.5,
-                    color: Math.random() > 0.5 ? '59,130,246' : '99,102,241'
+                    color: Math.random() > 0.5 ? '255,255,255' : '180,180,180'
                 });
             });
 
@@ -4110,7 +5350,7 @@
                     p.life -= 0.025;
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(${p.color},${p.life * 0.6})`;
+                    ctx.fillStyle = `rgba(${p.color},${p.life * 0.5})`;
                     ctx.fill();
                 });
                 requestAnimationFrame(animParticles);
@@ -4147,14 +5387,14 @@
 
         // ===== SOCIAL PROOF TOASTS =====
         const toastData = [
-            { initials: 'AK', name: 'Alex K.', msg: 'just started a focus session', color: 'linear-gradient(135deg,#3b82f6,#6366f1)', loc: 'Berlin, DE' },
-            { initials: 'SR', name: 'Sofia R.', msg: 'reached Level 8 ⚡', color: 'linear-gradient(135deg,#8b5cf6,#ec4899)', loc: 'São Paulo, BR' },
-            { initials: 'MT', name: 'Marcus T.', msg: 'completed a 14-day streak 🔥', color: 'linear-gradient(135deg,#f59e0b,#ef4444)', loc: 'Toronto, CA' },
-            { initials: 'PV', name: 'Pavel V.', msg: 'just subscribed to Storm OS', color: 'linear-gradient(135deg,#10b981,#06b6d4)', loc: 'Prague, CZ' },
-            { initials: 'JL', name: 'Jamie L.', msg: 'logged 4.5h of deep work', color: 'linear-gradient(135deg,#06b6d4,#3b82f6)', loc: 'London, UK' },
-            { initials: 'NB', name: 'Nadia B.', msg: 'earned 500 XP today 🏆', color: 'linear-gradient(135deg,#c9a227,#e8c44a)', loc: 'Lagos, NG' },
-            { initials: 'DS', name: 'Dev Singh', msg: 'opened the Code Playground', color: 'linear-gradient(135deg,#6366f1,#8b5cf6)', loc: 'Mumbai, IN' },
-            { initials: 'CM', name: 'Carlos M.', msg: 'just hit a 21-day streak 🔥🔥', color: 'linear-gradient(135deg,#ef4444,#f59e0b)', loc: 'Madrid, ES' },
+            { initials: 'AK', name: 'Alex K.', msg: 'just started a focus session', color: 'linear-gradient(135deg,#e0e0e0,#a0a0a0)', loc: 'Berlin, DE' },
+            { initials: 'SR', name: 'Sofia R.', msg: 'reached Level 8 ⚡', color: 'linear-gradient(135deg,#777777,#888888)', loc: 'São Paulo, BR' },
+            { initials: 'MT', name: 'Marcus T.', msg: 'completed a 14-day streak 🔥', color: 'linear-gradient(135deg,#cccccc,#666666)', loc: 'Toronto, CA' },
+            { initials: 'PV', name: 'Pavel V.', msg: 'just subscribed to Storm OS', color: 'linear-gradient(135deg,#aaaaaa,#666666)', loc: 'Prague, CZ' },
+            { initials: 'JL', name: 'Jamie L.', msg: 'logged 4.5h of deep work', color: 'linear-gradient(135deg,#666666,#e0e0e0)', loc: 'London, UK' },
+            { initials: 'NB', name: 'Nadia B.', msg: 'earned 500 XP today 🏆', color: 'linear-gradient(135deg,#dddddd,#cccccc)', loc: 'Lagos, NG' },
+            { initials: 'DS', name: 'Dev Singh', msg: 'opened the Code Playground', color: 'linear-gradient(135deg,#a0a0a0,#777777)', loc: 'Mumbai, IN' },
+            { initials: 'CM', name: 'Carlos M.', msg: 'just hit a 21-day streak 🔥🔥', color: 'linear-gradient(135deg,#666666,#cccccc)', loc: 'Madrid, ES' },
         ];
 
         function showToast(data) {
@@ -4165,7 +5405,7 @@
             toast.innerHTML = `
                 <div class="toast-avatar" style="background:${data.color}">${data.initials}</div>
                 <div>
-                    <div class="toast-name">${data.name} <span style="font-family:var(--mono);font-size:.52rem;color:var(--text3)">${data.loc}</span></div>
+                    <div class="toast-name">${data.name} <span style="font-family:var(--mono);font-size: 0.61rem;color:var(--text3)">${data.loc}</span></div>
                     <div>${data.msg}</div>
                 </div>`;
             container.appendChild(toast);
@@ -4212,6 +5452,706 @@
 
         window.addEventListener('load', processPaymentReturn);
     </script>
+
+    <!-- ===== THREE.JS 3D SCENE ===== -->
+    <script>
+        (function () {
+            const canvas = document.getElementById('three-canvas');
+            if (!canvas || typeof THREE === 'undefined') return;
+
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 30);
+
+            // ---- FLOATING WIREFRAME GEOMETRIES ----
+            const geos = [
+                new THREE.IcosahedronGeometry(4, 1),
+                new THREE.OctahedronGeometry(3, 0),
+                new THREE.TetrahedronGeometry(2.5, 0),
+                new THREE.OctahedronGeometry(2, 1),
+                new THREE.IcosahedronGeometry(2.5, 0),
+                new THREE.TetrahedronGeometry(1.8, 0),
+                new THREE.OctahedronGeometry(1.5, 0),
+                new THREE.IcosahedronGeometry(1.2, 0),
+            ];
+
+            const colors = [0x3b82f6, 0x6366f1, 0x8b5cf6, 0x06b6d4, 0x3b82f6, 0x8b5cf6, 0x6366f1, 0x06b6d4];
+            const meshes = [];
+
+            geos.forEach((geo, i) => {
+                const mat = new THREE.MeshBasicMaterial({
+                    color: colors[i],
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.15 + Math.random() * 0.12,
+                });
+                const mesh = new THREE.Mesh(geo, mat);
+                const spread = 35;
+                mesh.position.set(
+                    (Math.random() - 0.5) * spread * 2,
+                    (Math.random() - 0.5) * spread,
+                    (Math.random() - 0.5) * 20 - 5
+                );
+                mesh.userData = {
+                    rotX: (Math.random() - 0.5) * 0.008,
+                    rotY: (Math.random() - 0.5) * 0.01,
+                    rotZ: (Math.random() - 0.5) * 0.006,
+                    floatY: Math.random() * Math.PI * 2,
+                    floatSpeed: 0.003 + Math.random() * 0.005,
+                    floatAmp: 0.8 + Math.random() * 1.2,
+                };
+                scene.add(mesh);
+                meshes.push(mesh);
+            });
+
+            // ---- PARTICLE FIELD ----
+            const particleCount = 320;
+            const particleGeo = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const pColors = new Float32Array(particleCount * 3);
+            const pColorSet = [[0.23, 0.51, 0.96], [0.39, 0.40, 0.95], [0.55, 0.36, 0.96], [0.02, 0.71, 0.83]];
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 100;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 60;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 40 - 10;
+                const c = pColorSet[Math.floor(Math.random() * pColorSet.length)];
+                pColors[i * 3] = c[0]; pColors[i * 3 + 1] = c[1]; pColors[i * 3 + 2] = c[2];
+            }
+
+            particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            particleGeo.setAttribute('color', new THREE.BufferAttribute(pColors, 3));
+
+            const particleMat = new THREE.PointsMaterial({
+                size: 0.18,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.7,
+                sizeAttenuation: true,
+            });
+            const particles = new THREE.Points(particleGeo, particleMat);
+            scene.add(particles);
+
+            // ---- LARGE BACKGROUND RING ----
+            const ringGeo = new THREE.TorusGeometry(18, 0.05, 2, 120);
+            const ringMat = new THREE.MeshBasicMaterial({ color: 0x3b82f6, transparent: true, opacity: 0.08 });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.rotation.x = Math.PI / 2;
+            scene.add(ring);
+
+            const ring2Geo = new THREE.TorusGeometry(26, 0.04, 2, 150);
+            const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, transparent: true, opacity: 0.05 });
+            const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+            ring2.rotation.x = Math.PI / 3;
+            ring2.rotation.z = Math.PI / 6;
+            scene.add(ring2);
+
+            // ---- MOUSE PARALLAX ----
+            let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+            document.addEventListener('mousemove', e => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+            });
+
+            // ---- SCROLL DEPTH ----
+            let scrollY = 0;
+            window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+
+            // ---- RESIZE ----
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            // ---- ANIMATE ----
+            let frame = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+                frame++;
+
+                targetX += (mouseX - targetX) * 0.04;
+                targetY += (mouseY - targetY) * 0.04;
+
+                camera.position.x = targetX * 3;
+                camera.position.y = -targetY * 2 + (scrollY * 0.003);
+                camera.position.z = 30 - scrollY * 0.005;
+                camera.lookAt(0, scrollY * 0.003, 0);
+
+                meshes.forEach(m => {
+                    m.rotation.x += m.userData.rotX;
+                    m.rotation.y += m.userData.rotY;
+                    m.rotation.z += m.userData.rotZ;
+                    m.userData.floatY += m.userData.floatSpeed;
+                    m.position.y += Math.sin(m.userData.floatY) * m.userData.floatAmp * 0.01;
+                });
+
+                particles.rotation.y += 0.0003;
+                particles.rotation.x += 0.0001;
+                ring.rotation.z += 0.001;
+                ring2.rotation.y += 0.0008;
+                ring2.rotation.x += 0.0004;
+
+                renderer.render(scene, camera);
+            }
+            animate();
+        })();
+    </script>
+
+    <!-- ===== 3D TILT CARD SYSTEM ===== -->
+    <script>
+        (function () {
+            function applyTilt3D(selector, maxTilt = 12, scale = 1.03) {
+                document.querySelectorAll(selector).forEach(card => {
+                    let shine = card.querySelector('.tilt-shine');
+                    if (!shine) {
+                        shine = document.createElement('div');
+                        shine.className = 'tilt-shine';
+                        card.style.position = 'relative';
+                        card.appendChild(shine);
+                    }
+
+                    card.addEventListener('mousemove', e => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const cx = rect.width / 2;
+                        const cy = rect.height / 2;
+                        const rotX = ((y - cy) / cy) * -maxTilt;
+                        const rotY = ((x - cx) / cx) * maxTilt;
+
+                        card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${scale}) translateZ(16px)`;
+                        shine.style.setProperty('--mx', `${(x / rect.width) * 100}%`);
+                        shine.style.setProperty('--my', `${(y / rect.height) * 100}%`);
+                        shine.style.opacity = '1';
+                        shine.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.12) 0%, transparent 65%)`;
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = '';
+                        shine.style.opacity = '0';
+                        card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+                        setTimeout(() => { card.style.transition = ''; }, 500);
+                    });
+
+                    card.addEventListener('mouseenter', () => {
+                        card.style.transition = 'transform 0.1s ease';
+                    });
+                });
+            }
+
+            // Apply tilt to all interactive cards
+            applyTilt3D('.feature-card', 8, 1.02);
+            applyTilt3D('.metric-card', 10, 1.04);
+            applyTilt3D('.testi-card', 10, 1.03);
+            applyTilt3D('.pricing-card', 12, 1.03);
+            applyTilt3D('.showcase-main', 6, 1.02);
+            applyTilt3D('.showcase-item', 8, 1.03);
+            applyTilt3D('.hero-stat', 10, 1.05);
+        })();
+    </script>
+
+    <!-- ===== 3D PARALLAX SCROLL ===== -->
+    <script>
+        (function () {
+            const layers = [
+                { selector: '.orb-1', speed: 0.08, depth: 1 },
+                { selector: '.orb-2', speed: 0.12, depth: -1 },
+                { selector: '.orb-3', speed: 0.06, depth: 1 },
+                { selector: '.section-tag', speed: 0.03, depth: 1 },
+                { selector: '.preview-wrap', speed: 0.05, depth: 1 },
+            ];
+
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const sy = window.scrollY;
+                        layers.forEach(layer => {
+                            const el = document.querySelector(layer.selector);
+                            if (!el) return;
+                            const offset = sy * layer.speed * layer.depth;
+                            // Only apply to fixed elements (orbs)
+                            if (el.style.position === 'fixed' || getComputedStyle(el).position === 'fixed') {
+                                el.style.transform = `translateY(${offset}px)`;
+                            }
+                        });
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+    </script>
+
+    <!-- ===== 3D MOUSE PARALLAX FOR HERO ===== -->
+    <script>
+        (function () {
+            const hero = document.querySelector('.hero');
+            if (!hero) return;
+
+            document.addEventListener('mousemove', e => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 2;
+                const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+                // Hero content depth shift
+                const heroContent = hero.querySelector('.hero-content');
+                if (heroContent) {
+                    heroContent.style.transform = `translate3d(${x * 8}px, ${y * 5}px, 0) rotateX(${y * -1.5}deg) rotateY(${x * 1.5}deg)`;
+                }
+
+                // Preview wrap parallax
+                const preview = hero.querySelector('.preview-wrap');
+                if (preview) {
+                    preview.style.transform = `perspective(1200px) rotateX(${4 + y * 2}deg) rotateY(${x * 3}deg) translateZ(${10 + Math.abs(x) * 10}px)`;
+                }
+
+                // Badge parallax
+                const badges = hero.querySelectorAll('.preview-badge');
+                badges.forEach((b, i) => {
+                    const factor = i % 2 === 0 ? 1.5 : -1.5;
+                    b.style.transform = `translate3d(${x * factor * 12}px, ${y * factor * 8 - 5}px, ${20 + Math.abs(x) * 15}px)`;
+                });
+            });
+        })();
+    </script>
+    <!-- ===== SMOOTH ORBITAL DRIFT CANVAS ===== -->
+    <script>
+        (function () {
+            const canvas = document.getElementById('spylt-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let W = 0, H = 0;
+            function resize() {
+                W = canvas.offsetWidth;
+                H = canvas.offsetHeight;
+                canvas.width = W * window.devicePixelRatio;
+                canvas.height = H * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // ── Card data ────────────────────────────────────────────
+            const DATA = [
+                { label: '⚡ DEEP WORK', sub: '+15 XP', color: '#aaaaaa', w: 148 },
+                { label: '⏱ FOCUS PULSE', sub: '25:00', color: '#aaaaaa', w: 156 },
+                { label: '🏆 LVL 7', sub: '340 XP', color: '#aaaaaa', w: 124 },
+                { label: '🔥 14-DAY', sub: 'STREAK', color: '#aaaaaa', w: 132 },
+                { label: '📊 HABITS', sub: '6 / 6  ✓', color: '#aaaaaa', w: 128 },
+                { label: '🛠 DEV TOOLS', sub: '7 PANELS', color: '#aaaaaa', w: 148 },
+                { label: '☁ CLOUD SYNC', sub: 'ACTIVE', color: '#aaaaaa', w: 152 },
+                { label: '📅 PLANNER', sub: 'WEEKLY', color: '#aaaaaa', w: 132 },
+                { label: '🧠 BIG-O', sub: 'O(n log n)', color: '#aaaaaa', w: 158 },
+                { label: '📈 ANALYTICS', sub: '90 DAYS', color: '#aaaaaa', w: 152 },
+                { label: '✅ TASKS', sub: '7 DONE', color: '#aaaaaa', w: 120 },
+                { label: '🎮 XP ENGINE', sub: '+500 TODAY', color: '#aaaaaa', w: 152 },
+            ];
+            const CARD_H = 70;
+
+            // ── Easing helpers ───────────────────────────────────────
+            const easeOutExpo = t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+            const easeInOutSine = t => -(Math.cos(Math.PI * t) - 1) / 2;
+
+            // ── Each card orbits along a unique Lissajous-like path ──
+            class Card {
+                constructor(i) {
+                    const d = DATA[i % DATA.length];
+                    this.label = d.label;
+                    this.sub = d.sub;
+                    this.color = d.color;
+                    this.cw = d.w;
+                    this.ch = CARD_H;
+
+                    // Orbital parameters — spread evenly + randomised
+                    this.orbitA = (0.25 + Math.random() * 0.28) * Math.min(W, H); // x radius
+                    this.orbitB = (0.12 + Math.random() * 0.18) * H;              // y radius
+                    this.orbitTilt = (Math.random() - 0.5) * 0.7;  // ellipse tilt angle
+
+                    // Phase — spread cards evenly around the orbit
+                    this.phase = (i / DATA.length) * Math.PI * 2 + Math.random() * 0.4;
+                    this.speed = (0.00028 + Math.random() * 0.00022) * (Math.random() > 0.5 ? 1 : -1);
+
+                    // Depth (z-layer): 0 = far, 1 = near
+                    this.depth = 0.3 + Math.random() * 0.7;
+                    this.scale = 0.5 + this.depth * 0.55;
+
+                    // Gentle tilt follows orbit direction
+                    this.tilt = 0;
+
+                    // Entrance: cards fade+drift in from their orbit position
+                    this.entryT = 0;  // 0→1 over ~90 frames
+                    this.entryDelay = i * 7; // stagger
+                    this.started = false;
+                    this.entryFrame = 0;
+
+                    // Screen position (set each frame)
+                    this.x = 0; this.y = 0;
+
+                    // Smooth mouse-reactive nudge
+                    this.nudgeX = 0; this.nudgeY = 0;
+                }
+
+                getOrbitPos(phase) {
+                    // Ellipse with tilt
+                    const ex = Math.cos(phase) * this.orbitA;
+                    const ey = Math.sin(phase) * this.orbitB;
+                    const ox = ex * Math.cos(this.orbitTilt) - ey * Math.sin(this.orbitTilt);
+                    const oy = ex * Math.sin(this.orbitTilt) + ey * Math.cos(this.orbitTilt);
+                    return { x: W / 2 + ox, y: H / 2 + oy };
+                }
+
+                update(t, mx, my, scrollAcc) {
+                    // Stagger entrance
+                    if (!this.started) {
+                        if (t < this.entryDelay) return;
+                        this.started = true;
+                    }
+                    if (this.entryT < 1) this.entryT = Math.min(1, this.entryT + 0.012);
+
+                    // Advance phase — scroll accelerates orbit
+                    this.phase += this.speed + scrollAcc * 0.0004 * this.depth;
+
+                    // Current orbit position
+                    const pos = this.getOrbitPos(this.phase);
+
+                    // Subtle tilt from motion direction
+                    const nextPos = this.getOrbitPos(this.phase + this.speed * 2);
+                    this.tilt = (nextPos.x - pos.x) * 0.012;
+
+                    // Mouse nudge — near cards react more
+                    const targetNudgeX = (mx - 0.5) * 22 * this.depth;
+                    const targetNudgeY = (my - 0.5) * 12 * this.depth;
+                    this.nudgeX += (targetNudgeX - this.nudgeX) * 0.035;
+                    this.nudgeY += (targetNudgeY - this.nudgeY) * 0.035;
+
+                    // Entry slide: cards drift in from slightly further out
+                    const entryEase = easeOutExpo(this.entryT);
+                    const entryOffsetX = (1 - entryEase) * (pos.x - W / 2) * 0.6;
+                    const entryOffsetY = (1 - entryEase) * (pos.y - H / 2) * 0.6;
+
+                    this.x = pos.x + this.nudgeX - entryOffsetX;
+                    this.y = pos.y + this.nudgeY - entryOffsetY;
+                    this.alpha = easeInOutSine(this.entryT) * (0.72 + this.depth * 0.22);
+                }
+
+                draw() {
+                    if (!this.started || this.entryT <= 0) return;
+                    const sc = this.scale;
+                    const cw = this.cw * sc, ch = this.ch * sc;
+
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.tilt);
+                    ctx.globalAlpha = this.alpha;
+
+                    // ── Soft drop shadow ────────────────────────────
+                    ctx.shadowColor = this.color + '55';
+                    ctx.shadowBlur = 18 * sc;
+                    ctx.shadowOffsetY = 6 * sc;
+
+                    // ── Card background (glassmorphic) ───────────────
+                    ctx.beginPath();
+                    const r = 10 * sc;
+                    ctx.roundRect(-cw / 2, -ch / 2, cw, ch, r);
+                    ctx.fillStyle = 'rgba(0,0,0,0.88)';
+                    ctx.fill();
+                    ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+
+                    // ── Accent gradient fill (subtle top tint) ───────
+                    const bgGrad = ctx.createLinearGradient(-cw / 2, -ch / 2, -cw / 2, ch / 2);
+                    bgGrad.addColorStop(0, this.color + '18');
+                    bgGrad.addColorStop(1, 'transparent');
+                    ctx.fillStyle = bgGrad;
+                    ctx.fill();
+
+                    // ── Left accent bar ──────────────────────────────
+                    ctx.save();
+                    ctx.clip();
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(-cw / 2, -ch / 2, 3.5 * sc, ch);
+                    ctx.restore();
+
+                    // ── Border ───────────────────────────────────────
+                    ctx.beginPath();
+                    ctx.roundRect(-cw / 2, -ch / 2, cw, ch, r);
+                    ctx.strokeStyle = this.color + '3a';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    // ── Top shimmer line ─────────────────────────────
+                    const shimmer = ctx.createLinearGradient(-cw / 2, 0, cw / 2, 0);
+                    shimmer.addColorStop(0, 'transparent');
+                    shimmer.addColorStop(0.4, this.color + 'aa');
+                    shimmer.addColorStop(1, 'transparent');
+                    ctx.fillStyle = shimmer;
+                    ctx.fillRect(-cw / 2, -ch / 2, cw, 1.5 * sc);
+
+                    // ── Label ────────────────────────────────────────
+                    const fs = Math.max(9, 11.5 * sc);
+                    ctx.fillStyle = '#f5f5f5';
+                    ctx.font = `700 ${fs}px 'Orbitron', sans-serif`;
+                    ctx.textAlign = 'left';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(this.label, -cw / 2 + 14 * sc, -ch / 5.5);
+
+                    // ── Sub-label ────────────────────────────────────
+                    const ss = Math.max(7, 9 * sc);
+                    ctx.fillStyle = this.color;
+                    ctx.font = `500 ${ss}px 'JetBrains Mono', monospace`;
+                    ctx.fillText(this.sub, -cw / 2 + 14 * sc, ch / 4.2);
+
+                    // ── Dot indicator ────────────────────────────────
+                    ctx.beginPath();
+                    ctx.arc(cw / 2 - 14 * sc, 0, 3 * sc, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color + 'cc';
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 8 * sc;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+
+                    ctx.restore();
+                }
+            }
+
+            // ── Instantiate all cards ────────────────────────────────
+            const cards = DATA.map((_, i) => new Card(i));
+
+            // ── Mouse tracking ───────────────────────────────────────
+            let mx = 0.5, my = 0.5, smx = 0.5, smy = 0.5;
+            document.addEventListener('mousemove', e => {
+                mx = e.clientX / window.innerWidth;
+                my = e.clientY / window.innerHeight;
+            });
+
+            // ── Scroll accumulator ───────────────────────────────────
+            let scrollAcc = 0, lastSY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                scrollAcc += Math.abs(window.scrollY - lastSY) * 0.5;
+                lastSY = window.scrollY;
+            }, { passive: true });
+
+            // ── Render loop ──────────────────────────────────────────
+            let t = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+                t++;
+
+                // Smooth mouse
+                smx += (mx - smx) * 0.05;
+                smy += (my - smy) * 0.05;
+
+                // Decay scroll accumulator
+                scrollAcc *= 0.94;
+
+                ctx.clearRect(0, 0, W, H);
+
+                // Sort by depth so far cards draw behind near cards
+                const sorted = [...cards].sort((a, b) => a.depth - b.depth);
+                sorted.forEach(c => {
+                    c.update(t, smx, smy, scrollAcc);
+                    c.draw();
+                });
+            }
+            animate();
+        })();
+    </script>
+
+    <!-- ===== REACT TORUS KNOT COMPONENT ===== -->
+    <script type="module">
+        import React, { useRef, useEffect, useState, Suspense } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { Canvas, useFrame } from '@react-three/fiber';
+        import { OrbitControls, MeshDistortMaterial, Preload, Stars } from '@react-three/drei';
+
+        // ── Torus Knot Mesh ──────────────────────────────────────────
+        function TorusKnot({ scrollSpeed }) {
+            const mesh = useRef();
+            const distortRef = useRef();
+            const baseSpeed = 0.004;
+
+            useFrame((state, delta) => {
+                if (!mesh.current) return;
+                const speed = baseSpeed + scrollSpeed.current * 0.08;
+                mesh.current.rotation.x += speed * 0.7;
+                mesh.current.rotation.y += speed;
+                mesh.current.rotation.z += speed * 0.2;
+
+                // Pulse the distortion with scroll
+                if (distortRef.current) {
+                    const targetDistort = 0.35 + scrollSpeed.current * 0.4;
+                    distortRef.current.distort += (targetDistort - distortRef.current.distort) * 0.06;
+                }
+            });
+
+            return (
+                <mesh ref={mesh} castShadow>
+                    <torusKnotGeometry args={[1.6, 0.52, 200, 24, 2, 3]} />
+                    <MeshDistortMaterial
+                        ref={distortRef}
+                        color="#030303"
+                        emissive="#e0e0e0"
+                        emissiveIntensity={0.08}
+                        metalness={1.0}
+                        roughness={0.04}
+                        distort={0.18}
+                        speed={1.2}
+                        transparent
+                        opacity={0.97}
+                    />
+                </mesh>
+            );
+        }
+
+        // ── Outer ring accent ────────────────────────────────────────
+        function RingAccent({ scrollSpeed }) {
+            const ring = useRef();
+            useFrame(() => {
+                if (!ring.current) return;
+                ring.current.rotation.x += 0.0008 + scrollSpeed.current * 0.01;
+                ring.current.rotation.z += 0.001 + scrollSpeed.current * 0.008;
+            });
+            return (
+                <mesh ref={ring}>
+                    <torusGeometry args={[2.9, 0.018, 2, 120]} />
+                    <meshBasicMaterial color="#e0e0e0" transparent opacity={0.12} />
+                </mesh>
+            );
+        }
+
+        // ── Outer ring 2 ─────────────────────────────────────────────
+        function RingAccent2({ scrollSpeed }) {
+            const ring = useRef();
+            useFrame(() => {
+                if (!ring.current) return;
+                ring.current.rotation.y += 0.001 + scrollSpeed.current * 0.012;
+                ring.current.rotation.x -= 0.0005;
+            });
+            return (
+                <mesh ref={ring} rotation={[Math.PI / 3, 0, Math.PI / 6]}>
+                    <torusGeometry args={[3.5, 0.012, 2, 140]} />
+                    <meshBasicMaterial color="#555555" transparent opacity={0.07} />
+                </mesh>
+            );
+        }
+
+        // ── Scene ────────────────────────────────────────────────────
+        function Scene() {
+            const scrollSpeed = useRef(0);
+            const lastScrollY = useRef(window.scrollY);
+
+            useEffect(() => {
+                let raf;
+                function onScroll() {
+                    const dy = Math.abs(window.scrollY - lastScrollY.current);
+                    lastScrollY.current = window.scrollY;
+                    scrollSpeed.current = Math.min(dy * 0.08, 3);
+                }
+
+                // Decay scroll speed naturally
+                function decay() {
+                    scrollSpeed.current *= 0.88;
+                    raf = requestAnimationFrame(decay);
+                }
+
+                window.addEventListener('scroll', onScroll, { passive: true });
+                raf = requestAnimationFrame(decay);
+                return () => {
+                    window.removeEventListener('scroll', onScroll);
+                    cancelAnimationFrame(raf);
+                };
+            }, []);
+
+            return (
+                <>
+                    {/* Ambient + directional lights */}
+                    <ambientLight intensity={0.15} color="#050505" />
+                    <directionalLight position={[5, 5, 5]} intensity={0.8} color="#aaaaaa" />
+                    <directionalLight position={[-5, -3, -5]} intensity={0.4} color="#a0a0a0" />
+                    <pointLight position={[0, 0, 4]} intensity={1.2} color="#e0e0e0" distance={12} />
+                    <pointLight position={[0, 0, -4]} intensity={0.6} color="#888888" distance={10} />
+
+                    {/* Stars background */}
+                    <Stars
+                        radius={80}
+                        depth={50}
+                        count={600}
+                        factor={1.2}
+                        saturation={0}
+                        fade
+                        speed={0.15}
+                    />
+
+                    {/* Main mesh */}
+                    <TorusKnot scrollSpeed={scrollSpeed} />
+                    <RingAccent scrollSpeed={scrollSpeed} />
+                    <RingAccent2 scrollSpeed={scrollSpeed} />
+
+                    {/* OrbitControls — no zoom, auto rotate disabled (we handle manually) */}
+                    <OrbitControls
+                        enableZoom={false}
+                        enablePan={false}
+                        enableDamping
+                        dampingFactor={0.05}
+                        rotateSpeed={0.4}
+                        minPolarAngle={Math.PI / 3}
+                        maxPolarAngle={(2 * Math.PI) / 3}
+                    />
+
+                    <Preload all />
+                </>
+            );
+        }
+
+        // ── Loading fallback ─────────────────────────────────────────
+        function Loader() {
+            return React.createElement('div', {
+                style: {
+                    width: '100%', height: '100%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: '.65rem', letterSpacing: '.2em',
+                    color: '#1a1a1a',
+                }
+            }, 'INITIALIZING...');
+        }
+
+        // ── Root App ─────────────────────────────────────────────────
+        function App() {
+            return React.createElement(
+                'div',
+                { style: { width: '100%', height: '100%' } },
+                React.createElement(
+                    Canvas,
+                    {
+                        camera: { position: [0, 0, 7], fov: 55 },
+                        dpr: [1, 2],
+                        gl: { antialias: true, alpha: true },
+                        style: { background: 'transparent' },
+                        shadows: true,
+                    },
+                    React.createElement(
+                        Suspense,
+                        { fallback: null },
+                        React.createElement(Scene, null)
+                    )
+                )
+            );
+        }
+
+        // ── Mount ────────────────────────────────────────────────────
+        const container = document.getElementById('react-torus-root');
+        if (container) {
+            createRoot(container).render(React.createElement(App));
+        }
+    </script>
+
 </body>
 
 </html>
