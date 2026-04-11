@@ -382,7 +382,7 @@
             font-weight: 700;
             letter-spacing: .16em;
             padding: 11px 24px;
-            border-radius: 5px;
+            border-radius: 999px;
             border: none;
             cursor: none;
             text-decoration: none;
@@ -3663,24 +3663,25 @@
             background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), transparent);
         }
 
-        /* Buttons - stark white on black */
+        /* Buttons - GET STARTED pill style (white bg, black text, rounded, border) */
         .btn-primary {
             background: #ffffff;
             color: #000000 !important;
-            font-weight: 900;
-            letter-spacing: .2em;
-            border: none;
-            transition: background .4s ease, box-shadow .4s ease, transform .3s ease;
+            font-weight: 700;
+            letter-spacing: .12em;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+            transition: background .3s ease, box-shadow .3s ease, transform .25s ease;
         }
 
         .btn-primary:hover {
-            background: #e8e8e8;
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.12), 0 8px 32px rgba(0, 0, 0, 0.8);
-            transform: translateY(-3px);
+            background: #f0f0f0;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15), 0 6px 24px rgba(0, 0, 0, 0.7);
+            transform: translateY(-2px);
         }
 
         .btn-primary::before {
-            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.07), transparent);
         }
 
         /* Ghost button - white outline */
@@ -3803,6 +3804,9 @@
         .spylt-block-accent {
             background: #ffffff !important;
             color: #000000 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+            padding: 4px 28px 8px !important;
         }
 
         .spylt-block-accent::after {
@@ -4100,9 +4104,212 @@
             background: #888888 !important;
         }
 
-        /* Scroll progress track */
-        #scroll-progress {
-            background: linear-gradient(90deg, #222, #ffffff) !important;
+        /* ===== SMALL TEXT — less bold, slightly smaller ===== */
+        .stat-label {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .feature-num {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .section-tag {
+            font-weight: 500 !important;
+            font-size: 0.82rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 400 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 400 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .metric-label {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 400 !important;
+        }
+
+        .pricing-features li {
+            font-weight: 400 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .footer-meta,
+        .footer-links a {
+            font-weight: 400 !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 500 !important;
+        }
+
+        .testi-role,
+        .testi-since {
+            font-weight: 400 !important;
+        }
+
+        .trust-badge {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        /* ===== SMALL TEXT — readable size, moderate weight ===== */
+        .stat-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .feature-num {
+            font-weight: 500 !important;
+            font-size: 0.73rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 500 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .section-tag {
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 500 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 500 !important;
+            font-size: 0.78rem !important;
+        }
+
+        .metric-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .pricing-features li {
+            font-weight: 500 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .footer-meta {
+            font-weight: 400 !important;
+            font-size: 0.76rem !important;
+        }
+
+        .footer-links a {
+            font-weight: 500 !important;
+            font-size: 0.76rem !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 600 !important;
+            font-size: 0.94rem !important;
+        }
+
+        .testi-role {
+            font-weight: 500 !important;
+            font-size: 0.74rem !important;
+        }
+
+        .testi-since {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        .trust-badge {
+            font-weight: 500 !important;
+            font-size: 0.74rem !important;
+        }
+
+        .coming-mini-title {
+            font-weight: 600 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .showcase-price-sub,
+        .sec-price-sub {
+            font-weight: 500 !important;
+            font-size: 0.68rem !important;
+        }
+
+        .star-count {
+            font-weight: 500 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .result-content p {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .faq-a-inner {
+            font-weight: 400 !important;
+            font-size: 1.0rem !important;
+        }
+
+        .testi-quote {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .pricing-desc {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .showcase-desc,
+        .sec-desc {
+            font-weight: 400 !important;
+            font-size: 1.0rem !important;
         }
     </style>
 
