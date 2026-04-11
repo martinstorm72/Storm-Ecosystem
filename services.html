@@ -4,31 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storm OS | Services & Docs</title>
+    <title>Storm OS | Services & Full Dashboard Docs — 11 Tabs, Deep Work, Planners, Dev Tools</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap"
         rel="stylesheet">
+    <meta name="description"
+        content="Full breakdown of Storm OS features: Deep Work Planner, Focus Pulse Timer, Habit Matrix, Weekly Planner, Monthly Planner, Analytics, Dev Tools Suite (7 panels), Gamification, Cloud Sync. One dashboard for tech professionals.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://storm-os.app/services.html">
+
     <style>
         :root {
-            --bg: #080a0c;
-            --bg2: #0d1117;
-            --card: #111418;
-            --card2: #161b22;
-            --border: #1e2530;
-            --border2: #252d3a;
-            --accent: #6c63ff;
-            --accent2: #8b84ff;
-            --accent-glow: rgba(108, 99, 255, .25);
-            --green: #39d353;
-            --red: #ff4757;
-            --amber: #ffb347;
-            --cyan: #00d2ff;
-            --text: #e6edf3;
-            --text2: #8b949e;
-            --text3: #484f58;
-            --mono: 'Share Tech Mono', monospace;
-            --head: 'Orbitron', sans-serif;
-            --body: 'Rajdhani', sans-serif;
+            --bg: #000000;
+            --bg2: #020202;
+            --card: #060606;
+            --card2: #0a0a0a;
+            --border: #111111;
+            --border2: #1a1a1a;
+            --accent: #ffffff;
+            --accent2: #d8d8d8;
+            --accent-glow: rgba(255, 255, 255, 0.10);
+            --purple: #aaaaaa;
+            --cyan: #cccccc;
+            --green: #bbbbbb;
+            --red: #888888;
+            --amber: #eeeeee;
+            --text: #f8f8f8;
+            --text2: #777777;
+            --text3: #333333;
+            --grad: linear-gradient(135deg, #ffffff 0%, #aaaaaa 50%, #ffffff 100%);
+            --gold: #ffffff;
+            --gold2: #dddddd;
+            --head: 'Cormorant Garamond', serif;
+            --mono: 'JetBrains Mono', monospace;
+            --body: 'EB Garamond', serif;
         }
 
         *,
@@ -70,34 +81,10 @@
             z-index: 9997
         }
 
-        #cur {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 99999;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: screen
-        }
-
-        #cur-r {
-            position: fixed;
-            width: 28px;
-            height: 28px;
-            border: 1px solid rgba(108, 99, 255, .4);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 99998;
-            transform: translate(-50%, -50%);
-            transition: transform .1s ease
-        }
-
         .grid-bg {
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(rgba(108, 99, 255, .03) 1px, transparent 1px), linear-gradient(90deg, rgba(108, 99, 255, .03) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 48px 48px;
             animation: gd 25s linear infinite;
             pointer-events: none;
@@ -125,7 +112,7 @@
         .o1 {
             width: 500px;
             height: 500px;
-            background: rgba(108, 99, 255, .06);
+            background: rgba(255, 255, 255, 0.02);
             top: -150px;
             left: -100px
         }
@@ -133,7 +120,7 @@
         .o2 {
             width: 400px;
             height: 400px;
-            background: rgba(139, 132, 255, .05);
+            background: rgba(200, 200, 200, 0.02);
             bottom: -150px;
             right: -100px
         }
@@ -147,7 +134,7 @@
         }
 
         nav.sc {
-            background: rgba(8, 10, 12, .88);
+            background: rgba(0, 0, 0, 0.92);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border)
         }
@@ -304,7 +291,7 @@
         .hero p {
             font-size: 1.05rem;
             color: var(--text2);
-            max-width: 560px;
+            max-width: 580px;
             margin: 0 auto;
             line-height: 1.7
         }
@@ -317,7 +304,7 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             overflow: hidden;
-            max-width: 600px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
             background: var(--card)
@@ -351,44 +338,6 @@
             display: block
         }
 
-        /* DASHBOARD TABS SECTION */
-        .tabs-section {
-            background: var(--bg2);
-            border-top: 1px solid var(--border)
-        }
-
-        .tab-nav {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            padding: 24px 0 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 40px
-        }
-
-        .tnav {
-            font-family: var(--mono);
-            font-size: .62rem;
-            letter-spacing: .1em;
-            padding: 8px 14px;
-            background: none;
-            border: none;
-            color: var(--text3);
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all .25s
-        }
-
-        .tnav:hover {
-            color: var(--text2)
-        }
-
-        .tnav.active {
-            color: var(--accent2);
-            border-bottom-color: var(--accent)
-        }
-
-        /* Service cards */
         .srv-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -521,7 +470,17 @@
             background: rgba(57, 211, 83, .08)
         }
 
-        /* Full-width special rows */
+        .tag-new {
+            font-family: var(--mono);
+            font-size: .57rem;
+            padding: 2px 7px;
+            border-radius: 3px;
+            border: 1px solid rgba(57, 211, 83, .4);
+            color: var(--green);
+            letter-spacing: .04em;
+            background: rgba(57, 211, 83, .1)
+        }
+
         .full-row {
             background: var(--card2);
             border: 1px solid var(--border);
@@ -553,11 +512,14 @@
             background: linear-gradient(90deg, var(--accent), var(--accent2))
         }
 
+        .full-row.blue-border::before {
+            background: linear-gradient(90deg, var(--cyan), var(--accent))
+        }
+
         .full-row:last-of-type {
             border-radius: 0 0 10px 10px
         }
 
-        /* Dev tools grid */
         .devtools-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -599,7 +561,6 @@
             line-height: 1.5
         }
 
-        /* Gamification */
         .gami-inner {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -694,37 +655,6 @@
             letter-spacing: .06em
         }
 
-        /* Analytics preview */
-        .analytics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 16px
-        }
-
-        .a-card {
-            background: var(--bg);
-            border: 1px solid var(--border2);
-            border-radius: 6px;
-            padding: 14px;
-            text-align: center
-        }
-
-        .a-val {
-            font-family: var(--head);
-            font-size: 1.4rem;
-            font-weight: 900;
-            margin-bottom: 4px
-        }
-
-        .a-lbl {
-            font-family: var(--mono);
-            font-size: .55rem;
-            color: var(--text3);
-            letter-spacing: .1em
-        }
-
-        /* Comparison table */
         .tbl-wrap {
             overflow-x: auto;
             margin-top: 40px
@@ -786,7 +716,6 @@
             color: var(--amber)
         }
 
-        /* Pricing tiers */
         .tiers {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -979,7 +908,6 @@
             border: 1px solid var(--border)
         }
 
-        /* Team */
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -1132,6 +1060,11 @@
             transition: opacity .7s, transform .7s
         }
 
+        .rev.active {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
         .rev.on {
             opacity: 1;
             transform: translateY(0)
@@ -1167,22 +1100,557 @@
             .nl {
                 display: none
             }
+        }
 
-            .analytics-grid {
-                grid-template-columns: 1fr 1fr
+        #cursor {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width .2s, height .2s, background .2s;
+            mix-blend-mode: screen
+        }
+
+        #cursor-ring {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: all .15s ease
+        }
+
+        body:has(a:hover) #cursor {
+            width: 16px;
+            height: 16px;
+            background: var(--purple)
+        }
+
+        body:has(.btn:hover) #cursor-ring {
+            width: 50px;
+            height: 50px;
+            border-color: var(--purple)
+        }
+
+        body {
+            cursor: none
+        }
+
+        /* ===== PILL BUTTON OVERRIDES ===== */
+        .btn-primary {
+            background: #ffffff !important;
+            color: #000000 !important;
+            font-weight: 700 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+            letter-spacing: .12em !important;
+        }
+
+        .btn-primary:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15), 0 6px 24px rgba(0, 0, 0, 0.7) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .btn {
+            border-radius: 999px !important;
+        }
+
+        .btn-gold {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+        }
+
+        .btn-gold:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 24px rgba(255, 255, 255, 0.1), 0 6px 24px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        /* ===== SMALL TEXT — less bold, lighter ===== */
+        .stat-label {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .feature-num {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .section-tag {
+            font-weight: 500 !important;
+            font-size: 0.82rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 400 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 400 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .metric-label {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 400 !important;
+        }
+
+        .pricing-features li {
+            font-weight: 400 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .footer-meta,
+        .footer-links a {
+            font-weight: 400 !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 500 !important;
+        }
+
+        .testi-role,
+        .testi-since {
+            font-weight: 400 !important;
+        }
+
+        .trust-badge {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        /* ===== PILL BUTTON OVERRIDES ===== */
+        .btn-primary {
+            background: #ffffff !important;
+            color: #000000 !important;
+            font-weight: 700 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+            letter-spacing: .12em !important;
+        }
+
+        .btn-primary:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15), 0 6px 24px rgba(0, 0, 0, 0.7) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .btn {
+            border-radius: 999px !important;
+        }
+
+        .btn-gold {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+        }
+
+        .btn-gold:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 24px rgba(255, 255, 255, 0.1), 0 6px 24px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        /* ===== SMALL TEXT — less bold, lighter ===== */
+        .stat-label {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .feature-num {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .section-tag {
+            font-weight: 500 !important;
+            font-size: 0.82rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 400 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 400 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .metric-label {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 400 !important;
+        }
+
+        .pricing-features li {
+            font-weight: 400 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .footer-meta,
+        .footer-links a {
+            font-weight: 400 !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 500 !important;
+        }
+
+        .testi-role,
+        .testi-since {
+            font-weight: 400 !important;
+        }
+
+        .trust-badge {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        .btn-p {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+            font-weight: 700 !important;
+        }
+
+        .btn-p:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        .btn-o {
+            border-radius: 999px !important;
+        }
+
+        /* ===== SCROLL PROGRESS BAR ===== */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #222, #ffffff);
+            z-index: 99999;
+            width: 0%;
+            transition: width .1s linear;
+            box-shadow: 0 0 8px rgba(200, 200, 200, 0.36);
+        }
+
+        /* ===== PARTICLE CANVAS ===== */
+        #particle-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9990;
+            opacity: .4;
+        }
+
+        /* ===== HERO FADE-IN ===== */
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
             }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== ENHANCED REVEAL ===== */
+        .rev {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .9s ease, transform .9s ease;
+        }
+
+        .rev.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rev-left {
+            opacity: 0;
+            transform: translateX(-28px);
+            transition: opacity .9s ease, transform .9s ease;
+        }
+
+        .rev-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .rev-right {
+            opacity: 0;
+            transform: translateX(28px);
+            transition: opacity .9s ease, transform .9s ease;
+        }
+
+        .rev-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ===== CARD HOVER LIFT ===== */
+        .service-card,
+        .doc-card,
+        .tab-content,
+        .testimonial-card,
+        .feature-block,
+        .plan-card {
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .service-card:hover,
+        .testimonial-card:hover,
+        .plan-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 255, 255, 0.04);
+        }
+
+        /* ===== HERO CONTENT ANIMATIONS ===== */
+        .hero h1,
+        .page-hero h1 {
+            animation: heroFadeIn 1s .3s both;
+        }
+
+        .hero p,
+        .page-hero p {
+            animation: heroFadeIn 1s .55s both;
+        }
+
+        .hero .hero-stats,
+        .hero-cta-wrap {
+            animation: heroFadeIn 1s .75s both;
+        }
+
+        .policy-tabs {
+            animation: heroFadeIn 1s .65s both;
+        }
+
+        /* ===== STAGGER DELAYS ===== */
+        .d1 {
+            transition-delay: .1s;
+        }
+
+        .d2 {
+            transition-delay: .2s;
+        }
+
+        .d3 {
+            transition-delay: .3s;
+        }
+
+        .d4 {
+            transition-delay: .4s;
+        }
+
+        .d5 {
+            transition-delay: .5s;
+        }
+
+        /* ===== SMALL TEXT — readable size, moderate weight ===== */
+        .stat-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .feature-num {
+            font-weight: 500 !important;
+            font-size: 0.73rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 500 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .section-tag {
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 500 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 500 !important;
+            font-size: 0.78rem !important;
+        }
+
+        .metric-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .pricing-features li {
+            font-weight: 500 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .footer-meta {
+            font-weight: 400 !important;
+            font-size: 0.76rem !important;
+        }
+
+        .footer-links a {
+            font-weight: 500 !important;
+            font-size: 0.76rem !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 600 !important;
+            font-size: 0.94rem !important;
+        }
+
+        .testi-role {
+            font-weight: 500 !important;
+            font-size: 0.74rem !important;
+        }
+
+        .testi-since {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        .trust-badge {
+            font-weight: 500 !important;
+            font-size: 0.74rem !important;
+        }
+
+        .coming-mini-title {
+            font-weight: 600 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .showcase-price-sub,
+        .sec-price-sub {
+            font-weight: 500 !important;
+            font-size: 0.68rem !important;
+        }
+
+        .star-count {
+            font-weight: 500 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .result-content p {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .faq-a-inner {
+            font-weight: 400 !important;
+            font-size: 1.0rem !important;
+        }
+
+        .testi-quote {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .pricing-desc {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .showcase-desc,
+        .sec-desc {
+            font-weight: 400 !important;
+            font-size: 1.0rem !important;
         }
     </style>
 </head>
 
 <body>
-    <div id="cur"></div>
-    <div id="cur-r"></div>
+
+    <!-- Scroll progress -->
+    <div id="scroll-progress"></div>
+    <!-- Particle canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
     <div class="grid-bg"></div>
     <div class="orb o1"></div>
     <div class="orb o2"></div>
 
-    <nav id="nav">
+    <nav id="nav" role="navigation">
         <div class="nav-inner">
             <a href="index.html" class="logo">STORM<span>_</span></a>
             <div class="nl">
@@ -1202,11 +1670,12 @@
     <div class="hero">
         <div class="container">
             <div class="stag" style="justify-content:center">STORM OS // FULL BREAKDOWN</div>
-            <h1>Nine Tabs.<br><span class="grad">One Dashboard.</span></h1>
-            <p>Every tab purpose-built for tech professionals who refuse to drift. Deep work, dev tools, analytics,
-                field notes, gamification — no filler, no bloat, just execution infrastructure.</p>
+            <h1>Eleven Tabs.<br><span class="grad">One Dashboard.</span></h1>
+            <p>Every tab purpose-built for tech professionals who refuse to drift. Deep work, weekly & monthly planners,
+                dev tools, analytics, field notes, gamification — no filler, no bloat, just execution infrastructure.
+            </p>
             <div class="hero-stats">
-                <div class="hs"><span class="hs-num">9</span><span class="hs-lbl">DASHBOARD TABS</span></div>
+                <div class="hs"><span class="hs-num">11</span><span class="hs-lbl">DASHBOARD TABS</span></div>
                 <div class="hs"><span class="hs-num">7</span><span class="hs-lbl">DEV TOOL PANELS</span></div>
                 <div class="hs"><span class="hs-num">$9.99</span><span class="hs-lbl">PER MONTH</span></div>
                 <div class="hs"><span class="hs-num">∞</span><span class="hs-lbl">XP TO EARN</span></div>
@@ -1214,13 +1683,13 @@
         </div>
     </div>
 
-    <!-- ══ SYSTEMS ══ -->
+    <!-- THE ELEVEN TABS -->
     <section>
         <div class="container">
             <div class="rev">
-                <div class="stag">01 // THE NINE TABS</div>
+                <div class="stag">01 // THE ELEVEN TABS</div>
                 <h2 class="sh">What You Get</h2>
-                <p style="color:var(--text2);font-size:.95rem;line-height:1.7;max-width:540px;margin-top:8px">Nine
+                <p style="color:var(--text2);font-size:.95rem;line-height:1.7;max-width:580px;margin-top:8px">Eleven
                     deeply integrated dashboard panels. Every feature engineered for one outcome — making you perform at
                     the highest level, every single day.</p>
             </div>
@@ -1243,17 +1712,14 @@
                         <li>Energy level tracker (5 levels from 😴 to 🔥)</li>
                         <li>Mini Focus Pulse timer embedded in sidebar</li>
                         <li>Today's stats: tasks, focus time, sessions, score</li>
-                        <li>Complete tasks for +15 XP each</li>
+                        <li>Enter key shortcut to quickly add tasks</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">PRIORITY TAGS</span>
-                        <span class="tag">DAY SCORE</span>
-                        <span class="tag">DISTRACTION LOG</span>
-                        <span class="tag">ENERGY METER</span>
+                        <span class="tag">PRIORITY TAGS</span><span class="tag">DAY SCORE</span>
+                        <span class="tag">DISTRACTION LOG</span><span class="tag">ENERGY METER</span>
                         <span class="tag-xp">+15 XP / TASK</span>
                     </div>
                 </div>
-
                 <!-- Tab 2: Focus Pulse -->
                 <div class="sc">
                     <div class="sc-num">TAB 02 // FOCUS PULSE</div>
@@ -1267,19 +1733,15 @@
                         <li>Sessions auto-log with timestamp + task label</li>
                         <li>Session directive input (what are you working on?)</li>
                         <li>Edit or delete individual session log entries</li>
-                        <li>Session count badge shown in header</li>
                         <li>Sound notification on session complete</li>
                         <li>+20 XP per completed session</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">15–90 MIN</span>
-                        <span class="tag">AUTO LOG</span>
+                        <span class="tag">15–90 MIN</span><span class="tag">AUTO LOG</span>
                         <span class="tag">CUSTOM DURATION</span>
-                        <span class="tag">SKIP</span>
                         <span class="tag-xp">+20 XP / SESSION</span>
                     </div>
                 </div>
-
                 <!-- Tab 3: Habit Matrix -->
                 <div class="sc">
                     <div class="sc-num">TAB 03 // HABIT MATRIX</div>
@@ -1293,26 +1755,81 @@
                         <li>Auto-calculated current streak per habit</li>
                         <li>Best streak record tracked for all time</li>
                         <li>Weekly completion rate % at the top</li>
-                        <li>Delete habits you no longer track</li>
                         <li>+5 XP per habit tracked per day</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">7-DAY GRID</span>
-                        <span class="tag">STREAK</span>
+                        <span class="tag">7-DAY GRID</span><span class="tag">STREAK</span>
                         <span class="tag">BEST RECORD</span>
                         <span class="tag-xp">+5 XP / HABIT</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Row 2: Weekly Ops + Analytics -->
+            <!-- NEW TABS: Weekly & Monthly Planners -->
+            <div class="srv-grid rev d2"
+                style="margin-top:1px;border-radius:0;border-top:none;grid-template-columns:1fr 1fr;">
+                <div class="sc">
+                    <div class="sc-num">TAB 04 // WEEKLY PLANNER <span class="tag-new"
+                            style="font-size:.55rem;vertical-align:middle;margin-left:6px;">NEW</span></div>
+                    <div class="sc-ico">📅</div>
+                    <div class="sc-name">WEEKLY PLANNER</div>
+                    <p class="sc-desc">Plan your entire week in a 7-column visual grid. Add events by day, time, and
+                        category. Navigate between weeks, see weekly stats by category, and manage your schedule at a
+                        glance.</p>
+                    <ul class="sc-list">
+                        <li>7-column grid — one column per day of the week</li>
+                        <li>Add events with title, time, and category</li>
+                        <li>5 categories: Work, Focus, Personal, Health, Learning</li>
+                        <li>Time-sorted events within each day</li>
+                        <li>Week navigation: prev / this week / next</li>
+                        <li>Weekly stats by category (total events per type)</li>
+                        <li>Today's column highlighted for quick reference</li>
+                        <li>Enter key or Alt+W shortcut to add events fast</li>
+                        <li>Delete events with single click</li>
+                        <li>Shared data with Monthly Planner</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">7-DAY GRID</span><span class="tag">CATEGORIES</span>
+                        <span class="tag">TIME SLOTS</span><span class="tag">WEEK STATS</span>
+                        <span class="tag-new">NEW</span><span class="tag-xp">+3 XP / EVENT</span>
+                    </div>
+                </div>
+                <div class="sc">
+                    <div class="sc-num">TAB 05 // MONTHLY PLANNER <span class="tag-new"
+                            style="font-size:.55rem;vertical-align:middle;margin-left:6px;">NEW</span></div>
+                    <div class="sc-ico">🗓️</div>
+                    <div class="sc-name">MONTHLY PLANNER</div>
+                    <p class="sc-desc">Full calendar view for any month. Click any date to see or add events.
+                        Color-coded category dots show event density at a glance. Navigate forward and back across
+                        months.</p>
+                    <ul class="sc-list">
+                        <li>Traditional calendar grid layout (7-col, multi-row)</li>
+                        <li>Click any day to view detailed event list</li>
+                        <li>Color-coded category dots per day cell</li>
+                        <li>Up to 5 dots shown per day (+ count overflow)</li>
+                        <li>Month navigation: prev / this month / next</li>
+                        <li>Today highlighted in accent color</li>
+                        <li>Selected day detail panel below calendar</li>
+                        <li>Enter key or Alt+M shortcut to add events fast</li>
+                        <li>Shared event data with Weekly Planner</li>
+                        <li>Works across all past and future months</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">CALENDAR VIEW</span><span class="tag">COLOR CODED</span>
+                        <span class="tag">MONTH NAV</span><span class="tag">DAY DETAIL</span>
+                        <span class="tag-new">NEW</span><span class="tag-xp">+3 XP / EVENT</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row: Weekly Ops + Analytics + Field Notes -->
             <div class="srv-grid rev d2" style="margin-top:1px;border-radius:0;border-top:none">
                 <div class="sc">
-                    <div class="sc-num">TAB 04 // WEEKLY OPS</div>
-                    <div class="sc-ico">📅</div>
+                    <div class="sc-num">TAB 06 // WEEKLY OPS</div>
+                    <div class="sc-ico">📊</div>
                     <div class="sc-name">WEEKLY OPS DASHBOARD</div>
-                    <p class="sc-desc">Your weekly command center. Set goals, log wins, and see day-by-day performance
-                        breakdowns. Visualize your week at a glance.</p>
+                    <p class="sc-desc">Your weekly command center for performance data. Set goals, log wins, and see
+                        day-by-day focus breakdowns. Visualize your week at a glance.</p>
                     <ul class="sc-list">
                         <li>Weekly overview: total tasks, focus hours, streak</li>
                         <li>7-day bar chart (focus minutes per day)</li>
@@ -1321,17 +1838,16 @@
                         <li>Day-by-day breakdown with progress bars</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">WEEKLY GOALS</span>
-                        <span class="tag">DAY BREAKDOWN</span>
+                        <span class="tag">WEEKLY GOALS</span><span class="tag">DAY BREAKDOWN</span>
                         <span class="tag-xp">+10 XP / WIN</span>
                     </div>
                 </div>
                 <div class="sc">
-                    <div class="sc-num">TAB 05 // ANALYTICS</div>
-                    <div class="sc-ico">📊</div>
+                    <div class="sc-num">TAB 07 // ANALYTICS</div>
+                    <div class="sc-ico">📈</div>
                     <div class="sc-name">ANALYTICS</div>
                     <p class="sc-desc">Full productivity analytics with a 90-day activity heatmap, peak hours chart,
-                        insights panel, and productivity metrics.</p>
+                        insights panel, and productivity metrics. See your patterns and improve them.</p>
                     <ul class="sc-list">
                         <li>Total stats: tasks, hours, best streak, sessions</li>
                         <li>90-day activity contribution heatmap</li>
@@ -1340,13 +1856,12 @@
                         <li>Productivity metrics: completion rate, avg session</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">90-DAY HEATMAP</span>
-                        <span class="tag">PEAK HOURS</span>
+                        <span class="tag">90-DAY HEATMAP</span><span class="tag">PEAK HOURS</span>
                         <span class="tag">INSIGHTS</span>
                     </div>
                 </div>
                 <div class="sc">
-                    <div class="sc-num">TAB 06 // FIELD NOTES</div>
+                    <div class="sc-num">TAB 08 // FIELD NOTES</div>
                     <div class="sc-ico">📓</div>
                     <div class="sc-name">FIELD NOTES JOURNAL</div>
                     <p class="sc-desc">Your daily log for wins, blockers, and insights. Tag each entry and review your
@@ -1359,17 +1874,15 @@
                         <li>+5 XP per journal entry saved</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">WINS</span>
-                        <span class="tag">BLOCKERS</span>
-                        <span class="tag">INSIGHTS</span>
-                        <span class="tag-xp">+5 XP / ENTRY</span>
+                        <span class="tag">WINS</span><span class="tag">BLOCKERS</span>
+                        <span class="tag">INSIGHTS</span><span class="tag-xp">+5 XP / ENTRY</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Dev Tools: full width -->
+            <!-- Dev Tools full-width -->
             <div class="full-row green-border rev d3">
-                <div class="sc-num" style="margin-bottom:12px">TAB 07 // DEV TOOLS</div>
+                <div class="sc-num" style="margin-bottom:12px">TAB 09 // DEV TOOLS</div>
                 <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
                     <div style="font-size:1.8rem;">🛠️</div>
                     <div class="sc-name" style="margin:0">DEV TOOLS SUITE (7 PANELS)</div>
@@ -1422,58 +1935,54 @@
                     <div class="dt-card" style="opacity:.4;border-style:dashed">
                         <div class="dt-icon">✦</div>
                         <div class="dt-name">MORE COMING</div>
-                        <div class="dt-desc">Additional tools planned for future updates. Cloud sync keeps everything up
-                            to date.</div>
+                        <div class="dt-desc">Additional tools planned for future updates.</div>
                     </div>
                 </div>
                 <div class="tags" style="margin-top:20px">
-                    <span class="tag">CODE PLAYGROUND</span>
-                    <span class="tag">GITHUB</span>
-                    <span class="tag">SNIPPETS</span>
-                    <span class="tag">DATA VIZ</span>
-                    <span class="tag">BIG O</span>
-                    <span class="tag">MARKDOWN</span>
+                    <span class="tag">CODE PLAYGROUND</span><span class="tag">GITHUB</span>
+                    <span class="tag">SNIPPETS</span><span class="tag">DATA VIZ</span>
+                    <span class="tag">BIG O</span><span class="tag">MARKDOWN</span>
                     <span class="tag-green">FOCUS SCORE</span>
                 </div>
             </div>
 
-            <!-- Reports + Help -->
+            <!-- Reports + Help + Gamification -->
             <div class="srv-grid rev d3" style="margin-top:1px;border-radius:0 0 10px 10px;border-top:none">
                 <div class="sc">
-                    <div class="sc-num">TAB 08 // REPORTS</div>
+                    <div class="sc-num">TAB 10 // REPORTS</div>
                     <div class="sc-ico">📈</div>
                     <div class="sc-name">REPORTS</div>
                     <p class="sc-desc">Weekly execution reports, smart recommendations, quote of the day, and theme
                         customization — all auto-generated from your real data.</p>
                     <ul class="sc-list">
                         <li>Weekly report: tasks, focus mins, streak, score</li>
-                        <li>Smart AI-style recommendations based on time of day, energy, and task count</li>
+                        <li>Smart recommendations based on time, energy, tasks</li>
                         <li>Quote of the Day (refreshable)</li>
                         <li>5 theme color presets (Purple/Cyan/Green/Red/Amber)</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">WEEKLY REPORT</span>
-                        <span class="tag">SMART RECS</span>
+                        <span class="tag">WEEKLY REPORT</span><span class="tag">SMART RECS</span>
                         <span class="tag">THEMES</span>
                     </div>
                 </div>
                 <div class="sc">
-                    <div class="sc-num">TAB 09 // HELP</div>
+                    <div class="sc-num">TAB 11 // HELP</div>
                     <div class="sc-ico">❓</div>
                     <div class="sc-name">HELP & SHORTCUTS</div>
                     <p class="sc-desc">Full system documentation and keyboard shortcut reference built directly into the
                         dashboard — no need to leave.</p>
                     <ul class="sc-list">
-                        <li>System overview for all 9 tabs</li>
-                        <li>Keyboard shortcuts: Space, ?, 1–9, Ctrl+Enter, Ctrl+N</li>
-                        <li>Alt+D: log distraction, Alt+E: export, Alt+S: force sync</li>
+                        <li>System overview for all 11 tabs</li>
+                        <li>Space: toggle timer | ?: show shortcuts</li>
+                        <li>Ctrl+N: focus task input | Enter: add task</li>
+                        <li>Alt+D: log distraction | Alt+E: export</li>
+                        <li>Alt+S: force cloud sync</li>
+                        <li>Alt+W: add weekly event | Alt+M: add monthly event</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">SHORTCUTS</span>
-                        <span class="tag">DOCS</span>
+                        <span class="tag">SHORTCUTS</span><span class="tag">DOCS</span>
                     </div>
                 </div>
-                <!-- Gamification as 3rd card in row -->
                 <div class="sc">
                     <div class="sc-num">SYSTEM // GAMIFICATION</div>
                     <div class="sc-ico">🏆</div>
@@ -1486,18 +1995,17 @@
                         <li>Track habit → +5 XP</li>
                         <li>Log journal entry → +5 XP</li>
                         <li>Add quick win → +10 XP</li>
+                        <li>Add planner event → +3 XP</li>
                         <li>Level up every 100 XP → +50 XP BONUS</li>
-                        <li>Click level badge for full stats & achievements</li>
                     </ul>
                     <div class="tags">
-                        <span class="tag">XP SYSTEM</span>
-                        <span class="tag">LEVELS</span>
+                        <span class="tag">XP SYSTEM</span><span class="tag">LEVELS</span>
                         <span class="tag-xp">+50 XP LEVEL BONUS</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Gamification detail row -->
+            <!-- Achievements + Cloud Sync -->
             <div class="full-row amber-border rev d3">
                 <div class="sc-num" style="margin-bottom:12px">SYSTEM // ACHIEVEMENTS & CLOUD SYNC</div>
                 <div class="gami-inner">
@@ -1573,12 +2081,13 @@
                                 style="font-family:var(--mono);font-size:.6rem;color:var(--text3);letter-spacing:.1em;margin-bottom:10px;">
                                 CLOUD SYNC</div>
                             <ul class="sc-list">
-                                <li>All data syncs to Supabase cloud</li>
-                                <li>Works across browsers and devices</li>
-                                <li>Auto-save every 30s + on tab hide/blur</li>
-                                <li>Manual SYNC button in header</li>
+                                <li>All data syncs to Supabase cloud automatically</li>
+                                <li>Works across all browsers and devices</li>
+                                <li>Auto-save every 30s + on tab hide/blur/close</li>
+                                <li>Manual SYNC button in header (Alt+S)</li>
                                 <li>Sync status indicator (SYNCED / SYNCING / ERROR)</li>
-                                <li>Export data to JSON anytime</li>
+                                <li>Export data to JSON anytime (Alt+E)</li>
+                                <li>Weekly &amp; monthly planner events included in sync</li>
                             </ul>
                         </div>
                     </div>
@@ -1587,7 +2096,7 @@
         </div>
     </section>
 
-    <!-- COMPARISON -->
+    <!-- COMPARISON TABLE -->
     <section style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
         <div class="container">
             <div class="rev" style="text-align:center;margin-bottom:40px">
@@ -1614,6 +2123,20 @@
                             <td class="yes">✓ Manual</td>
                             <td class="yes">✓ Basic</td>
                             <td class="partial">~ Limited</td>
+                        </tr>
+                        <tr>
+                            <td class="feat">Weekly Planner (7-column)</td>
+                            <td class="storm-td yes">✓ Built-in</td>
+                            <td class="partial">~ Manual</td>
+                            <td class="no">✗</td>
+                            <td class="no">✗</td>
+                        </tr>
+                        <tr>
+                            <td class="feat">Monthly Calendar Planner</td>
+                            <td class="storm-td yes">✓ Built-in</td>
+                            <td class="partial">~ Manual</td>
+                            <td class="partial">~ Basic</td>
+                            <td class="no">✗</td>
                         </tr>
                         <tr>
                             <td class="feat">Live Day Score (0–100%)</td>
@@ -1651,20 +2174,6 @@
                             <td class="partial">~ Separate app</td>
                         </tr>
                         <tr>
-                            <td class="feat">Auto Streak Tracking</td>
-                            <td class="storm-td yes">✓ Automatic</td>
-                            <td class="no">✗</td>
-                            <td class="partial">~ Basic</td>
-                            <td class="no">✗</td>
-                        </tr>
-                        <tr>
-                            <td class="feat">Weekly Goals + Quick Wins</td>
-                            <td class="storm-td yes">✓ Built-in</td>
-                            <td class="partial">~ Manual</td>
-                            <td class="no">✗</td>
-                            <td class="no">✗</td>
-                        </tr>
-                        <tr>
                             <td class="feat">90-Day Activity Heatmap</td>
                             <td class="storm-td yes">✓ Built-in</td>
                             <td class="no">✗</td>
@@ -1693,13 +2202,6 @@
                             <td class="no">✗</td>
                         </tr>
                         <tr>
-                            <td class="feat">Achievements System</td>
-                            <td class="storm-td yes">✓ 5 achievements</td>
-                            <td class="no">✗</td>
-                            <td class="no">✗</td>
-                            <td class="no">✗</td>
-                        </tr>
-                        <tr>
                             <td class="feat">Code Playground (JS)</td>
                             <td class="storm-td yes">✓ Built-in</td>
                             <td class="no">✗</td>
@@ -1714,20 +2216,6 @@
                             <td class="no">✗</td>
                         </tr>
                         <tr>
-                            <td class="feat">Data Structure Visualizer</td>
-                            <td class="storm-td yes">✓ Arrays, trees, lists</td>
-                            <td class="no">✗</td>
-                            <td class="no">✗</td>
-                            <td class="no">✗</td>
-                        </tr>
-                        <tr>
-                            <td class="feat">Big O Complexity Analyzer</td>
-                            <td class="storm-td yes">✓ Real-time</td>
-                            <td class="no">✗</td>
-                            <td class="no">✗</td>
-                            <td class="no">✗</td>
-                        </tr>
-                        <tr>
                             <td class="feat">Focus Score Engine (S/A/B/C/D)</td>
                             <td class="storm-td yes">✓ Built-in</td>
                             <td class="no">✗</td>
@@ -1735,32 +2223,18 @@
                             <td class="no">✗</td>
                         </tr>
                         <tr>
-                            <td class="feat">Markdown Editor (Live Preview)</td>
-                            <td class="storm-td yes">✓ Built-in</td>
-                            <td class="yes">✓ Yes</td>
-                            <td class="no">✗</td>
-                            <td class="partial">~ Basic</td>
-                        </tr>
-                        <tr>
-                            <td class="feat">Cloud Sync (Supabase)</td>
-                            <td class="storm-td yes">✓ Auto + Manual</td>
+                            <td class="feat">Cloud Sync (Auto + Manual)</td>
+                            <td class="storm-td yes">✓ Supabase</td>
                             <td class="yes">✓ Yes</td>
                             <td class="yes">✓ Yes</td>
                             <td class="partial">~ Varies</td>
                         </tr>
                         <tr>
-                            <td class="feat">Smart Weekly Report</td>
-                            <td class="storm-td yes">✓ Auto-generated</td>
-                            <td class="no">✗</td>
-                            <td class="no">✗</td>
-                            <td class="no">✗</td>
-                        </tr>
-                        <tr>
-                            <td class="feat">Theme Customization</td>
-                            <td class="storm-td yes">✓ 5 themes</td>
+                            <td class="feat">Keyboard Shortcuts</td>
+                            <td class="storm-td yes">✓ 10+ shortcuts</td>
                             <td class="partial">~ Limited</td>
+                            <td class="partial">~ Basic</td>
                             <td class="no">✗</td>
-                            <td class="partial">~ Varies</td>
                         </tr>
                         <tr>
                             <td class="feat">Built for Tech Professionals</td>
@@ -1806,9 +2280,9 @@
                             <li><span class="chk">✓</span>View landing page</li>
                             <li><span class="chk">✓</span>Read all documentation</li>
                             <li><span class="crs">✗</span>Dashboard access</li>
-                            <li><span class="crs">✗</span>All 9 tabs</li>
+                            <li><span class="crs">✗</span>All 11 tabs</li>
                             <li><span class="crs">✗</span>XP + Gamification</li>
-                            <li><span class="crs">✗</span>Dev tools suite</li>
+                            <li><span class="crs">✗</span>Planners + Dev tools</li>
                         </ul>
                         <a href="signup.html" class="tbtn tbtn-g">CREATE ACCOUNT</a>
                     </div>
@@ -1819,18 +2293,20 @@
                         <div class="tier-badge">MOST POPULAR</div>
                         <div class="tier-name">OPERATOR</div>
                         <div class="tier-price"><sup>$</sup>9<span class="cents">.99</span><sub>/MO</sub></div>
-                        <p class="tier-desc">Full access to all nine tabs and every feature. Lock in, earn XP, level up,
-                            and build elite discipline.</p>
+                        <p class="tier-desc">Full access to all eleven tabs and every feature. Lock in, earn XP, level
+                            up, and build elite discipline.</p>
                         <div class="tier-div"></div>
                         <ul class="tier-feats">
-                            <li><span class="chk">✓</span>Deep Work + Distraction Log (+15 XP)</li>
+                            <li><span class="chk">✓</span>Deep Work Planner (+15 XP)</li>
                             <li><span class="chk">✓</span>Focus Pulse Timer (+20 XP)</li>
-                            <li><span class="chk">✓</span>Habits & Streaks (+5 XP)</li>
+                            <li><span class="chk">✓</span>Habit Matrix & Streaks (+5 XP)</li>
+                            <li><span class="chk">✓</span>Weekly Planner — 7-day grid</li>
+                            <li><span class="chk">✓</span>Monthly Planner — calendar view</li>
                             <li><span class="chk">✓</span>Weekly Ops + Analytics</li>
                             <li><span class="chk">✓</span>Field Notes Journal (+5 XP)</li>
                             <li><span class="chk">✓</span>Dev Tools Suite (7 panels)</li>
                             <li><span class="chk">✓</span>Gamification: XP, Levels, Achievements</li>
-                            <li><span class="chk">✓</span>Cloud Sync (Supabase)</li>
+                            <li><span class="chk">✓</span>Cloud Sync (Auto + Manual)</li>
                         </ul>
                         <a href="signup.html" class="tbtn tbtn-p">GET STARTED NOW</a>
                     </div>
@@ -1878,19 +2354,19 @@
                     <div class="tc-role">FOUNDER & CEO // EGYPT 🇪🇬</div>
                     <p class="tc-bio">Builder, engineer, and the operator behind Storm OS. Created this system after
                         spending too much time context-switching between productivity tools that weren't built for tech
-                        professionals. Storm OS is the system he wished existed — now built and shipped with 9
-                        integrated tabs, 7 dev tools, and a full gamification engine.</p>
+                        professionals. Storm OS is the system he wished existed — now built and shipped with 11
+                        integrated tabs, 7 dev tools, weekly and monthly planners, and a full gamification engine.</p>
                     <div class="tc-tags">
-                        <span class="tc-tag">FOUNDER</span>
-                        <span class="tc-tag">ENGINEER</span>
-                        <span class="tc-tag">BUILDER</span>
-                        <span class="tc-tag">EGYPT</span>
+                        <span class="tc-tag">FOUNDER</span><span class="tc-tag">ENGINEER</span>
+                        <span class="tc-tag">BUILDER</span><span class="tc-tag">EGYPT</span>
                     </div>
                 </div>
             </div>
             <p style="text-align:center;margin-top:32px;font-family:var(--mono);font-size:.65rem;color:var(--text3)">
-                CONTACT: <a href="mailto:martinsamer91@gmail.com"
-                    style="color:var(--accent);text-decoration:none">martinsamer91@gmail.com</a></p>
+                CONTACT: <a href="/cdn-cgi/l/email-protection#81ece0f3f5e8eff2e0ece4f3b8b0c1e6ece0e8edafe2eeec"
+                    style="color:var(--accent);text-decoration:none"><span class="__cf_email__"
+                        data-cfemail="f5989487819c9b8694989087ccc4b59298949c99db969a98">[email&#160;protected]</span></a>
+            </p>
         </div>
     </section>
 
@@ -1904,10 +2380,10 @@
                         LOCK IN. LEVEL UP.</div>
                 </div>
                 <div class="flinks">
-                    <a href="index.html">Home</a><a href="services.html">Services</a><a
-                        href="index.html#pricing">Pricing</a>
-                    <a href="policy.html">Privacy</a><a href="policy.html#terms">Terms</a><a
-                        href="policy.html#refund">Refund</a>
+                    <a href="index.html">Home</a><a href="services.html">Services</a>
+                    <a href="index.html#pricing">Pricing</a>
+                    <a href="policy.html">Privacy</a><a href="policy.html#terms">Terms</a>
+                    <a href="policy.html#refund">Refund</a>
                     <a href="login.html">Login</a><a href="signup.html">Register</a>
                 </div>
                 <div class="fm">
@@ -1919,15 +2395,89 @@
         </div>
     </footer>
 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
-        const cur = document.getElementById('cur'), cr = document.getElementById('cur-r');
-        let mx = 0, my = 0, rx = 0, ry = 0;
-        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-        (function a() { rx += (mx - rx) * .15; ry += (my - ry) * .15; cur.style.left = mx + 'px'; cur.style.top = my + 'px'; cr.style.left = rx + 'px'; cr.style.top = ry + 'px'; requestAnimationFrame(a); })();
+        const cursor = document.getElementById('cursor'), cursorRing = document.getElementById('cursor-ring');
+        if (cursor && cursorRing) {
+            let mx = 0, my = 0, rx = 0, ry = 0;
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+            (function animRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; requestAnimationFrame(animRing); })();
+            document.documentElement.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; cursorRing.style.opacity = '0'; });
+            document.documentElement.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; cursorRing.style.opacity = '1'; });
+        }
         document.getElementById('nav') && window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('sc', window.scrollY > 40));
-        const obs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }); }, { threshold: .08 });
+
+        // ── Reveal on scroll ──
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); obs.unobserve(e.target); } });
+        }, { threshold: 0.08 });
         document.querySelectorAll('.rev').forEach(el => obs.observe(el));
+
+        // ── Tab switching ──
+        function showTab(id, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            const el = document.getElementById(id);
+            if (el) el.classList.add('active');
+            if (btn) btn.classList.add('active');
+        }
     </script>
+
+    <script>
+        // ===== SCROLL PROGRESS =====
+        const _sp = document.getElementById('scroll-progress');
+        function _upSP() {
+            if (!_sp) return;
+            const s = window.scrollY;
+            const h = document.documentElement.scrollHeight - window.innerHeight;
+            _sp.style.width = (s / h * 100) + '%';
+        }
+        window.addEventListener('scroll', _upSP, { passive: true });
+
+        // ===== PARTICLE TRAIL =====
+        (function () {
+            const canvas = document.getElementById('particle-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            resize();
+            window.addEventListener('resize', resize);
+            document.addEventListener('mousemove', e => {
+                if (Math.random() > 0.55) return;
+                particles.push({
+                    x: e.clientX, y: e.clientY,
+                    vx: (Math.random() - .5) * 1.2, vy: (Math.random() - .5) * 1.2 - .5,
+                    life: 1, size: Math.random() * 2.5 + .5,
+                    color: Math.random() > .5 ? '255,255,255' : '180,180,180'
+                });
+            });
+            (function anim() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles = particles.filter(p => p.life > 0);
+                particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy; p.life -= .025;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${p.color},${p.life * .5})`; ctx.fill();
+                });
+                requestAnimationFrame(anim);
+            })();
+        })();
+
+        // ===== ENHANCED REVEAL OBSERVER =====
+        (function () {
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('active');
+                        obs.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.08 });
+            document.querySelectorAll('.rev, .rev-left, .rev-right').forEach(el => obs.observe(el));
+        })();
+    </script>
+
 </body>
 
 </html>
