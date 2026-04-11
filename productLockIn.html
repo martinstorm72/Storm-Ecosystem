@@ -5,35 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOCK IN — 90-Day Discipline Planner PDF | Storm OS</title>
-    <meta name="description"
-        content="The LOCK IN 90-Day Discipline Challenge is a premium high-performance planner PDF. Daily planners, habit trackers, XP level system, and anti-procrastination protocols.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap"
         rel="stylesheet">
+    <meta name="description"
+        content="The LOCK IN 90-Day Discipline Challenge is a premium high-performance planner PDF. Daily planners, habit trackers, XP level system, and anti-procrastination protocols.">
+
+
+
     <style>
         :root {
-            --bg: #020305;
-            --bg2: #050810;
-            --card: #080c14;
-            --card2: #0c1220;
-            --border: #131d30;
-            --border2: #1c2a42;
-            --accent: #3b82f6;
-            --purple: #8b5cf6;
-            --green: #10b981;
-            --red: #ef4444;
-            --amber: #f59e0b;
-            --text: #f0f4ff;
-            --text2: #7a90b8;
-            --text3: #2d3f60;
-            --grad: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
-            --gold: #c9a227;
-            --gold2: #e8c44a;
-            --head: 'Orbitron', sans-serif;
+            --bg: #000000;
+            --bg2: #020202;
+            --card: #060606;
+            --card2: #0a0a0a;
+            --border: #111111;
+            --border2: #1a1a1a;
+            --accent: #ffffff;
+            --accent2: #d8d8d8;
+            --accent-glow: rgba(255, 255, 255, 0.10);
+            --purple: #aaaaaa;
+            --cyan: #cccccc;
+            --green: #bbbbbb;
+            --red: #888888;
+            --amber: #eeeeee;
+            --text: #f8f8f8;
+            --text2: #777777;
+            --text3: #333333;
+            --grad: linear-gradient(135deg, #ffffff 0%, #aaaaaa 50%, #ffffff 100%);
+            --gold: #ffffff;
+            --gold2: #dddddd;
+            --head: 'Cormorant Garamond', serif;
             --mono: 'JetBrains Mono', monospace;
-            --body: 'Rajdhani', sans-serif
+            --body: 'EB Garamond', serif;
         }
 
         *,
@@ -58,7 +64,7 @@
         .grid-bg {
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(rgba(59, 130, 246, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, .04) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
             background-size: 60px 60px;
             animation: gridDrift 25s linear infinite;
             pointer-events: none;
@@ -87,7 +93,7 @@
         .orb-1 {
             width: 600px;
             height: 600px;
-            background: rgba(201, 162, 39, .05);
+            background: rgba(255, 255, 255, 0.02);
             top: -200px;
             left: -200px
         }
@@ -95,7 +101,7 @@
         .orb-2 {
             width: 500px;
             height: 500px;
-            background: rgba(99, 102, 241, .07);
+            background: rgba(200, 200, 200, 0.07);
             bottom: -200px;
             right: -200px;
             animation-delay: 6s
@@ -122,7 +128,7 @@
         }
 
         nav.scrolled {
-            background: rgba(2, 3, 5, .85);
+            background: rgba(0, 0, 0, 0.92);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border)
         }
@@ -196,7 +202,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            border: 1px solid rgba(16, 185, 129, .25);
+            border: 1px solid rgba(180, 180, 180, 0.25);
             padding: 4px 12px;
             border-radius: 20px
         }
@@ -251,11 +257,11 @@
 
         .btn-gold {
             background: linear-gradient(135deg, var(--gold), var(--gold2));
-            color: #1a0e00
+            color: #050505
         }
 
         .btn-gold:hover {
-            box-shadow: 0 0 30px rgba(201, 162, 39, .4);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.22);
             transform: translateY(-2px)
         }
 
@@ -372,7 +378,7 @@
 
             0%,
             100% {
-                box-shadow: 0 0 0 0 rgba(201, 162, 39, .4)
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.22)
             }
 
             50% {
@@ -438,8 +444,8 @@
         }
 
         .badge-gold {
-            background: rgba(201, 162, 39, .1);
-            border-color: rgba(201, 162, 39, .3);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.18);
             color: var(--gold)
         }
 
@@ -466,7 +472,7 @@
             border-radius: 12px;
             border: 1px solid var(--border2);
             overflow: hidden;
-            box-shadow: 0 0 0 1px rgba(201, 162, 39, .1), 0 40px 80px rgba(0, 0, 0, .7), 0 0 80px rgba(201, 162, 39, .06)
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 40px 80px rgba(0, 0, 0, .7), 0 0 80px rgba(255, 255, 255, 0.03)
         }
 
         .preview-bar {
@@ -490,15 +496,15 @@
         }
 
         .pd-r {
-            background: #ef4444
+            background: #888888
         }
 
         .pd-y {
-            background: #f59e0b
+            background: #eeeeee
         }
 
         .pd-g {
-            background: #10b981
+            background: #bbbbbb
         }
 
         .preview-url {
@@ -539,7 +545,7 @@
         }
 
         .pdf-pages-grid {
-            background: #050810;
+            background: #020202;
             padding: 20px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -565,7 +571,7 @@
         .page-thumb:hover {
             border-color: var(--gold);
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(201, 162, 39, .15)
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08)
         }
 
         .thumb-icon {
@@ -586,8 +592,8 @@
             font-size: .5rem;
             padding: 2px 6px;
             border-radius: 3px;
-            background: rgba(201, 162, 39, .1);
-            border: 1px solid rgba(201, 162, 39, .25);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             color: var(--gold)
         }
 
@@ -670,7 +676,7 @@
 
         .inside-card:hover .inside-icon {
             border-color: var(--gold);
-            box-shadow: 0 0 16px rgba(201, 162, 39, .2)
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.10)
         }
 
         .inside-title {
@@ -778,7 +784,7 @@
         }
 
         .level-row:hover {
-            background: rgba(201, 162, 39, .03);
+            background: rgba(255, 255, 255, 0.03);
             padding-left: 28px
         }
 
@@ -923,8 +929,8 @@
         }
 
         .phase-item:hover .phase-dot {
-            background: rgba(201, 162, 39, .1);
-            box-shadow: 0 0 24px rgba(201, 162, 39, .3)
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 24px rgba(255, 255, 255, 0.18)
         }
 
         .phase-content {
@@ -1001,8 +1007,8 @@
             font-family: var(--mono);
             font-size: .6rem;
             letter-spacing: .14em;
-            background: rgba(201, 162, 39, .1);
-            border: 1px solid rgba(201, 162, 39, .25);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             color: var(--gold);
             padding: 4px 12px;
             border-radius: 20px;
@@ -1077,8 +1083,8 @@
             width: 18px;
             height: 18px;
             border-radius: 4px;
-            background: rgba(201, 162, 39, .1);
-            border: 1px solid rgba(201, 162, 39, .25);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1100,8 +1106,8 @@
         .paypal-panel {
             display: none;
             margin-top: 16px;
-            background: rgba(201, 162, 39, .05);
-            border: 1px solid rgba(201, 162, 39, .2);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.10);
             border-radius: 8px;
             padding: 24px;
             text-align: center;
@@ -1148,7 +1154,7 @@
         .pay-spin {
             width: 36px;
             height: 36px;
-            border: 3px solid rgba(201, 162, 39, .2);
+            border: 3px solid rgba(255, 255, 255, 0.10);
             border-top-color: var(--gold);
             border-radius: 50%;
             animation: spinAnim .8s linear infinite;
@@ -1182,7 +1188,7 @@
         #payment-failed .fail-title {
             font-family: var(--mono);
             font-size: .72rem;
-            color: #ef4444;
+            color: #888888;
             letter-spacing: .1em;
             margin-bottom: 8px
         }
@@ -1335,6 +1341,11 @@
             transform: translateY(0)
         }
 
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
         .marquee-wrap {
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
@@ -1407,10 +1418,401 @@
                 align-items: center
             }
         }
+
+        #cursor {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width .2s, height .2s, background .2s;
+            mix-blend-mode: screen
+        }
+
+        #cursor-ring {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: all .15s ease
+        }
+
+        body:has(a:hover) #cursor {
+            width: 16px;
+            height: 16px;
+            background: var(--purple)
+        }
+
+        body:has(.btn:hover) #cursor-ring {
+            width: 50px;
+            height: 50px;
+            border-color: var(--purple)
+        }
+
+        body {
+            cursor: none
+        }
+
+        /* ===== PILL BUTTON OVERRIDES ===== */
+        .btn-primary {
+            background: #ffffff !important;
+            color: #000000 !important;
+            font-weight: 700 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+            letter-spacing: .12em !important;
+        }
+
+        .btn-primary:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15), 0 6px 24px rgba(0, 0, 0, 0.7) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .btn {
+            border-radius: 999px !important;
+        }
+
+        .btn-gold {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+        }
+
+        .btn-gold:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 24px rgba(255, 255, 255, 0.1), 0 6px 24px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        /* ===== SMALL TEXT — less bold, lighter ===== */
+        .stat-label {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .feature-num {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .section-tag {
+            font-weight: 500 !important;
+            font-size: 0.82rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 400 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 400 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .metric-label {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 400 !important;
+        }
+
+        .pricing-features li {
+            font-weight: 400 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .footer-meta,
+        .footer-links a {
+            font-weight: 400 !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 500 !important;
+        }
+
+        .testi-role,
+        .testi-since {
+            font-weight: 400 !important;
+        }
+
+        .trust-badge {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        /* ===== PILL BUTTON OVERRIDES ===== */
+        .btn-primary {
+            background: #ffffff !important;
+            color: #000000 !important;
+            font-weight: 700 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+            letter-spacing: .12em !important;
+        }
+
+        .btn-primary:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15), 0 6px 24px rgba(0, 0, 0, 0.7) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .btn {
+            border-radius: 999px !important;
+        }
+
+        .btn-gold {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border: 1.5px solid #cccccc !important;
+            border-radius: 999px !important;
+        }
+
+        .btn-gold:hover {
+            background: #f0f0f0 !important;
+            box-shadow: 0 0 24px rgba(255, 255, 255, 0.1), 0 6px 24px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        /* ===== SMALL TEXT — less bold, lighter ===== */
+        .stat-label {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .feature-num {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 400 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .section-tag {
+            font-weight: 500 !important;
+            font-size: 0.82rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 400 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 400 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .metric-label {
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 400 !important;
+        }
+
+        .pricing-features li {
+            font-weight: 400 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .footer-meta,
+        .footer-links a {
+            font-weight: 400 !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 500 !important;
+        }
+
+        .testi-role,
+        .testi-since {
+            font-weight: 400 !important;
+        }
+
+        .trust-badge {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        /* ===== SMALL TEXT — readable size, moderate weight ===== */
+        .stat-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .feature-num {
+            font-weight: 500 !important;
+            font-size: 0.73rem !important;
+        }
+
+        .feature-desc {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .ftag,
+        .ftag-new,
+        .stag {
+            font-weight: 500 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .section-tag {
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .hero-eyebrow {
+            font-weight: 500 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .marquee-item {
+            font-weight: 500 !important;
+            font-size: 0.78rem !important;
+        }
+
+        .metric-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .feature-list li {
+            font-weight: 400 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .showcase-cat,
+        .sec-cat,
+        .coming-mini-label {
+            font-weight: 500 !important;
+            font-size: 0.72rem !important;
+        }
+
+        .pricing-features li {
+            font-weight: 500 !important;
+            font-size: 0.88rem !important;
+        }
+
+        .footer-meta {
+            font-weight: 400 !important;
+            font-size: 0.76rem !important;
+        }
+
+        .footer-links a {
+            font-weight: 500 !important;
+            font-size: 0.76rem !important;
+        }
+
+        .nav-links a:not(.btn) {
+            font-weight: 600 !important;
+            font-size: 0.94rem !important;
+        }
+
+        .testi-role {
+            font-weight: 500 !important;
+            font-size: 0.74rem !important;
+        }
+
+        .testi-since {
+            font-weight: 400 !important;
+            font-size: 0.68rem !important;
+        }
+
+        .trust-badge {
+            font-weight: 500 !important;
+            font-size: 0.74rem !important;
+        }
+
+        .coming-mini-title {
+            font-weight: 600 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .showcase-price-sub,
+        .sec-price-sub {
+            font-weight: 500 !important;
+            font-size: 0.68rem !important;
+        }
+
+        .star-count {
+            font-weight: 500 !important;
+            font-size: 0.8rem !important;
+        }
+
+        .result-content p {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .faq-a-inner {
+            font-weight: 400 !important;
+            font-size: 1.0rem !important;
+        }
+
+        .testi-quote {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .pricing-desc {
+            font-weight: 400 !important;
+            font-size: 1.04rem !important;
+        }
+
+        .showcase-desc,
+        .sec-desc {
+            font-weight: 400 !important;
+            font-size: 1.0rem !important;
+        }
     </style>
 </head>
 
 <body>
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
     <div class="grid-bg"></div>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
@@ -1627,7 +2029,7 @@
                                 <button onclick="retryPayment()" class="btn btn-gold" style="font-size:.65rem">
                                     TRY AGAIN →
                                 </button>
-                                <a href="mailto:contact@storm-ecosystem.vercel.app"
+                                <a href="/cdn-cgi/l/email-protection#1d7e7273697c7e695d6e69726f7030787e726e646e697870336b786f7e7871337c6d6d"
                                     style="font-size:.6rem;color:var(--text3);font-family:var(--mono)">
                                     Already charged? Contact support →
                                 </a>
@@ -1664,161 +2066,34 @@
                 <div class="footer-meta">
                     <div>STORM OS // v1.0.26</div>
                     <div>© 2026 STORM. ALL RIGHTS RESERVED.</div>
-                    <div>BUILT IN EGYPT 🇪🇬 // contact@storm-ecosystem.vercel.app</div>
+                    <div>BUILT IN EGYPT 🇪🇬 // <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                            data-cfemail="076468697366647347747368756a2a626468747e7473626a2971627564626b29667777">[email&#160;protected]</a>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
-        // ================================================================
-        // STORM OS — SECURE PAYMENT GATE v3.0
-        // PayPal Auto-Return is already configured ✅
-        // Return URL: https://storm-ecosystem.vercel.app/productLockIn.html
-        //
-        // Flow:
-        //   1. User clicks BUY NOW → sees PayPal panel
-        //   2. Clicks PayPal link → pays on PayPal
-        //   3. PayPal redirects back with ?tx=XXXXX&st=Completed
-        //   4. Page detects ?tx, calls /api/verify-payment
-        //   5. Vercel function checks with PayPal PDT → returns {valid:true}
-        //   6. PDF downloads automatically ✅
-        // ================================================================
-
-        const PDF_PATH = "/LOCK-IN-90-Day-Discipline-Challenge.pdf";
-        const VERIFY_API = "/api/verify-payment";
-        const SESS_KEY = "storm_verified_tx";
-
-        function urlParam(name) {
-            return new URLSearchParams(window.location.search).get(name);
+        const cursor = document.getElementById('cursor'), cursorRing = document.getElementById('cursor-ring');
+        if (cursor && cursorRing) {
+            let mx = 0, my = 0, rx = 0, ry = 0;
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+            (function animRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; requestAnimationFrame(animRing); })();
+            document.documentElement.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; cursorRing.style.opacity = '0'; });
+            document.documentElement.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; cursorRing.style.opacity = '1'; });
         }
+        window.addEventListener('scroll', () => { document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40); });
 
-        // ── Show/hide payment state panels ──────────────────────────
-        const PANELS = ["paypal-panel", "verifying-panel", "download-success", "payment-failed"];
-
-        function showPanel(activeId) {
-            PANELS.forEach(id => {
-                const el = document.getElementById(id);
-                if (!el) return;
-                if (id === "download-success") {
-                    el.classList.toggle("show", id === activeId);
-                } else {
-                    el.classList.toggle("show", id === activeId);
-                }
-            });
-        }
-
-        // ── Button handlers ──────────────────────────────────────────
-        function handleBuyNow() {
-            document.getElementById("buy-btn").style.display = "none";
-            showPanel("paypal-panel");
-            document.getElementById("paypal-panel").scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-
-        function retryPayment() {
-            showPanel(null);
-            document.getElementById("buy-btn").style.display = "";
-            scrollToBuy();
-        }
-
-        function scrollToBuy() {
-            document.getElementById("buy").scrollIntoView({ behavior: "smooth" });
-        }
-
-        // ── PDF download ─────────────────────────────────────────────
-        function executePDFDownload() {
-            const a = document.createElement("a");
-            a.href = PDF_PATH;
-            a.download = "LOCK-IN-90-Day-Discipline-Challenge.pdf";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-
-        function triggerDownload() {
-            if (sessionStorage.getItem(SESS_KEY)) {
-                executePDFDownload();
-            } else {
-                scrollToBuy();
-            }
-        }
-
-        // ── Verify transaction via Vercel API ────────────────────────
-        async function verifyTransaction(tx) {
-            try {
-                const res = await fetch(VERIFY_API, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tx })
-                });
-                if (!res.ok) return { valid: false, reason: "Verification server error." };
-                return await res.json();
-            } catch (e) {
-                return { valid: false, reason: "Could not reach the verification server. Check your connection." };
-            }
-        }
-
-        // ── On load: check for PayPal Auto-Return params ─────────────
-        window.addEventListener("load", async function () {
-            const tx = urlParam("tx");
-            const status = urlParam("st"); // PayPal sends st=Completed on success
-
-            if (!tx) {
-                if (sessionStorage.getItem(SESS_KEY)) {
-                    document.getElementById("buy-btn").style.display = "none";
-                    showPanel("download-success");
-                    setTimeout(executePDFDownload, 600);
-                }
-                return;
-            }
-
-            // Immediately clean the URL (prevents re-trigger on refresh)
-            window.history.replaceState({}, "", window.location.pathname);
-
-            // Scroll to buy section and show spinner
-            document.getElementById("buy-btn").style.display = "none";
-            showPanel("verifying-panel");
-            document.getElementById("buy").scrollIntoView({ behavior: "smooth" });
-
-            // Quick client-side sanity check
-            if (status && status !== "Completed") {
-                showPanel("payment-failed");
-                document.getElementById("fail-reason").textContent =
-                    'Payment status: "' + status + '". Please complete payment and try again.';
-                return;
-            }
-
-            // Server-side PDT verification
-            document.getElementById("verify-status").textContent = "CONFIRMING WITH PAYPAL...";
-            const result = await verifyTransaction(tx);
-
-            if (result.valid) {
-                sessionStorage.setItem(SESS_KEY, tx);
-                showPanel("download-success");
-                setTimeout(executePDFDownload, 800);
-            } else {
-                showPanel("payment-failed");
-                document.getElementById("fail-reason").textContent =
-                    result.reason ||
-                    ("Payment could not be verified. Contact support with your Transaction ID: " + tx);
-            }
-        });
-
-        // ── Sticky nav on scroll ─────────────────────────────────────
-        window.addEventListener("scroll", () => {
-            document.getElementById("nav").classList.toggle("scrolled", window.scrollY > 40);
-        });
-
-        // ── Reveal elements on scroll ────────────────────────────────
+        // ── Reveal on scroll ──
         const revealObs = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add("active");
-                    revealObs.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.12 });
-        document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); revealObs.unobserve(e.target); } });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+        // ── Scroll to buy ──
+        function scrollToBuy() { document.getElementById('buy') && document.getElementById('buy').scrollIntoView({ behavior: 'smooth' }); }
     </script>
 </body>
 
