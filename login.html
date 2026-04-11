@@ -6,28 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Storm | Login</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --bg: #020305;
-            --bg2: #050810;
-            --card: #080c14;
-            --card2: #0c1220;
-            --border: #131d30;
-            --border2: #1c2a42;
-            --accent: #3b82f6;
-            --purple: #8b5cf6;
-            --green: #10b981;
-            --red: #ef4444;
-            --amber: #f59e0b;
-            --text: #f0f4ff;
-            --text2: #7a90b8;
-            --text3: #2d3f60;
-            --grad: linear-gradient(135deg, var(--accent), var(--purple));
-            --head: 'Orbitron', sans-serif;
+            --bg: #000000;
+            --bg2: #050505;
+            --card: #0a0a0a;
+            --card2: #0f0f0f;
+            --border: #161616;
+            --border2: #202020;
+            --accent: #ffffff;
+            --accent2: #cccccc;
+            --accent-glow: rgba(255, 255, 255, 0.08);
+            --purple: #888888;
+            --cyan: #aaaaaa;
+            --green: #999999;
+            --red: #666666;
+            --amber: #dddddd;
+            --text: #f5f5f5;
+            --text2: #555555;
+            --text3: #2a2a2a;
+            --grad: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+            --gold: #ffffff;
+            --gold2: #cccccc;
+            --head: 'Cormorant Garamond', 'JetBrains Mono', serif;
             --mono: 'JetBrains Mono', monospace;
-            --body: 'Rajdhani', sans-serif
+            --body: 'EB Garamond', 'Rajdhani', serif;
         }
 
         *,
@@ -88,7 +93,7 @@
             position: fixed;
             width: 28px;
             height: 28px;
-            border: 1px solid rgba(59, 130, 246, .4);
+            border: 1px solid rgba(255, 255, 255, 0.24);
             border-radius: 50%;
             pointer-events: none;
             z-index: 99998;
@@ -98,9 +103,9 @@
         .grid-bg {
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(rgba(59, 130, 246, .03) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, .03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridDrift 25s linear infinite;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: gridDrift 60s linear infinite;
             pointer-events: none;
             z-index: 0
         }
@@ -126,7 +131,7 @@
         .orb-1 {
             width: 500px;
             height: 500px;
-            background: rgba(59, 130, 246, .06);
+            background: rgba(255, 255, 255, 0.04);
             top: -200px;
             left: -100px
         }
@@ -134,7 +139,7 @@
         .orb-2 {
             width: 400px;
             height: 400px;
-            background: rgba(139, 92, 246, .05);
+            background: rgba(150, 150, 150, 0.03);
             bottom: -150px;
             right: -100px
         }
@@ -151,7 +156,7 @@
             justify-content: space-between;
             padding: 0 32px;
             border-bottom: 1px solid var(--border);
-            background: rgba(2, 3, 5, .8);
+            background: rgba(0, 0, 0, .8);
             backdrop-filter: blur(16px);
             z-index: 100
         }
@@ -166,7 +171,7 @@
         }
 
         .logo span {
-            color: var(--accent)
+            color: #555555
         }
 
         .topbar-link {
@@ -209,7 +214,7 @@
 
         .card-topline {
             height: 2px;
-            background: var(--grad)
+            background: linear-gradient(90deg, transparent, #ffffff, transparent)
         }
 
         .card-body {
@@ -220,8 +225,8 @@
             width: 48px;
             height: 48px;
             border-radius: 8px;
-            background: rgba(59, 130, 246, .1);
-            border: 1px solid rgba(59, 130, 246, .2);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -308,8 +313,8 @@
 
         input:focus {
             border-color: var(--accent);
-            background: rgba(59, 130, 246, .05);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, .08)
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05)
         }
 
         input::placeholder {
@@ -352,24 +357,24 @@
 
         .msg.error {
             display: block;
-            background: rgba(239, 68, 68, .08);
-            border: 1px solid rgba(239, 68, 68, .2);
-            color: #fca5a5
+            background: rgba(120, 120, 120, 0.04);
+            border: 1px solid rgba(120, 120, 120, 0.10);
+            color: #aaaaaa
         }
 
         .msg.success {
             display: block;
-            background: rgba(16, 185, 129, .08);
-            border: 1px solid rgba(16, 185, 129, .2);
-            color: #6ee7b7
+            background: rgba(180, 180, 180, 0.04);
+            border: 1px solid rgba(180, 180, 180, 0.10);
+            color: #cccccc
         }
 
         /* SUBMIT */
         .btn-submit {
             width: 100%;
             padding: 12px;
-            background: var(--grad);
-            color: #fff;
+            background: #ffffff;
+            color: #000000;
             border: none;
             border-radius: 5px;
             font-family: var(--head);
@@ -386,7 +391,7 @@
         .btn-submit:hover {
             opacity: .9;
             transform: translateY(-1px);
-            box-shadow: 0 8px 24px rgba(59, 130, 246, .25)
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15)
         }
 
         .btn-submit:active {
@@ -434,13 +439,13 @@
         }
 
         .auth-footer a {
-            color: var(--accent);
+            color: #aaaaaa;
             text-decoration: none;
             transition: color .2s
         }
 
         .auth-footer a:hover {
-            color: var(--text)
+            color: #ffffff
         }
 
         /* STATUS BAR */
@@ -450,7 +455,7 @@
             left: 0;
             right: 0;
             height: 28px;
-            background: rgba(2, 3, 5, .9);
+            background: rgba(0, 0, 0, .9);
             border-top: 1px solid var(--border);
             display: flex;
             align-items: center;
@@ -474,7 +479,7 @@
             width: 5px;
             height: 5px;
             border-radius: 50%;
-            background: var(--green);
+            background: #888888;
             animation: pulse 2s infinite
         }
 
@@ -487,6 +492,310 @@
 
             50% {
                 opacity: .3
+            }
+        }
+
+        /* ── ULTIMATE BLACK & WHITE — STORM OS THEME ── */
+
+        /* Match home page font loading */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+        /* White shimmer animation for accented text */
+        @keyframes whiteShimmer {
+            0% {
+                background-position: -200% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        /* Grid lines — ultra subtle white */
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .012) 1px, transparent 1px) !important;
+            background-size: 100px 100px !important;
+        }
+
+        /* Orbs — near-black white glows */
+        .orb-1 {
+            background: rgba(255, 255, 255, .025) !important;
+        }
+
+        .orb-2 {
+            background: rgba(255, 255, 255, .015) !important;
+        }
+
+        /* Custom cursor */
+        #cursor {
+            background: #ffffff !important;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4) !important;
+        }
+
+        #cursor-ring {
+            border-color: rgba(255, 255, 255, 0.3) !important;
+        }
+
+        /* Topbar */
+        .topbar {
+            background: rgba(0, 0, 0, 0.94) !important;
+            border-bottom: 1px solid #111111 !important;
+            backdrop-filter: blur(24px) !important;
+        }
+
+        .logo {
+            font-family: var(--head) !important;
+            letter-spacing: .16em;
+        }
+
+        .logo span {
+            color: #444444 !important;
+        }
+
+        .topbar-link {
+            color: #2a2a2a !important;
+        }
+
+        .topbar-link:hover {
+            color: #ffffff !important;
+        }
+
+        /* Auth card */
+        .auth-card {
+            background: #080808 !important;
+            border-color: #161616 !important;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04),
+                0 40px 80px rgba(0, 0, 0, 0.9),
+                0 0 60px rgba(255, 255, 255, 0.02) !important;
+        }
+
+        .card-topline {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent) !important;
+            height: 1px !important;
+        }
+
+        .card-body {
+            background: transparent;
+        }
+
+        /* Card icon */
+        .card-icon {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.03);
+        }
+
+        .card-title {
+            font-family: var(--head) !important;
+            letter-spacing: .16em;
+            color: #f5f5f5;
+        }
+
+        .card-sub {
+            color: #2a2a2a !important;
+        }
+
+        /* Form inputs */
+        input[type=email],
+        input[type=password],
+        input[type=text] {
+            background: #050505 !important;
+            border-color: #1a1a1a !important;
+            color: #f5f5f5 !important;
+            transition: all .3s ease !important;
+        }
+
+        input:focus {
+            border-color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05) !important;
+        }
+
+        input::placeholder {
+            color: #252525 !important;
+        }
+
+        .form-label {
+            color: #2a2a2a !important;
+            letter-spacing: .14em;
+        }
+
+        .input-icon {
+            color: #2a2a2a !important;
+        }
+
+        .form-group:focus-within .input-icon {
+            color: #ffffff !important;
+        }
+
+        .pwd-toggle {
+            color: #2a2a2a !important;
+        }
+
+        .pwd-toggle:hover {
+            color: #888888 !important;
+        }
+
+        /* Submit button — stark white on black */
+        .btn-submit {
+            background: #ffffff !important;
+            color: #000000 !important;
+            font-family: var(--head) !important;
+            letter-spacing: .2em !important;
+            font-weight: 900 !important;
+            border: none !important;
+            transition: background .4s ease, box-shadow .4s ease, transform .3s ease !important;
+        }
+
+        .btn-submit:hover {
+            background: #e8e8e8 !important;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.8) !important;
+            transform: translateY(-2px) !important;
+            opacity: 1 !important;
+        }
+
+        .btn-submit:disabled {
+            background: #1a1a1a !important;
+            color: #333333 !important;
+        }
+
+        .btn-submit.loading::after {
+            border-color: rgba(0, 0, 0, 0.3) !important;
+            border-top-color: #000000 !important;
+        }
+
+        /* Messages */
+        .msg.error {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
+            color: #888888 !important;
+        }
+
+        .msg.success {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border-color: rgba(255, 255, 255, 0.18) !important;
+            color: #cccccc !important;
+        }
+
+        /* Auth footer */
+        .auth-footer {
+            color: #2a2a2a !important;
+        }
+
+        .auth-footer a {
+            color: #888888 !important;
+        }
+
+        .auth-footer a:hover {
+            color: #ffffff !important;
+        }
+
+        /* Status bar */
+        .status-bar {
+            background: rgba(0, 0, 0, 0.97) !important;
+            border-top: 1px solid #0f0f0f !important;
+        }
+
+        .status-item {
+            color: #1e1e1e !important;
+        }
+
+        .status-dot {
+            background: #444444 !important;
+        }
+
+        /* Noise overlay */
+        body::before {
+            opacity: .15 !important;
+        }
+
+        /* Scan lines */
+        body::after {
+            background: repeating-linear-gradient(0deg, transparent, transparent 4px,
+                    rgba(255, 255, 255, 0.008) 4px, rgba(255, 255, 255, 0.008) 5px) !important;
+        }
+
+        /* Card entrance animation — slower, more cinematic */
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .auth-card {
+            animation: cardIn 1s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+        }
+
+        /* Password strength bars */
+        .str-bar {
+            background: #1a1a1a !important;
+        }
+
+        .str-bar.weak {
+            background: #555555 !important;
+        }
+
+        .str-bar.fair {
+            background: #888888 !important;
+        }
+
+        .str-bar.strong {
+            background: #cccccc !important;
+        }
+
+        .str-label {
+            color: #555555 !important;
+        }
+
+        /* Password requirements */
+        .req {
+            color: #2a2a2a !important;
+        }
+
+        .req.met {
+            color: #aaaaaa !important;
+        }
+
+        .req-dot {
+            background: #1a1a1a !important;
+        }
+
+        .req.met .req-dot {
+            background: #ffffff !important;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.4) !important;
+        }
+
+        /* Terms checkbox */
+        .terms-row label {
+            color: #2a2a2a !important;
+        }
+
+        .terms-row a {
+            color: #888888 !important;
+        }
+
+        .terms-row input[type=checkbox] {
+            accent-color: #ffffff !important;
+        }
+
+        /* Login-specific */
+        @keyframes iconSpin {
+            from {
+                opacity: 0;
+                transform: scale(.5) rotateY(180deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) rotateY(0);
             }
         }
     </style>
