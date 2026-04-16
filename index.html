@@ -41,6 +41,9 @@
     <script
         type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://storm-os.app/"},{"@type":"ListItem","position":2,"name":"Pricing","item":"https://storm-os.app/#pricing"}]}</script>
 
+    <!-- SUPABASE AUTH -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <!-- THREE.JS 3D ENGINE -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
@@ -80,11 +83,11 @@
             --purple: #aaaaaa;
             --cyan: #cccccc;
             --green: #bbbbbb;
-            --red: #888888;
+            --red: #aaaaaa;
             --amber: #eeeeee;
             --text: #f8f8f8;
-            --text2: #777777;
-            --text3: #333333;
+            --text2: #aaaaaa;
+            --text3: #666666;
             --grad: linear-gradient(135deg, #ffffff 0%, #aaaaaa 50%, #ffffff 100%);
             --gold: #ffffff;
             --gold2: #dddddd;
@@ -433,6 +436,29 @@
             box-shadow: 0 0 20px var(--accent-glow)
         }
 
+        /* OPERATOR COMMAND nav button */
+        #nav-dashboard-link {
+            position: relative;
+            animation: opCmdPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes opCmdPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0.18);
+            }
+        }
+
+        #nav-dashboard-link:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 0 24px 4px rgba(255, 255, 255, 0.22) !important;
+        }
+
         .btn-gold {
             background: linear-gradient(135deg, var(--gold), var(--gold2));
             color: #050505
@@ -491,6 +517,180 @@
             letter-spacing: -.01em;
             line-height: 1.1;
             margin-bottom: 16px
+        }
+
+        /* ── REVIEW SECTION ── */
+        .review-section {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 100px 0;
+        }
+
+        .review-wrap {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .review-form-card {
+            background: var(--card);
+            border: 1px solid var(--border2);
+            border-radius: 4px;
+            padding: 48px 48px 44px;
+            margin-top: 48px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+        }
+
+        .review-stars {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .review-star {
+            font-size: 1.6rem;
+            cursor: none;
+            color: var(--text3);
+            transition: color .15s, transform .15s;
+            user-select: none;
+            line-height: 1;
+        }
+
+        .review-star.active,
+        .review-star:hover {
+            color: var(--amber);
+            transform: scale(1.15);
+        }
+
+        .review-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .review-field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .review-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .review-label {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            color: var(--text3);
+        }
+
+        .review-input,
+        .review-textarea {
+            background: var(--card2);
+            border: 1px solid var(--border2);
+            border-radius: 3px;
+            color: var(--text);
+            font-family: var(--body);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 12px 16px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+            width: 100%;
+            resize: none;
+        }
+
+        .review-input::placeholder,
+        .review-textarea::placeholder {
+            color: var(--text3);
+        }
+
+        .review-input:focus,
+        .review-textarea:focus {
+            border-color: rgba(255, 255, 255, 0.28);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04);
+        }
+
+        .review-textarea {
+            min-height: 130px;
+        }
+
+        .review-submit {
+            margin-top: 24px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .review-note {
+            margin-top: 14px;
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--text3);
+            letter-spacing: .07em;
+            text-align: center;
+        }
+
+        .review-note a {
+            color: var(--text2);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border2);
+            transition: color .2s;
+        }
+
+        .review-note a:hover {
+            color: var(--text);
+        }
+
+        .review-success {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 48px 0 32px;
+            text-align: center;
+        }
+
+        .review-success-icon {
+            font-size: 2.8rem;
+        }
+
+        .review-success-title {
+            font-family: var(--head);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -.01em;
+        }
+
+        .review-success-sub {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--text3);
+            letter-spacing: .1em;
+        }
+
+        @media (max-width: 640px) {
+            .review-form-card {
+                padding: 28px 20px 24px;
+            }
+
+            .review-fields {
+                grid-template-columns: 1fr;
+            }
         }
 
         .hero {
@@ -3410,29 +3610,32 @@
         /* ===== 3D COMPARISON TABLE ===== */
         .compare-table {
             transform-style: preserve-3d;
-            animation: tableFloat 9s ease-in-out infinite;
+            will-change: transform;
+            animation: tableFloat 12s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
         }
 
         @keyframes tableFloat {
 
             0%,
             100% {
-                transform: perspective(1000px) rotateX(1.5deg) translateZ(0);
+                transform: perspective(1000px) rotateX(1deg) translateZ(0);
             }
 
             50% {
-                transform: perspective(1000px) rotateX(0deg) translateZ(12px);
+                transform: perspective(1000px) rotateX(0deg) translateZ(8px);
             }
         }
 
         /* ===== 3D TESTIMONIAL CARDS ===== */
         .testi-card {
             transform-style: preserve-3d;
-            transition: transform 0.2s ease, box-shadow 0.2s !important;
+            will-change: transform;
+            backface-visibility: hidden;
+            transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.45s ease !important;
         }
 
         .testi-card:hover {
-            transform: translateZ(20px) rotateX(-2deg) rotateY(2deg) !important;
+            transform: translateZ(16px) rotateX(-1.5deg) rotateY(1.5deg) !important;
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 40px rgba(150, 150, 150, 0.09) !important;
         }
 
@@ -3461,7 +3664,8 @@
         /* ===== 3D BUTTONS ===== */
         .btn {
             transform-style: preserve-3d;
-            transition: all 0.25s, transform 0.15s !important;
+            will-change: transform;
+            transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1), transform 0.35s cubic-bezier(0.23, 1, 0.32, 1) !important;
         }
 
         .btn-primary:hover {
@@ -3479,11 +3683,14 @@
             z-index: 0;
             transform-style: preserve-3d;
             opacity: 0.06;
+            will-change: transform;
         }
 
         /* ===== 3D SCROLLING PARALLAX ===== */
         .parallax-3d {
             will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         /* ===== 3D GLOW RING on Hero ===== */
@@ -3497,9 +3704,10 @@
             border-radius: 50%;
             transform: translate(-50%, -50%) translateZ(-100px);
             background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(200, 200, 200, 0.02) 40%, transparent 70%);
-            animation: ringPulse3d 6s ease-in-out infinite;
+            animation: ringPulse3d 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
             pointer-events: none;
             z-index: 0;
+            will-change: transform, opacity;
         }
 
         @keyframes ringPulse3d {
@@ -3511,58 +3719,62 @@
             }
 
             50% {
-                transform: translate(-50%, -50%) scale(1.15) translateZ(-50px);
+                transform: translate(-50%, -50%) scale(1.12) translateZ(-60px);
                 opacity: 1;
             }
         }
 
         /* ===== 3D ORBS ENHANCEMENT ===== */
         .orb {
-            animation: orbFloat3d 12s ease-in-out infinite !important;
+            animation: orbFloat3d 18s cubic-bezier(0.37, 0, 0.63, 1) infinite !important;
+            will-change: transform !important;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         .orb-2 {
-            animation-delay: 4s !important;
+            animation-delay: 6s !important;
         }
 
         .orb-3 {
-            animation-delay: 8s !important;
+            animation-delay: 12s !important;
         }
 
         @keyframes orbFloat3d {
             0% {
-                transform: translate(0, 0) scale(1) translateZ(0);
+                transform: translate(0, 0) scale(1);
             }
 
             25% {
-                transform: translate(20px, -25px) scale(1.05) translateZ(40px);
+                transform: translate(18px, -22px) scale(1.04);
             }
 
             50% {
-                transform: translate(40px, -10px) scale(1.1) translateZ(80px);
+                transform: translate(34px, -8px) scale(1.07);
             }
 
             75% {
-                transform: translate(15px, -35px) scale(1.03) translateZ(50px);
+                transform: translate(12px, -30px) scale(1.02);
             }
 
             100% {
-                transform: translate(0, 0) scale(1) translateZ(0);
+                transform: translate(0, 0) scale(1);
             }
         }
 
         /* ===== 3D BADGE FLOATS ===== */
         .preview-badge {
             transform-style: preserve-3d;
+            will-change: transform;
         }
 
         .badge-green {
-            animation: badge3dFloat 5s ease-in-out infinite !important;
+            animation: badge3dFloat 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite !important;
         }
 
         .badge-blue {
-            animation: badge3dFloat 5s ease-in-out infinite !important;
-            animation-delay: 2.5s !important;
+            animation: badge3dFloat 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite !important;
+            animation-delay: 3s !important;
         }
 
         @keyframes badge3dFloat {
@@ -3573,13 +3785,14 @@
             }
 
             50% {
-                transform: translateY(-10px) translateZ(30px) rotateX(5deg);
+                transform: translateY(-8px) translateZ(20px) rotateX(3deg);
             }
         }
 
         /* ===== 3D RESULT ITEMS ===== */
         .result-item {
-            transition: all 0.3s, transform 0.2s !important;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+            will-change: transform;
         }
 
         .result-item:hover {
@@ -3589,7 +3802,8 @@
 
         /* ===== 3D FAQ ===== */
         .faq-item {
-            transition: transform 0.2s ease;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+            will-change: transform;
         }
 
         .faq-item:hover {
@@ -3625,15 +3839,17 @@
         .showcase-main,
         .showcase-item {
             transform-style: preserve-3d;
-            transition: all 0.4s, transform 0.2s !important;
+            will-change: transform;
+            backface-visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1), transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
         }
 
         .showcase-main:hover {
-            transform: translateY(-10px) translateZ(20px) rotateX(-2deg) !important;
+            transform: translateY(-8px) translateZ(16px) rotateX(-1.5deg) !important;
         }
 
         .showcase-item:hover {
-            transform: translateY(-6px) translateZ(14px) !important;
+            transform: translateY(-5px) translateZ(12px) !important;
         }
 
         /* ── ULTIMATE BLACK & WHITE ENHANCEMENTS ── */
@@ -4348,7 +4564,27 @@
             onclick="document.getElementById('mob-menu').classList.remove('open')">FAQ</a>
         <a href="#pricing" class="mob-nav-link"
             onclick="document.getElementById('mob-menu').classList.remove('open')">PRICING</a>
-        <button onclick="handlePurchase(); document.getElementById('mob-menu').classList.remove('open')"
+        <a href="#review" class="mob-nav-link"
+            onclick="document.getElementById('mob-menu').classList.remove('open')">REVIEW</a>
+        <!-- Operator Command — only visible when logged in + paid -->
+        <a id="mob-dashboard-link" href="dashboard.html" class="btn btn-ghost"
+            style="display:none;margin-top:12px;justify-content:center;border-color:#fff !important;color:#fff !important;gap:8px;font-weight:900;letter-spacing:.12em;"
+            onclick="document.getElementById('mob-menu').classList.remove('open')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            OPERATOR COMMAND
+        </a>
+        <button id="mob-logout-btn"
+            onclick="handleNavLogout(); document.getElementById('mob-menu').classList.remove('open')"
+            class="btn btn-ghost"
+            style="display:none;margin-top:6px;justify-content:center;cursor:pointer;color:var(--text2);">LOGOUT</button>
+        <!-- Guest buttons -->
+        <button id="mob-purchase-btn"
+            onclick="handlePurchase(); document.getElementById('mob-menu').classList.remove('open')"
             class="btn btn-primary" style="margin-top:12px;cursor:pointer;">GET STARTED — $9.99/MO</button>
     </div>
 
@@ -4404,11 +4640,35 @@
                 <a href="#compare" data-section="compare">Compare</a>
                 <a href="#faq" data-section="faq">FAQ</a>
                 <a href="#pricing" data-section="pricing">Pricing</a>
+                <a href="#review" data-section="review">Review</a>
                 <div class="nav-status" role="status">
                     <div class="dot"></div>OPERATIONAL
                 </div>
-                <a href="login.html" class="btn btn-ghost" style="margin-left:4px">LOGIN</a>
-                <a href="signup.html" class="btn btn-primary" style="margin-left:4px">GET STARTED</a>
+                <!-- Dashboard link — only visible after login + payment -->
+                <a id="nav-dashboard-link" href="dashboard.html" class="btn btn-ghost"
+                    style="margin-left:4px;display:none;border-color:#ffffff !important;color:#ffffff !important;gap:6px;letter-spacing:.12em;font-weight:900;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        style="flex-shrink:0">
+                        <rect x="3" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="3" width="7" height="7" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" />
+                        <rect x="14" y="14" width="7" height="7" rx="1" />
+                    </svg>
+                    OPERATOR COMMAND
+                </a>
+                <!-- User avatar + logout — only visible when logged in -->
+                <div id="nav-user-area" style="display:none;align-items:center;gap:8px;margin-left:4px;">
+                    <a href="Profile.html" id="nav-user-avatar"
+                        style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#fff,#aaa);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.6rem;font-weight:900;color:#000;border:1px solid rgba(255,255,255,0.3);cursor:pointer;text-decoration:none;"
+                        title="View Profile"></a>
+                    <a href="Profile.html" class="btn btn-ghost"
+                        style="padding:6px 12px;font-size:.6rem;letter-spacing:.1em;color:var(--text2);">PROFILE</a>
+                    <button onclick="handleNavLogout()" class="btn btn-ghost"
+                        style="padding:6px 12px;font-size:.6rem;letter-spacing:.1em;color:var(--text2);">LOGOUT</button>
+                </div>
+                <a id="nav-login-link" href="login.html" class="btn btn-ghost" style="margin-left:4px">LOGIN</a>
+                <a id="nav-signup-link" href="signup.html" class="btn btn-primary" style="margin-left:4px">GET
+                    STARTED</a>
                 <button id="mob-menu-btn" onclick="document.getElementById('mob-menu').classList.add('open')">☰
                     MENU</button>
             </div>
@@ -5308,6 +5568,75 @@
         </div>
     </section>
 
+    <!-- REVIEW SECTION -->
+    <section id="review" class="review-section" aria-labelledby="review-heading">
+        <div class="container">
+            <div class="review-wrap reveal">
+                <div class="section-tag" style="justify-content:center;">// YOUR VOICE</div>
+                <h2 class="section-heading" id="review-heading">Leave a <span class="grad-text">Review</span></h2>
+                <p
+                    style="color:var(--text2);font-size: 1.06rem;margin-top:12px;line-height:1.7;max-width:520px;margin-left:auto;margin-right:auto;">
+                    Got feedback, a suggestion, or something that would make Storm OS sharper?
+                    Send it directly — every message is read personally.
+                </p>
+
+                <div class="review-form-card">
+                    <!-- Stars -->
+                    <div class="review-stars" id="review-stars" aria-label="Rate Storm OS">
+                        <span class="review-star" data-val="1" title="1 star">★</span>
+                        <span class="review-star" data-val="2" title="2 stars">★</span>
+                        <span class="review-star" data-val="3" title="3 stars">★</span>
+                        <span class="review-star" data-val="4" title="4 stars">★</span>
+                        <span class="review-star" data-val="5" title="5 stars">★</span>
+                    </div>
+
+                    <div class="review-fields">
+                        <div class="review-field">
+                            <label class="review-label" for="review-name">NAME</label>
+                            <input class="review-input" id="review-name" type="text" placeholder="Your name"
+                                autocomplete="name">
+                        </div>
+                        <div class="review-field">
+                            <label class="review-label" for="review-role">ROLE</label>
+                            <input class="review-input" id="review-role" type="text"
+                                placeholder="e.g. Junior Dev, CS Student">
+                        </div>
+                        <div class="review-field full">
+                            <label class="review-label" for="review-subject">SUBJECT</label>
+                            <input class="review-input" id="review-subject" type="text"
+                                placeholder="Bug report / Feature request / General feedback…">
+                        </div>
+                        <div class="review-field full">
+                            <label class="review-label" for="review-message">MESSAGE</label>
+                            <textarea class="review-textarea" id="review-message"
+                                placeholder="Share your experience or suggestion in detail…"></textarea>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-lg review-submit" onclick="submitReview()">
+                        SEND REVIEW
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" />
+                        </svg>
+                    </button>
+
+                    <p class="review-note">
+                        Opens your email client · Sent directly to
+                        <a href="mailto:martinsamer91@gmail.com">martinsamer91@gmail.com</a>
+                    </p>
+
+                    <!-- Success state -->
+                    <div class="review-success" id="review-success">
+                        <div class="review-success-icon">⚡</div>
+                        <div class="review-success-title">Review Drafted</div>
+                        <div class="review-success-sub">YOUR EMAIL CLIENT IS READY — HIT SEND TO TRANSMIT</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA SECTION -->
     <section class="cta-section" aria-labelledby="cta-heading">
         <div class="cta-glow"></div>
@@ -5389,6 +5718,105 @@
             localStorage.setItem('pending_payment_intent', 'true');
             window.location.href = 'login.html';
         }
+
+        // ===== SUPABASE AUTH FOR NAV =====
+        const _SUPA_URL = 'https://mryishzprrgpxauoccmr.supabase.co';
+        const _SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
+        let _navSb = null;
+        try { _navSb = window.supabase?.createClient(_SUPA_URL, _SUPA_KEY) || null; } catch (e) { }
+
+        async function _navCheckPaid(userId) {
+            if (!_navSb || !userId) return false;
+            try {
+                const { data, error } = await _navSb.from('profiles').select('is_paid,subscription_status').eq('id', userId).single();
+                if (error) return false;
+                return data && (data.is_paid === true || data.subscription_status === 'active');
+            } catch (e) { return false; }
+        }
+
+        function _setNavLoggedIn(user) {
+            const dashLink = document.getElementById('nav-dashboard-link');
+            const userArea = document.getElementById('nav-user-area');
+            const loginLink = document.getElementById('nav-login-link');
+            const signupLink = document.getElementById('nav-signup-link');
+            const avatar = document.getElementById('nav-user-avatar');
+            // Mobile
+            const mobDash = document.getElementById('mob-dashboard-link');
+            const mobLogout = document.getElementById('mob-logout-btn');
+            const mobPurchase = document.getElementById('mob-purchase-btn');
+            if (dashLink) dashLink.style.display = 'inline-flex';
+            if (userArea) userArea.style.display = 'flex';
+            if (loginLink) loginLink.style.display = 'none';
+            if (signupLink) signupLink.style.display = 'none';
+            if (mobDash) mobDash.style.display = 'inline-flex';
+            if (mobLogout) mobLogout.style.display = 'inline-flex';
+            if (mobPurchase) mobPurchase.style.display = 'none';
+            if (avatar && user) {
+                const initials = (user.user_metadata?.full_name || user.email || 'OP').substring(0, 2).toUpperCase();
+                avatar.textContent = initials;
+                avatar.title = user.email || '';
+            }
+            localStorage.setItem('storm_os_auth', 'true');
+            localStorage.setItem('storm_os_paid', 'true');
+        }
+
+        function _setNavLoggedOut() {
+            const dashLink = document.getElementById('nav-dashboard-link');
+            const userArea = document.getElementById('nav-user-area');
+            const loginLink = document.getElementById('nav-login-link');
+            const signupLink = document.getElementById('nav-signup-link');
+            // Mobile
+            const mobDash = document.getElementById('mob-dashboard-link');
+            const mobLogout = document.getElementById('mob-logout-btn');
+            const mobPurchase = document.getElementById('mob-purchase-btn');
+            if (dashLink) dashLink.style.display = 'none';
+            if (userArea) userArea.style.display = 'none';
+            if (loginLink) loginLink.style.display = 'inline-flex';
+            if (signupLink) signupLink.style.display = 'inline-flex';
+            if (mobDash) mobDash.style.display = 'none';
+            if (mobLogout) mobLogout.style.display = 'none';
+            if (mobPurchase) mobPurchase.style.display = 'inline-flex';
+            localStorage.removeItem('storm_os_auth');
+            localStorage.removeItem('storm_os_paid');
+        }
+
+        async function handleNavLogout() {
+            try {
+                if (_navSb) await _navSb.auth.signOut();
+            } catch (e) { }
+            _setNavLoggedOut();
+        }
+
+        // ===== DASHBOARD NAV LINK — check real Supabase session =====
+        async function updateDashboardNavLink() {
+            // Instant UI: check localStorage first for zero-flicker
+            if (hasPaid() && isLoggedIn()) {
+                // Optimistically show — will be corrected by Supabase check below
+                const dashLink = document.getElementById('nav-dashboard-link');
+                if (dashLink) dashLink.style.display = 'inline-flex';
+            }
+            // Authoritative check via Supabase
+            if (!_navSb) return;
+            try {
+                const { data: { session } } = await _navSb.auth.getSession();
+                if (session?.user) {
+                    const paid = await _navCheckPaid(session.user.id);
+                    if (paid) { _setNavLoggedIn(session.user); }
+                    else { _setNavLoggedOut(); }
+                } else {
+                    _setNavLoggedOut();
+                }
+            } catch (e) {
+                // Fallback to localStorage
+                if (hasPaid() && isLoggedIn()) {
+                    const dashLink = document.getElementById('nav-dashboard-link');
+                    if (dashLink) dashLink.style.display = 'inline-flex';
+                }
+            }
+        }
+        // Run on load and listen for storage changes (multi-tab support)
+        updateDashboardNavLink();
+        window.addEventListener('storage', updateDashboardNavLink);
 
         // ===== SCROLL PROGRESS BAR =====
         const progressBar = document.getElementById('scroll-progress');
@@ -5630,6 +6058,63 @@
             setTimeout(cycleToasts, 6000 + Math.random() * 4000);
         }
         setTimeout(cycleToasts, 5000); // Start after 5s
+
+        // ===== REVIEW SECTION =====
+        (function () {
+            let selectedRating = 0;
+            const stars = document.querySelectorAll('.review-star');
+
+            function setStars(val) {
+                stars.forEach(s => {
+                    s.classList.toggle('active', parseInt(s.dataset.val) <= val);
+                });
+            }
+
+            stars.forEach(star => {
+                star.addEventListener('mouseenter', () => setStars(parseInt(star.dataset.val)));
+                star.addEventListener('mouseleave', () => setStars(selectedRating));
+                star.addEventListener('click', () => {
+                    selectedRating = parseInt(star.dataset.val);
+                    setStars(selectedRating);
+                });
+            });
+
+            window.submitReview = function () {
+                const name = document.getElementById('review-name').value.trim();
+                const role = document.getElementById('review-role').value.trim();
+                const subject = document.getElementById('review-subject').value.trim();
+                const message = document.getElementById('review-message').value.trim();
+
+                if (!message) {
+                    document.getElementById('review-message').focus();
+                    return;
+                }
+
+                const ratingLine = selectedRating > 0
+                    ? '★'.repeat(selectedRating) + '☆'.repeat(5 - selectedRating) + ` (${selectedRating}/5)\n`
+                    : '';
+
+                const nameLine = name ? `Name: ${name}\n` : '';
+                const roleLine = role ? `Role: ${role}\n` : '';
+                const separator = (nameLine || roleLine || ratingLine) ? '\n---\n\n' : '';
+
+                const body = encodeURIComponent(
+                    `${ratingLine}${nameLine}${roleLine}${separator}${message}`
+                );
+                const subjectLine = encodeURIComponent(
+                    subject || `Storm OS Review${name ? ' from ' + name : ''}`
+                );
+
+                window.location.href =
+                    `mailto:martinsamer91@gmail.com?subject=${subjectLine}&body=${body}`;
+
+                // Show success state
+                setTimeout(() => {
+                    const success = document.getElementById('review-success');
+                    if (success) { success.style.display = 'flex'; }
+                }, 400);
+            };
+        })();
 
         // ===== EXIT INTENT =====
         let exitShown = false;
@@ -6324,7 +6809,7 @@
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontFamily: "'JetBrains Mono', monospace",
                     fontSize: '.65rem', letterSpacing: '.2em',
-                    color: '#1a1a1a',
+                    color: '#888888',
                 }
             }, 'INITIALIZING...');
         }
