@@ -27,13 +27,13 @@
             --accent2: #d8d8d8;
             --accent-glow: rgba(255, 255, 255, 0.10);
             --green: #bbbbbb;
-            --green-dim: #444444;
-            --red: #888888;
+            --green-dim: #777777;
+            --red: #aaaaaa;
             --amber: #eeeeee;
             --cyan: #cccccc;
             --text: #f8f8f8;
-            --text2: #777777;
-            --text3: #333333;
+            --text2: #aaaaaa;
+            --text3: #666666;
             --mono: 'JetBrains Mono', monospace;
             --head: 'Cormorant Garamond', serif;
             --body: 'EB Garamond', serif;
@@ -1103,11 +1103,33 @@
         }
 
         .task-item.done {
-            opacity: .5;
+            opacity: .55;
         }
 
         .task-item.done .task-text {
             text-decoration: line-through;
+        }
+
+        /* Edit btn stays interactive on completed tasks */
+        .task-item.done .task-edit-btn {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .task-item.done:hover {
+            opacity: .85;
+            transition: opacity .2s;
+        }
+
+        /* Edit button stays fully visible and interactive on completed tasks */
+        .task-item.done .task-edit-btn {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            color: var(--text3);
+        }
+
+        .task-item.done:hover {
+            opacity: .85;
         }
 
         .task-check {
@@ -1181,6 +1203,82 @@
         .task-del:hover {
             color: var(--red);
             transform: scale(1.2) rotate(5deg);
+        }
+
+        .task-edit-btn {
+            color: var(--text3);
+            cursor: pointer;
+            padding: 0 4px;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            background: none;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .task-edit-btn:hover {
+            color: var(--accent2);
+            transform: scale(1.15);
+        }
+
+        .task-inline-edit {
+            flex: 1;
+            background: var(--card2);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            color: var(--text);
+            font-family: var(--mono);
+            font-size: 0.97rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            outline: none;
+            min-width: 0;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.06);
+        }
+
+        .task-inline-edit:focus {
+            border-color: var(--accent2);
+        }
+
+        /* Focus Impulse — stopwatch toggle switch */
+        .mini-sw-slider::before {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            left: 3px;
+            top: 3px;
+            background: var(--text2);
+            border-radius: 50%;
+            transition: .3s;
+        }
+
+        #mini-stopwatch-toggle:checked+.mini-sw-slider {
+            background: var(--accent2);
+        }
+
+        #mini-stopwatch-toggle:checked+.mini-sw-slider::before {
+            transform: translateX(18px);
+            background: #000;
+        }
+
+
+        .rec-remove-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text3);
+            font-size: 0.72rem;
+            padding: 0 3px;
+            margin-left: 2px;
+            transition: color 0.2s;
+            vertical-align: middle;
+            line-height: 1;
+        }
+
+        .rec-remove-btn:hover {
+            color: var(--red);
         }
 
         .recurring-badge {
@@ -4132,6 +4230,8 @@
                 </button>
                 <button class="btn btn-ghost btn-sm" id="pwa-install-btn" style="display:none" onclick="installPWA()"><i
                         class="fas fa-download"></i> INSTALL APP</button>
+                <a href="Profile.html" class="btn btn-ghost btn-sm" title="View Profile"><i
+                        class="fas fa-user-circle"></i> PROFILE</a>
                 <button class="btn btn-ghost btn-sm" onclick="showShortcuts()"><i class="fas fa-keyboard"></i></button>
                 <button class="btn btn-ghost btn-sm" onclick="exportData()"><i class="fas fa-download"></i>
                     EXPORT</button>
@@ -4283,7 +4383,19 @@
                                 id="mini-badge">STANDBY</span></div>
                         <div class="timer-display">
                             <div class="timer-digits" id="timer-mini">45:00</div>
-                            <div class="timer-label">SELECT DURATION</div>
+                            <div class="timer-label" id="mini-timer-label">SELECT DURATION</div>
+                            <!-- Editable task name shown under the timer -->
+                            <div id="mini-task-name-row"
+                                style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:6px">
+                                <span id="mini-task-name-display"
+                                    style="font-family:var(--mono);font-size:0.88rem;font-weight:700;color:var(--text2);letter-spacing:.04em;cursor:pointer;border-bottom:1px dashed var(--border2);padding-bottom:1px;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"
+                                    onclick="startEditMiniTask()" title="Click to edit task name">Untitled Task</span>
+                                <button onclick="startEditMiniTask()" title="Edit task name"
+                                    style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:0.72rem;padding:0;line-height:1;transition:color .2s"
+                                    onmouseover="this.style.color='var(--text)'"
+                                    onmouseout="this.style.color='var(--text3)'"><i
+                                        class="fas fa-pencil-alt"></i></button>
+                            </div>
                         </div>
                         <div class="timer-presets" id="mini-presets">
                             <div class="preset-btn" onclick="setMini(15)">15m</div>
@@ -4297,13 +4409,34 @@
                         <div id="mini-last-session-chip"
                             style="display:none;text-align:center;margin-top:8px;font-family:var(--mono);font-size: 0.83rem;color:var(--text3);background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:4px 10px">
                             LAST: <span id="mini-last-session-text">—</span></div>
+
+                        <!-- Stopwatch switch -->
+                        <div
+                            style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:7px 12px">
+                            <span
+                                style="font-family:var(--mono);font-size:0.82rem;color:var(--text2);display:flex;align-items:center;gap:7px"><i
+                                    class="fas fa-hourglass-start" style="color:var(--accent2)"></i> OVERTIME
+                                STOPWATCH</span>
+                            <label class="mini-sw-toggle"
+                                style="position:relative;display:inline-block;width:38px;height:20px;cursor:pointer">
+                                <input type="checkbox" id="mini-stopwatch-toggle" onchange="toggleMiniStopwatchMode()"
+                                    style="opacity:0;width:0;height:0">
+                                <span class="mini-sw-slider"
+                                    style="position:absolute;inset:0;background:var(--border2);border-radius:20px;transition:.3s"></span>
+                            </label>
+                        </div>
+                        <!-- Stopwatch display (hidden by default) -->
+                        <div id="mini-stopwatch-display"
+                            style="display:none;text-align:center;margin-top:8px;font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--amber);letter-spacing:.06em;background:rgba(238,238,238,.04);border:1px solid var(--border2);border-radius:6px;padding:8px">
+                            +<span id="mini-sw-counter">00:00</span>
+                            <div style="font-size:0.72rem;color:var(--text3);margin-top:2px;font-weight:600">OVERTIME —
+                                WILL BE RECORDED</div>
+                        </div>
                         <div class="timer-controls">
                             <button class="btn btn-primary" id="mini-btn" onclick="toggleMini()"><i
                                     class="fas fa-play"></i> START</button>
                             <button class="btn btn-ghost" onclick="resetMini()"><i class="fas fa-undo-alt"></i>
                                 RESET</button>
-                            <button class="btn btn-danger" onclick="stopMini()"><i class="fas fa-stop"></i>
-                                STOP</button>
                         </div>
                     </div>
                     <div class="card" style="margin-top:16px">
@@ -4387,7 +4520,6 @@
                             START</button>
                         <button class="btn btn-ghost" onclick="resetMain()"><i class="fas fa-undo-alt"></i>
                             RESET</button>
-                        <button class="btn btn-danger" onclick="stopMain()"><i class="fas fa-stop"></i> STOP</button>
                         <button class="btn btn-ghost btn-sm" onclick="skipTimer()"><i class="fas fa-forward"></i>
                             SKIP</button>
                     </div>
@@ -5032,7 +5164,7 @@
         async function protectDashboard() { if (!supabaseClient) { window.location.href = 'login.html'; return false; } const user = await getCurrentUser(); if (!user) { window.location.href = 'login.html'; return false; } const hasPaid = await checkPaidStatus(user.id); if (!hasPaid) { window.location.href = 'index.html#pricing'; return false; } currentUser = user; return true; }
         async function handleLogout() { if (!supabaseClient) return; try { await saveCloudData(); await supabaseClient.auth.signOut(); localStorage.removeItem('storm_os_auth'); localStorage.removeItem('storm_os_paid'); localStorage.removeItem('storm_os_payment_tx'); localStorage.removeItem('storm_os_payment_pending'); showToast('✅ Logged out'); setTimeout(() => window.location.href = 'login.html', 500); } catch (e) { showToast('⚠ Logout failed'); } }
         function addLogoutButton() { const ha = document.querySelector('.header-actions'); if (ha && !document.getElementById('logout-btn')) { const btn = document.createElement('button'); btn.id = 'logout-btn'; btn.className = 'btn btn-ghost btn-sm'; btn.innerHTML = '<i class="fas fa-sign-out-alt"></i> LOGOUT'; btn.onclick = handleLogout; ha.appendChild(btn); } }
-        function updateHeaderUserArea(user) { let el = document.getElementById('header-user-area'); if (!el) return; if (user) { let initials = (user.email || 'OP').substring(0, 2).toUpperCase(); let name = user.user_metadata?.full_name || user.user_metadata?.display_name || user.email?.split('@')[0] || 'OPERATOR'; el.innerHTML = `<div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--cyan));display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size: 0.83rem;font-weight:900;color:#fff;cursor:pointer;border:2px solid rgba(108,99,255,0.4);" title="${user.email}">${initials}</div>`; document.getElementById('user-name').innerHTML = name.toUpperCase(); if (window.S && window.S.user) S.user.name = name.toUpperCase(); } else { el.innerHTML = ''; } }
+        function updateHeaderUserArea(user) { let el = document.getElementById("header-user-area"); if (!el) return; if (user) { let initials = (user.user_metadata?.full_name || user.email || "OP").substring(0, 2).toUpperCase(); let name = user.user_metadata?.full_name || user.user_metadata?.display_name || user.email?.split("@")[0] || "OPERATOR"; el.innerHTML = `<a href="Profile.html" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#ffffff,#888888);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:0.83rem;font-weight:900;color:#000;cursor:pointer;border:2px solid rgba(255,255,255,0.3);text-decoration:none;" title="View Profile">${initials}</a>`; document.getElementById("user-name").innerHTML = name.toUpperCase(); if (window.S && window.S.user) S.user.name = name.toUpperCase(); } else { el.innerHTML = ""; } }
 
         const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
         function getTodayKey() { let d = new Date(); let y = d.getFullYear(); let m = String(d.getMonth() + 1).padStart(2, '0'); let day = String(d.getDate()).padStart(2, '0'); return `${y}-${m}-${day}`; }
@@ -5437,13 +5569,24 @@
             clearInterval(miniInt); miniRun = false;
             localStorage.removeItem('timer_mini_state');
             document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START';
-            document.getElementById('mini-badge').innerHTML = 'STANDBY';
+            document.getElementById('mini-badge').innerHTML = 'DONE \u2713';
             document.getElementById('timer-mini').classList.remove('running');
             document.getElementById('timer-mini').classList.add('complete');
-            setTimeout(() => document.getElementById('timer-mini').classList.remove('complete'), 4000);
+            setTimeout(() => {
+                document.getElementById('timer-mini').classList.remove('complete');
+                document.getElementById('mini-badge').innerHTML = 'STANDBY';
+            }, 4000);
             _playTimerSound();
             if (!mainRun) _setHeroCta(false);
+            // use editable task name if set
+            let _mTaskName = (typeof getMiniTaskName === 'function') ? getMiniTaskName() : '';
+            if (_mTaskName) { let _st = document.getElementById('sess-task'); if (_st) _st.value = _mTaskName; }
+            // Ensure task name row stays fully interactive after completion
+            let _taskRow = document.getElementById('mini-task-name-row');
+            if (_taskRow) { _taskRow.style.pointerEvents = ''; _taskRow.style.opacity = ''; }
             logSess(Math.round(miniTotal / 60)); showToast('\uD83C\uDF89 Focus complete! +20 XP'); setFocusActive(false);
+            // start overtime stopwatch if toggle is on
+            if (typeof _miniSwStart === 'function') setTimeout(_miniSwStart, 300);
         }
         function _mainComplete() {
             clearInterval(mainInt); mainRun = false;
@@ -5553,6 +5696,11 @@
                 document.getElementById('mini-badge').innerHTML = 'ACTIVE';
                 document.getElementById('timer-mini').classList.add('running');
                 setFocusActive(true); markOb('start_timer');
+                // stop any running overtime stopwatch
+                if (typeof _miniSwStop === 'function') _miniSwStop();
+                // sync task name
+                let _mtn = (typeof getMiniTaskName === 'function') ? getMiniTaskName() : '';
+                if (_mtn) { let _st = document.getElementById('sess-task'); if (_st) _st.value = _mtn; }
                 _saveMiniState(); _startMiniInterval();
                 _setHeroCta(true);
             }
@@ -5576,6 +5724,111 @@
             document.getElementById('mini-badge').innerHTML = 'STANDBY';
             document.getElementById('timer-mini').classList.remove('running', 'complete');
             setFocusActive(false);
+            // Restore persisted task name on reset (don't blank it out)
+            let _savedName = _loadMiniTaskName ? _loadMiniTaskName() : '';
+            let _nameEl = document.getElementById('mini-task-name-display');
+            if (_nameEl && _savedName) _nameEl.textContent = _savedName;
+            // stop overtime stopwatch if running
+            _miniSwStop();
+        }
+
+        // ── Focus Impulse: editable task name ──
+        // Persist task name across resets/reloads via localStorage
+        function _saveMiniTaskName(val) {
+            try { localStorage.setItem('focus_impulse_task_name', val); } catch (e) { }
+        }
+        function _loadMiniTaskName() {
+            try { return localStorage.getItem('focus_impulse_task_name') || ''; } catch (e) { return ''; }
+        }
+        function _applyMiniTaskName() {
+            let saved = _loadMiniTaskName();
+            let el = document.getElementById('mini-task-name-display');
+            if (el && saved) el.textContent = saved;
+        }
+
+        function startEditMiniTask() {
+            let nameSpan = document.getElementById('mini-task-name-display');
+            if (!nameSpan) return;
+            // Guard: if an input is already active, don't open another
+            if (nameSpan.parentNode.querySelector('.task-inline-edit')) return;
+            let curText = nameSpan.textContent;
+            // Hide the pencil btn while editing
+            let pencilBtn = nameSpan.nextElementSibling;
+            if (pencilBtn) pencilBtn.style.display = 'none';
+            let inp = document.createElement('input');
+            inp.className = 'task-inline-edit';
+            inp.value = curText === 'Untitled Task' ? '' : curText;
+            inp.placeholder = 'Enter task name...';
+            inp.style.cssText = 'width:160px;min-width:80px;font-size:0.88rem;text-align:center;';
+            inp.onclick = e => e.stopPropagation();
+            nameSpan.style.display = 'none';
+            nameSpan.parentNode.insertBefore(inp, nameSpan);
+            inp.focus(); inp.select();
+            function saveEdit() {
+                let val = inp.value.trim() || 'Untitled Task';
+                nameSpan.textContent = val;
+                nameSpan.style.display = '';
+                if (pencilBtn) pencilBtn.style.display = '';
+                inp.remove();
+                // Persist the name
+                _saveMiniTaskName(val !== 'Untitled Task' ? val : '');
+                // Sync with sess-task field if it exists
+                let sessTask = document.getElementById('sess-task');
+                if (sessTask && val !== 'Untitled Task') sessTask.value = val;
+            }
+            inp.addEventListener('blur', saveEdit);
+            inp.addEventListener('keydown', e => {
+                if (e.key === 'Enter') { e.preventDefault(); inp.blur(); }
+                else if (e.key === 'Escape') { inp.value = curText; inp.blur(); }
+            });
+        }
+        function getMiniTaskName() {
+            let el = document.getElementById('mini-task-name-display');
+            let val = el ? el.textContent : '';
+            return (val && val !== 'Untitled Task') ? val : '';
+        }
+
+        // ── Focus Impulse: overtime stopwatch ──
+        let _miniSwInt = null, _miniSwSecs = 0, _miniSwActive = false;
+        function toggleMiniStopwatchMode() {
+            // just toggle UI state; actual stopwatch starts when timer completes
+            let on = document.getElementById('mini-stopwatch-toggle').checked;
+            if (!on) _miniSwStop();
+        }
+        function _miniSwStart() {
+            let tog = document.getElementById('mini-stopwatch-toggle');
+            if (!tog || !tog.checked) return;
+            _miniSwSecs = 0; _miniSwActive = true;
+            let disp = document.getElementById('mini-stopwatch-display');
+            if (disp) disp.style.display = 'block';
+            _miniSwInt = setInterval(() => {
+                _miniSwSecs++;
+                let counter = document.getElementById('mini-sw-counter');
+                if (counter) counter.textContent = fmt(_miniSwSecs);
+            }, 1000);
+        }
+        function _miniSwStop() {
+            if (_miniSwInt) { clearInterval(_miniSwInt); _miniSwInt = null; }
+            if (_miniSwActive && _miniSwSecs > 0) {
+                // record overtime as extra session time
+                let extraMins = Math.round(_miniSwSecs / 60);
+                if (extraMins > 0) {
+                    let taskName = getMiniTaskName() || 'Overtime';
+                    S.sessions.push({ time: new Date().toLocaleTimeString(), task: taskName + ' (+overtime)', mins: extraMins, date: todayKey, hour: new Date().getHours() });
+                    S.analytics.totalSess = (S.analytics.totalSess || 0) + 1;
+                    S.analytics.totalMin = (S.analytics.totalMin || 0) + extraMins;
+                    if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
+                    S.analytics.daily[todayKey].sess = (S.analytics.daily[todayKey].sess || 0) + 1;
+                    S.analytics.daily[todayKey].min = (S.analytics.daily[todayKey].min || 0) + extraMins;
+                    updateScore(); renderSessLog(); renderWeekBars(); saveNow();
+                    showToast('⏱ Overtime recorded: +' + extraMins + 'm');
+                }
+            }
+            _miniSwActive = false; _miniSwSecs = 0;
+            let counter = document.getElementById('mini-sw-counter');
+            if (counter) counter.textContent = '00:00';
+            let disp = document.getElementById('mini-stopwatch-display');
+            if (disp) disp.style.display = 'none';
         }
         function toggleMain() {
             if (mainRun) {
@@ -5628,13 +5881,81 @@
                 ['mini-last-session-chip', 'main-last-session-chip'].forEach(id => { let c = document.getElementById(id); if (c) c.style.display = 'none'; });
             }
         }
-        function editSessionEntry(idx) { let ts = S.sessions.filter(s => s.date === todayKey); let displayIdx = ts.length - 1 - idx; let s = ts[displayIdx]; if (!s) return; let newMins = prompt('Edit session duration (minutes):', s.mins); if (newMins === null) return; newMins = parseInt(newMins); if (isNaN(newMins) || newMins <= 0) { showToast('\u26a0 Enter a valid number of minutes'); return; } let i = S.sessions.findIndex(s2 => s2.time === s.time && s2.task === s.task && s2.mins === s.mins && s2.date === s.date); if (i !== -1) { let oldMins = S.sessions[i].mins; S.sessions[i].mins = newMins; S.analytics.totalMin = Math.max(0, (S.analytics.totalMin || 0) - oldMins + newMins); if (S.analytics.daily[todayKey]) { S.analytics.daily[todayKey].min = Math.max(0, (S.analytics.daily[todayKey].min || 0) - oldMins + newMins); } save(); renderSessLog(); renderWeekBars(); updateScore(); showToast('\u2705 Session updated to ' + newMins + ' min'); } }
+        function editSessionEntry(idx) {
+            let ts = S.sessions.filter(s => s.date === todayKey);
+            let displayIdx = ts.length - 1 - idx;
+            let s = ts[displayIdx];
+            if (!s) return;
+            let i = S.sessions.findIndex(s2 => s2.time === s.time && s2.task === s.task && s2.mins === s.mins && s2.date === s.date);
+            if (i === -1) return;
+            let log = document.getElementById('sess-log');
+            if (!log) return;
+            let entryEls = log.querySelectorAll('.session-entry');
+            let entryEl = entryEls[idx];
+            if (!entryEl || entryEl.querySelector('.sess-edit-form')) return;
+            let origHTML = entryEl.innerHTML;
+            entryEl.innerHTML = `<form class="sess-edit-form" style="display:flex;flex-wrap:wrap;gap:6px;width:100%;align-items:center" onsubmit="return false"><input class="task-inline-edit" id="sess-edit-name-${idx}" value="${escHtml(s.task)}" placeholder="Task name" style="flex:1;min-width:100px;font-size:0.85rem"/><input class="task-inline-edit" id="sess-edit-mins-${idx}" type="number" value="${s.mins}" min="1" style="width:60px;font-size:0.85rem" title="Minutes"/><button onclick="saveSessionEdit(${idx},${i})" style="background:var(--accent);color:#000;border:none;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:0.82rem;font-weight:700">✓</button><button onclick="cancelSessionEdit(${idx},'${encodeURIComponent(origHTML)}')" style="background:none;border:1px solid var(--border2);color:var(--text2);border-radius:4px;padding:3px 8px;cursor:pointer;font-size:0.82rem">✕</button></form>`;
+            document.getElementById('sess-edit-name-' + idx)?.focus();
+        }
+        function saveSessionEdit(idx, i) {
+            let nameEl = document.getElementById('sess-edit-name-' + idx);
+            let minsEl = document.getElementById('sess-edit-mins-' + idx);
+            if (!nameEl || !minsEl) return;
+            let newName = nameEl.value.trim() || 'Focus';
+            let newMins = parseInt(minsEl.value);
+            if (isNaN(newMins) || newMins <= 0) { showToast('⚠ Enter valid minutes'); return; }
+            let oldMins = S.sessions[i].mins;
+            S.sessions[i].task = newName;
+            S.sessions[i].mins = newMins;
+            S.analytics.totalMin = Math.max(0, (S.analytics.totalMin || 0) - oldMins + newMins);
+            if (S.analytics.daily[todayKey]) { S.analytics.daily[todayKey].min = Math.max(0, (S.analytics.daily[todayKey].min || 0) - oldMins + newMins); }
+            save(); renderSessLog(); renderWeekBars(); updateScore();
+            showToast('✅ Session updated');
+        }
+        function cancelSessionEdit(idx, encodedHTML) {
+            let log = document.getElementById('sess-log');
+            if (!log) return;
+            let entryEls = log.querySelectorAll('.session-entry');
+            let entryEl = entryEls[idx];
+            if (entryEl) entryEl.innerHTML = decodeURIComponent(encodedHTML);
+        }
         function deleteSessionEntry(idx) { let ts = S.sessions.filter(s => s.date === todayKey); let displayIdx = ts.length - 1 - idx; let s = ts[displayIdx]; if (s) { let i = S.sessions.findIndex(s2 => s2.time === s.time && s2.task === s.task && s2.mins === s.mins && s2.date === s.date); if (i !== -1) { S.sessions.splice(i, 1); S.analytics.totalSess = Math.max(0, (S.analytics.totalSess || 0) - 1); S.analytics.totalMin = Math.max(0, (S.analytics.totalMin || 0) - s.mins); if (S.analytics.daily[todayKey]) { S.analytics.daily[todayKey].sess = Math.max(0, (S.analytics.daily[todayKey].sess || 0) - 1); S.analytics.daily[todayKey].min = Math.max(0, (S.analytics.daily[todayKey].min || 0) - s.mins); } save(); renderSessLog(); renderWeekBars(); updateScore(); showToast('Session deleted'); } } }
+
+        // ── Onboarding section toggle ──
+        function toggleOnboarding() {
+            let table = document.getElementById('ob-table');
+            let btn = document.getElementById('ob-toggle-btn');
+            if (!table) return;
+            let hidden = table.style.display === 'none';
+            table.style.display = hidden ? '' : 'none';
+            if (btn) btn.textContent = hidden ? 'HIDE' : 'SHOW';
+        }
 
         function addTask() { let v = document.getElementById('task-input').value.trim(); if (!v) { showToast('Enter task'); return; } let pri = document.getElementById('task-priority').value, mins = parseInt(document.getElementById('task-mins').value) || 30, rec = document.getElementById('task-recurring').checked; S.tasks.push({ id: Date.now(), text: v, priority: pri, mins, done: false, date: todayKey, recurring: rec }); document.getElementById('task-input').value = ''; document.getElementById('task-mins').value = ''; document.getElementById('task-recurring').checked = false; saveNow(); renderTasks(); updateScore(); showToast(rec ? 'Daily task added' : 'Task added'); addXP(5); markOb('add_task'); }
         function toggleTask(id) { let t = S.tasks.find(t => t.id == id); if (t && !t.done) { t.done = true; renderTasks(); updateScore(); saveNow(); showToast('🎉 +15 XP!'); addXP(15); } else if (t && t.done) { t.done = false; renderTasks(); updateScore(); saveNow(); showToast('Task reopened'); } }
         function deleteTask(id) { S.tasks = S.tasks.filter(t => t.id != id && t.parentId != id); renderTasks(); updateScore(); save(); showToast('Deleted'); }
-        function taskHTML(t) { let recBadge = t.recurring ? '<span class="recurring-badge"><i class="fas fa-sync-alt"></i> Daily</span>' : ''; return `<div class="task-item${t.done ? ' done' : ''}" draggable="true" ondragstart="dragStart(event,${t.id})" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="drop(event,${t.id})"><div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div><div class="task-text">${escHtml(t.text)}${recBadge}</div><span class="task-priority priority-${t.priority}">${t.priority === 'high' ? '🔴 HIGH' : t.priority === 'med' ? '🟡 MED' : '🟢 LOW'}</span><span style="font-size: 0.92rem;font-weight:600">${t.mins}m</span><span class="task-del" onclick="deleteTask(${t.id})"><i class="fas fa-trash-alt"></i></span></div>`; }
+        function taskHTML(t) {
+            let recBadge = t.recurring ? `<span class="recurring-badge"><i class="fas fa-sync-alt"></i> Daily<button class="rec-remove-btn" onclick="removeTaskRecurring(${t.id},event)" title="Remove Daily — stop repeating">✕</button></span>` : '';
+            let completeDailyBtn = (t.recurring && !t.done) ? `<button class="btn btn-ghost btn-sm" onclick="completeDailyTask(${t.id},event)" title="Mark complete — resets tomorrow" style="padding:2px 8px;font-size:0.78rem;margin-left:4px;border-color:var(--green);color:var(--green)"><i class="fas fa-check-double"></i></button>` : '';
+            return `<div class="task-item${t.done ? ' done' : ''}" draggable="true" ondragstart="dragStart(event,${t.id})" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="drop(event,${t.id})"><div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div><div class="task-text" id="task-text-${t.id}">${escHtml(t.text)}${recBadge}</div>${completeDailyBtn}<span class="task-priority priority-${t.priority}">${t.priority === 'high' ? '🔴 HIGH' : t.priority === 'med' ? '🟡 MED' : '🟢 LOW'}</span><span style="font-size: 0.92rem;font-weight:600">${t.mins}m</span><button class="task-edit-btn" onclick="startEditTask(${t.id},event)" title="Edit task name"><i class="fas fa-pencil-alt"></i></button><span class="task-del" onclick="deleteTask(${t.id})"><i class="fas fa-trash-alt"></i></span></div>`;
+        }
+        function removeTaskRecurring(id, evt) {
+            evt && evt.stopPropagation();
+            let t = S.tasks.find(t => t.id == id);
+            if (!t) return;
+            t.recurring = false;
+            if (t.parentId) { let p = S.tasks.find(p => p.id == t.parentId); if (p) p.recurring = false; }
+            saveNow(); renderTasks(); showToast("Daily removed — won't repeat tomorrow");
+        }
+        function completeDailyTask(id, evt) {
+            evt && evt.stopPropagation();
+            let t = S.tasks.find(t => t.id == id);
+            if (!t || t.done) return;
+            t.done = true;
+            renderTasks(); updateScore(); saveNow();
+            showToast('🎉 Daily complete! Resets tomorrow. +15 XP'); addXP(15);
+        }
+        function startEditTask(id, evt) { evt && evt.stopPropagation(); let t = S.tasks.find(t => t.id == id); if (!t) return; let textEl = document.getElementById('task-text-' + id); if (!textEl) return; let curText = t.text; let inp = document.createElement('input'); inp.className = 'task-inline-edit'; inp.value = curText; inp.onclick = e => e.stopPropagation(); let recBadge = t.recurring ? `<span class="recurring-badge" style="margin-left:8px"><i class="fas fa-sync-alt"></i> Daily</span>` : ''; textEl.innerHTML = ''; textEl.appendChild(inp); if (t.recurring) { let badge = document.createElement('span'); badge.className = 'recurring-badge'; badge.style.marginLeft = '8px'; badge.innerHTML = '<i class="fas fa-sync-alt"></i> Daily'; textEl.appendChild(badge); } inp.focus(); inp.select(); function saveEdit() { let newVal = inp.value.trim(); if (newVal && newVal !== curText) { t.text = newVal; saveNow(); showToast('Task renamed'); } renderTasks(); } inp.addEventListener('blur', saveEdit); inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } else if (e.key === 'Escape') { inp.value = curText; inp.blur(); } }); }
         function renderTasks() { let act = S.tasks.filter(t => t.date === todayKey && !t.done), done = S.tasks.filter(t => t.date === todayKey && t.done); let tl = document.getElementById('task-list'); if (tl) tl.innerHTML = act.length ? act.map(taskHTML).join('') : '<div class="empty-state" style="text-align:center;padding:24px 10px"><div style="font-size: 1.8rem;margin-bottom:8px">📋</div><div style="font-weight:700;margin-bottom:4px">No tasks today</div><div style="font-size: 0.9rem;color:var(--text3)">Type a task above and press ADD</div></div>'; let dl = document.getElementById('done-list'); if (dl) dl.innerHTML = done.length ? done.map(taskHTML).join('') : '<div class="empty-state">// NONE COMPLETED YET</div>'; let dc = document.getElementById('done-count'); if (dc) dc.innerHTML = done.length + ' DONE'; let tt = document.getElementById('today-tasks'); if (tt) tt.textContent = done.length; let pct = (act.length + done.length) ? Math.round(done.length / (act.length + done.length) * 100) : 0; let tp = document.getElementById('task-progress'); if (tp) tp.style.width = pct + '%'; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; S.analytics.daily[todayKey].tasks = done.length; }
         function dragStart(e, id) { draggedItem = id; e.dataTransfer.effectAllowed = 'move'; e.target.style.opacity = '0.5'; }
         function dragEnd(e) { e.target.style.opacity = ''; draggedItem = null; }
@@ -5854,25 +6175,58 @@
         }
 
         // ===== SUPABASE INIT =====
+        // Race a promise against a ms timeout — resolves with null on timeout
+        function _withTimeout(promise, ms) {
+            return Promise.race([promise, new Promise(resolve => setTimeout(() => resolve(null), ms))]);
+        }
+
         async function initSupabase() {
+            // Hard 5s boot-timeout: if auth hangs, skip straight to local data boot
+            const BOOT_TIMEOUT = 5000;
+            let _bootTimedOut = false;
+            const _bootTimer = setTimeout(async () => {
+                _bootTimedOut = true;
+                console.warn('Supabase auth timed out — booting from local data');
+                setLoadingMsg('BOOTING SYSTEMS...');
+                await boot();
+                hideLoadingOverlay();
+            }, BOOT_TIMEOUT);
+
             try {
                 if (!window.supabase || !window.supabase.createClient) throw new Error('Supabase SDK not loaded');
                 supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
                 isSupabaseReady = true;
                 setLoadingMsg('AUTHENTICATING...');
-                const isProtected = await protectDashboard();
+
+                // Wrap auth in 3.5s timeout so a slow Supabase never hangs the UI
+                const isProtected = await _withTimeout(protectDashboard(), 3500);
+
+                if (_bootTimedOut) return; // timeout already booted — bail
+                clearTimeout(_bootTimer);
+
                 if (!isProtected) return;
+
                 setLoadingMsg('LOADING CLOUD DATA...');
                 addLogoutButton(); updateHeaderUserArea(currentUser);
-                await loadCloudData(currentUser.id);
+                await _withTimeout(loadCloudData(currentUser.id), 3000);
+
                 setLoadingMsg('BOOTING SYSTEMS...');
                 await boot();
                 hideLoadingOverlay();
+
                 supabaseClient.auth.onAuthStateChange(async (event, session) => {
                     if (event === 'SIGNED_OUT') { window.location.href = 'login.html'; }
                     else if (event === 'SIGNED_IN' && session) { const hasPaid = await checkPaidStatus(session.user.id); if (!hasPaid) { await supabaseClient.auth.signOut(); window.location.href = 'index.html#pricing'; } else { currentUser = session.user; window.location.reload(); } }
                 });
-            } catch (e) { console.warn('Supabase init failed:', e); window.location.href = 'login.html'; }
+            } catch (e) {
+                clearTimeout(_bootTimer);
+                if (_bootTimedOut) return; // already booted locally
+                console.warn('Supabase init failed:', e);
+                // On any network/auth error, boot from local data instead of redirecting
+                setLoadingMsg('BOOTING SYSTEMS...');
+                await boot();
+                hideLoadingOverlay();
+            }
         }
 
         async function boot() {
@@ -6095,7 +6449,7 @@
                 let dateKey = localDateKey(colDate); let isToday = dateKey === todayStr;
                 let dayEvents = S.weeklyEvents.filter(e => eventMatchesDate(e, dateKey)).sort((a, b) => plannerEventOrder(a) - plannerEventOrder(b) || (a.time || '00:00').localeCompare(b.time || '00:00'));
                 dayEvents.forEach(e => { if (stats[e.cat] !== undefined) stats[e.cat]++; });
-                let evHTML = dayEvents.map(e => { let timeDisplay = e.time ? `<span class="wp-event-time">${formatTimeAMPM(e.time)}</span>` : ''; let isDone = isPlannerEventDone(e, dateKey); let recBadge = e.repeatWeekly ? '<span class="recurring-badge"><i class="fas fa-sync-alt"></i> WEEKLY</span>' : e.repeatMonthly ? '<span class="recurring-badge"><i class="fas fa-sync-alt"></i> MONTHLY</span>' : ''; return `<div class="wp-event ${CAT_COLORS[e.cat] || 'cat-work'}${isDone ? ' done' : ''}" draggable="true" ondragstart="dragStartWeekly(event,${e.id},'${dateKey}')" ondragend="dragEndWeekly(event)" ondragover="dragOver(event)" ondrop="dropWeekly(event,${e.id},'${dateKey}')"><div style="display:flex;align-items:center;gap:8px;"><div class="task-check${isDone ? ' checked' : ''}" onclick="togglePlannerEvent(${e.id},'${dateKey}')"></div><div class="wp-event-body">${timeDisplay}<span>${escHtml(e.text)}</span>${recBadge}</div></div><button class="wp-event-del" onclick="deleteWeeklyEvent(${e.id})" title="Delete">✕</button></div>`; }).join('');
+                let evHTML = dayEvents.map(e => { let timeDisplay = e.time ? `<span class="wp-event-time">${formatTimeAMPM(e.time)}</span>` : ''; let isDone = isPlannerEventDone(e, dateKey); let recLabel = e.repeatWeekly ? 'WEEKLY' : e.repeatMonthly ? 'MONTHLY' : ''; let recBadge = recLabel ? `<span class="recurring-badge"><i class="fas fa-sync-alt"></i> ${recLabel}<button class="rec-remove-btn" onclick="removeEventRecurring(${e.id},event)" title="Remove recurring">✕</button></span>` : ''; return `<div class="wp-event ${CAT_COLORS[e.cat] || 'cat-work'}${isDone ? ' done' : ''}" draggable="true" ondragstart="dragStartWeekly(event,${e.id},'${dateKey}')" ondragend="dragEndWeekly(event)" ondragover="dragOver(event)" ondrop="dropWeekly(event,${e.id},'${dateKey}')"><div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0"><div class="task-check${isDone ? ' checked' : ''}" onclick="togglePlannerEvent(${e.id},'${dateKey}')"></div><div class="wp-event-body" id="wp-ev-${e.id}-${dateKey}">${timeDisplay}<span>${escHtml(e.text)}</span>${recBadge}</div></div><button class="task-edit-btn" onclick="startEditWeeklyEvent(${e.id},'${dateKey}',event)" title="Edit"><i class="fas fa-pencil-alt"></i></button><button class="wp-event-del" onclick="deleteWeeklyEvent(${e.id})" title="Delete">✕</button></div>`; }).join('');
                 let monthShort = colDate.toLocaleDateString('en-US', { month: 'short' });
                 cols += `<div class="wp-day-col${isToday ? ' today-col' : ''}"><div class="wp-day-header${isToday ? ' today-hdr' : ''}">${WP_DAYS[i]}<br><span style="font-size: 0.92rem;color:${isToday ? 'var(--accent)' : 'var(--text2)'};">${monthShort} ${colDate.getDate()}</span></div>${evHTML || `<div style="font-family:var(--mono);font-size: 0.83rem;color:var(--text3);text-align:center;margin-top:16px;">// EMPTY</div>`}</div>`;
             }
@@ -6115,6 +6469,9 @@
             S.weeklyEvents.push(event); document.getElementById('mp-task-input').value = ''; document.getElementById('mp-time-input').value = ''; mpRepeatMonthly = false; const mpBtn = document.getElementById('mp-repeat-toggle'); if (mpBtn) { mpBtn.classList.remove('active'); mpBtn.textContent = 'ALWAYS'; } saveNow(); renderMonthlyPlanner(); showToast(wasRepeat ? 'Monthly recurring event added' : 'Event added'); addXP(3);
         }
         function deleteMonthlyEvent(id) { if (!S.weeklyEvents) S.weeklyEvents = []; S.weeklyEvents = S.weeklyEvents.filter(e => e.id != id); saveNow(); renderMonthlyPlanner(); }
+        function removeEventRecurring(id, evt) { evt && evt.stopPropagation(); let e = (S.weeklyEvents || []).find(ev => ev.id == id); if (!e) return; delete e.repeatWeekly; delete e.repeatMonthly; delete e.dow; delete e.dom; saveNow(); renderWeeklyPlanner(); if (document.getElementById('panel-monthly-planner')?.classList.contains('active')) renderMonthlyPlanner(); showToast('Recurring removed'); }
+        function startEditWeeklyEvent(id, dateKey, evt) { evt && evt.stopPropagation(); let e = (S.weeklyEvents || []).find(ev => ev.id == id); if (!e) return; let bodyEl = document.getElementById(`wp-ev-${id}-${dateKey}`); if (!bodyEl) return; let curText = e.text; let inp = document.createElement('input'); inp.className = 'task-inline-edit'; inp.value = curText; inp.style.cssText = 'width:100%;min-width:60px;font-size:0.87rem'; inp.onclick = ev => ev.stopPropagation(); bodyEl.innerHTML = ''; bodyEl.appendChild(inp); inp.focus(); inp.select(); function saveEdit() { let newVal = inp.value.trim(); if (newVal && newVal !== curText) { e.text = newVal; saveNow(); showToast('Event renamed'); } renderWeeklyPlanner(); } inp.addEventListener('blur', saveEdit); inp.addEventListener('keydown', ev => { if (ev.key === 'Enter') { ev.preventDefault(); inp.blur(); } else if (ev.key === 'Escape') { inp.value = curText; inp.blur(); } }); }
+        function startEditMonthlyEvent(id, dateKey, evt) { evt && evt.stopPropagation(); let e = (S.weeklyEvents || []).find(ev => ev.id == id); if (!e) return; let spanEl = document.getElementById(`mp-ev-${id}-${dateKey}`); if (!spanEl) return; let curText = e.text; let inp = document.createElement('input'); inp.className = 'task-inline-edit'; inp.value = curText; inp.style.cssText = 'width:100%;min-width:80px'; inp.onclick = ev => ev.stopPropagation(); spanEl.innerHTML = ''; spanEl.appendChild(inp); inp.focus(); inp.select(); function saveEdit() { let newVal = inp.value.trim(); if (newVal && newVal !== curText) { e.text = newVal; saveNow(); showToast('Event renamed'); } renderMonthlyPlanner(); } inp.addEventListener('blur', saveEdit); inp.addEventListener('keydown', ev => { if (ev.key === 'Enter') { ev.preventDefault(); inp.blur(); } else if (ev.key === 'Escape') { inp.value = curText; inp.blur(); } }); }
         function renderMonthlyPlanner() {
             if (!S.weeklyEvents) S.weeklyEvents = [];
             const MONTH_NAMES = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
@@ -6150,7 +6507,7 @@
             let [y, m, d] = dateKey.split('-').map(Number); let displayDate = new Date(y, m - 1, d);
             title.textContent = displayDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             let events = (S.weeklyEvents || []).filter(e => eventMatchesDate(e, dateKey)).sort((a, b) => plannerEventOrder(a) - plannerEventOrder(b) || (a.time || '00:00').localeCompare(b.time || '00:00'));
-            evList.innerHTML = events.length ? events.map(e => { let timeBadge = e.time ? `<span class="mp-event-time-badge">${formatTimeAMPM(e.time)}</span>` : ''; let isDone = isPlannerEventDone(e, dateKey); return `<div class="mp-event-item ${CAT_COLORS[e.cat] || 'cat-work'}${isDone ? ' done' : ''}" draggable="true" ondragstart="dragStartMonthly(event,${e.id},'${dateKey}')" ondragend="dragEndMonthly(event)" ondragover="dragOver(event)" ondrop="dropMonthly(event,${e.id},'${dateKey}')"><span style="display:flex;align-items:center;font-size: 0.99rem;gap:8px;"><div class="task-check${isDone ? ' checked' : ''}" onclick="togglePlannerEvent(${e.id},'${dateKey}')"></div>${timeBadge}${escHtml(e.text)}</span><button onclick="deleteMonthlyEvent(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size: 0.89rem" title="Delete">🗑</button></div>`; }).join('') : '<div class="empty-state">// NO EVENTS THIS DAY</div>';
+            evList.innerHTML = events.length ? events.map(e => { let timeBadge = e.time ? `<span class="mp-event-time-badge">${formatTimeAMPM(e.time)}</span>` : ''; let isDone = isPlannerEventDone(e, dateKey); let recLabel = e.repeatWeekly ? 'WEEKLY' : e.repeatMonthly ? 'MONTHLY' : ''; let recBadge = recLabel ? `<span class="recurring-badge" style="margin-left:6px"><i class="fas fa-sync-alt"></i> ${recLabel}<button class="rec-remove-btn" onclick="removeEventRecurring(${e.id},event)" title="Remove recurring">✕</button></span>` : ''; return `<div class="mp-event-item ${CAT_COLORS[e.cat] || 'cat-work'}${isDone ? ' done' : ''}" draggable="true" ondragstart="dragStartMonthly(event,${e.id},'${dateKey}')" ondragend="dragEndMonthly(event)" ondragover="dragOver(event)" ondrop="dropMonthly(event,${e.id},'${dateKey}')"><span style="display:flex;align-items:center;font-size: 0.99rem;gap:8px;flex:1;min-width:0"><div class="task-check${isDone ? ' checked' : ''}" onclick="togglePlannerEvent(${e.id},'${dateKey}')"></div><span id="mp-ev-${e.id}-${dateKey}">${timeBadge}${escHtml(e.text)}${recBadge}</span></span><button class="task-edit-btn" onclick="startEditMonthlyEvent(${e.id},'${dateKey}',event)" title="Edit"><i class="fas fa-pencil-alt"></i></button><button onclick="deleteMonthlyEvent(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size: 0.89rem" title="Delete">🗑</button></div>`; }).join('') : '<div class="empty-state">// NO EVENTS THIS DAY</div>';
         }
         function mpPrevMonth() { mpMonth--; if (mpMonth < 0) { mpMonth = 11; mpYear--; } mpSelectedDate = null; let di = document.getElementById('mp-date-input'); if (di) di.value = ''; renderMonthlyPlanner(); }
         function mpNextMonth() { mpMonth++; if (mpMonth > 11) { mpMonth = 0; mpYear++; } mpSelectedDate = null; let di = document.getElementById('mp-date-input'); if (di) di.value = ''; renderMonthlyPlanner(); }
@@ -7611,6 +7968,8 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 AFT.renderPanel();
+                // Restore Focus Impulse task name from localStorage
+                if (typeof _applyMiniTaskName === 'function') _applyMiniTaskName();
                 // Check if focusscore panel is active
                 if (document.getElementById('panel-focusscore')?.classList.contains('active')) {
                     runFocusScoreIntelligence();
