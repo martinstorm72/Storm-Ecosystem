@@ -5967,7 +5967,24 @@
 
         function addTask() { let v = document.getElementById('task-input').value.trim(); if (!v) { showToast('Enter task'); return; } let pri = document.getElementById('task-priority').value, mins = parseInt(document.getElementById('task-mins').value) || 30, rec = document.getElementById('task-recurring').checked; S.tasks.push({ id: Date.now(), text: v, priority: pri, mins, done: false, date: todayKey, recurring: rec }); document.getElementById('task-input').value = ''; document.getElementById('task-mins').value = ''; document.getElementById('task-recurring').checked = false; saveNow(); renderTasks(); updateScore(); showToast(rec ? 'Daily task added' : 'Task added'); addXP(5); markOb('add_task'); }
         function toggleTask(id) { let t = S.tasks.find(t => t.id == id); if (t && !t.done) { t.done = true; renderTasks(); updateScore(); saveNow(); showToast('🎉 +15 XP!'); addXP(15); } else if (t && t.done) { t.done = false; renderTasks(); updateScore(); saveNow(); showToast('Task reopened'); } }
-        function deleteTask(id) { S.tasks = S.tasks.filter(t => t.id != id && t.parentId != id); renderTasks(); updateScore(); save(); showToast('Deleted'); }
+        function deleteTask(id) {
+            // Find the task being deleted
+            let target = S.tasks.find(t => t.id == id);
+            if (!target) return;
+            // Determine the root of the recurring chain (if any)
+            let rootId = target.parentId || target.id;
+            if (target.recurring || target.parentId) {
+                // Remove the entire recurring chain: root + all children that share the same root
+                S.tasks = S.tasks.filter(t => {
+                    let tRoot = t.parentId || t.id;
+                    return tRoot !== rootId && t.id !== rootId;
+                });
+            } else {
+                // Non-recurring: just remove this task and any children
+                S.tasks = S.tasks.filter(t => t.id != id && t.parentId != id);
+            }
+            renderTasks(); updateScore(); save(); showToast('Deleted');
+        }
         function taskHTML(t) {
             let recBadge = t.recurring ? `<span class="recurring-badge"><i class="fas fa-sync-alt"></i> Daily<button class="rec-remove-btn" onclick="removeTaskRecurring(${t.id},event)" title="Remove Daily — stop repeating">✕</button></span>` : '';
             let completeDailyBtn = (t.recurring && !t.done) ? `<button class="btn btn-ghost btn-sm" onclick="completeDailyTask(${t.id},event)" title="Mark complete — resets tomorrow" style="padding:2px 8px;font-size:0.78rem;margin-left:4px;border-color:var(--green);color:var(--green)"><i class="fas fa-check-double"></i></button>` : '';
@@ -6140,18 +6157,26 @@
         function loadTheme() { let s = localStorage.getItem('theme'); if (s) changeTheme(s); }
         function spawnDailyTasks() {
             let nd = getTodayKey(); let spawned = 0;
-            let recurringDone = S.tasks.filter(t => t.recurring && t.done && t.date !== nd);
-            recurringDone.forEach(t => {
+            // Track roots that already have a today-copy so we never re-spawn deleted tasks
+            let todayRoots = new Set(
+                S.tasks.filter(t => t.recurring && t.date === nd).map(t => t.parentId || t.id)
+            );
+            // 1. Spawn fresh copies from completed recurring tasks on past days
+            S.tasks.filter(t => t.recurring && t.done && t.date !== nd).forEach(t => {
                 let rootId = t.parentId || t.id;
-                let exists = S.tasks.some(x => x.recurring && x.date === nd && x.text === t.text && (x.parentId === rootId || x.id === rootId));
-                if (!exists) { S.tasks.push({ id: Date.now() + (++spawned), text: t.text, priority: t.priority, mins: t.mins, done: false, date: nd, recurring: true, parentId: rootId }); }
+                if (!todayRoots.has(rootId)) {
+                    S.tasks.push({ id: Date.now() + (++spawned), text: t.text, priority: t.priority, mins: t.mins, done: false, date: nd, recurring: true, parentId: rootId });
+                    todayRoots.add(rootId);
+                }
             });
-            let recurringUndone = S.tasks.filter(t => t.recurring && !t.done && t.date !== nd);
-            recurringUndone.forEach(t => {
+            // 2. Move undone recurring tasks from past days to today; remove stale duplicates
+            let toRemove = new Set();
+            S.tasks.filter(t => t.recurring && !t.done && t.date !== nd).forEach(t => {
                 let rootId = t.parentId || t.id;
-                let exists = S.tasks.some(x => x.recurring && x.date === nd && x.text === t.text && (x.parentId === rootId || x.id === rootId));
-                if (!exists) { t.date = nd; spawned++; } else { S.tasks = S.tasks.filter(x => x !== t); }
+                if (!todayRoots.has(rootId)) { t.date = nd; spawned++; todayRoots.add(rootId); }
+                else { toRemove.add(t.id); }
             });
+            if (toRemove.size > 0) S.tasks = S.tasks.filter(t => !toRemove.has(t.id));
             return spawned;
         }
         function checkAndReset() {
