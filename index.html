@@ -43,7 +43,7 @@
     <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512x512.png">
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="96x96"  href="icons/icon-96x96.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="icons/icon-96x96.png">
     <!-- Microsoft / Windows tiles -->
     <meta name="msapplication-TileImage" content="icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#000000">
@@ -141,7 +141,7 @@
             background: var(--accent);
             border-radius: 50%;
             pointer-events: none;
-            z-index: 99999;
+            z-index: 2147483647;
             transform: translate(-50%, -50%);
             transition: width .2s, height .2s, background .2s;
             mix-blend-mode: screen
@@ -154,7 +154,7 @@
             border: 1px solid rgba(255, 255, 255, 0.24);
             border-radius: 50%;
             pointer-events: none;
-            z-index: 99998;
+            z-index: 2147483646;
             transform: translate(-50%, -50%);
             transition: all .15s ease
         }
@@ -2515,6 +2515,14 @@
         #exit-overlay.show {
             opacity: 1;
             pointer-events: auto
+        }
+
+        /* Cursor hover reactions inside exit modal */
+        #exit-overlay.show:has(a:hover)~#cursor,
+        #exit-overlay.show:has(button:hover)~#cursor {
+            width: 16px;
+            height: 16px;
+            background: var(--purple)
         }
 
         .exit-modal {
@@ -5958,13 +5966,19 @@
         // ===== CURSOR =====
         const cursor = document.getElementById('cursor'), cursorRing = document.getElementById('cursor-ring');
         let mx = 0, my = 0, rx = 0, ry = 0;
-        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+        function _trackCursor(e) { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; }
+        document.addEventListener('mousemove', _trackCursor);
+        document.getElementById('exit-overlay').addEventListener('mousemove', _trackCursor);
         (function animRing() {
             rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
             cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
             requestAnimationFrame(animRing);
         })();
-        document.documentElement.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; cursorRing.style.opacity = '0'; });
+        document.documentElement.addEventListener('mouseleave', () => {
+            if (!document.getElementById('exit-overlay').classList.contains('show')) {
+                cursor.style.opacity = '0'; cursorRing.style.opacity = '0';
+            }
+        });
         document.documentElement.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; cursorRing.style.opacity = '1'; });
 
         // ===== PARTICLE TRAIL =====
@@ -6883,34 +6897,46 @@
     ">
         <style>
             @keyframes pwa-slide-up {
-                from { opacity: 0; transform: translateX(-50%) translateY(24px); }
-                to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+                from {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(24px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
             }
+
             #pwa-banner-inner {
                 display: flex;
                 align-items: center;
                 gap: 14px;
             }
+
             #pwa-banner-icon {
                 width: 52px;
                 height: 52px;
                 border-radius: 12px;
                 background: #000;
-                border: 1px solid rgba(255,255,255,0.14);
+                border: 1px solid rgba(255, 255, 255, 0.14);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 flex-shrink: 0;
                 overflow: hidden;
             }
+
             #pwa-banner-icon svg {
                 width: 28px;
                 height: 28px;
             }
+
             #pwa-banner-text {
                 flex: 1;
                 min-width: 0;
             }
+
             #pwa-banner-title {
                 font-size: 0.78rem;
                 font-weight: 700;
@@ -6919,6 +6945,7 @@
                 text-transform: uppercase;
                 margin-bottom: 3px;
             }
+
             #pwa-banner-sub {
                 font-size: 0.65rem;
                 color: #777;
@@ -6928,16 +6955,18 @@
                 font-size: 0.82rem;
                 font-weight: 500;
             }
+
             #pwa-banner-actions {
                 display: flex;
                 gap: 8px;
                 margin-top: 14px;
                 justify-content: flex-end;
             }
+
             #pwa-btn-dismiss {
                 padding: 7px 14px;
                 background: transparent;
-                border: 1px solid rgba(255,255,255,0.12);
+                border: 1px solid rgba(255, 255, 255, 0.12);
                 border-radius: 8px;
                 color: #666;
                 font-family: 'JetBrains Mono', monospace;
@@ -6947,7 +6976,12 @@
                 cursor: pointer;
                 transition: border-color 0.2s, color 0.2s;
             }
-            #pwa-btn-dismiss:hover { border-color: rgba(255,255,255,0.28); color: #aaa; }
+
+            #pwa-btn-dismiss:hover {
+                border-color: rgba(255, 255, 255, 0.28);
+                color: #aaa;
+            }
+
             #pwa-btn-install {
                 padding: 7px 18px;
                 background: #ffffff;
@@ -6965,14 +6999,23 @@
                 align-items: center;
                 gap: 6px;
             }
-            #pwa-btn-install:hover { background: #ddd; box-shadow: 0 0 20px rgba(255,255,255,0.15); }
-            #pwa-btn-install svg { width: 13px; height: 13px; }
+
+            #pwa-btn-install:hover {
+                background: #ddd;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+            }
+
+            #pwa-btn-install svg {
+                width: 13px;
+                height: 13px;
+            }
+
             /* iOS instruction variant */
             #pwa-ios-hint {
                 display: none;
                 margin-top: 12px;
                 padding: 10px 12px;
-                background: rgba(255,255,255,0.04);
+                background: rgba(255, 255, 255, 0.04);
                 border-radius: 8px;
                 font-size: 0.7rem;
                 color: #888;
@@ -6980,7 +7023,11 @@
                 line-height: 1.6;
                 font-family: 'EB Garamond', serif;
             }
-            #pwa-ios-hint strong { color: #ccc; }
+
+            #pwa-ios-hint strong {
+                color: #ccc;
+            }
+
             /* Floating trigger button (shown after banner dismissed, for re-install) */
             #pwa-fab {
                 display: none;
@@ -6992,31 +7039,44 @@
                 height: 52px;
                 border-radius: 50%;
                 background: #0a0a0a;
-                border: 1px solid rgba(255,255,255,0.15);
+                border: 1px solid rgba(255, 255, 255, 0.15);
                 cursor: pointer;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
                 transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-                animation: pwa-fab-in 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+                animation: pwa-fab-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             }
+
             @keyframes pwa-fab-in {
-                from { opacity: 0; transform: scale(0.6); }
-                to   { opacity: 1; transform: scale(1); }
+                from {
+                    opacity: 0;
+                    transform: scale(0.6);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
             }
+
             #pwa-fab:hover {
-                border-color: rgba(255,255,255,0.35);
-                box-shadow: 0 0 20px rgba(255,255,255,0.1);
+                border-color: rgba(255, 255, 255, 0.35);
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
                 transform: translateY(-2px);
             }
-            #pwa-fab svg { width: 22px; height: 22px; }
+
+            #pwa-fab svg {
+                width: 22px;
+                height: 22px;
+            }
         </style>
 
         <div id="pwa-banner-inner">
             <div id="pwa-banner-icon">
                 <!-- Lightning bolt icon matching app brand -->
                 <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <polygon points="16,2 8,15 14,15 12,26 20,13 14,13" fill="white" opacity="0.95"/>
+                    <polygon points="16,2 8,15 14,15 12,26 20,13 14,13" fill="white" opacity="0.95" />
                 </svg>
             </div>
             <div id="pwa-banner-text">
@@ -7027,14 +7087,16 @@
 
         <!-- iOS hint shown instead of native install button -->
         <div id="pwa-ios-hint">
-            Tap <strong>Share ↑</strong> in Safari, then <strong>"Add to Home Screen"</strong> to install Storm OS on your device.
+            Tap <strong>Share ↑</strong> in Safari, then <strong>"Add to Home Screen"</strong> to install Storm OS on
+            your device.
         </div>
 
         <div id="pwa-banner-actions">
             <button id="pwa-btn-dismiss" aria-label="Dismiss install prompt">Not now</button>
             <button id="pwa-btn-install" aria-label="Install Storm OS app">
                 <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 1v8M4 6l3 3 3-3M1 10v1a2 2 0 002 2h8a2 2 0 002-2v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7 1v8M4 6l3 3 3-3M1 10v1a2 2 0 002 2h8a2 2 0 002-2v-1" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 Install App
             </button>
@@ -7044,7 +7106,8 @@
     <!-- FAB re-trigger button -->
     <button id="pwa-fab" title="Install Storm OS" aria-label="Install Storm OS as desktop app">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 3v11M8 10l4 4 4-4M3 17v1a3 3 0 003 3h12a3 3 0 003-3v-1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+            <path d="M12 3v11M8 10l4 4 4-4M3 17v1a3 3 0 003 3h12a3 3 0 003-3v-1" stroke="white" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
         </svg>
     </button>
 
@@ -7052,138 +7115,138 @@
          PWA JAVASCRIPT — Service Worker + Install Logic
     ================================================================ -->
     <script>
-    (function () {
-        'use strict';
+        (function () {
+            'use strict';
 
-        /* ── 1. Register Service Worker ── */
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                    .then(function (reg) {
-                        console.log('[Storm OS] Service Worker registered. Scope:', reg.scope);
-                    })
-                    .catch(function (err) {
-                        console.warn('[Storm OS] SW registration failed:', err);
-                    });
-            });
-        }
-
-        /* ── 2. PWA Install Prompt Logic ── */
-        var deferredPrompt = null;
-        var banner  = document.getElementById('pwa-banner');
-        var fab     = document.getElementById('pwa-fab');
-        var btnInstall  = document.getElementById('pwa-btn-install');
-        var btnDismiss  = document.getElementById('pwa-btn-dismiss');
-        var iosHint     = document.getElementById('pwa-ios-hint');
-        var bannerActions = document.getElementById('pwa-banner-actions');
-
-        var DISMISSED_KEY = 'storm-pwa-dismissed';
-        var INSTALLED_KEY = 'storm-pwa-installed';
-
-        /* Don't show if already installed or previously dismissed this session */
-        function wasRecentlyDismissed() {
-            var t = localStorage.getItem(DISMISSED_KEY);
-            if (!t) return false;
-            /* Re-show after 3 days */
-            return (Date.now() - parseInt(t, 10)) < 3 * 24 * 60 * 60 * 1000;
-        }
-
-        function isInstalled() {
-            return window.matchMedia('(display-mode: standalone)').matches
-                || window.navigator.standalone === true
-                || localStorage.getItem(INSTALLED_KEY) === '1';
-        }
-
-        /* ── iOS detection ── */
-        function isIOS() {
-            return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
-        }
-
-        function isSafari() {
-            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        }
-
-        /* ── Show banner ── */
-        function showBanner() {
-            if (isInstalled()) return;
-            if (wasRecentlyDismissed()) {
-                showFAB();
-                return;
-            }
-            banner.style.display = 'block';
-        }
-
-        /* ── Show FAB ── */
-        function showFAB() {
-            if (isInstalled()) return;
-            fab.style.display = 'flex';
-        }
-
-        /* ── Hide banner ── */
-        function hideBanner() {
-            banner.style.display = 'none';
-        }
-
-        /* ── Trigger the native install dialog ── */
-        function triggerInstall() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(function (choiceResult) {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('[Storm OS] PWA installed ✓');
-                        localStorage.setItem(INSTALLED_KEY, '1');
-                        hideBanner();
-                        fab.style.display = 'none';
-                    }
-                    deferredPrompt = null;
+            /* ── 1. Register Service Worker ── */
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function () {
+                    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                        .then(function (reg) {
+                            console.log('[Storm OS] Service Worker registered. Scope:', reg.scope);
+                        })
+                        .catch(function (err) {
+                            console.warn('[Storm OS] SW registration failed:', err);
+                        });
                 });
-            } else if (isIOS() && isSafari()) {
-                /* Show iOS instructions */
-                iosHint.style.display = 'block';
-                bannerActions.style.display = 'none';
             }
-        }
 
-        /* ── Listen for the browser's beforeinstallprompt event ── */
-        window.addEventListener('beforeinstallprompt', function (e) {
-            e.preventDefault();
-            deferredPrompt = e;
+            /* ── 2. PWA Install Prompt Logic ── */
+            var deferredPrompt = null;
+            var banner = document.getElementById('pwa-banner');
+            var fab = document.getElementById('pwa-fab');
+            var btnInstall = document.getElementById('pwa-btn-install');
+            var btnDismiss = document.getElementById('pwa-btn-dismiss');
+            var iosHint = document.getElementById('pwa-ios-hint');
+            var bannerActions = document.getElementById('pwa-banner-actions');
 
-            /* Show banner after a short delay so it doesn't interrupt page load */
-            setTimeout(showBanner, 2500);
-        });
+            var DISMISSED_KEY = 'storm-pwa-dismissed';
+            var INSTALLED_KEY = 'storm-pwa-installed';
 
-        /* ── iOS: show banner on load (no beforeinstallprompt on Safari) ── */
-        if (isIOS() && isSafari() && !isInstalled() && !wasRecentlyDismissed()) {
-            setTimeout(showBanner, 3000);
-        }
+            /* Don't show if already installed or previously dismissed this session */
+            function wasRecentlyDismissed() {
+                var t = localStorage.getItem(DISMISSED_KEY);
+                if (!t) return false;
+                /* Re-show after 3 days */
+                return (Date.now() - parseInt(t, 10)) < 3 * 24 * 60 * 60 * 1000;
+            }
 
-        /* ── Button handlers ── */
-        btnInstall && btnInstall.addEventListener('click', function () {
-            triggerInstall();
-        });
+            function isInstalled() {
+                return window.matchMedia('(display-mode: standalone)').matches
+                    || window.navigator.standalone === true
+                    || localStorage.getItem(INSTALLED_KEY) === '1';
+            }
 
-        btnDismiss && btnDismiss.addEventListener('click', function () {
-            hideBanner();
-            localStorage.setItem(DISMISSED_KEY, Date.now().toString());
-            showFAB();
-        });
+            /* ── iOS detection ── */
+            function isIOS() {
+                return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+            }
 
-        fab && fab.addEventListener('click', function () {
-            fab.style.display = 'none';
-            localStorage.removeItem(DISMISSED_KEY);
-            showBanner();
-        });
+            function isSafari() {
+                return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+            }
 
-        /* ── Already installed? hide everything ── */
-        window.addEventListener('appinstalled', function () {
-            console.log('[Storm OS] App installed via browser event');
-            localStorage.setItem(INSTALLED_KEY, '1');
-            hideBanner();
-            fab.style.display = 'none';
-        });
+            /* ── Show banner ── */
+            function showBanner() {
+                if (isInstalled()) return;
+                if (wasRecentlyDismissed()) {
+                    showFAB();
+                    return;
+                }
+                banner.style.display = 'block';
+            }
 
-    }());
+            /* ── Show FAB ── */
+            function showFAB() {
+                if (isInstalled()) return;
+                fab.style.display = 'flex';
+            }
+
+            /* ── Hide banner ── */
+            function hideBanner() {
+                banner.style.display = 'none';
+            }
+
+            /* ── Trigger the native install dialog ── */
+            function triggerInstall() {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then(function (choiceResult) {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('[Storm OS] PWA installed ✓');
+                            localStorage.setItem(INSTALLED_KEY, '1');
+                            hideBanner();
+                            fab.style.display = 'none';
+                        }
+                        deferredPrompt = null;
+                    });
+                } else if (isIOS() && isSafari()) {
+                    /* Show iOS instructions */
+                    iosHint.style.display = 'block';
+                    bannerActions.style.display = 'none';
+                }
+            }
+
+            /* ── Listen for the browser's beforeinstallprompt event ── */
+            window.addEventListener('beforeinstallprompt', function (e) {
+                e.preventDefault();
+                deferredPrompt = e;
+
+                /* Show banner after a short delay so it doesn't interrupt page load */
+                setTimeout(showBanner, 2500);
+            });
+
+            /* ── iOS: show banner on load (no beforeinstallprompt on Safari) ── */
+            if (isIOS() && isSafari() && !isInstalled() && !wasRecentlyDismissed()) {
+                setTimeout(showBanner, 3000);
+            }
+
+            /* ── Button handlers ── */
+            btnInstall && btnInstall.addEventListener('click', function () {
+                triggerInstall();
+            });
+
+            btnDismiss && btnDismiss.addEventListener('click', function () {
+                hideBanner();
+                localStorage.setItem(DISMISSED_KEY, Date.now().toString());
+                showFAB();
+            });
+
+            fab && fab.addEventListener('click', function () {
+                fab.style.display = 'none';
+                localStorage.removeItem(DISMISSED_KEY);
+                showBanner();
+            });
+
+            /* ── Already installed? hide everything ── */
+            window.addEventListener('appinstalled', function () {
+                console.log('[Storm OS] App installed via browser event');
+                localStorage.setItem(INSTALLED_KEY, '1');
+                hideBanner();
+                fab.style.display = 'none';
+            });
+
+        }());
     </script>
 
 </body>
