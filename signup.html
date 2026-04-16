@@ -1246,7 +1246,18 @@
             <div class="form-group">
                 <label class="form-label">FULL_NAME</label>
                 <div class="input-wrap"><span class="input-icon">◈</span><input type="text" id="name"
-                        placeholder="Your name" autocomplete="name" /></div>
+                        placeholder="Your full name" autocomplete="name" /></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">USERNAME</label>
+                <div class="input-wrap"><span class="input-icon">@</span><input type="text" id="username"
+                        placeholder="@handle (no spaces)" autocomplete="username" oninput="sanitizeUsername(this)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">LOCATION</label>
+                <div class="input-wrap"><span class="input-icon">📍</span><input type="text" id="location"
+                        placeholder="City, Country" autocomplete="country-name" /></div>
             </div>
             <div class="form-group">
                 <label class="form-label">EMAIL_ADDRESS</label>
@@ -1359,7 +1370,7 @@
             }
         }
 
-        async function updateUserProfile(userId, email, fullName) {
+        async function updateUserProfile(userId, email, fullName, username, location) {
             try {
                 const { error } = await sb
                     .from('profiles')
@@ -1367,6 +1378,8 @@
                         id: userId,
                         email: email,
                         full_name: fullName,
+                        username: username || fullName.toLowerCase().replace(/\s+/g, '.'),
+                        location: location || '',
                         is_paid: false,
                         subscription_status: 'inactive'
                     }, { onConflict: 'id' });
@@ -1442,17 +1455,27 @@
             document.getElementById('req-num').className = 'req' + (/[0-9]/.test(pwd) ? ' met' : '');
         }
 
+        function sanitizeUsername(input) {
+            input.value = input.value.replace(/[^a-zA-Z0-9._-]/g, '').toLowerCase();
+        }
+
         // ===== SIGNUP HANDLER =====
         async function handleSignup() {
             const name = document.getElementById('name').value.trim();
+            const username = document.getElementById('username').value.trim().replace('@', '');
+            const location = document.getElementById('location').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const confirm = document.getElementById('confirm').value;
             const terms = document.getElementById('terms').checked;
             const btn = document.getElementById('signup-btn');
 
-            if (!name || !email || !password || !confirm) {
+            if (!name || !username || !email || !password || !confirm) {
                 showMsg('// ERROR: ALL FIELDS REQUIRED', 'error');
+                return;
+            }
+            if (username.length < 3) {
+                showMsg('// ERROR: USERNAME MUST BE 3+ CHARACTERS', 'error');
                 return;
             }
 
@@ -1485,7 +1508,7 @@
                     email,
                     password,
                     options: {
-                        data: { full_name: name, display_name: name }
+                        data: { full_name: name, display_name: name, username: username, location: location }
                     }
                 });
 
@@ -1508,7 +1531,7 @@
                     showMsg('// ACCOUNT CREATED — OPENING PAYMENT PORTAL...', 'success');
 
                     // Create profile record
-                    await updateUserProfile(data.user.id, email, name);
+                    await updateUserProfile(data.user.id, email, name, username, location);
 
                     // Open Paddle checkout
                     paddleCheckoutOpened = true;
