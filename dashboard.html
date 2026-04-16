@@ -4955,7 +4955,7 @@
                     <div class="card-title"><i class="fas fa-keyboard"></i> KEYBOARD SHORTCUTS</div>
                     <div class="shortcut-row"><span>Toggle timer</span><span class="kbd">Space</span></div>
                     <div class="shortcut-row"><span>Show shortcuts</span><span class="kbd">?</span></div>
-                    <div class="shortcut-row"><span>Switch tabs 1-9</span><span class="kbd">1-9</span></div>
+                    <div class="shortcut-row"><span>Switch tabs 1–10</span><span class="kbd">1–0</span></div>
                     <div class="shortcut-row"><span>Add task (quick)</span><span class="kbd">Ctrl+N</span></div>
                     <div class="shortcut-row"><span>Submit ADD button</span><span class="kbd">Enter</span></div>
                     <div class="shortcut-row"><span>Run code</span><span class="kbd">Ctrl+Enter</span></div>
@@ -5131,7 +5131,7 @@
             <h2 style="margin-bottom:16px;">⌨ Keyboard Shortcuts</h2>
             <div class="shortcut-row"><span>Toggle timer</span><span class="kbd">Space</span></div>
             <div class="shortcut-row"><span>Show shortcuts</span><span class="kbd">?</span></div>
-            <div class="shortcut-row"><span>Tabs 1-9</span><span class="kbd">1-9</span></div>
+            <div class="shortcut-row"><span>Tabs 1–10</span><span class="kbd">1–0</span></div>
             <div class="shortcut-row"><span>Focus task input</span><span class="kbd">Ctrl+N</span></div>
             <div class="shortcut-row"><span>Submit ADD</span><span class="kbd">Enter</span></div>
             <div class="shortcut-row"><span>Run code</span><span class="kbd">Ctrl+Enter</span></div>
@@ -6370,8 +6370,8 @@
             if (!inInput) {
                 if (e.code === 'Space') { e.preventDefault(); let tp = document.getElementById('panel-timer'); if (tp && tp.classList.contains('active')) toggleMain(); else toggleMini(); }
                 if (e.key === '?') showShortcuts();
-                const tabs = ['planner', 'timer', 'habits', 'weekly-planner', 'monthly-planner', 'focusscore', 'analytics', 'journal', 'devtools', 'help'];
-                let num = parseInt(e.key); if (num >= 1 && num <= tabs.length) { let tabEl = document.querySelectorAll('.nav-tab')[num - 1]; switchTab(tabs[num - 1], tabEl); }
+                const tabs = ['planner', 'timer', 'habits', 'focusscore', 'analytics', 'weekly-planner', 'monthly-planner', 'journal', 'devtools', 'help'];
+                let num = parseInt(e.key); if (e.key === '0') num = 10; if (num >= 1 && num <= tabs.length) { let tabEl = document.querySelectorAll('.nav-tab')[num - 1]; switchTab(tabs[num - 1], tabEl); }
             }
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runCode(); }
             if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); let ti = document.getElementById('task-input'); if (ti) { ti.focus(); } }
