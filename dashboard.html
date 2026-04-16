@@ -1193,6 +1193,35 @@
             color: var(--green);
         }
 
+        .task-priority-clickable {
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            user-select: none;
+        }
+        .task-priority-clickable:hover {
+            transform: scale(1.12);
+            box-shadow: 0 0 8px rgba(255,255,255,0.15);
+        }
+        .task-priority-clickable:active {
+            transform: scale(0.96);
+        }
+        .task-inline-priority-sel {
+            background: var(--card2);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            color: var(--text);
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            cursor: pointer;
+            outline: none;
+            min-width: 90px;
+        }
+        .task-inline-priority-sel:focus {
+            border-color: var(--accent2);
+            box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
+        }
         .task-del {
             color: var(--text3);
             cursor: pointer;
@@ -5937,7 +5966,7 @@
         function taskHTML(t) {
             let recBadge = t.recurring ? `<span class="recurring-badge"><i class="fas fa-sync-alt"></i> Daily<button class="rec-remove-btn" onclick="removeTaskRecurring(${t.id},event)" title="Remove Daily — stop repeating">✕</button></span>` : '';
             let completeDailyBtn = (t.recurring && !t.done) ? `<button class="btn btn-ghost btn-sm" onclick="completeDailyTask(${t.id},event)" title="Mark complete — resets tomorrow" style="padding:2px 8px;font-size:0.78rem;margin-left:4px;border-color:var(--green);color:var(--green)"><i class="fas fa-check-double"></i></button>` : '';
-            return `<div class="task-item${t.done ? ' done' : ''}" draggable="true" ondragstart="dragStart(event,${t.id})" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="drop(event,${t.id})"><div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div><div class="task-text" id="task-text-${t.id}">${escHtml(t.text)}${recBadge}</div>${completeDailyBtn}<span class="task-priority priority-${t.priority}">${t.priority === 'high' ? '🔴 HIGH' : t.priority === 'med' ? '🟡 MED' : '🟢 LOW'}</span><span style="font-size: 0.92rem;font-weight:600">${t.mins}m</span><button class="task-edit-btn" onclick="startEditTask(${t.id},event)" title="Edit task name"><i class="fas fa-pencil-alt"></i></button><span class="task-del" onclick="deleteTask(${t.id})"><i class="fas fa-trash-alt"></i></span></div>`;
+            return `<div class="task-item${t.done ? ' done' : ''}" draggable="true" ondragstart="dragStart(event,${t.id})" ondragend="dragEnd(event)" ondragover="dragOver(event)" ondrop="drop(event,${t.id})"><div class="task-check${t.done ? ' checked' : ''}" onclick="toggleTask(${t.id})"></div><div class="task-text" id="task-text-${t.id}">${escHtml(t.text)}${recBadge}</div>${completeDailyBtn}<span class="task-priority priority-${t.priority} task-priority-clickable" onclick="cyclePriority(${t.id},event)" title="Click to change priority">${t.priority === 'high' ? '🔴 HIGH' : t.priority === 'med' ? '🟡 MED' : '🟢 LOW'}</span><span style="font-size: 0.92rem;font-weight:600">${t.mins}m</span><button class="task-edit-btn" onclick="startEditTask(${t.id},event)" title="Edit task"><i class="fas fa-pencil-alt"></i></button><span class="task-del" onclick="deleteTask(${t.id})"><i class="fas fa-trash-alt"></i></span></div>`;
         }
         function removeTaskRecurring(id, evt) {
             evt && evt.stopPropagation();
@@ -5955,7 +5984,8 @@
             renderTasks(); updateScore(); saveNow();
             showToast('🎉 Daily complete! Resets tomorrow. +15 XP'); addXP(15);
         }
-        function startEditTask(id, evt) { evt && evt.stopPropagation(); let t = S.tasks.find(t => t.id == id); if (!t) return; let textEl = document.getElementById('task-text-' + id); if (!textEl) return; let curText = t.text; let inp = document.createElement('input'); inp.className = 'task-inline-edit'; inp.value = curText; inp.onclick = e => e.stopPropagation(); let recBadge = t.recurring ? `<span class="recurring-badge" style="margin-left:8px"><i class="fas fa-sync-alt"></i> Daily</span>` : ''; textEl.innerHTML = ''; textEl.appendChild(inp); if (t.recurring) { let badge = document.createElement('span'); badge.className = 'recurring-badge'; badge.style.marginLeft = '8px'; badge.innerHTML = '<i class="fas fa-sync-alt"></i> Daily'; textEl.appendChild(badge); } inp.focus(); inp.select(); function saveEdit() { let newVal = inp.value.trim(); if (newVal && newVal !== curText) { t.text = newVal; saveNow(); showToast('Task renamed'); } renderTasks(); } inp.addEventListener('blur', saveEdit); inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } else if (e.key === 'Escape') { inp.value = curText; inp.blur(); } }); }
+        function cyclePriority(id, evt) { evt && evt.stopPropagation(); let t = S.tasks.find(t => t.id == id); if (!t) return; const cycle = { low: 'med', med: 'high', high: 'low' }; t.priority = cycle[t.priority] || 'low'; saveNow(); renderTasks(); showToast('Priority → ' + t.priority.toUpperCase()); }
+        function startEditTask(id, evt) { evt && evt.stopPropagation(); let t = S.tasks.find(t => t.id == id); if (!t) return; let textEl = document.getElementById('task-text-' + id); if (!textEl) return; let curText = t.text; let curPri = t.priority || 'low'; /* ── build inline editor with text + priority select ── */ let wrap = document.createElement('div'); wrap.style.cssText = 'display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap;'; let inp = document.createElement('input'); inp.className = 'task-inline-edit'; inp.value = curText; inp.style.flex = '1'; inp.onclick = e => e.stopPropagation(); let priSel = document.createElement('select'); priSel.className = 'task-inline-priority-sel'; priSel.onclick = e => e.stopPropagation(); [['low','🟢 LOW'],['med','🟡 MED'],['high','🔴 HIGH']].forEach(([val,lbl]) => { let o = document.createElement('option'); o.value = val; o.textContent = lbl; if (val === curPri) o.selected = true; priSel.appendChild(o); }); wrap.appendChild(inp); wrap.appendChild(priSel); if (t.recurring) { let badge = document.createElement('span'); badge.className = 'recurring-badge'; badge.style.marginLeft = '4px'; badge.innerHTML = '<i class="fas fa-sync-alt"></i> Daily'; wrap.appendChild(badge); } textEl.innerHTML = ''; textEl.appendChild(wrap); inp.focus(); inp.select(); let saved = false; function saveEdit() { if (saved) return; saved = true; let newVal = inp.value.trim(); let newPri = priSel.value; let changed = false; if (newVal && newVal !== curText) { t.text = newVal; changed = true; } if (newPri !== curPri) { t.priority = newPri; changed = true; } if (changed) { saveNow(); showToast('Task updated'); } renderTasks(); } inp.addEventListener('blur', () => setTimeout(saveEdit, 120)); priSel.addEventListener('blur', () => setTimeout(saveEdit, 120)); inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); saveEdit(); } else if (e.key === 'Escape') { inp.value = curText; priSel.value = curPri; saveEdit(); } }); }
         function renderTasks() { let act = S.tasks.filter(t => t.date === todayKey && !t.done), done = S.tasks.filter(t => t.date === todayKey && t.done); let tl = document.getElementById('task-list'); if (tl) tl.innerHTML = act.length ? act.map(taskHTML).join('') : '<div class="empty-state" style="text-align:center;padding:24px 10px"><div style="font-size: 1.8rem;margin-bottom:8px">📋</div><div style="font-weight:700;margin-bottom:4px">No tasks today</div><div style="font-size: 0.9rem;color:var(--text3)">Type a task above and press ADD</div></div>'; let dl = document.getElementById('done-list'); if (dl) dl.innerHTML = done.length ? done.map(taskHTML).join('') : '<div class="empty-state">// NONE COMPLETED YET</div>'; let dc = document.getElementById('done-count'); if (dc) dc.innerHTML = done.length + ' DONE'; let tt = document.getElementById('today-tasks'); if (tt) tt.textContent = done.length; let pct = (act.length + done.length) ? Math.round(done.length / (act.length + done.length) * 100) : 0; let tp = document.getElementById('task-progress'); if (tp) tp.style.width = pct + '%'; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; S.analytics.daily[todayKey].tasks = done.length; }
         function dragStart(e, id) { draggedItem = id; e.dataTransfer.effectAllowed = 'move'; e.target.style.opacity = '0.5'; }
         function dragEnd(e) { e.target.style.opacity = ''; draggedItem = null; }
@@ -6879,16 +6909,16 @@
 
         function _getGeminiUsage() {
             try {
-                const today = new Date().toISOString().split('T')[0];
+                const today = (typeof getTodayKey === 'function') ? getTodayKey() : (function(){ let d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); })();
                 const raw = localStorage.getItem(GEMINI_USAGE_KEY);
                 const data = raw ? JSON.parse(raw) : {};
                 if (data.date !== today) return { date: today, count: 0 };
                 return data;
-            } catch (e) { return { date: new Date().toISOString().split('T')[0], count: 0 }; }
+            } catch (e) { let d=new Date(); return { date: d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'), count: 0 }; }
         }
 
         function _incrementGeminiUsage() {
-            const usage = _getGeminiUsage();
+            const usage = _getGeminiUsage(); // always returns local-date-keyed object
             usage.count = (usage.count || 0) + 1;
             localStorage.setItem(GEMINI_USAGE_KEY, JSON.stringify(usage));
             _updateGeminiCounter();
