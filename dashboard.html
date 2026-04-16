@@ -1198,13 +1198,16 @@
             transition: transform 0.15s, box-shadow 0.15s;
             user-select: none;
         }
+
         .task-priority-clickable:hover {
             transform: scale(1.12);
-            box-shadow: 0 0 8px rgba(255,255,255,0.15);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
         }
+
         .task-priority-clickable:active {
             transform: scale(0.96);
         }
+
         .task-inline-priority-sel {
             background: var(--card2);
             border: 1px solid var(--accent);
@@ -1218,10 +1221,12 @@
             outline: none;
             min-width: 90px;
         }
+
         .task-inline-priority-sel:focus {
             border-color: var(--accent2);
-            box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
         }
+
         .task-del {
             color: var(--text3);
             cursor: pointer;
@@ -4370,7 +4375,7 @@
                             <div style="font-family:var(--mono);font-size: 0.87rem;color:var(--text3)">// Analyzing your
                                 patterns...</div>
                         </div>
-                        <!-- Gemini AI upgrade panel -->
+                        <!-- AI upgrade panel -->
                         <div id="gemini-coach-panel"
                             style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px">
                             <!-- Key setup hidden — AI is pre-configured -->
@@ -4379,7 +4384,7 @@
                                 <div
                                     style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
                                     <span style="font-family:var(--mono);font-size: 0.8rem;color:var(--green)"><i
-                                            class="fas fa-circle" style="font-size: 0.59rem"></i> GEMINI AI
+                                            class="fas fa-circle" style="font-size: 0.59rem"></i> AI
                                         ACTIVE</span>
                                     <span id="gemini-daily-counter"
                                         style="font-family:var(--mono);font-size: 0.77rem;color:var(--text3)"><!-- filled by JS --></span>
@@ -5985,7 +5990,7 @@
             showToast('🎉 Daily complete! Resets tomorrow. +15 XP'); addXP(15);
         }
         function cyclePriority(id, evt) { evt && evt.stopPropagation(); let t = S.tasks.find(t => t.id == id); if (!t) return; const cycle = { low: 'med', med: 'high', high: 'low' }; t.priority = cycle[t.priority] || 'low'; saveNow(); renderTasks(); showToast('Priority → ' + t.priority.toUpperCase()); }
-        function startEditTask(id, evt) { evt && evt.stopPropagation(); let t = S.tasks.find(t => t.id == id); if (!t) return; let textEl = document.getElementById('task-text-' + id); if (!textEl) return; let curText = t.text; let curPri = t.priority || 'low'; /* ── build inline editor with text + priority select ── */ let wrap = document.createElement('div'); wrap.style.cssText = 'display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap;'; let inp = document.createElement('input'); inp.className = 'task-inline-edit'; inp.value = curText; inp.style.flex = '1'; inp.onclick = e => e.stopPropagation(); let priSel = document.createElement('select'); priSel.className = 'task-inline-priority-sel'; priSel.onclick = e => e.stopPropagation(); [['low','🟢 LOW'],['med','🟡 MED'],['high','🔴 HIGH']].forEach(([val,lbl]) => { let o = document.createElement('option'); o.value = val; o.textContent = lbl; if (val === curPri) o.selected = true; priSel.appendChild(o); }); wrap.appendChild(inp); wrap.appendChild(priSel); if (t.recurring) { let badge = document.createElement('span'); badge.className = 'recurring-badge'; badge.style.marginLeft = '4px'; badge.innerHTML = '<i class="fas fa-sync-alt"></i> Daily'; wrap.appendChild(badge); } textEl.innerHTML = ''; textEl.appendChild(wrap); inp.focus(); inp.select(); let saved = false; function saveEdit() { if (saved) return; saved = true; let newVal = inp.value.trim(); let newPri = priSel.value; let changed = false; if (newVal && newVal !== curText) { t.text = newVal; changed = true; } if (newPri !== curPri) { t.priority = newPri; changed = true; } if (changed) { saveNow(); showToast('Task updated'); } renderTasks(); } inp.addEventListener('blur', () => setTimeout(saveEdit, 120)); priSel.addEventListener('blur', () => setTimeout(saveEdit, 120)); inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); saveEdit(); } else if (e.key === 'Escape') { inp.value = curText; priSel.value = curPri; saveEdit(); } }); }
+        function startEditTask(id, evt) { evt && evt.stopPropagation(); let t = S.tasks.find(t => t.id == id); if (!t) return; let textEl = document.getElementById('task-text-' + id); if (!textEl) return; let curText = t.text; let curPri = t.priority || 'low'; /* ── build inline editor with text + priority select ── */ let wrap = document.createElement('div'); wrap.style.cssText = 'display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap;'; let inp = document.createElement('input'); inp.className = 'task-inline-edit'; inp.value = curText; inp.style.flex = '1'; inp.onclick = e => e.stopPropagation(); let priSel = document.createElement('select'); priSel.className = 'task-inline-priority-sel'; priSel.onclick = e => e.stopPropagation();[['low', '🟢 LOW'], ['med', '🟡 MED'], ['high', '🔴 HIGH']].forEach(([val, lbl]) => { let o = document.createElement('option'); o.value = val; o.textContent = lbl; if (val === curPri) o.selected = true; priSel.appendChild(o); }); wrap.appendChild(inp); wrap.appendChild(priSel); if (t.recurring) { let badge = document.createElement('span'); badge.className = 'recurring-badge'; badge.style.marginLeft = '4px'; badge.innerHTML = '<i class="fas fa-sync-alt"></i> Daily'; wrap.appendChild(badge); } textEl.innerHTML = ''; textEl.appendChild(wrap); inp.focus(); inp.select(); let saved = false; function saveEdit() { if (saved) return; saved = true; let newVal = inp.value.trim(); let newPri = priSel.value; let changed = false; if (newVal && newVal !== curText) { t.text = newVal; changed = true; } if (newPri !== curPri) { t.priority = newPri; changed = true; } if (changed) { saveNow(); showToast('Task updated'); } renderTasks(); } inp.addEventListener('blur', () => setTimeout(saveEdit, 120)); priSel.addEventListener('blur', () => setTimeout(saveEdit, 120)); inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); saveEdit(); } else if (e.key === 'Escape') { inp.value = curText; priSel.value = curPri; saveEdit(); } }); }
         function renderTasks() { let act = S.tasks.filter(t => t.date === todayKey && !t.done), done = S.tasks.filter(t => t.date === todayKey && t.done); let tl = document.getElementById('task-list'); if (tl) tl.innerHTML = act.length ? act.map(taskHTML).join('') : '<div class="empty-state" style="text-align:center;padding:24px 10px"><div style="font-size: 1.8rem;margin-bottom:8px">📋</div><div style="font-weight:700;margin-bottom:4px">No tasks today</div><div style="font-size: 0.9rem;color:var(--text3)">Type a task above and press ADD</div></div>'; let dl = document.getElementById('done-list'); if (dl) dl.innerHTML = done.length ? done.map(taskHTML).join('') : '<div class="empty-state">// NONE COMPLETED YET</div>'; let dc = document.getElementById('done-count'); if (dc) dc.innerHTML = done.length + ' DONE'; let tt = document.getElementById('today-tasks'); if (tt) tt.textContent = done.length; let pct = (act.length + done.length) ? Math.round(done.length / (act.length + done.length) * 100) : 0; let tp = document.getElementById('task-progress'); if (tp) tp.style.width = pct + '%'; if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 }; S.analytics.daily[todayKey].tasks = done.length; }
         function dragStart(e, id) { draggedItem = id; e.dataTransfer.effectAllowed = 'move'; e.target.style.opacity = '0.5'; }
         function dragEnd(e) { e.target.style.opacity = ''; draggedItem = null; }
@@ -6900,21 +6905,21 @@
             if (badge) badge.textContent = 'RULE-BASED';
         }
 
-        // ── GEMINI AI COACH INTEGRATION ──────────────────────────────
-        // Uses Gemini 2.0 Flash — API key pre-configured, 30 requests/day limit
+        // ── AI COACH INTEGRATION ──────────────────────────────
+        // Uses Gemini 1.5 Flash — API key pre-configured, 100 requests/day limit
 
         const _GEMINI_API_KEY = 'AIzaSyDCbGsPiudpk1dDKfqAzd1mKjmAOYEqjG0';
-        const GEMINI_DAILY_LIMIT = 30;
+        const GEMINI_DAILY_LIMIT = 100;
         const GEMINI_USAGE_KEY = 'operator_gemini_usage';
 
         function _getGeminiUsage() {
             try {
-                const today = (typeof getTodayKey === 'function') ? getTodayKey() : (function(){ let d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); })();
+                const today = (typeof getTodayKey === 'function') ? getTodayKey() : (function () { let d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); })();
                 const raw = localStorage.getItem(GEMINI_USAGE_KEY);
                 const data = raw ? JSON.parse(raw) : {};
                 if (data.date !== today) return { date: today, count: 0 };
                 return data;
-            } catch (e) { let d=new Date(); return { date: d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'), count: 0 }; }
+            } catch (e) { let d = new Date(); return { date: d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'), count: 0 }; }
         }
 
         function _incrementGeminiUsage() {
@@ -7003,7 +7008,7 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
         async function askGeminiCoach() {
             const usage = _getGeminiUsage();
             if (usage.count >= GEMINI_DAILY_LIMIT) {
-                showToast('⚠ Daily limit reached (30 requests). Come back tomorrow!');
+                showToast('⚠ Daily limit reached (100 requests). Come back tomorrow!');
                 const error = document.getElementById('gemini-coach-error');
                 if (error) { error.textContent = `⚠ Daily limit of ${GEMINI_DAILY_LIMIT} AI requests reached. Resets at midnight.`; error.style.display = 'block'; }
                 return;
@@ -7021,28 +7026,36 @@ Give 3-5 numbered insights. Each should be one or two sentences. Start with the 
 
             try {
                 const prompt = _buildCoachContext();
-                const res = await fetch(
-                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${_GEMINI_API_KEY}`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: prompt }] }],
-                            generationConfig: { temperature: 0.7, maxOutputTokens: 512 }
-                        })
-                    }
-                );
+
+                // Retry up to 3 times on 429 with exponential backoff
+                let res, attempt = 0;
+                while (attempt < 3) {
+                    res = await fetch(
+                        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${_GEMINI_API_KEY}`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{ parts: [{ text: prompt }] }],
+                                generationConfig: { temperature: 0.7, maxOutputTokens: 512 }
+                            })
+                        }
+                    );
+                    if (res.status !== 429) break;
+                    attempt++;
+                    if (attempt < 3) await new Promise(r => setTimeout(r, 1000 * Math.pow(2, attempt)));
+                }
 
                 if (!res.ok) {
                     const errData = await res.json().catch(() => ({}));
                     const msg = errData?.error?.message || `HTTP ${res.status}`;
-                    if (res.status === 429) throw new Error('Rate limit hit — try again in a moment.');
+                    if (res.status === 429) throw new Error('AI is busy right now — please try again in a few seconds.');
                     throw new Error(msg);
                 }
 
                 const data = await res.json();
                 const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-                if (!text) throw new Error('Empty response from Gemini');
+                if (!text) throw new Error('Empty response from AI');
 
                 _incrementGeminiUsage();
                 if (output) { output.textContent = text; output.style.display = 'block'; }
