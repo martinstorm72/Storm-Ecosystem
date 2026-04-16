@@ -1297,7 +1297,7 @@
             if (user) {
                 const hasPaid = await checkPaidStatus(user.id);
                 if (hasPaid) {
-                    window.location.href = 'dashboard.html';
+                    window.location.href = 'index.html';
                 }
             }
         }
@@ -1368,9 +1368,9 @@
                                 localStorage.removeItem('storm_os_payment_tx');
                                 localStorage.removeItem('storm_os_payment_pending');
                                 localStorage.setItem('storm_os_paid', 'true');
-                                showMsg('// PAYMENT VERIFIED — LOADING DASHBOARD...', 'success');
+                                showMsg('// PAYMENT VERIFIED — LOADING HOME...', 'success');
                                 setTimeout(() => {
-                                    window.location.href = 'dashboard.html';
+                                    window.location.href = 'index.html';
                                 }, 900);
                                 return;
                             }
@@ -1379,9 +1379,9 @@
 
                     if (hasPaid) {
                         localStorage.setItem('storm_os_paid', 'true');
-                        showMsg('// ACCESS GRANTED — LOADING DASHBOARD...', 'success');
+                        showMsg('// ACCESS GRANTED — LOADING HOME...', 'success');
                         setTimeout(() => {
-                            window.location.href = 'dashboard.html';
+                            window.location.href = 'index.html';
                         }, 900);
                     } else {
                         showMsg('// NO ACTIVE SUBSCRIPTION — REDIRECTING TO PRICING', 'error');
