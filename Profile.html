@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATOR // USER PROFILE</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #000000;
+            --bg2: #020202;
+            --card: #060606;
+            --card2: #0a0a0a;
+            --border: #111111;
+            --border2: #1a1a1a;
+            --accent: #ffffff;
+            --accent2: #d8d8d8;
+            --accent-glow: rgba(255, 255, 255, 0.10);
+            --green: #bbbbbb;
+            --green-dim: #777777;
+            --red: #aaaaaa;
+            --amber: #eeeeee;
+            --cyan: #cccccc;
+            --text: #f8f8f8;
+            --text2: #aaaaaa;
+            --text3: #666666;
+            --mono: 'JetBrains Mono', monospace;
+            --head: 'Cormorant Garamond', serif;
+            --body: 'EB Garamond', serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        p,
+        li,
+        span,
+        div,
+        td,
+        th,
+        label {
+            font-weight: 600;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 900;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--body);
+            font-size: 18px;
+            font-weight: 600;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── BACKGROUNDS ── */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, .01) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .01) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .05), transparent);
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%)
+            }
+
+            100% {
+                transform: translateY(100vh)
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes headerSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-40px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes cardReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.97)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1)
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center
+            }
+
+            100% {
+                background-position: 200% center
+            }
+        }
+
+        @keyframes glitch {
+
+            0%,
+            100%,
+            95% {
+                clip-path: none;
+                transform: none
+            }
+
+            93% {
+                clip-path: inset(20% 0 50% 0);
+                transform: translateX(-3px)
+            }
+
+            94% {
+                clip-path: inset(70% 0 10% 0);
+                transform: translateX(3px)
+            }
+        }
+
+        @keyframes borderFlow {
+            0% {
+                background-position: 0 0
+            }
+
+            100% {
+                background-position: 200% 0
+            }
+        }
+
+        @keyframes dotBlink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .2
+            }
+        }
+
+        @keyframes progressShine {
+            0% {
+                background-position: -200% 0
+            }
+
+            100% {
+                background-position: 200% 0
+            }
+        }
+
+        @keyframes scoreGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 15px rgba(255, 255, 255, .05)
+            }
+
+            50% {
+                box-shadow: 0 0 35px rgba(255, 255, 255, .1)
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.05)
+            }
+        }
+
+        @keyframes avatarGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(255, 255, 255, .08)
+            }
+
+            50% {
+                box-shadow: 0 0 60px rgba(255, 255, 255, .18), 0 0 100px rgba(255, 255, 255, .06)
+            }
+        }
+
+        @keyframes rankShimmer {
+            0% {
+                background-position: -200% center
+            }
+
+            100% {
+                background-position: 200% center
+            }
+        }
+
+        @keyframes waveform {
+
+            0%,
+            100% {
+                height: 6px
+            }
+
+            50% {
+                height: 22px
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        /* ── LAYOUT ── */
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            animation: slideUp 0.6s ease;
+        }
+
+        /* ── HEADER ── */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0 24px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 12px;
+            position: relative;
+            animation: headerSlide 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), var(--accent), transparent);
+            background-size: 200% 100%;
+            animation: borderFlow 4s linear infinite;
+            opacity: .4;
+        }
+
+        .brand h1 {
+            font-family: var(--head);
+            font-size: clamp(1.4rem, 3vw, 2.1rem);
+            font-weight: 900;
+            letter-spacing: .08em;
+            background: linear-gradient(135deg, #fff 0%, var(--accent2) 50%, var(--cyan) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite, glitch 10s infinite;
+        }
+
+        .brand .sub {
+            font-family: var(--mono);
+            font-size: .99rem;
+            font-weight: 700;
+            color: var(--green);
+            letter-spacing: .1em;
+            margin-top: 4px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--head);
+            font-weight: 700;
+            font-size: .89rem;
+            letter-spacing: .12em;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-ghost {
+            background: var(--card2);
+            color: var(--text2);
+            border: 1px solid var(--border2);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            color: var(--accent2);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, .15);
+        }
+
+        /* ── WAVEFORM ── */
+        .waveform {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 22px;
+        }
+
+        .wave-bar {
+            width: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            animation: waveform 0.8s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(1) {
+            animation-delay: 0s
+        }
+
+        .wave-bar:nth-child(2) {
+            animation-delay: .1s
+        }
+
+        .wave-bar:nth-child(3) {
+            animation-delay: .2s
+        }
+
+        .wave-bar:nth-child(4) {
+            animation-delay: .3s
+        }
+
+        .wave-bar:nth-child(5) {
+            animation-delay: .1s
+        }
+
+        /* ── PROFILE HERO ── */
+        .profile-hero {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 32px;
+            align-items: start;
+            background: linear-gradient(135deg, rgba(255, 255, 255, .04), rgba(200, 200, 200, .02));
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 12px;
+            padding: 32px;
+            margin: 28px 0 0;
+            animation: scoreGlow 4s ease-in-out infinite, cardReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border: 2px solid rgba(255, 255, 255, .15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--head);
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: var(--accent2);
+            animation: avatarGlow 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, .08), transparent, rgba(255, 255, 255, .04));
+        }
+
+        .avatar-ring {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            background: linear-gradient(var(--bg), var(--bg)) padding-box,
+                linear-gradient(135deg, rgba(255, 255, 255, .3), transparent, rgba(255, 255, 255, .1)) border-box;
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--green);
+            border: 2px solid var(--bg);
+            box-shadow: 0 0 8px var(--green);
+            animation: dotBlink 2s infinite;
+        }
+
+        .profile-info {
+            min-width: 0;
+        }
+
+        .profile-name {
+            font-family: var(--head);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: .04em;
+            background: linear-gradient(135deg, #fff 0%, var(--accent2) 60%, var(--cyan) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 5s linear infinite;
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+
+        .profile-handle {
+            font-family: var(--mono);
+            font-size: .95rem;
+            color: var(--text3);
+            letter-spacing: .1em;
+            margin-bottom: 14px;
+        }
+
+        .profile-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .meta-chip {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-family: var(--mono);
+            font-size: .88rem;
+            color: var(--text2);
+            background: var(--card2);
+            border: 1px solid var(--border2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            transition: all .25s;
+        }
+
+        .meta-chip:hover {
+            border-color: rgba(255, 255, 255, .2);
+            color: var(--accent2);
+        }
+
+        .meta-chip i {
+            color: var(--text3);
+            font-size: .8rem;
+        }
+
+        .profile-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .rank-badge {
+            font-family: var(--head);
+            font-weight: 900;
+            font-size: .85rem;
+            letter-spacing: .14em;
+            padding: 6px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e, #ffd700);
+            background-size: 200% auto;
+            color: #000;
+            animation: rankShimmer 3s linear infinite, pulse 3s infinite;
+        }
+
+        .tag-badge {
+            font-family: var(--mono);
+            font-size: .78rem;
+            letter-spacing: .1em;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border2);
+            color: var(--text2);
+            background: var(--card2);
+        }
+
+        .tag-badge.active {
+            border-color: rgba(255, 255, 255, .2);
+            color: var(--amber);
+        }
+
+        /* ── STATS GRID ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 28px;
+            animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        }
+
+        .stat-cell {
+            background: var(--card);
+            padding: 22px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: all .3s;
+        }
+
+        .stat-cell:hover {
+            background: var(--card2);
+        }
+
+        .stat-val {
+            font-family: var(--head);
+            font-size: 2.1rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff, var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: .04em;
+        }
+
+        .stat-val.gold {
+            background: linear-gradient(135deg, #ffd700, #ffed4e, #ffd700);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rankShimmer 3s linear infinite;
+        }
+
+        .stat-lbl {
+            font-family: var(--mono);
+            font-size: .74rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            color: var(--text3);
+            text-align: center;
+        }
+
+        .stat-sub {
+            font-family: var(--mono);
+            font-size: .72rem;
+            color: var(--green-dim);
+        }
+
+        /* ── NAV TABS ── */
+        .nav-tabs {
+            display: flex;
+            gap: 4px;
+            margin: 28px 0 0;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            font-family: var(--head);
+            font-size: .85rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            color: var(--text3);
+            padding: 8px 14px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .25s;
+            position: relative;
+        }
+
+        .nav-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            right: 50%;
+            height: 2px;
+            background: var(--accent);
+            transition: all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .nav-tab:hover {
+            color: var(--text2);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            color: var(--accent2);
+        }
+
+        .nav-tab.active::after {
+            left: 0;
+            right: 0;
+        }
+
+        /* ── PANELS ── */
+        .panel {
+            display: none;
+            padding-top: 28px;
+        }
+
+        .panel.active {
+            display: block;
+            animation: cardReveal .4s cubic-bezier(0.16, 1, .3, 1);
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all .35s cubic-bezier(0.16, 1, .3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .card:hover::before {
+            opacity: .4;
+        }
+
+        .card:hover {
+            border-color: var(--border2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .5);
+        }
+
+        .card-title {
+            font-family: var(--head);
+            font-size: .72rem;
+            font-weight: 900;
+            letter-spacing: .16em;
+            color: var(--text3);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title::before {
+            content: '';
+            display: block;
+            width: 18px;
+            height: 1px;
+            background: var(--border2);
+        }
+
+        /* ── SECTION GRID ── */
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width:700px) {
+            .section-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── INFO ROWS ── */
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .info-key {
+            font-family: var(--mono);
+            font-size: .82rem;
+            color: var(--text3);
+            letter-spacing: .08em;
+        }
+
+        .info-val {
+            font-family: var(--mono);
+            font-size: .88rem;
+            color: var(--accent2);
+            letter-spacing: .04em;
+            text-align: right;
+        }
+
+        .info-val.highlight {
+            color: var(--amber);
+        }
+
+        /* ── SCORE RING ── */
+        .score-wrap {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .ring-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            flex-shrink: 0;
+        }
+
+        .ring-container svg {
+            transform: rotate(-90deg);
+        }
+
+        .ring-bg {
+            fill: none;
+            stroke: var(--border2);
+            stroke-width: 8;
+        }
+
+        .ring-fill {
+            fill: none;
+            stroke-width: 8;
+            stroke: url(#scoreGrad);
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .ring-label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        .ring-val {
+            font-family: var(--head);
+            font-size: 1.6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff, var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ring-sub {
+            font-family: var(--mono);
+            font-size: .6rem;
+            color: var(--text3);
+            letter-spacing: .12em;
+        }
+
+        .score-details {
+            flex: 1;
+        }
+
+        .score-bar-row {
+            margin-bottom: 12px;
+        }
+
+        .score-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--mono);
+            font-size: .78rem;
+            color: var(--text2);
+            margin-bottom: 5px;
+        }
+
+        .score-bar-track {
+            height: 5px;
+            background: var(--border2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .score-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #fff, var(--accent2), #fff);
+            background-size: 200% 100%;
+            animation: progressShine 3s linear infinite;
+        }
+
+        /* ── PRODUCTS GRID ── */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .product-card {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all .3s cubic-bezier(0.16, 1, .3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, .04), transparent);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, .15);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .6);
+        }
+
+        .product-card:hover::after {
+            opacity: 1;
+        }
+
+        .product-card.locked {
+            opacity: .45;
+            filter: grayscale(1);
+        }
+
+        .product-card.locked:hover {
+            transform: none;
+        }
+
+        .product-icon {
+            font-size: 1.6rem;
+        }
+
+        .product-name {
+            font-family: var(--head);
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--accent2);
+            letter-spacing: .04em;
+        }
+
+        .product-tier {
+            font-family: var(--mono);
+            font-size: .72rem;
+            letter-spacing: .12em;
+            color: var(--text3);
+            margin-top: -4px;
+        }
+
+        .product-status {
+            font-family: var(--mono);
+            font-size: .72rem;
+            letter-spacing: .12em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            width: fit-content;
+        }
+
+        .product-status.active {
+            background: rgba(187, 187, 187, .1);
+            color: var(--green);
+            border: 1px solid rgba(187, 187, 187, .2);
+        }
+
+        .product-status.locked {
+            background: rgba(102, 102, 102, .08);
+            color: var(--text3);
+            border: 1px solid rgba(102, 102, 102, .15);
+        }
+
+        .product-expires {
+            font-family: var(--mono);
+            font-size: .7rem;
+            color: var(--text3);
+        }
+
+        /* ── ACTIVITY FEED ── */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            transition: all .2s;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item:hover {
+            padding-left: 4px;
+        }
+
+        .activity-dot-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            padding-top: 4px;
+        }
+
+        .activity-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            background: var(--text3);
+            border: 1.5px solid var(--border2);
+        }
+
+        .activity-dot.success {
+            background: var(--green);
+            box-shadow: 0 0 6px var(--green);
+            border-color: transparent;
+        }
+
+        .activity-dot.warn {
+            background: var(--amber);
+            box-shadow: 0 0 6px rgba(238, 238, 238, .4);
+            border-color: transparent;
+        }
+
+        .activity-dot.info {
+            background: var(--cyan);
+            box-shadow: 0 0 6px rgba(204, 204, 204, .3);
+            border-color: transparent;
+        }
+
+        .activity-line {
+            flex: 1;
+            width: 1px;
+            background: var(--border);
+            margin-top: 4px;
+            min-height: 20px;
+        }
+
+        .activity-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-title {
+            font-family: var(--body);
+            font-size: .95rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .activity-meta {
+            font-family: var(--mono);
+            font-size: .75rem;
+            color: var(--text3);
+            margin-top: 3px;
+        }
+
+        /* ── ACHIEVEMENTS ── */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+
+        .achievement {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all .3s;
+        }
+
+        .achievement:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, .15);
+        }
+
+        .achievement.locked-ach {
+            opacity: .35;
+            filter: grayscale(1);
+        }
+
+        .ach-icon {
+            font-size: 1.8rem;
+        }
+
+        .ach-name {
+            font-family: var(--mono);
+            font-size: .72rem;
+            letter-spacing: .1em;
+            color: var(--text2);
+            text-align: center;
+        }
+
+        .ach-date {
+            font-family: var(--mono);
+            font-size: .65rem;
+            color: var(--text3);
+        }
+
+        /* ── XP BAR ── */
+        .xp-section {
+            margin-top: 16px;
+        }
+
+        .xp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .xp-label {
+            font-family: var(--mono);
+            font-size: .78rem;
+            color: var(--text2);
+            letter-spacing: .1em;
+        }
+
+        .xp-val {
+            font-family: var(--mono);
+            font-size: .78rem;
+            color: var(--amber);
+        }
+
+        .xp-track {
+            height: 6px;
+            background: var(--border2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+            background-size: 200% 100%;
+            animation: progressShine 2s linear infinite;
+            transition: width .8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ── SETTINGS ── */
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            gap: 16px;
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {}
+
+        .setting-name {
+            font-family: var(--body);
+            font-size: 1rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .setting-desc {
+            font-family: var(--mono);
+            font-size: .75rem;
+            color: var(--text3);
+            margin-top: 3px;
+        }
+
+        .toggle {
+            position: relative;
+            width: 42px;
+            height: 22px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            border-radius: 11px;
+            background: var(--border2);
+            transition: .3s;
+            border: 1px solid var(--border2);
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            left: 2px;
+            top: 2px;
+            background: var(--text3);
+            transition: .3s;
+        }
+
+        .toggle input:checked+.toggle-slider {
+            background: rgba(255, 255, 255, .12);
+            border-color: rgba(255, 255, 255, .2);
+        }
+
+        .toggle input:checked+.toggle-slider::before {
+            transform: translateX(20px);
+            background: var(--accent);
+            box-shadow: 0 0 8px rgba(255, 255, 255, .4);
+        }
+
+        /* ── BACK TO TOP / BREADCRUMB ── */
+        .breadcrumb {
+            font-family: var(--mono);
+            font-size: .78rem;
+            color: var(--text3);
+            letter-spacing: .08em;
+            padding: 18px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            color: var(--text3);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent2);
+        }
+
+        .breadcrumb .sep {
+            color: var(--border2);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width:680px) {
+            .profile-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <div class="grid-bg"></div>
+    <div class="scanline"></div>
+
+    <div class="wrapper">
+
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb">
+            <a href="dashboard.html"><i class="fas fa-terminal" style="font-size:.7rem"></i> DASHBOARD</a>
+            <span class="sep">/</span>
+            <span style="color:var(--text2)">USER PROFILE</span>
+        </div>
+
+        <!-- HEADER -->
+        <header>
+            <div class="brand">
+                <h1>OPERATOR</h1>
+                <div class="sub">// USER PROFILE — EXECUTION OS v5.0</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+                <div class="waveform">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+                <div style="font-family:var(--mono);font-size:.88rem;color:var(--text3);letter-spacing:.08em"
+                    id="clock-display">—</div>
+                <div class="header-actions">
+                    <button class="btn btn-ghost" onclick="window.location.href='dashboard.html'">
+                        <i class="fas fa-arrow-left"></i> BACK
+                    </button>
+                    <button class="btn btn-primary" onclick="toggleEdit()">
+                        <i class="fas fa-pen" id="edit-icon"></i>
+                        <span id="edit-label">EDIT PROFILE</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- PROFILE HERO -->
+        <div class="profile-hero">
+            <div class="profile-info">
+                <div class="profile-name" id="display-name">—</div>
+                <div class="profile-handle" id="display-handle">// @— · UID-—</div>
+                <div class="profile-meta">
+                    <div class="meta-chip"><i class="fas fa-envelope"></i> <span id="display-email">—</span></div>
+                    <div class="meta-chip"><i class="fas fa-map-marker-alt"></i> <span id="display-location">—</span>
+                    </div>
+                    <div class="meta-chip"><i class="fas fa-calendar-alt"></i> <span id="display-joined">—</span></div>
+                    <div class="meta-chip"><i class="fas fa-clock"></i> Last seen: Today</div>
+                </div>
+                <div class="profile-badges">
+                    <div class="rank-badge" id="display-rank">⚡ OPERATOR</div>
+                    <div class="tag-badge active" id="badge-plan">PRO ACCESS</div>
+                    <div class="tag-badge active" id="badge-verified">VERIFIED</div>
+                    <div class="tag-badge">BETA TESTER</div>
+                </div>
+                <!-- XP Bar -->
+                <div class="xp-section">
+                    <div class="xp-header">
+                        <span class="xp-label">XP PROGRESS — LEVEL <span id="display-level">1</span> → <span
+                                id="display-level-next">2</span></span>
+                        <span class="xp-val" id="display-xp">0 / 1,000 XP</span>
+                    </div>
+                    <div class="xp-track">
+                        <div class="xp-fill" id="display-xp-bar" style="width:0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-grid">
+            <div class="stat-cell">
+                <div class="stat-val gold" id="stat-focus">—</div>
+                <div class="stat-lbl">FOCUS SCORE</div>
+                <div class="stat-sub" id="stat-focus-sub">—</div>
+            </div>
+            <div class="stat-cell">
+                <div class="stat-val" id="stat-level">—</div>
+                <div class="stat-lbl">OPERATOR LEVEL</div>
+                <div class="stat-sub" id="stat-level-sub">—</div>
+            </div>
+            <div class="stat-cell">
+                <div class="stat-val" id="stat-streak">—</div>
+                <div class="stat-lbl">DAY STREAK</div>
+                <div class="stat-sub" id="stat-streak-sub">—</div>
+            </div>
+            <div class="stat-cell">
+                <div class="stat-val" id="stat-xp">—</div>
+                <div class="stat-lbl">TOTAL XP</div>
+                <div class="stat-sub" id="stat-xp-sub">—</div>
+            </div>
+            <div class="stat-cell">
+                <div class="stat-val" id="stat-sessions">—</div>
+                <div class="stat-lbl">SESSIONS</div>
+                <div class="stat-sub">Lifetime</div>
+            </div>
+            <div class="stat-cell">
+                <div class="stat-val" id="stat-hours">—</div>
+                <div class="stat-lbl">FOCUS HRS</div>
+                <div class="stat-sub">Total logged</div>
+            </div>
+        </div>
+
+        <!-- NAV TABS -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('overview', this)"><i class="fas fa-user-circle"></i>
+                OVERVIEW</button>
+            <button class="nav-tab" onclick="switchTab('products', this)"><i class="fas fa-cube"></i> PRODUCTS</button>
+            <button class="nav-tab" onclick="switchTab('score', this)"><i class="fas fa-chart-line"></i> SCORE</button>
+            <button class="nav-tab" onclick="switchTab('activity', this)"><i class="fas fa-history"></i>
+                ACTIVITY</button>
+            <button class="nav-tab" onclick="switchTab('achievements', this)"><i class="fas fa-trophy"></i>
+                ACHIEVEMENTS</button>
+            <button class="nav-tab" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</button>
+        </div>
+
+        <!-- ═══ PANEL: OVERVIEW ═══ -->
+        <div class="panel active" id="panel-overview">
+            <div class="section-grid">
+                <div class="card">
+                    <div class="card-title">PERSONAL INFORMATION</div>
+                    <div class="info-row">
+                        <span class="info-key">FULL NAME</span>
+                        <span class="info-val highlight" id="info-fullname">—</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">EMAIL</span>
+                        <span class="info-val" id="info-email">—</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">USERNAME</span>
+                        <span class="info-val" id="info-username">—</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">USER ID</span>
+                        <span class="info-val" id="info-uid">—</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">LOCATION</span>
+                        <span class="info-val" id="info-location">—</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">TIMEZONE</span>
+                        <span class="info-val" id="info-timezone">—</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">MEMBER SINCE</span>
+                        <span class="info-val" id="info-joined">—</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">ACCOUNT STATUS</div>
+                    <div class="info-row">
+                        <span class="info-key">PLAN</span>
+                        <span class="info-val highlight" id="info-plan">—</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">STATUS</span>
+                        <span class="info-val" style="display:flex;align-items:center;gap:6px">
+                            <span id="info-status-dot"
+                                style="width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:dotBlink 2s infinite;display:inline-block"></span>
+                            <span id="info-status">—</span>
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">ROLE</span>
+                        <span class="info-val" id="info-role">—</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">RENEWAL DATE</span>
+                        <span class="info-val" id="info-renewal">—</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">EMAIL VERIFIED</span>
+                        <span class="info-val highlight" id="info-verified">—</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ PANEL: PRODUCTS ═══ -->
+        <div class="panel" id="panel-products">
+            <div
+                style="font-family:var(--mono);font-size:.78rem;color:var(--text3);letter-spacing:.1em;margin-bottom:18px">
+                // 5 OF 8 PRODUCTS ACTIVE — PRO TIER
+            </div>
+            <div class="products-grid">
+
+                <div class="product-card">
+                    <div class="product-icon">⚡</div>
+                    <div>
+                        <div class="product-name">FOCUS ENGINE</div>
+                        <div class="product-tier">PRO · Core Module</div>
+                    </div>
+                    <div class="product-status active"><span
+                            style="width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block"></span>
+                        ACTIVE</div>
+                    <div class="product-expires">Renews Jun 2026</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-icon">📊</div>
+                    <div>
+                        <div class="product-name">ANALYTICS</div>
+                        <div class="product-tier">PRO · Intelligence</div>
+                    </div>
+                    <div class="product-status active"><span
+                            style="width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block"></span>
+                        ACTIVE</div>
+                    <div class="product-expires">Renews Jun 2026</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-icon">🛠️</div>
+                    <div>
+                        <div class="product-name">DEV TOOLS</div>
+                        <div class="product-tier">PRO · Developer</div>
+                    </div>
+                    <div class="product-status active"><span
+                            style="width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block"></span>
+                        ACTIVE</div>
+                    <div class="product-expires">Renews Jun 2026</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-icon">🧠</div>
+                    <div>
+                        <div class="product-name">AI COPILOT</div>
+                        <div class="product-tier">PRO · Intelligence</div>
+                    </div>
+                    <div class="product-status active"><span
+                            style="width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block"></span>
+                        ACTIVE</div>
+                    <div class="product-expires">Renews Jun 2026</div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-icon">📁</div>
+                    <div>
+                        <div class="product-name">VAULT</div>
+                        <div class="product-tier">PRO · Storage</div>
+                    </div>
+                    <div class="product-status active"><span
+                            style="width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block"></span>
+                        ACTIVE</div>
+                    <div class="product-expires">Renews Jun 2026</div>
+                </div>
+
+                <div class="product-card locked">
+                    <div class="product-icon">🌐</div>
+                    <div>
+                        <div class="product-name">NETWORK OPS</div>
+                        <div class="product-tier">ENTERPRISE · Team</div>
+                    </div>
+                    <div class="product-status locked"><i class="fas fa-lock" style="font-size:.65rem"></i> LOCKED</div>
+                    <div class="product-expires">Upgrade to Enterprise</div>
+                </div>
+
+                <div class="product-card locked">
+                    <div class="product-icon">🔐</div>
+                    <div>
+                        <div class="product-name">CIPHER SUITE</div>
+                        <div class="product-tier">ENTERPRISE · Security</div>
+                    </div>
+                    <div class="product-status locked"><i class="fas fa-lock" style="font-size:.65rem"></i> LOCKED</div>
+                    <div class="product-expires">Upgrade to Enterprise</div>
+                </div>
+
+                <div class="product-card locked">
+                    <div class="product-icon">🤝</div>
+                    <div>
+                        <div class="product-name">COLLAB HUB</div>
+                        <div class="product-tier">ENTERPRISE · Teams</div>
+                    </div>
+                    <div class="product-status locked"><i class="fas fa-lock" style="font-size:.65rem"></i> LOCKED</div>
+                    <div class="product-expires">Upgrade to Enterprise</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ═══ PANEL: SCORE ═══ -->
+        <div class="panel" id="panel-score">
+            <div class="section-grid">
+                <div class="card">
+                    <div class="card-title">FOCUS SCORE BREAKDOWN</div>
+                    <div class="score-wrap">
+                        <div class="ring-container">
+                            <svg width="110" height="110" viewBox="0 0 110 110">
+                                <defs>
+                                    <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#ffffff" />
+                                        <stop offset="100%" style="stop-color:#aaaaaa" />
+                                    </linearGradient>
+                                </defs>
+                                <circle class="ring-bg" cx="55" cy="55" r="46" />
+                                <circle class="ring-fill" cx="55" cy="55" r="46" stroke-dasharray="289"
+                                    stroke-dashoffset="43" id="score-ring-fill" />
+                            </svg>
+                            <div class="ring-label">
+                                <div class="ring-val">94</div>
+                                <div class="ring-sub">/ 100</div>
+                            </div>
+                        </div>
+                        <div class="score-details">
+                            <div class="score-bar-row">
+                                <div class="score-bar-label"><span>CONSISTENCY</span><span
+                                        style="color:var(--amber)">97</span></div>
+                                <div class="score-bar-track">
+                                    <div class="score-bar-fill" style="width:97%"></div>
+                                </div>
+                            </div>
+                            <div class="score-bar-row">
+                                <div class="score-bar-label"><span>DEEP WORK</span><span
+                                        style="color:var(--amber)">91</span></div>
+                                <div class="score-bar-track">
+                                    <div class="score-bar-fill" style="width:91%"></div>
+                                </div>
+                            </div>
+                            <div class="score-bar-row">
+                                <div class="score-bar-label"><span>EFFICIENCY</span><span
+                                        style="color:var(--amber)">89</span></div>
+                                <div class="score-bar-track">
+                                    <div class="score-bar-fill" style="width:89%"></div>
+                                </div>
+                            </div>
+                            <div class="score-bar-row">
+                                <div class="score-bar-label"><span>RECOVERY</span><span
+                                        style="color:var(--amber)">82</span></div>
+                                <div class="score-bar-track">
+                                    <div class="score-bar-fill" style="width:82%"></div>
+                                </div>
+                            </div>
+                            <div class="score-bar-row" style="margin-bottom:0">
+                                <div class="score-bar-label"><span>GOAL COMPLETION</span><span
+                                        style="color:var(--amber)">95</span></div>
+                                <div class="score-bar-track">
+                                    <div class="score-bar-fill" style="width:95%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">PERFORMANCE METRICS</div>
+                    <div class="info-row">
+                        <span class="info-key">GLOBAL RANK</span>
+                        <span class="info-val highlight">#124 / 15,400</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">TOP PERCENTILE</span>
+                        <span class="info-val highlight">Top 0.8%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">AVG DAILY FOCUS</span>
+                        <span class="info-val">4h 22m</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">BEST STREAK</span>
+                        <span class="info-val">34 days</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">CURRENT STREAK</span>
+                        <span class="info-val highlight">21 days 🔥</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">SESSIONS THIS MONTH</span>
+                        <span class="info-val">48</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-key">SCORE TREND</span>
+                        <span class="info-val" style="color:var(--green)">↑ +3 pts (7d)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ PANEL: ACTIVITY ═══ -->
+        <div class="panel" id="panel-activity">
+            <div class="card" style="max-width:680px">
+                <div class="card-title">RECENT ACTIVITY LOG</div>
+                <div class="activity-list">
+
+                    <div class="activity-item">
+                        <div class="activity-dot-col">
+                            <div class="activity-dot success"></div>
+                            <div class="activity-line"></div>
+                        </div>
+                        <div class="activity-body">
+                            <div class="activity-title">Completed Deep Work Session — 2h 14m</div>
+                            <div class="activity-meta">Today · 14:30 · +120 XP · Focus Score +1</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-dot-col">
+                            <div class="activity-dot info"></div>
+                            <div class="activity-line"></div>
+                        </div>
+                        <div class="activity-body">
+                            <div class="activity-title">Achievement Unlocked — "Iron Discipline"</div>
+                            <div class="activity-meta">Today · 12:00 · 21-day streak reached</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-dot-col">
+                            <div class="activity-dot success"></div>
+                            <div class="activity-line"></div>
+                        </div>
+                        <div class="activity-body">
+                            <div class="activity-title">Weekly Goal Completed — 20h Focus Target</div>
+                            <div class="activity-meta">Yesterday · 23:55 · +500 XP bonus</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-dot-col">
+                            <div class="activity-dot warn"></div>
+                            <div class="activity-line"></div>
+                        </div>
+                        <div class="activity-body">
+                            <div class="activity-title">Session Interrupted — Context Switch Detected</div>
+                            <div class="activity-meta">Yesterday · 18:10 · -5 Efficiency pts</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-dot-col">
+                            <div class="activity-dot success"></div>
+                            <div class="activity-line"></div>
+                        </div>
+                        <div class="activity-body">
+                            <div class="activity-title">Leveled Up — Level 11 → 12</div>
+                            <div class="activity-meta">Apr 12 · Elite Operator tier unlocked</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-dot-col">
+                            <div class="activity-dot info"></div>
+                            <div class="activity-line"></div>
+                        </div>
+                        <div class="activity-body">
+                            <div class="activity-title">AI Copilot Product Activated</div>
+                            <div class="activity-meta">Apr 10 · PRO plan upgrade applied</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-dot-col">
+                            <div class="activity-dot success"></div>
+                        </div>
+                        <div class="activity-body">
+                            <div class="activity-title">Completed 1,000 Total Focus Hours Milestone</div>
+                            <div class="activity-meta">Apr 8 · Lifetime · +1,000 XP · Badge awarded</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ PANEL: ACHIEVEMENTS ═══ -->
+        <div class="panel" id="panel-achievements">
+            <div
+                style="font-family:var(--mono);font-size:.78rem;color:var(--text3);letter-spacing:.1em;margin-bottom:18px">
+                // 9 OF 16 ACHIEVEMENTS UNLOCKED
+            </div>
+            <div class="achievements-grid">
+                <div class="achievement">
+                    <div class="ach-icon">🔥</div>
+                    <div class="ach-name">IRON DISCIPLINE</div>
+                    <div class="ach-date">21-day streak</div>
+                    <div class="ach-date" style="color:var(--green-dim)">Apr 14, 2026</div>
+                </div>
+                <div class="achievement">
+                    <div class="ach-icon">⚡</div>
+                    <div class="ach-name">DEEP WORKER</div>
+                    <div class="ach-date">100 deep sessions</div>
+                    <div class="ach-date" style="color:var(--green-dim)">Mar 28, 2026</div>
+                </div>
+                <div class="achievement">
+                    <div class="ach-icon">🏆</div>
+                    <div class="ach-name">ELITE OPERATOR</div>
+                    <div class="ach-date">Reach Level 12</div>
+                    <div class="ach-date" style="color:var(--green-dim)">Apr 12, 2026</div>
+                </div>
+                <div class="achievement">
+                    <div class="ach-icon">🕐</div>
+                    <div class="ach-name">1K HOURS</div>
+                    <div class="ach-date">1000 focus hrs</div>
+                    <div class="ach-date" style="color:var(--green-dim)">Apr 8, 2026</div>
+                </div>
+                <div class="achievement">
+                    <div class="ach-icon">🎯</div>
+                    <div class="ach-name">GOAL CRUSHER</div>
+                    <div class="ach-date">50 goals hit</div>
+                    <div class="ach-date" style="color:var(--green-dim)">Mar 10, 2026</div>
+                </div>
+                <div class="achievement">
+                    <div class="ach-icon">🌅</div>
+                    <div class="ach-name">EARLY BIRD</div>
+                    <div class="ach-date">30 morning sessions</div>
+                    <div class="ach-date" style="color:var(--green-dim)">Feb 22, 2026</div>
+                </div>
+                <div class="achievement">
+                    <div class="ach-icon">🧠</div>
+                    <div class="ach-name">MIND FORGE</div>
+                    <div class="ach-date">Score ≥ 90</div>
+                    <div class="ach-date" style="color:var(--green-dim)">Jan 30, 2026</div>
+                </div>
+                <div class="achievement">
+                    <div class="ach-icon">💎</div>
+                    <div class="ach-name">REFERRAL KING</div>
+                    <div class="ach-date">7 referrals</div>
+                    <div class="ach-date" style="color:var(--green-dim)">Dec 15, 2025</div>
+                </div>
+                <div class="achievement">
+                    <div class="ach-icon">🚀</div>
+                    <div class="ach-name">FIRST FLIGHT</div>
+                    <div class="ach-date">First session</div>
+                    <div class="ach-date" style="color:var(--green-dim)">Apr 3, 2024</div>
+                </div>
+                <div class="achievement locked-ach">
+                    <div class="ach-icon">🌙</div>
+                    <div class="ach-name">NIGHT OWL</div>
+                    <div class="ach-date">50 late sessions</div>
+                    <div class="ach-date">🔒 Locked</div>
+                </div>
+                <div class="achievement locked-ach">
+                    <div class="ach-icon">📅</div>
+                    <div class="ach-name">CENTURION</div>
+                    <div class="ach-date">100-day streak</div>
+                    <div class="ach-date">🔒 Locked</div>
+                </div>
+                <div class="achievement locked-ach">
+                    <div class="ach-icon">👑</div>
+                    <div class="ach-name">GRANDMASTER</div>
+                    <div class="ach-date">Reach Level 20</div>
+                    <div class="ach-date">🔒 Locked</div>
+                </div>
+                <div class="achievement locked-ach">
+                    <div class="ach-icon">🌐</div>
+                    <div class="ach-name">NETWORK NODE</div>
+                    <div class="ach-date">Enterprise member</div>
+                    <div class="ach-date">🔒 Locked</div>
+                </div>
+                <div class="achievement locked-ach">
+                    <div class="ach-icon">⏱️</div>
+                    <div class="ach-name">5K HOURS</div>
+                    <div class="ach-date">5000 focus hrs</div>
+                    <div class="ach-date">🔒 Locked</div>
+                </div>
+                <div class="achievement locked-ach">
+                    <div class="ach-icon">🔬</div>
+                    <div class="ach-name">SCIENTIST</div>
+                    <div class="ach-date">100 experiments</div>
+                    <div class="ach-date">🔒 Locked</div>
+                </div>
+                <div class="achievement locked-ach">
+                    <div class="ach-icon">⚔️</div>
+                    <div class="ach-name">PERFECT MONTH</div>
+                    <div class="ach-date">30-day flawless</div>
+                    <div class="ach-date">🔒 Locked</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ PANEL: SETTINGS ═══ -->
+        <div class="panel" id="panel-settings">
+            <div class="section-grid">
+                <div class="card">
+                    <div class="card-title">NOTIFICATIONS</div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-name">Session Reminders</div>
+                            <div class="setting-desc">Daily focus session prompt at your scheduled time</div>
+                        </div>
+                        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-name">Weekly Report Email</div>
+                            <div class="setting-desc">Performance summary sent every Monday</div>
+                        </div>
+                        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-name">Achievement Popups</div>
+                            <div class="setting-desc">In-app celebratory notifications</div>
+                        </div>
+                        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">PRIVACY &amp; SECURITY</div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-name">Show on Leaderboard</div>
+                            <div class="setting-desc">Appear in global operator rankings</div>
+                        </div>
+                        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-name">Activity Tracking</div>
+                            <div class="setting-desc">Log session data for score calculation</div>
+                        </div>
+                        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <div class="setting-name">Data Export</div>
+                            <div class="setting-desc">Allow personal data download (GDPR)</div>
+                        </div>
+                        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn btn-ghost"><i class="fas fa-download"></i> EXPORT DATA</button>
+                <button class="btn btn-ghost" style="color:var(--red);border-color:rgba(170,170,170,.2)"><i
+                        class="fas fa-trash-alt"></i> DELETE ACCOUNT</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ===== SUPABASE CONFIG =====
+        const SUPA_URL = 'https://mryishzprrgpxauoccmr.supabase.co';
+        const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
+        const { createClient } = supabase;
+        const sb = createClient(SUPA_URL, SUPA_KEY);
+
+        // ===== CLOCK =====
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            const el = document.getElementById('clock-display');
+            if (el) el.textContent = `${h}:${m}:${s}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ===== TAB SWITCHING =====
+        function switchTab(name, el) {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('panel-' + name).classList.add('active');
+        }
+
+        // ===== HELPERS =====
+        function set(id, val) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val || '—';
+        }
+
+        function formatDate(iso) {
+            if (!iso) return '—';
+            const d = new Date(iso);
+            return d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+        }
+
+        function getTimezone() {
+            try { return Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) { return '—'; }
+        }
+
+        function getUTCOffset() {
+            const offset = -new Date().getTimezoneOffset();
+            const sign = offset >= 0 ? '+' : '-';
+            const h = String(Math.floor(Math.abs(offset) / 60)).padStart(2, '0');
+            const m = String(Math.abs(offset) % 60).padStart(2, '0');
+            return `UTC${sign}${h}:${m}`;
+        }
+
+        // ===== LOAD USER PROFILE FROM SUPABASE =====
+        async function loadProfile() {
+            try {
+                // Auth check — redirect if not logged in
+                const { data: { session } } = await sb.auth.getSession();
+                if (!session) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                const user = session.user;
+                const meta = user.user_metadata || {};
+
+                // Fetch profile row
+                const { data: profile } = await sb
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', user.id)
+                    .single();
+
+                // === Derive values ===
+                const fullName = profile?.full_name || meta.full_name || meta.display_name || user.email.split('@')[0];
+                const username = profile?.username || meta.username || fullName.toLowerCase().replace(/\s+/g, '.');
+                const location = profile?.location || meta.location || '—';
+                const email = user.email || '—';
+                const uid = 'UID-' + user.id.slice(0, 5).toUpperCase();
+                const joinedAt = formatDate(user.created_at);
+                const timezone = getTimezone() + ' (' + getUTCOffset() + ')';
+                const isPaid = profile?.is_paid === true || profile?.subscription_status === 'active';
+                const plan = isPaid ? 'PRO — Unlimited' : 'FREE';
+                const statusTxt = isPaid ? 'ACTIVE' : 'INACTIVE';
+                const verified = user.email_confirmed_at ? 'YES' : 'NO';
+                const role = isPaid ? 'Operator · Pro' : 'Operator';
+
+                // Load storm OS local data for stats
+                let S = null;
+                try { S = JSON.parse(localStorage.getItem('storm_os_v5') || 'null'); } catch (e) { }
+                const userData = S?.user || {};
+                const analytics = S?.analytics || {};
+                const level = userData.level || 1;
+                const xp = userData.xp || 0;
+                const xpNext = level * 1000;
+                const streak = analytics.curStreak || 0;
+                const totalSessions = analytics.totalSess || 0;
+                const totalMin = analytics.totalMin || 0;
+                const focusHrs = Math.round(totalMin / 60);
+                const focusScore = Math.min(99, Math.round((xp / Math.max(xpNext, 1)) * 100 * 0.7 + streak * 0.3)) || 0;
+                const levelTiers = ['', 'Novice', 'Apprentice', 'Operator', 'Senior Op', 'Pro', 'Expert', 'Elite', 'Master', 'Grandmaster'];
+                const tierLabel = levelTiers[Math.min(level, levelTiers.length - 1)] || 'Elite';
+
+                // ===== POPULATE HERO =====
+                set('display-name', fullName);
+                set('display-email', email);
+                set('display-location', location);
+                set('display-joined', joinedAt);
+                set('display-handle', `// @${username} · ${uid}`);
+                set('display-rank', `⚡ ${tierLabel.toUpperCase()} OPERATOR`);
+                set('display-level', level);
+                set('display-level-next', level + 1);
+                set('display-xp', `${xp.toLocaleString()} / ${xpNext.toLocaleString()} XP`);
+                const xpPct = Math.min(100, Math.round((xp / xpNext) * 100));
+                const xpBar = document.getElementById('display-xp-bar');
+                if (xpBar) xpBar.style.width = xpPct + '%';
+
+                // Badge update
+                const planBadge = document.getElementById('badge-plan');
+                if (planBadge) planBadge.textContent = isPaid ? 'PRO ACCESS' : 'FREE TIER';
+                const rankBadge = document.getElementById('display-rank');
+                if (rankBadge) rankBadge.textContent = `⚡ ${tierLabel.toUpperCase()} OPERATOR`;
+
+                // ===== POPULATE STATS =====
+                set('stat-focus', focusScore || '—');
+                document.getElementById('stat-focus')?.classList.add('gold');
+                set('stat-focus-sub', focusScore > 80 ? '↑ Top performer' : '↑ Keep going');
+                set('stat-level', level);
+                set('stat-level-sub', tierLabel + ' tier');
+                set('stat-streak', streak);
+                set('stat-streak-sub', streak > 5 ? '🔥 On fire' : '—');
+                set('stat-xp', xp.toLocaleString());
+                set('stat-xp-sub', xpPct > 50 ? `Top ${100 - xpPct}%` : 'Keep grinding');
+                set('stat-sessions', totalSessions || '—');
+                set('stat-hours', focusHrs || '—');
+
+                // ===== POPULATE OVERVIEW =====
+                set('info-fullname', fullName);
+                set('info-email', email);
+                set('info-username', '@' + username);
+                set('info-uid', uid);
+                set('info-location', location);
+                set('info-timezone', timezone);
+                set('info-joined', joinedAt);
+                set('info-plan', plan);
+                set('info-status', statusTxt);
+                set('info-role', role);
+                set('info-verified', verified);
+
+                // Status dot color
+                const dot = document.getElementById('info-status-dot');
+                if (dot) dot.style.background = isPaid ? 'var(--green)' : 'var(--red)';
+
+                // Renewal date (30 days from now if active)
+                if (isPaid && profile?.paid_at) {
+                    const renewDate = new Date(profile.paid_at);
+                    renewDate.setFullYear(renewDate.getFullYear() + 1);
+                    set('info-renewal', renewDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }));
+                } else {
+                    set('info-renewal', '—');
+                }
+
+                // Animate score ring
+                setTimeout(() => {
+                    const ring = document.getElementById('score-ring-fill');
+                    if (ring) {
+                        const pct = focusScore / 100;
+                        const circumference = 289;
+                        ring.style.strokeDashoffset = circumference * (1 - pct);
+                    }
+                }, 400);
+
+            } catch (e) {
+                console.error('Profile load error:', e);
+            }
+        }
+
+        // ===== EDIT TOGGLE (saves to Supabase) =====
+        let editing = false;
+        async function toggleEdit() {
+            editing = !editing;
+            document.getElementById('edit-icon').className = editing ? 'fas fa-check' : 'fas fa-pen';
+            document.getElementById('edit-label').textContent = editing ? 'SAVE' : 'EDIT PROFILE';
+
+            const editableIds = ['display-name', 'display-email', 'info-fullname', 'info-email', 'info-location', 'info-username'];
+
+            if (editing) {
+                editableIds.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    const current = el.textContent;
+                    const inp = document.createElement('input');
+                    inp.value = current.replace(/^@/, '');
+                    inp.dataset.field = id;
+                    inp.style.cssText = `background:var(--card2);border:1px solid var(--border2);border-radius:4px;padding:3px 8px;font-family:var(--mono);font-size:.85rem;color:var(--accent2);outline:none;width:100%;max-width:260px;`;
+                    inp.addEventListener('focus', () => inp.style.borderColor = 'rgba(255,255,255,.4)');
+                    inp.addEventListener('blur', () => inp.style.borderColor = 'var(--border2)');
+                    el.innerHTML = '';
+                    el.appendChild(inp);
+                });
+            } else {
+                // Collect values
+                const vals = {};
+                editableIds.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    const inp = el.querySelector('input');
+                    if (inp) {
+                        vals[id] = inp.value.trim() || inp.placeholder;
+                        el.textContent = (id === 'info-username') ? '@' + vals[id].replace(/^@/, '') : vals[id];
+                    }
+                });
+
+                // Sync hero fields
+                const name = vals['display-name'] || vals['info-fullname'];
+                if (name) {
+                    set('display-name', name);
+                    set('info-fullname', name);
+                    const handle = document.getElementById('display-handle');
+                    if (handle) {
+                        const uname = (vals['info-username'] || name).replace(/^@/, '').toLowerCase().replace(/\s+/g, '.');
+                        const uid = handle.textContent.split('·')[1]?.trim() || '—';
+                        handle.textContent = `// @${uname} · ${uid}`;
+                    }
+                }
+                const email = vals['display-email'] || vals['info-email'];
+                if (email) { set('display-email', email); set('info-email', email); }
+                if (vals['info-location']) set('display-location', vals['info-location']);
+
+                // Save to Supabase
+                try {
+                    const { data: { session } } = await sb.auth.getSession();
+                    if (session) {
+                        await sb.from('profiles').update({
+                            full_name: name,
+                            location: vals['info-location'] || '',
+                            username: (vals['info-username'] || '').replace(/^@/, '')
+                        }).eq('id', session.user.id);
+                    }
+                } catch (e) { console.warn('Profile save error:', e); }
+            }
+        }
+
+        // ===== BOOT =====
+        window.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+
+</html>
