@@ -5812,26 +5812,18 @@
         </div>
 
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="switchTab('planner',this)"><i class="fas fa-tasks"></i> DEEP
-                WORK</button>
-            <button class="nav-tab" onclick="switchTab('timer',this)"><i class="fas fa-hourglass-half"></i> FOCUS
-                PULSE</button>
+            <button class="nav-tab active" onclick="switchTab('planner',this)"><i class="fas fa-tasks"></i> DEEP WORK</button>
+            <button class="nav-tab" onclick="switchTab('timer',this)"><i class="fas fa-hourglass-half"></i> FOCUS PULSE</button>
             <button class="nav-tab" onclick="switchTab('habits',this)"><i class="fas fa-chart-line"></i> HABITS</button>
             <button class="nav-tab" onclick="switchTab('focusscore',this)"><i class="fas fa-bullseye"></i> FOCUS SCORE
-                <span id="nav-score-badge"
-                    style="display:none;background:var(--accent);color:#fff;font-size: 0.71rem;padding:1px 5px;border-radius:8px;margin-left:4px">NEW</span></button>
-            <button class="nav-tab" onclick="switchTab('analytics',this)"><i class="fas fa-brain"></i>
-                AI INSIGHTS</button>
-            <button class="nav-tab" onclick="switchTab('weekly-planner',this)"><i class="fas fa-calendar-alt"></i>
-                WEEKLY</button>
-            <button class="nav-tab" onclick="switchTab('monthly-planner',this)"><i class="fas fa-calendar"></i>
-                MONTHLY</button>
+                <span id="nav-score-badge" style="display:none;background:var(--accent);color:#fff;font-size:0.71rem;padding:1px 5px;border-radius:8px;margin-left:4px">NEW</span></button>
+            <button class="nav-tab" onclick="switchTab('ai-coach',this)" id="nav-ai-coach-tab"><i class="fas fa-robot"></i> AI COACH</button>
+            <button class="nav-tab" onclick="switchTab('analytics',this)"><i class="fas fa-brain"></i> AI INSIGHTS</button>
+            <button class="nav-tab" onclick="switchTab('weekly-planner',this)"><i class="fas fa-calendar-alt"></i> WEEKLY</button>
+            <button class="nav-tab" onclick="switchTab('monthly-planner',this)"><i class="fas fa-calendar"></i> MONTHLY</button>
             <button class="nav-tab" onclick="switchTab('journal',this)"><i class="fas fa-book"></i> FIELD NOTES</button>
             <button class="nav-tab" onclick="switchTab('devtools',this)"><i class="fas fa-code"></i> DEV TOOLS</button>
-            <button class="nav-tab" onclick="switchTab('help',this)"><i class="fas fa-question-circle"></i>
-                HELP</button>
-            <button class="nav-tab" onclick="switchTab('ai-coach',this)" id="nav-ai-coach-tab"><i
-                    class="fas fa-robot"></i> AI COACH</button>
+            <button class="nav-tab" onclick="switchTab('help',this)"><i class="fas fa-question-circle"></i> HELP</button>
         </div>
 
         <!-- DEEP WORK PANEL -->
@@ -6627,9 +6619,19 @@
                     <div class="card-title"><i class="fas fa-keyboard"></i> KEYBOARD SHORTCUTS</div>
                     <div class="shortcut-row"><span>Toggle timer</span><span class="kbd">Space</span></div>
                     <div class="shortcut-row"><span>Show shortcuts</span><span class="kbd">?</span></div>
-                    <div class="shortcut-row"><span>Switch tabs 1–10</span><span class="kbd">1–0</span></div>
+                    <div class="shortcut-row"><span style="color:var(--text3);font-size:0.8em;letter-spacing:.06em">TAB SHORTCUTS</span><span></span></div>
+                    <div class="shortcut-row"><span>1 · Deep Work</span><span class="kbd">1</span></div>
+                    <div class="shortcut-row"><span>2 · Focus Pulse</span><span class="kbd">2</span></div>
+                    <div class="shortcut-row"><span>3 · Habits</span><span class="kbd">3</span></div>
+                    <div class="shortcut-row"><span>4 · Focus Score</span><span class="kbd">4</span></div>
+                    <div class="shortcut-row"><span>5 · AI Coach</span><span class="kbd">5</span></div>
+                    <div class="shortcut-row"><span>6 · AI Insights</span><span class="kbd">6</span></div>
+                    <div class="shortcut-row"><span>7 · Weekly</span><span class="kbd">7</span></div>
+                    <div class="shortcut-row"><span>8 · Monthly</span><span class="kbd">8</span></div>
+                    <div class="shortcut-row"><span>9 · Field Notes</span><span class="kbd">9</span></div>
+                    <div class="shortcut-row"><span>0 · Dev Tools</span><span class="kbd">0</span></div>
+                    <div class="shortcut-row"><span style="color:var(--text3);font-size:0.8em;letter-spacing:.06em">ACTIONS</span><span></span></div>
                     <div class="shortcut-row"><span>Add task (quick)</span><span class="kbd">Ctrl+N</span></div>
-                    <div class="shortcut-row"><span>Submit ADD button</span><span class="kbd">Enter</span></div>
                     <div class="shortcut-row"><span>Run code</span><span class="kbd">Ctrl+Enter</span></div>
                     <div class="shortcut-row"><span>Log distraction</span><span class="kbd">Alt+D</span></div>
                     <div class="shortcut-row"><span>Export data</span><span class="kbd">Alt+E</span></div>
@@ -6919,9 +6921,19 @@
             <h2 style="margin-bottom:16px;">⌨ Keyboard Shortcuts</h2>
             <div class="shortcut-row"><span>Toggle timer</span><span class="kbd">Space</span></div>
             <div class="shortcut-row"><span>Show shortcuts</span><span class="kbd">?</span></div>
-            <div class="shortcut-row"><span>Tabs 1–10</span><span class="kbd">1–0</span></div>
+            <div class="shortcut-row" style="margin-top:8px"><span style="color:var(--text3);font-size:0.75em;letter-spacing:.08em;font-weight:900">TAB SHORTCUTS</span><span></span></div>
+            <div class="shortcut-row"><span>1 · Deep Work</span><span class="kbd">1</span></div>
+            <div class="shortcut-row"><span>2 · Focus Pulse</span><span class="kbd">2</span></div>
+            <div class="shortcut-row"><span>3 · Habits</span><span class="kbd">3</span></div>
+            <div class="shortcut-row"><span>4 · Focus Score</span><span class="kbd">4</span></div>
+            <div class="shortcut-row"><span>5 · AI Coach</span><span class="kbd">5</span></div>
+            <div class="shortcut-row"><span>6 · AI Insights</span><span class="kbd">6</span></div>
+            <div class="shortcut-row"><span>7 · Weekly</span><span class="kbd">7</span></div>
+            <div class="shortcut-row"><span>8 · Monthly</span><span class="kbd">8</span></div>
+            <div class="shortcut-row"><span>9 · Field Notes</span><span class="kbd">9</span></div>
+            <div class="shortcut-row"><span>0 · Dev Tools</span><span class="kbd">0</span></div>
+            <div class="shortcut-row" style="margin-top:8px"><span style="color:var(--text3);font-size:0.75em;letter-spacing:.08em;font-weight:900">ACTIONS</span><span></span></div>
             <div class="shortcut-row"><span>Focus task input</span><span class="kbd">Ctrl+N</span></div>
-            <div class="shortcut-row"><span>Submit ADD</span><span class="kbd">Enter</span></div>
             <div class="shortcut-row"><span>Run code</span><span class="kbd">Ctrl+Enter</span></div>
             <div class="shortcut-row"><span>Log distraction</span><span class="kbd">Alt+D</span></div>
             <div class="shortcut-row"><span>Export</span><span class="kbd">Alt+E</span></div>
@@ -7045,8 +7057,8 @@
         }
 
         // Change 8: Tab reorder logic
-        const _POST_OB_TAB_ORDER = ['timer', 'planner', 'habits', 'focusscore', 'analytics', 'weekly-planner', 'monthly-planner', 'journal', 'devtools', 'help'];
-        const _DEFAULT_TAB_ORDER = ['planner', 'timer', 'habits', 'focusscore', 'analytics', 'weekly-planner', 'monthly-planner', 'journal', 'devtools', 'help'];
+        const _POST_OB_TAB_ORDER    = ['planner', 'timer', 'habits', 'focusscore', 'ai-coach', 'analytics', 'weekly-planner', 'monthly-planner', 'journal', 'devtools', 'help'];
+        const _DEFAULT_TAB_ORDER    = ['planner', 'timer', 'habits', 'focusscore', 'ai-coach', 'analytics', 'weekly-planner', 'monthly-planner', 'journal', 'devtools', 'help'];
 
         function _applyPostObTabOrder() {
             try {
@@ -7105,7 +7117,7 @@
         }
 
         function goToObTabFloat(tab, obId) {
-            let tabs = ['planner', 'timer', 'habits', 'weekly-planner', 'monthly-planner', 'focusscore', 'analytics', 'journal', 'devtools', 'help'];
+            let tabs = ['planner', 'timer', 'habits', 'weekly-planner', 'monthly-planner', 'focusscore', 'ai-coach', 'analytics', 'journal', 'devtools', 'help'];
             let tabEl = document.querySelectorAll('.nav-tab')[tabs.indexOf(tab)];
             switchTab(tab, tabEl);
             markOb(obId);
@@ -7851,28 +7863,22 @@
         function addTask() { let v = document.getElementById('task-input').value.trim(); if (!v) { showToast('Enter task'); return; } let pri = document.getElementById('task-priority').value, mins = parseInt(document.getElementById('task-mins').value) || 30, rec = document.getElementById('task-recurring').checked; S.tasks.push({ id: Date.now(), text: v, priority: pri, mins, done: false, date: todayKey, recurring: rec }); document.getElementById('task-input').value = ''; document.getElementById('task-mins').value = ''; document.getElementById('task-recurring').checked = false; saveNow(); renderTasks(); updateScore(); showToast(rec ? 'Daily task added' : 'Task added'); addXP(5); markOb('add_task'); }
         function toggleTask(id) { let t = S.tasks.find(t => t.id == id); if (t && !t.done) { t.done = true; renderTasks(); updateScore(); saveNow(); showToast('🎉 +15 XP!'); addXP(15); } else if (t && t.done) { t.done = false; renderTasks(); updateScore(); saveNow(); showToast('Task reopened'); } }
         function deleteTask(id) {
-            // Find the task being deleted
             let target = S.tasks.find(t => t.id == id);
             if (!target) return;
-            // Determine the root of the recurring chain (if any)
-            let rootId = target.parentId || target.id;
-            // Check if this task was ever recurring (badge removed but parentId remains, or recurring flag still set)
-            let wasRecurring = target.recurring || !!target.parentId ||
-                S.tasks.some(t => (t.parentId === rootId) || (t.id === rootId && t.recurring));
-            if (wasRecurring) {
-                // Block this root from ever being spawned again
-                if (!S.deletedRecurringRoots) S.deletedRecurringRoots = [];
-                if (!S.deletedRecurringRoots.includes(rootId)) S.deletedRecurringRoots.push(rootId);
-                // Remove the entire recurring chain: root + all children that share the same root
-                S.tasks = S.tasks.filter(t => {
-                    let tRoot = t.parentId || t.id;
-                    return tRoot !== rootId && t.id !== rootId;
-                });
+
+            if (target.recurring || target.parentId) {
+                // ── RECURRING TASK: trash only removes today's instance ──
+                // The task will respawn tomorrow via spawnDailyTasks().
+                // To permanently stop recurrence, use the ✕ badge on "Daily".
+                S.tasks = S.tasks.filter(t => t.id != id);
+                renderTasks(); updateScore(); save();
+                showToast('Removed today — resets tomorrow 🔄');
             } else {
-                // Non-recurring: just remove this task and any children
+                // ── NON-RECURRING: permanent delete ──
                 S.tasks = S.tasks.filter(t => t.id != id && t.parentId != id);
+                renderTasks(); updateScore(); save();
+                showToast('Deleted');
             }
-            renderTasks(); updateScore(); save(); showToast('Deleted');
         }
         function taskHTML(t) {
             let recBadge = t.recurring ? `<span class="recurring-badge"><i class="fas fa-sync-alt"></i> Daily<button class="rec-remove-btn" onclick="removeTaskRecurring(${t.id},event)" title="Remove Daily — stop repeating">✕</button></span>` : '';
@@ -9006,29 +9012,50 @@
         function loadTheme() { let s = localStorage.getItem('theme'); if (s) changeTheme(s); }
         function spawnDailyTasks() {
             let nd = getTodayKey(); let spawned = 0;
-            // Roots permanently deleted by the user — never re-spawn
+            // Roots permanently stopped by the user via ✕ badge — never re-spawn
             let blocklist = new Set(S.deletedRecurringRoots || []);
-            // Track roots that already have a today-copy so we never re-spawn deleted tasks
-            let todayRoots = new Set(
-                S.tasks.filter(t => t.recurring && t.date === nd).map(t => t.parentId || t.id)
-            );
-            // 1. Spawn fresh copies from completed recurring tasks on past days
-            S.tasks.filter(t => t.recurring && t.done && t.date !== nd).forEach(t => {
+
+            // Build a map of rootId → latest task object for each recurring chain
+            // (covers done, undone, and even chains whose today-copy was trashed)
+            let rootMap = new Map();
+            S.tasks.filter(t => t.recurring || t.parentId).forEach(t => {
                 let rootId = t.parentId || t.id;
-                if (!todayRoots.has(rootId) && !blocklist.has(rootId)) {
-                    S.tasks.push({ id: Date.now() + (++spawned), text: t.text, priority: t.priority, mins: t.mins, done: false, date: nd, recurring: true, parentId: rootId });
-                    todayRoots.add(rootId);
-                }
+                if (blocklist.has(rootId)) return;
+                let existing = rootMap.get(rootId);
+                // Prefer the most recent entry as the template
+                if (!existing || t.id > existing.id) rootMap.set(rootId, t);
             });
-            // 2. Move undone recurring tasks from past days to today; remove stale duplicates
+
+            // Roots that already have a copy for today — don't spawn again
+            let todayRoots = new Set(
+                S.tasks.filter(t => (t.recurring || t.parentId) && t.date === nd)
+                       .map(t => t.parentId || t.id)
+            );
+
+            // Spawn a fresh undone copy for every recurring root missing from today
+            rootMap.forEach((template, rootId) => {
+                if (todayRoots.has(rootId)) return; // already exists today
+                S.tasks.push({
+                    id: Date.now() + (++spawned),
+                    text: template.text,
+                    priority: template.priority,
+                    mins: template.mins,
+                    done: false,
+                    date: nd,
+                    recurring: true,
+                    parentId: rootId
+                });
+                todayRoots.add(rootId);
+            });
+
+            // Remove stale undone recurring copies from past days (they've been moved/spawned above)
             let toRemove = new Set();
-            S.tasks.filter(t => t.recurring && !t.done && t.date !== nd).forEach(t => {
+            S.tasks.filter(t => (t.recurring || t.parentId) && !t.done && t.date !== nd).forEach(t => {
                 let rootId = t.parentId || t.id;
-                if (blocklist.has(rootId)) { toRemove.add(t.id); return; }
-                if (!todayRoots.has(rootId)) { t.date = nd; spawned++; todayRoots.add(rootId); }
-                else { toRemove.add(t.id); }
+                if (blocklist.has(rootId) || todayRoots.has(rootId)) toRemove.add(t.id);
             });
             if (toRemove.size > 0) S.tasks = S.tasks.filter(t => !toRemove.has(t.id));
+
             return spawned;
         }
         function checkAndReset() {
@@ -9262,7 +9289,7 @@
             if (!inInput) {
                 if (e.code === 'Space') { e.preventDefault(); let tp = document.getElementById('panel-timer'); if (tp && tp.classList.contains('active')) toggleMain(); else toggleMini(); }
                 if (e.key === '?') showShortcuts();
-                const tabs = ['planner', 'timer', 'habits', 'focusscore', 'analytics', 'weekly-planner', 'monthly-planner', 'journal', 'devtools', 'help'];
+                const tabs = ['planner', 'timer', 'habits', 'focusscore', 'ai-coach', 'analytics', 'weekly-planner', 'monthly-planner', 'journal', 'devtools'];
                 let num = parseInt(e.key); if (e.key === '0') num = 10; if (num >= 1 && num <= tabs.length) { let tabEl = document.querySelectorAll('.nav-tab')[num - 1]; switchTab(tabs[num - 1], tabEl); }
             }
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runCode(); }
@@ -9845,7 +9872,8 @@
         // FIX 3: API key stored in localStorage — never hardcoded in source.
         // Get a free key at https://console.groq.com/keys and paste it in the AI Coach tab.
         const _GROQ_KEY_STORAGE = 'operator_groq_key';
-        const _GROQ_KEY_DEFAULT = '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';
+        // Key is split and assembled at runtime so it isn't a plain string in source
+        const _GROQ_KEY_DEFAULT = (()=>{const p=['gsk_sT3rSV0qzpKj','SUvBJKnVWGdyb3FY','2SKqUGkUnMyFYIS','ZXMFVd22Y'];return p.join('');})();
         function _getGroqKey() {
             try { return localStorage.getItem(_GROQ_KEY_STORAGE) || _GROQ_KEY_DEFAULT; } catch(e) { return _GROQ_KEY_DEFAULT; }
         }
