@@ -452,6 +452,24 @@
             border-color: rgba(255,255,255,.18);
         }
 
+        .chat-ai-message-box {
+            background: var(--card2);
+            border: 1px solid var(--border2);
+            border-radius: 12px 12px 12px 3px;
+            padding: 14px 16px;
+        }
+
+        .chat-ai-message-content {
+            font-family: var(--body);
+            font-size: 0.97rem;
+            color: var(--text2);
+            line-height: 1.7;
+        }
+
+        .chat-ai-message-content p:last-child { margin-bottom: 0; }
+        .chat-ai-message-content strong { color: var(--text); }
+        .chat-ai-message-content em { color: var(--text2); font-style: italic; }
+
         /* ═══════════════════════════════════════════════════════════════
            DEV TOOLS — ADVANCED UI
         ═══════════════════════════════════════════════════════════════ */
@@ -6138,7 +6156,7 @@
             <button class="nav-tab active" onclick="switchTab('planner',this)"><i class="fas fa-tasks"></i> DEEP
                 WORK</button>
             <button class="nav-tab" onclick="switchTab('timer',this)"><i class="fas fa-hourglass-half"></i> FOCUS
-                PULSE</button>
+                IMPULSE</button>
             <button class="nav-tab" onclick="switchTab('ai-coach',this)" id="nav-ai-coach-tab"><i
                     class="fas fa-robot"></i> AI COACH</button>
             <button class="nav-tab" onclick="switchTab('habits',this)"><i class="fas fa-chart-line"></i> HABITS</button>
@@ -6928,7 +6946,7 @@
                     <div class="card-title"><i class="fas fa-question-circle"></i> HOW IT WORKS</div>
                     <div style="font-family:var(--mono);font-size: 0.96rem;line-height:2;color:var(--text2)">
                         <p>🎯 <strong>Deep Work</strong> — Add tasks, set priorities, track completion</p>
-                        <p>⏱️ <strong>Focus Pulse</strong> — Timed focus sessions with session log</p>
+                        <p>⏱️ <strong>Focus Impulse</strong> — Timed focus sessions with session log</p>
                         <p>🤖 <strong>AI Coach</strong> — Conversational AI powered by Groq · Full dashboard analysis</p>
                         <p>📈 <strong>Habit Matrix</strong> — Track daily habits with streak counts</p>
                         <p>📅 <strong>Weekly Planner</strong> — Plan your full week day by day</p>
@@ -6950,7 +6968,7 @@
                     <div class="shortcut-row"><span style="color:var(--text3);font-size:0.8em;letter-spacing:.06em">TAB
                             SHORTCUTS</span><span></span></div>
                     <div class="shortcut-row"><span>1 · Deep Work</span><span class="kbd">1</span></div>
-                    <div class="shortcut-row"><span>2 · Focus Pulse</span><span class="kbd">2</span></div>
+                    <div class="shortcut-row"><span>2 · Focus Impulse</span><span class="kbd">2</span></div>
                     <div class="shortcut-row"><span>3 · AI Coach</span><span class="kbd">3</span></div>
                     <div class="shortcut-row"><span>4 · Habits</span><span class="kbd">4</span></div>
                     <div class="shortcut-row"><span>5 · Weekly Planner</span><span class="kbd">5</span></div>
@@ -7264,7 +7282,7 @@
                     style="color:var(--text3);font-size:0.75em;letter-spacing:.08em;font-weight:900">TAB
                     SHORTCUTS</span><span></span></div>
             <div class="shortcut-row"><span>1 · Deep Work</span><span class="kbd">1</span></div>
-            <div class="shortcut-row"><span>2 · Focus Pulse</span><span class="kbd">2</span></div>
+            <div class="shortcut-row"><span>2 · Focus Impulse</span><span class="kbd">2</span></div>
             <div class="shortcut-row"><span>3 · AI Coach</span><span class="kbd">3</span></div>
             <div class="shortcut-row"><span>4 · Habits</span><span class="kbd">4</span></div>
             <div class="shortcut-row"><span>5 · Weekly Planner</span><span class="kbd">5</span></div>
@@ -10378,32 +10396,63 @@
             const avgSession = sessions.length > 0 ? Math.round(totalMins / sessions.length) : 0;
             const customQ = (document.getElementById('ai-custom-question')?.value || '').trim();
 
-            const modePrompts = {
-                full: 'Give 5-7 sharp, numbered insights covering all areas: task completion, focus sessions, habits, streaks, energy, and patterns. Be brutally honest. Reference specific numbers.',
-                tasks: 'Focus ONLY on the task data. Analyze completion rate, priorities, pending work, and give 3-5 specific action items to improve task execution today.',
-                habits: 'Focus ONLY on habits. Analyze streaks, consistency patterns, which habits are failing, and give concrete advice to fix them.',
-                focus: 'Focus ONLY on focus/session data. Analyze session length, frequency, peak times, and give specific advice to increase deep work quality.',
-                week: 'Give a weekly performance review. What went well, what failed, key trend, and 3 specific priorities for the coming week.',
-                plan: 'Based on all data, generate a concrete action plan for TODAY. List 3-5 prioritized actions the user should do right now, in order of importance.'
+            const modeContext = {
+                full: 'Give a well-rounded analysis covering tasks, focus sessions, habits, streaks, and energy.',
+                tasks: 'Focus on the user\'s tasks — what\'s done, what\'s pending, and what they should prioritize.',
+                habits: 'Focus on the user\'s habits — which are strong, which are slipping, and how to fix them.',
+                focus: 'Focus on the user\'s focus sessions — session length, frequency, and how to improve deep work.',
+                week: 'Give a weekly performance review — what went well, what didn\'t, and key priorities ahead.',
+                plan: 'Create a concrete action plan for today — what the user should do right now, in priority order.'
             };
-            const modeInstruction = modePrompts[_aiMode] || modePrompts.full;
-            const questionLine = customQ ? `\n\nUSER QUESTION: ${customQ}` : '';
+            const ctx = modeContext[_aiMode] || modeContext.full;
+            const questionLine = customQ ? `\n\nThe user is specifically asking: "${customQ}"` : '';
 
-            return `Analyze the user's real data below. ${modeInstruction} Format each point as: N. TITLE | Detail with specific numbers. TITLE in ALL CAPS, 2-5 words. No markdown. Start with 1.${questionLine}
+            return `Here is the user's dashboard data for today:
 
-DASHBOARD SNAPSHOT:
-- Date: ${today} | Energy: ${energyLabel}
-- Today: ${todaySess.length} focus sessions (${todaySess.reduce((a, s) => a + (s.mins || 0), 0)}min total)
-- Tasks today: ${todayDone.length} done, ${pending.length} pending
-- Pending tasks: ${pending.slice(0, 5).map(t => t.text).join(' | ') || 'none'}
-- Distractions logged today: ${distractions}
-- Streak: ${streak} days | All-time: ${totalSess} sessions, ${Math.round(totalMins / 60 * 10) / 10}h focus
-- Avg session length: ${avgSession}min
+- Date: ${today} | Energy level: ${energyLabel}
+- Focus sessions today: ${todaySess.length} (${todaySess.reduce((a, s) => a + (s.mins || 0), 0)} min total)
+- Tasks completed today: ${todayDone.length} | Pending: ${pending.length}
+- Pending task list: ${pending.slice(0, 5).map(t => t.text).join(', ') || 'none'}
+- Distractions logged: ${distractions}
+- Current streak: ${streak} days | All-time: ${totalSess} sessions, ${Math.round(totalMins / 60 * 10) / 10}h
+- Avg session: ${avgSession} min
 - Habits (${(S.habits || []).length} total): ${habits}
 - Goals: ${goals}
 - Recent wins: ${wins}
 - Last 7 days: ${last7.length > 0 ? last7.join(' | ') : 'no data yet'}
-- Total tasks completed all-time: ${allTasks.filter(t => t.done).length}`;
+- Total tasks done all-time: ${allTasks.filter(t => t.done).length}
+${questionLine}
+
+${ctx}`;
+        }
+
+        // ── Lightweight markdown renderer ──────────────────────────────
+        function _renderMarkdown(text) {
+            let html = text
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                // code blocks
+                .replace(/```[\s\S]*?```/g, m => `<pre style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:6px;padding:10px 12px;font-family:var(--mono);font-size:0.85rem;overflow-x:auto;margin:8px 0">${m.slice(3,-3).replace(/^[a-z]+\n/,'')}</pre>`)
+                // inline code
+                .replace(/`([^`]+)`/g, '<code style="background:rgba(255,255,255,.07);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:0.88em">$1</code>')
+                // bold
+                .replace(/\*\*(.+?)\*\*/g, '<strong style="color:var(--text);font-weight:700">$1</strong>')
+                // italic
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                // headings h3/h2/h1
+                .replace(/^### (.+)$/gm, '<div style="font-family:var(--head);font-size:1rem;font-weight:700;color:var(--text);margin:14px 0 4px">$1</div>')
+                .replace(/^## (.+)$/gm, '<div style="font-family:var(--head);font-size:1.1rem;font-weight:700;color:var(--text);margin:16px 0 6px">$1</div>')
+                .replace(/^# (.+)$/gm, '<div style="font-family:var(--head);font-size:1.2rem;font-weight:700;color:var(--text);margin:16px 0 6px">$1</div>')
+                // numbered lists
+                .replace(/^\d+\.\s+(.+)$/gm, '<div style="display:flex;gap:8px;margin:3px 0"><span style="color:var(--accent2);font-weight:700;min-width:18px;font-family:var(--mono);font-size:0.88em">•</span><span>$1</span></div>')
+                // bullet lists
+                .replace(/^[-*]\s+(.+)$/gm, '<div style="display:flex;gap:8px;margin:3px 0"><span style="color:var(--accent2);font-family:var(--mono);font-size:0.88em;min-width:18px">–</span><span>$1</span></div>')
+                // horizontal rule
+                .replace(/^---$/gm, '<hr style="border:none;border-top:1px solid var(--border2);margin:12px 0">')
+                // paragraphs — double newline → paragraph break
+                .replace(/\n{2,}/g, '</p><p style="margin:0 0 8px">')
+                // single newlines
+                .replace(/\n/g, '<br>');
+            return `<p style="margin:0 0 8px">${html}</p>`;
         }
 
         // ── Chat history for the AI Coach chat UI ──────────────────────
@@ -10443,49 +10492,24 @@ DASHBOARD SNAPSHOT:
             if (el) el.remove();
         }
 
-        function _chatAppendAIBubble(text, cards) {
+        function _chatAppendAIBubble(rawText) {
             const win = document.getElementById('ai-chat-window');
             if (!win) return;
             const el = document.createElement('div');
             el.className = 'chat-bubble-ai';
-
-            let bodyContent = '';
-            if (cards && cards.length >= 2) {
-                const classify = (t, d) => {
-                    const s = ((t||'')+(d||'')).toLowerCase();
-                    if (/warn|risk|drop|miss|fail|low|0 session|distract|decline|break|no session|struggling|weak|behind/.test(s)) return 'warn';
-                    if (/good|great|strong|streak|momentum|top|peak|optimal|best|elite|improve/.test(s)) return 'good';
-                    return 'action';
-                };
-                bodyContent = cards.map((c, i) => {
-                    const cls = classify(c.title, c.detail);
-                    return `<div class="chat-insight-card ${cls}" style="animation-delay:${i*0.05}s">
-                        <div class="chat-insight-num">${c.num.padStart(2,'0')}</div>
-                        <div style="flex:1">
-                            ${c.title ? `<div class="chat-insight-title">${c.title}</div>` : ''}
-                            <div class="chat-insight-detail">${c.detail}</div>
-                        </div>
-                    </div>`;
-                }).join('');
-            } else {
-                bodyContent = `<div style="font-family:var(--body);font-size:0.97rem;color:var(--text2);line-height:1.65;white-space:pre-wrap">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
-            }
-
-            const now = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+            const now = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+            const rendered = _renderMarkdown(rawText);
             el.innerHTML = `
                 <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
-                <div class="chat-bubble-body" style="max-width:85%">
+                <div class="chat-bubble-body" style="max-width:86%">
                     <div class="chat-bubble-name">OPERATOR AI</div>
-                    <div style="background:var(--card2);border:1px solid var(--border2);border-radius:12px 12px 12px 3px;padding:14px 16px">
-                        ${bodyContent}
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:6px">
+                    <div class="chat-ai-message-box">
+                        <div class="chat-ai-message-content">${rendered}</div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05)">
                             <span style="font-family:var(--mono);font-size:0.67rem;color:var(--text3)">${now}</span>
                             <button class="chat-copy-btn" onclick="(function(btn){
-                                const parent=btn.closest('.chat-bubble-ai');
-                                const titles=Array.from(parent.querySelectorAll('.chat-insight-title')).map(e=>e.textContent);
-                                const details=Array.from(parent.querySelectorAll('.chat-insight-detail')).map(e=>e.textContent);
-                                const raw=parent.querySelector('pre,div[style*=pre-wrap]');
-                                let txt=raw?raw.textContent:titles.map((t,i)=>t+' — '+details[i]).join('\n');
+                                const box=btn.closest('.chat-ai-message-box');
+                                const txt=box?box.querySelector('.chat-ai-message-content')?.innerText||'':'';
                                 navigator.clipboard?.writeText(txt.trim()).then(()=>showToast('✦ Copied'));
                             })(this)"><i class="fas fa-copy"></i> COPY</button>
                         </div>
@@ -10496,7 +10520,6 @@ DASHBOARD SNAPSHOT:
         }
 
         async function askGeminiCoach() {
-            // FIX 3: resolve key at call-time from localStorage
             _GROQ_API_KEY = _getGroqKey();
             if (!_GROQ_API_KEY) {
                 const setupEl = document.getElementById('groq-key-setup');
@@ -10514,13 +10537,8 @@ DASHBOARD SNAPSHOT:
             if (errEl) errEl.style.display = 'none';
             if (inputEl) inputEl.value = '';
 
-            // Append user bubble
             _chatAppendUserBubble(userText);
-
-            // Append typing indicator
             _chatAppendTyping();
-
-            // Refresh stats
             _renderAIStats();
 
             const _done = () => {
@@ -10531,9 +10549,8 @@ DASHBOARD SNAPSHOT:
             try {
                 const prompt = _buildCoachContext();
 
-                // Build conversation history for multi-turn
                 const messages = [
-                    { role: 'system', content: 'You are OPERATOR AI — a conversational, data-driven productivity coach. When asked for analysis, format EVERY insight as: N. TITLE | Detail sentence with specific numbers. TITLE in ALL CAPS, 2-5 words. Pipe separator. Each on its own line. No markdown, no asterisks. For conversational follow-up questions, respond naturally in 2-4 sentences, still referencing the user\'s real data.' },
+                    { role: 'system', content: 'You are OPERATOR AI, a sharp and friendly productivity coach embedded in a personal dashboard. You have access to the user\'s real data: tasks, habits, focus sessions, streaks, and energy levels. Respond conversationally and naturally — like ChatGPT would. Use markdown freely: **bold** for emphasis, bullet points for lists, numbered steps for action plans, headers for sections when needed. Be direct, specific, and reference the user\'s actual numbers. Keep responses focused and useful — not too long, not too short. Adapt your tone to the question: analytical for data questions, encouraging for motivation, tactical for planning.' },
                     ..._chatHistory,
                     { role: 'user', content: prompt }
                 ];
@@ -10543,7 +10560,7 @@ DASHBOARD SNAPSHOT:
                     res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _GROQ_API_KEY },
-                        body: JSON.stringify({ model: GROQ_MODEL, messages, temperature: 0.65, max_tokens: 800 })
+                        body: JSON.stringify({ model: GROQ_MODEL, messages, temperature: 0.7, max_tokens: 900 })
                     });
                 } catch (netErr) {
                     throw new Error('Network error — check your internet connection.');
@@ -10565,33 +10582,15 @@ DASHBOARD SNAPSHOT:
 
                 _incrementGeminiUsage();
 
-                // Store in history for multi-turn (keep last 6 exchanges = 12 messages)
+                // Keep last 6 exchanges for context
                 _chatHistory.push({ role: 'user', content: prompt });
                 _chatHistory.push({ role: 'assistant', content: text });
                 if (_chatHistory.length > 12) _chatHistory = _chatHistory.slice(_chatHistory.length - 12);
 
                 _done();
+                _chatAppendAIBubble(text);
 
-                // Parse structured cards
-                const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-                const cardPattern = /^(\d+)[\.\)\:]\s*([^|]+?)\s*\|\s*(.+)$/;
-                const fallbackPattern = /^(\d+)[\.\)\:]\s*(.+)$/;
-                const cards = [];
-                let rawFallback = false;
-                lines.forEach(line => {
-                    const m = line.match(cardPattern);
-                    if (m) { cards.push({ num: m[1], title: m[2].trim(), detail: m[3].trim() }); }
-                    else {
-                        const m2 = line.match(fallbackPattern);
-                        if (m2) cards.push({ num: m2[1], title: null, detail: m2[2].trim() });
-                        else if (cards.length > 0) cards[cards.length - 1].detail += ' ' + line;
-                        else rawFallback = true;
-                    }
-                });
-
-                _chatAppendAIBubble(text, (!rawFallback && cards.length >= 2) ? cards : null);
-
-                // Also update legacy output div for copyAIOutput compat
+                // Legacy compat
                 const content = document.getElementById('ai-output-content');
                 if (content) content.innerHTML = `<div class="ai-raw-output">${text}</div>`;
 
@@ -10601,7 +10600,6 @@ DASHBOARD SNAPSHOT:
             } catch (err) {
                 _done();
                 const msg = err?.message || 'Unknown error';
-                // Append error as AI bubble
                 const win = document.getElementById('ai-chat-window');
                 if (win) {
                     const errBubble = document.createElement('div');
