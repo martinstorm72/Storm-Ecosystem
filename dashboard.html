@@ -7439,15 +7439,11 @@
         </div>
     </div>
 
-    <!-- ================================================================
-         CONFIG LOADER — secrets live in config.js which is .gitignored.
-         Copy config.example.js -> config.js and fill in your values.
-         NEVER commit config.js to GitHub.
-    ================================================================ -->
+    <!-- CONFIG LOADER: secrets live in config.js (gitignored). See config.example.js. -->
     <script src="config.js"></script>
     <script>
         // ===== SUPABASE CONFIG =====
-        // Values loaded from config.js (gitignored). See config.example.js.
+        // Loaded from config.js — never hardcode secrets here.
         const SUPABASE_URL = (window.__APP_CONFIG__ && window.__APP_CONFIG__.SUPABASE_URL) || '';
         const SUPABASE_KEY = (window.__APP_CONFIG__ && window.__APP_CONFIG__.SUPABASE_KEY) || '';
         // Guard: detect placeholder / missing config so sync UI never shows a misleading "SYNCED" state
