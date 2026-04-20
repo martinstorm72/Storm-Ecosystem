@@ -2094,6 +2094,150 @@
 
         // ── Scroll to buy ──
         function scrollToBuy() { document.getElementById('buy') && document.getElementById('buy').scrollIntoView({ behavior: 'smooth' }); }
+
+        // ── PAYMENT & DOWNLOAD CONFIG ──────────────────────────────────
+        const LOCKIN_PAYPAL_URL = 'https://www.paypal.com/ncp/payment/W62YX89UER4LS';
+        const LOCKIN_VERIFY_API = '/api/verify-lockin-payment';
+
+        // The actual hosted PDF URL — update this to your real CDN/storage URL
+        const LOCKIN_PDF_URL = '/downloads/LOCK-IN-90-Day-Discipline-Challenge.pdf';
+        const LOCKIN_PDF_FILENAME = 'LOCK-IN-90-Day-Discipline-Challenge.pdf';
+
+        // ── HELPERS ────────────────────────────────────────────────────
+        function urlParam(name) { return new URLSearchParams(window.location.search).get(name); }
+        function hasLockInPaid() { return localStorage.getItem('lockin_paid') === 'true'; }
+
+        function showPanel(panelId) {
+            ['buy-btn', 'paypal-panel', 'verifying-panel', 'download-success', 'payment-failed'].forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (id === 'buy-btn') {
+                    el.style.display = (id === panelId) ? '' : 'none';
+                } else {
+                    el.classList.toggle('show', id === panelId);
+                }
+            });
+        }
+
+        // ── TRIGGER DOWNLOAD ────────────────────────────────────────────
+        function triggerDownload() {
+            try {
+                const a = document.createElement('a');
+                a.href = LOCKIN_PDF_URL;
+                a.download = LOCKIN_PDF_FILENAME;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => document.body.removeChild(a), 300);
+                console.log('[Lock In] PDF download triggered:', LOCKIN_PDF_FILENAME);
+            } catch (err) {
+                console.error('[Lock In] Download failed:', err);
+                // Fallback: open in new tab
+                window.open(LOCKIN_PDF_URL, '_blank');
+            }
+        }
+
+        // ── VERIFY PAYMENT WITH SERVER ──────────────────────────────────
+        async function verifyLockInTransaction(tx) {
+            try {
+                const res = await fetch(LOCKIN_VERIFY_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tx, product: 'lockin_planner' })
+                });
+                if (!res.ok) return { valid: false, reason: 'Verification server error (' + res.status + ').' };
+                return await res.json();
+            } catch (e) {
+                return { valid: false, reason: 'Could not reach the payment server. Check your connection.' };
+            }
+        }
+
+        // ── PROCESS PAYPAL RETURN ───────────────────────────────────────
+        async function processLockInPaymentReturn() {
+            const tx = urlParam('tx'), status = urlParam('st');
+            if (!tx) {
+                // Not a payment return — check if already paid
+                if (hasLockInPaid()) {
+                    showPanel('download-success');
+                }
+                return;
+            }
+
+            // Clean URL immediately
+            window.history.replaceState({}, '', window.location.pathname + '#buy');
+
+            if (status && status !== 'Completed') {
+                document.getElementById('fail-reason').textContent = 'Payment status: ' + status + '. Please try again.';
+                showPanel('payment-failed');
+                scrollToBuy();
+                return;
+            }
+
+            // Show verifying state
+            showPanel('verifying-panel');
+            scrollToBuy();
+            document.getElementById('verify-status').textContent = 'VERIFYING YOUR PAYMENT...';
+
+            const result = await verifyLockInTransaction(tx);
+
+            if (result.valid) {
+                // Mark as paid in localStorage
+                localStorage.setItem('lockin_paid', 'true');
+                localStorage.setItem('lockin_payment_tx', tx);
+                localStorage.setItem('lockin_paid_at', new Date().toISOString());
+
+                console.log('[Lock In] Payment VERIFIED — triggering PDF download');
+                document.getElementById('verify-status').textContent = 'PAYMENT CONFIRMED ✓';
+
+                // Small delay, then show success and auto-download
+                setTimeout(() => {
+                    showPanel('download-success');
+                    triggerDownload();
+                }, 600);
+            } else {
+                document.getElementById('fail-reason').textContent = result.reason || 'Payment could not be verified. If you were charged, please contact support.';
+                showPanel('payment-failed');
+                console.warn('[Lock In] Payment verification FAILED:', result.reason);
+            }
+        }
+
+        // ── BUY BUTTON ─────────────────────────────────────────────────
+        function handleBuyNow() {
+            // If already paid, just trigger download
+            if (hasLockInPaid()) {
+                showPanel('download-success');
+                triggerDownload();
+                scrollToBuy();
+                return;
+            }
+            showPanel('paypal-panel');
+            scrollToBuy();
+            setTimeout(() => { window.location.href = LOCKIN_PAYPAL_URL; }, 800);
+        }
+
+        function retryPayment() {
+            showPanel('paypal-panel');
+            scrollToBuy();
+            setTimeout(() => { window.location.href = LOCKIN_PAYPAL_URL; }, 600);
+        }
+
+        // ── TEST UTILITY (run in console) ───────────────────────────────
+        // window.testLockInDownload()  — simulate successful purchase + PDF download
+        window.testLockInDownload = function() {
+            console.log('[Lock In TEST] Simulating successful payment...');
+            localStorage.setItem('lockin_paid', 'true');
+            localStorage.setItem('lockin_payment_tx', 'TEST-' + Date.now());
+            localStorage.setItem('lockin_paid_at', new Date().toISOString());
+            scrollToBuy();
+            setTimeout(() => {
+                showPanel('download-success');
+                triggerDownload();
+                console.log('[Lock In TEST] ✅ Download triggered. Check Downloads folder for:', LOCKIN_PDF_FILENAME);
+            }, 400);
+        };
+
+        // ── RUN ON LOAD ─────────────────────────────────────────────────
+        processLockInPaymentReturn();
     </script>
 </body>
 
