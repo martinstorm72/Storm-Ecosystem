@@ -10444,6 +10444,22 @@
         // ══════════════════════════════════════════════════════════════
 
         const _GROQ_KEY_STORAGE = 'operator_groq_key';
+
+        // Auto-seed localStorage from config.js so the UI never shows the key prompt
+        // when config.js is present with a valid GROQ_API_KEY.
+        (function _seedGroqKeyFromConfig() {
+            try {
+                const cfgKey = window.__APP_CONFIG__ && window.__APP_CONFIG__.GROQ_API_KEY;
+                if (cfgKey && cfgKey.trim().startsWith('gsk_')) {
+                    // Only write if localStorage doesn't already have a user-set key
+                    const stored = localStorage.getItem('operator_groq_key');
+                    if (!stored || stored === '') {
+                        localStorage.setItem('operator_groq_key', cfgKey.trim());
+                    }
+                }
+            } catch(e) {}
+        })();
+
         const _GROQ_KEY_DEFAULT = (window.__APP_CONFIG__ && window.__APP_CONFIG__.GROQ_API_KEY) || '';
         const GROQ_MODEL = 'llama-3.3-70b-versatile';
         const GEMINI_DAILY_LIMIT = 200;
