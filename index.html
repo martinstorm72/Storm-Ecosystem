@@ -5728,18 +5728,29 @@
             if (result.valid) {
                 localStorage.setItem('storm_os_paid', 'true');
                 localStorage.setItem('storm_os_payment_tx', tx);
+                localStorage.setItem('storm_os_operator_access', 'true');
+                localStorage.setItem('storm_os_operator_granted_at', new Date().toISOString());
                 const banner = document.getElementById('payment-confirm-banner');
-                if (banner) { banner.textContent = '✅ Payment verified. Redirecting you to the dashboard...'; banner.classList.add('show'); }
+                if (banner) { banner.textContent = '✅ Payment verified. Operator Command access granted. Redirecting...'; banner.classList.add('show'); }
+                // Verify operator access is truly set before redirect
+                const accessGranted = localStorage.getItem('storm_os_operator_access') === 'true';
+                if (!accessGranted) {
+                    console.error('[Storm OS] Operator access flag failed to set');
+                    alert('Access grant error. Please contact support.');
+                    return;
+                }
+                console.log('[Storm OS] Operator Command access GRANTED at', new Date().toISOString());
                 if (isLoggedIn()) { setTimeout(() => { window.location.href = 'dashboard.html'; }, 900); }
                 else { localStorage.setItem('storm_os_payment_pending', 'true'); setTimeout(() => { window.location.href = 'login.html'; }, 900); }
             } else { alert(result.reason || 'Payment could not be verified.'); }
         }
 
         function handlePurchase() {
+            // If already paid, go straight to dashboard
             if (isLoggedIn() && hasPaid()) { window.location.href = 'dashboard.html'; return; }
-            if (isLoggedIn() && !hasPaid()) { localStorage.setItem('return_to_pricing_after_payment', 'true'); window.location.href = PAYPAL_PAYMENT_URL; return; }
+            // All other cases: go directly to PayPal
             localStorage.setItem('pending_payment_intent', 'true');
-            window.location.href = 'login.html';
+            window.location.href = PAYPAL_PAYMENT_URL;
         }
 
         // ===== SUPABASE AUTH FOR NAV =====
@@ -5837,9 +5848,43 @@
                 }
             }
         }
-        // Run on load and listen for storage changes (multi-tab support)
-        updateDashboardNavLink();
-        window.addEventListener('storage', updateDashboardNavLink);
+        // ===== OPERATOR COMMAND ACCESS TESTS =====
+        // Run window.testOperatorAccess() in console to verify flow
+        window.testOperatorAccess = function() {
+            const results = [];
+            const paid = localStorage.getItem('storm_os_paid') === 'true';
+            const loggedIn = localStorage.getItem('storm_os_auth') === 'true';
+            const operatorAccess = localStorage.getItem('storm_os_operator_access') === 'true';
+            const grantedAt = localStorage.getItem('storm_os_operator_granted_at');
+            const tx = localStorage.getItem('storm_os_payment_tx');
+            const dashLink = document.getElementById('nav-dashboard-link');
+            const dashVisible = dashLink && dashLink.style.display !== 'none';
+
+            results.push('=== OPERATOR COMMAND ACCESS TEST ===');
+            results.push(`[${paid ? 'PASS' : 'FAIL'}] storm_os_paid: ${paid}`);
+            results.push(`[${loggedIn ? 'PASS' : 'FAIL'}] storm_os_auth: ${loggedIn}`);
+            results.push(`[${operatorAccess ? 'PASS' : 'FAIL'}] storm_os_operator_access: ${operatorAccess}`);
+            results.push(`[INFO] Access granted at: ${grantedAt || 'not set'}`);
+            results.push(`[INFO] Payment TX: ${tx || 'not set'}`);
+            results.push(`[${dashVisible ? 'PASS' : 'FAIL'}] Nav dashboard link visible: ${dashVisible}`);
+            results.push('=== END TEST ===');
+            console.log(results.join('\n'));
+            return results;
+        };
+
+        // Simulate a successful purchase (for QA/testing only — no real payment)
+        window.simulateOperatorPurchase = function() {
+            localStorage.setItem('storm_os_paid', 'true');
+            localStorage.setItem('storm_os_auth', 'true');
+            localStorage.setItem('storm_os_operator_access', 'true');
+            localStorage.setItem('storm_os_operator_granted_at', new Date().toISOString());
+            localStorage.setItem('storm_os_payment_tx', 'SIM-' + Date.now());
+            console.log('[Storm OS] Simulated operator purchase. Run testOperatorAccess() to verify.');
+            updateDashboardNavLink();
+        };
+
+        // Auto-run on page load if tx param present (payment return)
+        processPaymentReturn();
 
         // ===== SCROLL PROGRESS BAR =====
         const progressBar = document.getElementById('scroll-progress');
@@ -6171,7 +6216,6 @@
             if (e.key === 'Escape') closeExit();
         });
 
-        window.addEventListener('load', processPaymentReturn);
     </script>
 
     <!-- ===== THREE.JS 3D SCENE ===== -->
