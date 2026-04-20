@@ -7135,36 +7135,29 @@
                 </div>
 
                 <!-- ── QUICK PROMPTS ── -->
+                <!-- ── SMART QUICK PROMPTS (rotate based on weak spots) ── -->
                 <div class="quick-prompts-row" id="quick-prompts-row" style="margin-bottom:10px">
-                    <span
-                        style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);align-self:center;letter-spacing:.06em;white-space:nowrap">QUICK
-                        →</span>
-                    <button class="qprompt-btn" onclick="_quickPrompt('What should I focus on right now?')">What to do
-                        first?</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Why am I not hitting my focus goals?')">Why no
-                        focus?</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Roast my productivity this week honestly')">Roast
-                        my week</button>
-                    <button class="qprompt-btn"
-                        onclick="_quickPrompt('Give me a concrete plan for the next 2 hours')">2hr plan</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Which habit is hurting me the most?')">Worst
-                        habit?</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Am I improving compared to last week?')">Am I
-                        improving?</button>
+                    <span style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);align-self:center;letter-spacing:.06em;white-space:nowrap">QUICK →</span>
+                    <div id="smart-quick-prompts" style="display:flex;gap:6px;flex-wrap:wrap"></div>
                 </div>
+
+                <!-- ── COMMAND AUTOCOMPLETE ── -->
+                <div id="cmd-autocomplete" style="display:none;background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:4px 0;margin-bottom:6px;font-family:var(--mono);font-size:0.75rem;max-height:120px;overflow-y:auto"></div>
 
                 <!-- ── CHAT INPUT ── -->
                 <div style="display:flex;gap:8px;align-items:flex-end;background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:10px 12px;transition:border-color 0.2s;box-shadow:0 2px 12px rgba(0,0,0,.15)"
                     id="ai-chat-input-wrap">
-                    <textarea id="ai-custom-question" rows="1" placeholder="Ask anything about your productivity..."
+                    <textarea id="ai-custom-question" rows="1" placeholder="Ask anything… or type 'help' for commands"
                         style="flex:1;background:transparent;border:none;color:var(--text);font-family:var(--mono);font-size:0.9rem;outline:none;padding:4px 4px;resize:none;max-height:120px;overflow-y:auto;line-height:1.5"
-                        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();askGeminiCoach();}"
-                        oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"
+                        onkeydown="_aiInputKeydown(event)"
+                        oninput="_aiInputHandler(this)"
                         onfocus="document.getElementById('ai-chat-input-wrap').style.borderColor='var(--accent2)'"
-                        onblur="document.getElementById('ai-chat-input-wrap').style.borderColor='var(--border2)'"></textarea>
+                        onblur="setTimeout(()=>{document.getElementById('cmd-autocomplete').style.display='none'},150);document.getElementById('ai-chat-input-wrap').style.borderColor='var(--border2)'"></textarea>
                     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
-                        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--text3)">Enter ↵ to send ·
-                            Shift+Enter for newline</div>
+                        <div style="display:flex;gap:8px;align-items:center">
+                            <span id="ai-char-counter" style="font-family:var(--mono);font-size:0.62rem;color:var(--text3)"></span>
+                            <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text3)">↵ send · ⇧↵ newline</span>
+                        </div>
                         <button onclick="askGeminiCoach()" id="gemini-ask-btn" class="btn btn-primary btn-sm"
                             style="border-radius:8px;padding:8px 18px;font-size:0.84rem;white-space:nowrap;min-width:90px">
                             <i class="fas fa-paper-plane"></i> SEND
@@ -7202,9 +7195,15 @@
 
                 <!-- ── LIVE INSIGHTS ── -->
                 <div style="margin-top:24px;border-top:1px solid var(--border);padding-top:16px">
-                    <div
-                        style="font-family:var(--mono);font-size:0.72rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:10px">
-                        ⚡ LIVE PATTERN INSIGHTS</div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                        <div style="font-family:var(--mono);font-size:0.72rem;font-weight:900;letter-spacing:.12em;color:var(--text3)">
+                            ⚡ LIVE PATTERN INSIGHTS</div>
+                        <div style="display:flex;align-items:center;gap:8px">
+                            <span id="insights-last-updated" style="font-family:var(--mono);font-size:0.62rem;color:var(--text3)"></span>
+                            <button onclick="_refreshInsights()" title="Refresh insights" style="background:none;border:1px solid var(--border2);color:var(--text3);padding:2px 8px;border-radius:5px;font-size:0.7rem;cursor:pointer;font-family:var(--mono);transition:all 0.15s" onmouseover="this.style.color='var(--text2)';this.style.borderColor='var(--accent2)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">↻ REFRESH</button>
+                        </div>
+                    </div>
+                    <div style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);margin-bottom:8px;opacity:0.7">💡 Click any insight to ask AI about it</div>
                     <div id="ai-coach-insights" style="display:grid;gap:8px"></div>
                 </div>
 
@@ -10423,16 +10422,29 @@
             const typeLabel = { good: 'Strength', warn: 'Watch Out', info: 'Insight' };
             // Force re-trigger stagger animations
             el.style.display = 'none';
-            el.innerHTML = insights.slice(0, 6).map(i => `
-                <div class="ai-insight-item ${i.type}">
+            el.innerHTML = insights.slice(0, 6).map((i, idx) => {
+                // Strip HTML tags for the click prompt
+                const plainText = i.text.replace(/<[^>]+>/g, '');
+                const safeText = plainText.replace(/'/g, "\'").replace(/"/g, '&quot;');
+                return `<div class="ai-insight-item ${i.type}" style="cursor:pointer" title="Click to ask AI about this"
+                    onclick="_insightDeepDive('${safeText}')">
                     <span class="ai-insight-icon">${i.icon}</span>
                     <span class="ai-insight-text">
                         <span class="ai-insight-label">${typeLabel[i.type] || 'Note'}</span>
                         ${i.text}
                     </span>
-                </div>`).join('');
+                    <span style="font-family:var(--mono);font-size:0.62rem;color:var(--text3);margin-left:auto;padding-left:8px;white-space:nowrap;opacity:0.6">ask →</span>
+                </div>`;
+            }).join('');
             void el.offsetWidth;
             el.style.display = '';
+
+            // Update last-refreshed timestamp
+            const updEl = document.getElementById('insights-last-updated');
+            if (updEl) {
+                const now = new Date();
+                updEl.textContent = 'Updated ' + now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+            }
 
             // Update mode badge
             const badge = document.getElementById('ai-coach-mode-badge');
@@ -10446,12 +10458,10 @@
         const _GROQ_KEY_STORAGE = 'operator_groq_key';
 
         // Auto-seed localStorage from config.js so the UI never shows the key prompt
-        // when config.js is present with a valid GROQ_API_KEY.
         (function _seedGroqKeyFromConfig() {
             try {
                 const cfgKey = window.__APP_CONFIG__ && window.__APP_CONFIG__.GROQ_API_KEY;
                 if (cfgKey && cfgKey.trim().startsWith('gsk_')) {
-                    // Only write if localStorage doesn't already have a user-set key
                     const stored = localStorage.getItem('operator_groq_key');
                     if (!stored || stored === '') {
                         localStorage.setItem('operator_groq_key', cfgKey.trim());
@@ -10461,7 +10471,17 @@
         })();
 
         const _GROQ_KEY_DEFAULT = (window.__APP_CONFIG__ && window.__APP_CONFIG__.GROQ_API_KEY) || '';
-        const GROQ_MODEL = 'llama-3.3-70b-versatile';
+        const GROQ_MODEL_FAST = 'llama-3.1-8b-instant';   // Quick Q&A, commands
+        const GROQ_MODEL_SMART = 'llama-3.3-70b-versatile'; // Deep analysis modes
+        const GROQ_MODEL = GROQ_MODEL_SMART; // legacy compat
+
+        // Pick model based on mode: fast for conversational, smart for analysis
+        function _getGroqModel(mode, userText) {
+            const fastModes = ['coach'];
+            const shortQ = userText && userText.length < 80 && !/analys|review|plan|breakdown|deep/i.test(userText);
+            if (shortQ || fastModes.includes(mode)) return GROQ_MODEL_FAST;
+            return GROQ_MODEL_SMART;
+        }
         const GEMINI_DAILY_LIMIT = 200;
         const GEMINI_USAGE_KEY = 'operator_gemini_usage';
 
@@ -10520,6 +10540,7 @@
 
         function _initGeminiUI() {
             _updateGeminiCounter(); _renderAIStats();
+            if (typeof _renderSmartQuickPrompts === 'function') setTimeout(_renderSmartQuickPrompts, 300);
             const badge = document.getElementById('ai-coach-mode-badge');
             const hasKey = !!_getGroqKey();
             const setupEl = document.getElementById('groq-key-setup');
@@ -10626,6 +10647,13 @@
             const modeInstruction = modeInstructions[_aiMode] || modeInstructions.full;
             const questionLine = customQ ? `\n\nUSER QUESTION: "${customQ}"` : '';
 
+            // Extra context: journal, weekly events, snippets
+            const journalEntries = (S.journal || []).slice(-3).map(j => j.text || j.content || '').filter(Boolean).join(' | ') || 'none';
+            const weeklyEvents = (S.weeklyEvents || []).slice(0, 5).map(e => e.title || e.text || '').filter(Boolean).join(', ') || 'none';
+            const currentHour = new Date().getHours();
+            const timeOfDay = currentHour < 12 ? 'morning' : currentHour < 17 ? 'afternoon' : 'evening';
+            const allPendingTasks = allTasks.filter(t => !t.done).slice(0, 8).map(t => `[${t.priority||'med'}] ${t.text||t.title||''}`).filter(Boolean).join(', ') || 'none';
+
             return `${modeInstruction}
 
 Format each insight as: N. TITLE | Detail sentence with exact numbers from the data.
@@ -10633,7 +10661,7 @@ TITLE = 2-5 words, ALL CAPS. Pipe separator. One insight per line. No markdown, 
 For conversational questions (not analysis), respond naturally in 2-4 sentences referencing their data.${questionLine}
 
 ━━ LIVE DASHBOARD DATA ━━
-Date: ${today} | Energy level: ${eLabel} | Distractions today: ${distr}
+Date: ${today} | Time of day: ${timeOfDay} | Energy level: ${eLabel} | Distractions today: ${distr}
 
 FOCUS SESSIONS TODAY:
 - Sessions: ${todaySess.length} | Total focus time: ${todaySess.reduce((a, s) => a + (s.mins || 0), 0)}min
@@ -10641,10 +10669,11 @@ FOCUS SESSIONS TODAY:
 - All-time focus hours: ${Math.round(totalMins / 60 * 10) / 10}h
 
 TASKS TODAY:
-- Completed: ${todayDone.length} | Pending: ${pending.length}
+- Completed: ${todayDone.length} | Pending today: ${pending.length}
 - High-priority pending: ${highTasks.join(', ') || 'none'}
 - Medium-priority pending: ${medTasks.join(', ') || 'none'}
 - Completed today: ${doneTasks.join(', ') || 'none'}
+- All pending tasks: ${allPendingTasks}
 - Total tasks completed all-time: ${allTasks.filter(t => t.done).length}
 
 STREAK & CONSISTENCY:
@@ -10655,6 +10684,8 @@ ${habitsStr}
 
 GOALS: ${goals}
 RECENT WINS: ${wins}
+RECENT JOURNAL: ${journalEntries}
+SCHEDULED EVENTS: ${weeklyEvents}
 
 14-DAY HISTORY (date:sessions,tasks,focusmins):
 ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getting started'}`;
@@ -11087,20 +11118,106 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                 // ── HELP / COMMANDS LIST ──────────────────────────────
                 if (/^(?:help|commands?|what can you do|\/help)/i.test(t)) {
                     _cmdReply(`<strong>⚡ AVAILABLE COMMANDS</strong><br><br>
-<span style="color:var(--accent2)">TIMER</span><br>
+<span style="color:var(--accent2)">⏱ TIMER</span><br>
 • <em>set timer for 25 minutes</em><br>
 • <em>start timer for 1 hour 30 mins</em><br>
-• <em>start focus session</em> (25 min pomodoro)<br>
+• <em>start focus session</em> — 25 min pomodoro<br>
 • <em>cancel timer</em><br><br>
-<span style="color:var(--accent2)">TASKS</span><br>
+<span style="color:var(--accent2)">📋 TASKS</span><br>
 • <em>add task: Review project brief</em><br>
-• <em>mark task done: Review project brief</em><br><br>
-<span style="color:var(--accent2)">NAVIGATE</span><br>
+• <em>how many tasks today</em><br><br>
+<span style="color:var(--accent2)">📊 INSTANT STATS (no AI needed)</span><br>
+• <em>my stats</em> — full today + all-time summary<br>
+• <em>my streak</em> — current streak info<br>
+• <em>focus today</em> — today's focus minutes<br>
+• <em>best day this week</em> — your peak day<br><br>
+<span style="color:var(--accent2)">🧭 NAVIGATE</span><br>
 • <em>show analytics / open tasks / go to habits</em><br><br>
-<span style="color:var(--accent2)">SETTINGS</span><br>
+<span style="color:var(--accent2)">⚙ SETTINGS</span><br>
 • <em>set energy to high / medium / low</em><br>
 • <em>clear chat</em><br><br>
-Or just ask me anything about your productivity! 🚀`);
+💡 <em>Tip: press Tab to autocomplete commands while typing</em><br>
+💡 <em>Click any insight card to ask AI about it</em>`);
+                    return true;
+                }
+
+                // ── INSTANT STAT COMMANDS (no API call) ──────────────
+                // "my stats" / "show my stats"
+                if (/^(?:my\s+stats|show\s+my\s+stats|stats|statistics)$/i.test(t)) {
+                    const today2 = typeof getTodayKey==='function'?getTodayKey():new Date().toISOString().split('T')[0];
+                    const streak2 = S.analytics?.curStreak || 0;
+                    const maxStreak2 = S.analytics?.maxStreak || 0;
+                    const todaySess2 = (S.sessions||[]).filter(s=>s.date===today2);
+                    const focusMins2 = todaySess2.reduce((a,s)=>a+(s.mins||0),0);
+                    const doneTasks2 = (S.tasks||[]).filter(t=>t.done&&(t.doneDate===today2||t.date===today2)).length;
+                    const totalTasks2 = (S.tasks||[]).filter(t=>t.done).length;
+                    const totalMins2 = S.analytics?.totalMin || 0;
+                    const energy2 = (S.energy&&S.energy[today2])||0;
+                    const eLabel2 = ['—','😴😴','😑','😐','😊','🔥'][energy2]||'—';
+                    _cmdReply(`<strong>📊 YOUR STATS</strong><br><br>
+<span style="color:var(--accent2)">TODAY</span><br>
+• Focus sessions: <strong>${todaySess2.length}</strong> (${focusMins2} min)<br>
+• Tasks completed: <strong>${doneTasks2}</strong><br>
+• Energy: <strong>${eLabel2}</strong><br><br>
+<span style="color:var(--accent2)">ALL TIME</span><br>
+• Current streak: <strong>${streak2} days</strong> (best: ${maxStreak2})<br>
+• Total focus: <strong>${Math.round(totalMins2/60*10)/10}h</strong><br>
+• Tasks done: <strong>${totalTasks2}</strong>`);
+                    return true;
+                }
+
+                // "my streak" / "what's my streak"
+                if (/(?:my\s+streak|what.?s\s+my\s+streak|streak\s+today|current\s+streak)/i.test(t)) {
+                    const streak3 = S.analytics?.curStreak || 0;
+                    const max3 = S.analytics?.maxStreak || 0;
+                    if (streak3 === 0) _cmdReply(`🔴 No active streak. Start one today — even a single 10-min session counts!`);
+                    else if (streak3 >= 7) _cmdReply(`🏆 <strong>${streak3}-day streak!</strong> Your best is ${max3} days. You're in elite territory — don't break it.`);
+                    else _cmdReply(`🔥 <strong>${streak3}-day streak</strong> active. Best ever: ${max3} days. Keep going — ${7-streak3} more days for a full week!`);
+                    return true;
+                }
+
+                // "how many tasks today" / "tasks today"
+                if (/(?:how\s+many\s+tasks|tasks\s+today|task\s+count)/i.test(t)) {
+                    const today3 = typeof getTodayKey==='function'?getTodayKey():new Date().toISOString().split('T')[0];
+                    const done3 = (S.tasks||[]).filter(t=>t.done&&(t.doneDate===today3||t.date===today3)).length;
+                    const pending3 = (S.tasks||[]).filter(t=>!t.done&&t.date===today3).length;
+                    _cmdReply(`📋 Today: <strong>${done3} completed</strong>, <strong>${pending3} pending</strong>.${pending3>0?' Keep pushing!':' All done — nice work! 🎉'}`);
+                    return true;
+                }
+
+                // "best day this week"
+                if (/best\s+day(?:\s+this\s+week)?/i.test(t)) {
+                    try {
+                        const daily = S.analytics?.daily || {};
+                        let bestDay = null, bestScore = -1;
+                        for (let i=0; i<7; i++) {
+                            const d = new Date(); d.setDate(d.getDate()-i);
+                            const dk = typeof localDateKey==='function'?localDateKey(d):d.toISOString().split('T')[0];
+                            const day = daily[dk];
+                            if (day) {
+                                const score = (day.sess||0)*2 + (day.tasks||0) + Math.round((day.min||0)/10);
+                                if (score > bestScore) { bestScore = score; bestDay = {dk, day}; }
+                            }
+                        }
+                        if (bestDay) {
+                            const dt = new Date(bestDay.dk+'T00:00:00');
+                            const dayName = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][dt.getDay()];
+                            _cmdReply(`🏅 Best day this week: <strong>${dayName} (${bestDay.dk})</strong> — ${bestDay.day.sess||0} sessions, ${bestDay.day.tasks||0} tasks, ${bestDay.day.min||0} focus mins.`);
+                        } else {
+                            _cmdReply(`📅 Not enough data yet for this week. Start logging sessions!`);
+                        }
+                    } catch(e) { _cmdReply(`📅 Could not calculate — try again after logging some sessions.`); }
+                    return true;
+                }
+
+                // "focus today" / "how much focus today"
+                if (/(?:focus\s+today|how\s+much\s+focus|focus\s+time|minutes\s+today)/i.test(t)) {
+                    const today4 = typeof getTodayKey==='function'?getTodayKey():new Date().toISOString().split('T')[0];
+                    const sess4 = (S.sessions||[]).filter(s=>s.date===today4);
+                    const mins4 = sess4.reduce((a,s)=>a+(s.mins||0),0);
+                    const target4 = (S.user?.target||6)*25;
+                    const pct4 = target4>0?Math.round(mins4/target4*100):0;
+                    _cmdReply(`⏱ Focus today: <strong>${mins4} minutes</strong> across ${sess4.length} session${sess4.length!==1?'s':''}. ${pct4>=100?'🎯 Daily target hit!':pct4>0?`${pct4}% of daily target.`:'No sessions yet — start one now!'}`);
                     return true;
                 }
 
@@ -11108,6 +11225,183 @@ Or just ask me anything about your productivity! 🚀`);
             };
 
         })();
+
+        // ══════════════════════════════════════════════════════════════
+        //  AI UX ENHANCEMENTS
+        // ══════════════════════════════════════════════════════════════
+
+        // ── Auto-scroll lock ─────────────────────────────────────────
+        let _aiScrollLocked = false;
+        (function _initScrollLock() {
+            const win = document.getElementById('ai-chat-window');
+            if (!win) return;
+            win.addEventListener('scroll', () => {
+                const atBottom = win.scrollHeight - win.scrollTop - win.clientHeight < 40;
+                _aiScrollLocked = !atBottom;
+            });
+        })();
+
+        function _aiScrollToBottom() {
+            if (_aiScrollLocked) return;
+            const win = document.getElementById('ai-chat-window');
+            if (win) win.scrollTop = win.scrollHeight;
+        }
+
+        // ── Insight deep-dive: click insight → ask AI about it ───────
+        function _insightDeepDive(text) {
+            const inp = document.getElementById('ai-custom-question');
+            if (!inp) return;
+            inp.value = 'Tell me more about this and what I should do: ' + text;
+            inp.style.height = 'auto';
+            inp.style.height = Math.min(inp.scrollHeight, 120) + 'px';
+            inp.focus();
+            if (typeof setAIMode === 'function') setAIMode('full', document.getElementById('ai-mode-full'));
+            // Scroll chat into view
+            const chatPanel = document.getElementById('panel-ai-coach');
+            if (chatPanel && !chatPanel.classList.contains('active')) {
+                const navBtn = document.querySelector('[onclick*="ai-coach"]');
+                if (navBtn) navBtn.click();
+            }
+            setTimeout(() => askGeminiCoach(), 120);
+        }
+
+        // ── Refresh insights manually + auto every 30min ─────────────
+        function _refreshInsights() {
+            if (typeof runFocusCoach === 'function') runFocusCoach();
+        }
+        setInterval(_refreshInsights, 30 * 60 * 1000);
+
+        // ── Smart quick prompts (rotate based on weak spots) ─────────
+        function _renderSmartQuickPrompts() {
+            const container = document.getElementById('smart-quick-prompts');
+            if (!container) return;
+
+            const today = typeof getTodayKey === 'function' ? getTodayKey() : new Date().toISOString().split('T')[0];
+            const streak = S.analytics?.curStreak || 0;
+            const energy = (S.energy && S.energy[today]) || 0;
+            const habits = S.habits || [];
+            const habitsDoneToday = habits.filter(h => h.days && h.days[today]).length;
+            const pendingTasks = (S.tasks || []).filter(t => !t.done && t.date === today).length;
+            const todaySessions = (S.sessions || []).filter(s => s.date === today).length;
+
+            // Build a personalized prompt pool based on weak spots
+            const prompts = [];
+
+            // Always useful
+            prompts.push({ label: 'What to do first?', text: 'What should I focus on right now given my current state?' });
+
+            // Weak habit? Surface it
+            const worstHabit = habits.find(h => (h.streak || 0) === 0 && h.name);
+            if (worstHabit) prompts.push({ label: 'Fix ' + worstHabit.name, text: `How do I stop breaking my ${worstHabit.name} habit?` });
+            else prompts.push({ label: 'Habit check', text: 'Which habit is hurting me the most right now?' });
+
+            // No session yet today
+            if (todaySessions === 0) prompts.push({ label: 'Get started', text: 'I haven't started yet today — give me a 5-minute kickstart plan.' });
+            else prompts.push({ label: '2hr plan', text: 'Give me a concrete plan for the next 2 hours.' });
+
+            // Streak risk
+            if (streak === 0) prompts.push({ label: 'Start streak', text: 'How do I build a consistent daily streak?' });
+            else if (streak >= 7) prompts.push({ label: 'Protect streak', text: `I have a ${streak}-day streak — how do I protect it?` });
+            else prompts.push({ label: 'Roast my week', text: 'Roast my productivity this week honestly.' });
+
+            // Pending tasks piling up
+            if (pendingTasks >= 3) prompts.push({ label: pendingTasks + ' tasks pending', text: `I have ${pendingTasks} tasks pending — what's the priority order?` });
+            else prompts.push({ label: 'Am I improving?', text: 'Am I improving compared to last week?' });
+
+            // Energy based
+            if (energy <= 2) prompts.push({ label: 'Low energy mode', text: 'I'm low energy today — what's the smartest way to be productive?' });
+            else if (energy >= 4) prompts.push({ label: 'Max output', text: 'My energy is high — how do I make the most of today?' });
+
+            container.innerHTML = prompts.slice(0, 6).map(p =>
+                `<button class="qprompt-btn" onclick="_quickPrompt('${p.text.replace(/'/g, "\'")}')">${p.label}</button>`
+            ).join('');
+        }
+
+        // ── Command autocomplete ──────────────────────────────────────
+        const _CMD_SUGGESTIONS = [
+            { match: /^set ti/i, display: 'set timer for [duration]', fill: 'set timer for ' },
+            { match: /^start ti/i, display: 'start timer for [duration]', fill: 'start timer for ' },
+            { match: /^start fo/i, display: 'start focus session', fill: 'start focus session' },
+            { match: /^start po/i, display: 'start pomodoro', fill: 'start pomodoro' },
+            { match: /^cancel/i, display: 'cancel timer', fill: 'cancel timer' },
+            { match: /^stop ti/i, display: 'stop timer', fill: 'stop timer' },
+            { match: /^add ta/i, display: 'add task: [task name]', fill: 'add task: ' },
+            { match: /^set en/i, display: 'set energy to [high/medium/low]', fill: 'set energy to ' },
+            { match: /^show/i, display: 'show [analytics/tasks/habits/focus]', fill: 'show ' },
+            { match: /^open/i, display: 'open [analytics/tasks/habits/focus]', fill: 'open ' },
+            { match: /^go to/i, display: 'go to [panel name]', fill: 'go to ' },
+            { match: /^clear/i, display: 'clear chat', fill: 'clear chat' },
+            { match: /^my st/i, display: 'my stats', fill: 'my stats' },
+            { match: /^my st/i, display: 'my streak', fill: 'my streak' },
+            { match: /^best/i, display: 'best day this week', fill: 'best day this week' },
+            { match: /^how many/i, display: 'how many tasks today', fill: 'how many tasks today' },
+            { match: /^help/i, display: 'help — show all commands', fill: 'help' },
+        ];
+
+        function _updateAutocomplete(val) {
+            const ac = document.getElementById('cmd-autocomplete');
+            if (!ac) return;
+            if (!val || val.length < 2) { ac.style.display = 'none'; return; }
+            const matches = _CMD_SUGGESTIONS.filter(s => s.match.test(val));
+            if (matches.length === 0) { ac.style.display = 'none'; return; }
+            ac.style.display = 'block';
+            ac.innerHTML = matches.slice(0, 4).map((s, i) =>
+                `<div style="padding:6px 14px;cursor:pointer;color:var(--text2);transition:background 0.1s"
+                    onmouseover="this.style.background='var(--card)'"
+                    onmouseout="this.style.background=''"
+                    onclick="_fillAutocomplete('${s.fill.replace(/'/g, "\'")}')">
+                    <span style="color:var(--accent2)">${s.fill}</span><span style="opacity:0.5">${s.display.replace(s.fill,'')}</span>
+                </div>`
+            ).join('');
+        }
+
+        function _fillAutocomplete(text) {
+            const inp = document.getElementById('ai-custom-question');
+            if (!inp) return;
+            inp.value = text;
+            inp.focus();
+            inp.style.height = 'auto';
+            inp.style.height = Math.min(inp.scrollHeight, 120) + 'px';
+            document.getElementById('cmd-autocomplete').style.display = 'none';
+        }
+
+        // ── Input handler: char counter + autocomplete + auto-resize ──
+        function _aiInputHandler(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+            const len = el.value.length;
+            const counter = document.getElementById('ai-char-counter');
+            if (counter) {
+                if (len > 200) { counter.textContent = len + ' chars'; counter.style.color = len > 400 ? '#e8c97a' : 'var(--text3)'; }
+                else { counter.textContent = ''; }
+            }
+            _updateAutocomplete(el.value);
+        }
+
+        // ── Keyboard handler for input ────────────────────────────────
+        function _aiInputKeydown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); askGeminiCoach(); }
+            if (e.key === 'Escape') { document.getElementById('cmd-autocomplete').style.display = 'none'; }
+            // Tab to fill first autocomplete suggestion
+            if (e.key === 'Tab') {
+                const ac = document.getElementById('cmd-autocomplete');
+                if (ac && ac.style.display !== 'none') {
+                    e.preventDefault();
+                    const first = ac.querySelector('div');
+                    if (first) first.click();
+                }
+            }
+        }
+
+        // ── Instant stat commands (no API call) ──────────────────────
+        // These are added into _tryAICommand below via the upgrade block
+
+        // ── Init all AI UX on page load ──────────────────────────────
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                _renderSmartQuickPrompts();
+            }, 1500);
+        });
 
         // ── MAIN: ask AI ──────────────────────────────────────────────
         async function askGeminiCoach() {
@@ -11151,15 +11445,46 @@ Or just ask me anything about your productivity! 🚀`);
             };
 
             // Build system prompt + history + current context
-            const systemPrompt = `You are OPERATOR AI — a sharp, data-driven productivity coach embedded in a personal dashboard. You have full access to the user's real-time data. When delivering analysis, format EVERY insight as: N. TITLE | Detailed sentence with specific numbers from the data. TITLE must be ALL CAPS, 2-5 words. Pipe separator. One per line. No markdown symbols, no asterisks. For conversational replies, respond naturally but always reference their actual data. Be direct, honest, and specific. You also have a built-in command engine — if the user asks how to set a timer, add a task, navigate panels, or set energy level, remind them they can type commands like: "set timer for 25 minutes", "add task: name", "show analytics", "set energy to high", or type "help" to see all commands.`;
+            // ── Dynamic system prompt based on real user state ────────
+            const _dynTone = (() => {
+                const streak = S.analytics?.curStreak || 0;
+                const energy = (S.energy && S.energy[typeof getTodayKey==='function'?getTodayKey():new Date().toISOString().split('T')[0]]) || 0;
+                const todayKey2 = typeof getTodayKey==='function'?getTodayKey():new Date().toISOString().split('T')[0];
+                const todaySess2 = (S.sessions||[]).filter(s=>s.date===todayKey2).length;
+                if (streak === 0 && todaySess2 === 0) return 'The user is just getting started or coming back after a break. Be warm, encouraging, and focus on one small win they can get today.';
+                if (energy >= 4 && streak >= 7) return 'The user is in peak state — high energy and strong streak. Be ambitious, push them to do their best work, challenge them to level up.';
+                if (energy <= 2) return 'The user has low energy today. Be supportive, suggest sustainable actions, prioritize rest and recovery alongside productivity.';
+                if (streak >= 14) return 'The user has an outstanding streak. Acknowledge it and help them protect it. Focus on consistency over intensity.';
+                return 'Be direct, honest, and data-driven.';
+            })();
+            const systemPrompt = `You are OPERATOR AI — a sharp, data-driven productivity coach embedded in a personal dashboard. You have full access to the user's real-time data. ${_dynTone} When delivering analysis, format EVERY insight as: N. TITLE | Detailed sentence with specific numbers from the data. TITLE must be ALL CAPS, 2-5 words. Pipe separator. One per line. No markdown symbols, no asterisks. For conversational replies, respond naturally in 2-4 sentences always referencing their actual data. Remind users they can type "help" to see available commands like timers, task adding, and navigation.`;
 
             const prompt = _buildCoachContext();
 
-            const messages = [
-                { role: 'system', content: systemPrompt },
-                ..._chatHistory.slice(-10),  // keep last 5 exchanges
-                { role: 'user', content: prompt }
-            ];
+            // ── Smart memory: summarise old history, keep recent exchanges ──
+            let _memMessages = [];
+            if (_chatHistory.length > 12) {
+                const older = _chatHistory.slice(0, _chatHistory.length - 12);
+                const recent = _chatHistory.slice(-12);
+                // Condense older history into a brief summary injected as a system note
+                const oldSummary = older
+                    .filter(m => m.role === 'user')
+                    .map(m => m.content.slice(0, 120))
+                    .join(' | ');
+                _memMessages = [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'system', content: `Earlier in this session the user asked about: ${oldSummary}` },
+                    ...recent,
+                    { role: 'user', content: prompt }
+                ];
+            } else {
+                _memMessages = [
+                    { role: 'system', content: systemPrompt },
+                    ..._chatHistory.slice(-12),
+                    { role: 'user', content: prompt }
+                ];
+            }
+            const messages = _memMessages;
 
             // ── Try streaming first, fall back to standard ────────────
             try {
@@ -11168,7 +11493,7 @@ Or just ask me anything about your productivity! 🚀`);
                     res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _GROQ_API_KEY },
-                        body: JSON.stringify({ model: GROQ_MODEL, messages, temperature: 0.68, max_tokens: 900, stream: true })
+                        body: JSON.stringify({ model: _getGroqModel(_aiMode, userText), messages, temperature: 0.68, max_tokens: 900, stream: true })
                     });
                 } catch (netErr) { throw new Error('Network error — check your connection.'); }
 
@@ -11210,7 +11535,7 @@ Or just ask me anything about your productivity! 🚀`);
                                 if (delta) {
                                     fullText += delta;
                                     if (streamContent) streamContent.textContent = fullText;
-                                    if (win) win.scrollTop = win.scrollHeight;
+                                    if (win) _aiScrollToBottom();
                                 }
                             } catch (_) { }
                         }
