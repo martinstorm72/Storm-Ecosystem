@@ -1,14 +1,25 @@
-# Never commit real env files
+# ============================================================
+#  .gitignore — keeps secrets OUT of GitHub
+# ============================================================
+
+# LOCAL SECRETS — never commit these
+config.js
 .env
 .env.local
-.env.production
+.env.*.local
 
-# Vercel
-.vercel
-
-# OS
+# OS / editor junk
 .DS_Store
 Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
 
-# Node
+# Logs
+*.log
+npm-debug.log*
+
+# Node (if you ever add a build step)
 node_modules/
+dist/
