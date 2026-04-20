@@ -6231,7 +6231,7 @@
             <button class="nav-tab active" onclick="switchTab('planner',this)"><i class="fas fa-tasks"></i> DEEP
                 WORK</button>
             <button class="nav-tab" onclick="switchTab('timer',this)"><i class="fas fa-hourglass-half"></i> FOCUS
-                IMPULSE</button>
+                PULSE</button>
             <button class="nav-tab" onclick="switchTab('ai-coach',this)" id="nav-ai-coach-tab"><i
                     class="fas fa-robot"></i> AI COACH</button>
             <button class="nav-tab" onclick="switchTab('habits',this)"><i class="fas fa-chart-line"></i> HABITS</button>
@@ -7044,7 +7044,7 @@
                     <div class="shortcut-row"><span style="color:var(--text3);font-size:0.8em;letter-spacing:.06em">TAB
                             SHORTCUTS</span><span></span></div>
                     <div class="shortcut-row"><span>1 · Deep Work</span><span class="kbd">1</span></div>
-                    <div class="shortcut-row"><span>2 · Focus Impulse</span><span class="kbd">2</span></div>
+                    <div class="shortcut-row"><span>2 · Focus Pulse</span><span class="kbd">2</span></div>
                     <div class="shortcut-row"><span>3 · AI Coach</span><span class="kbd">3</span></div>
                     <div class="shortcut-row"><span>4 · Habits</span><span class="kbd">4</span></div>
                     <div class="shortcut-row"><span>5 · Weekly Planner</span><span class="kbd">5</span></div>
@@ -7113,12 +7113,6 @@
                             class="fas fa-map"></i> Action Plan</button>
                     <button class="ai-mode-btn" id="ai-mode-coach" onclick="setAIMode('coach',this)"><i
                             class="fas fa-comment-dots"></i> Personal Coach</button>
-                    <button class="ai-mode-btn" id="ai-mode-sprint" onclick="setAIMode('sprint',this)"><i
-                            class="fas fa-bolt"></i> Sprint Now</button>
-                    <button class="ai-mode-btn" id="ai-mode-deepwork" onclick="setAIMode('deepwork',this)"><i
-                            class="fas fa-layer-group"></i> Deep Work</button>
-                    <button class="ai-mode-btn" id="ai-mode-mindset" onclick="setAIMode('mindset',this)"><i
-                            class="fas fa-fire"></i> Mindset</button>
                 </div>
 
                 <!-- ── CHAT WINDOW ── -->
@@ -7128,7 +7122,9 @@
                         <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
                         <div class="chat-bubble-body">
                             <div class="chat-bubble-name">OPERATOR AI</div>
-                    <div class="chat-bubble-text">Hey — I'm OPERATOR AI, your elite productivity coach. I have full real-time access to your tasks, habits, focus sessions, streaks, energy, and 7-day history. I don't do vague advice — I work from your actual data and give you precise, actionable direction. Pick a mode above, fire a quick prompt, or just ask me anything. ⚡</div>
+                            <div class="chat-bubble-text">Hey! I'm your AI Coach — I have full access to your tasks,
+                                habits, focus sessions, streaks, energy levels, and 7-day history. Ask me anything, or
+                                pick a mode above to get a deep analysis. ⚡</div>
                         </div>
                     </div>
                 </div>
@@ -7143,14 +7139,18 @@
                     <span
                         style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);align-self:center;letter-spacing:.06em;white-space:nowrap">QUICK
                         →</span>
-                    <button class="qprompt-btn" onclick="_quickPrompt('What should I focus on right now? Be specific and direct.')">What to do first?</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Why am I not hitting my focus goals? Diagnose the root cause from my data.')">Why no focus?</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Roast my productivity this week honestly. No fluff — tell me exactly what went wrong and what the data shows.')">Roast my week</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Build me a precise 2-hour execution sprint plan using my pending tasks. Prioritize ruthlessly.')">2hr sprint</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Which single habit is sabotaging my performance the most right now? What specific change should I make today?')">Fix worst habit</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Am I genuinely improving compared to last week? Compare the numbers and give me a verdict.')">Am I improving?</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('What is my biggest productivity bottleneck right now and how do I break through it in the next 24 hours?')">Break bottleneck</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Give me a brutally honest mindset audit. What mental patterns in my data are holding me back?')">Mindset audit</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('What should I focus on right now?')">What to do
+                        first?</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('Why am I not hitting my focus goals?')">Why no
+                        focus?</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('Roast my productivity this week honestly')">Roast
+                        my week</button>
+                    <button class="qprompt-btn"
+                        onclick="_quickPrompt('Give me a concrete plan for the next 2 hours')">2hr plan</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('Which habit is hurting me the most?')">Worst
+                        habit?</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('Am I improving compared to last week?')">Am I
+                        improving?</button>
                 </div>
 
                 <!-- ── CHAT INPUT ── -->
@@ -7377,7 +7377,7 @@
                     style="color:var(--text3);font-size:0.75em;letter-spacing:.08em;font-weight:900">TAB
                     SHORTCUTS</span><span></span></div>
             <div class="shortcut-row"><span>1 · Deep Work</span><span class="kbd">1</span></div>
-            <div class="shortcut-row"><span>2 · Focus Impulse</span><span class="kbd">2</span></div>
+            <div class="shortcut-row"><span>2 · Focus Pulse</span><span class="kbd">2</span></div>
             <div class="shortcut-row"><span>3 · AI Coach</span><span class="kbd">3</span></div>
             <div class="shortcut-row"><span>4 · Habits</span><span class="kbd">4</span></div>
             <div class="shortcut-row"><span>5 · Weekly Planner</span><span class="kbd">5</span></div>
@@ -7439,11 +7439,17 @@
         </div>
     </div>
 
+    <!-- ================================================================
+         CONFIG LOADER — secrets live in config.js which is .gitignored.
+         Copy config.example.js -> config.js and fill in your values.
+         NEVER commit config.js to GitHub.
+    ================================================================ -->
+    <script src="config.js"></script>
     <script>
         // ===== SUPABASE CONFIG =====
-        // Replace these with your own project URL and anon key from https://supabase.com/dashboard
-        const SUPABASE_URL = 'https://mryishzprrgpxauoccmr.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
+        // Values loaded from config.js (gitignored). See config.example.js.
+        const SUPABASE_URL = (window.__APP_CONFIG__ && window.__APP_CONFIG__.SUPABASE_URL) || '';
+        const SUPABASE_KEY = (window.__APP_CONFIG__ && window.__APP_CONFIG__.SUPABASE_KEY) || '';
         // Guard: detect placeholder / missing config so sync UI never shows a misleading "SYNCED" state
         const _SUPABASE_CONFIGURED = (
             SUPABASE_URL && SUPABASE_URL.startsWith('https://') &&
@@ -7511,19 +7517,18 @@
             }
         }
 
-        // Change 8: Tab reorder logic — order: Deep Work, Focus Impulse, AI Coach, Habits, Weekly Planner, Monthly Planner, Dev Tools, Field Notes, Help
+        // CANONICAL tab order: Deep Work=1, Focus Impulse=2, AI Coach=3, Habits=4, Weekly Planner=5, Monthly Planner=6, Dev Tools=7, Field Notes=8, Help=9
         const _POST_OB_TAB_ORDER = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'journal', 'help'];
         const _DEFAULT_TAB_ORDER = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'journal', 'help'];
 
+        // Wipe any stale saved order so the canonical order always wins
+        try { localStorage.removeItem('tab_order_custom'); } catch (e) { }
+
         function _applyPostObTabOrder() {
             try {
-                let reordered = OB_STEPS.every(s => obStatus[s.id]);
-                if (!reordered) return;
-                let order = _POST_OB_TAB_ORDER;
-                let saved = localStorage.getItem('tab_order_custom');
-                if (saved) order = JSON.parse(saved);
-                _reorderNavTabs(order);
-                localStorage.setItem('tab_order_custom', JSON.stringify(order));
+                // Always enforce canonical order — never read from localStorage
+                _reorderNavTabs(_POST_OB_TAB_ORDER);
+                localStorage.setItem('tab_order_custom', JSON.stringify(_POST_OB_TAB_ORDER));
             } catch (e) { }
         }
 
@@ -7531,7 +7536,6 @@
             let nav = document.querySelector('.nav-tabs');
             if (!nav) return;
             let tabs = Array.from(nav.querySelectorAll('.nav-tab'));
-            // Map tab id -> element by extracting id from onclick
             let tabMap = {};
             tabs.forEach(t => {
                 let m = t.getAttribute('onclick')?.match(/switchTab\('([^']+)'/);
@@ -7545,6 +7549,12 @@
             _reorderNavTabs(_DEFAULT_TAB_ORDER);
             showToast('Tab order restored to default');
         }
+
+        // Also enforce order on DOMContentLoaded to handle any late render
+        document.addEventListener('DOMContentLoaded', () => {
+            try { localStorage.removeItem('tab_order_custom'); } catch (e) { }
+            _reorderNavTabs(_DEFAULT_TAB_ORDER);
+        });
 
         // CHANGE 2: Floating onboarding panel
         function toggleObFloat() {
@@ -9852,7 +9862,7 @@
             if (!inInput) {
                 if (e.code === 'Space') { e.preventDefault(); let tp = document.getElementById('panel-timer'); if (tp && tp.classList.contains('active')) toggleMain(); else toggleMini(); }
                 if (e.key === '?') showShortcuts();
-                const tabs = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'journal', 'help']; // Deep Work=1, Focus Impulse=2, AI Coach=3, Habits=4, Weekly Planner=5, Monthly Planner=6, Dev Tools=7, Field Notes=8, Help=9
+                const tabs = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'journal', 'help'];
                 let num = parseInt(e.key); if (e.key === '0') num = 10; if (num >= 1 && num <= tabs.length) { let tabEl = document.querySelectorAll('.nav-tab')[num - 1]; switchTab(tabs[num - 1], tabEl); }
             }
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runCode(); }
@@ -10438,7 +10448,7 @@
         // ══════════════════════════════════════════════════════════════
 
         const _GROQ_KEY_STORAGE = 'operator_groq_key';
-        const _GROQ_KEY_DEFAULT = (() => { const p = ['gsk_sT3rSV0qzpKj', 'SUvBJKnVWGdyb3FY', '2SKqUGkUnMyFYIS', 'ZXMFVd22Y']; return p.join(''); })();
+        const _GROQ_KEY_DEFAULT = (window.__APP_CONFIG__ && window.__APP_CONFIG__.GROQ_API_KEY) || '';
         const GROQ_MODEL = 'llama-3.3-70b-versatile';
         const GEMINI_DAILY_LIMIT = 200;
         const GEMINI_USAGE_KEY = 'operator_gemini_usage';
@@ -10677,18 +10687,12 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
             const el = document.createElement('div');
             el.className = 'chat-bubble-ai';
 
-            // Extract ACTION line if present
-            const actionMatch = text.match(/→\s*ACTION:\s*(.+?)(?:\n|$)/i);
-            const actionText = actionMatch ? actionMatch[1].trim() : null;
-            const cleanText = actionMatch ? text.replace(actionMatch[0], '').trim() : text;
-
             // Parse structured insights: "N. TITLE | detail"
-            const lines = cleanText.split('\n').map(l => l.trim()).filter(Boolean);
-            const pattern = /^(\d+)[\.\)\:]\s*([^|]{2,50}?)\s*\|\s*(.{5,})$/;
+            const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+            const pattern = /^(\d+)[\.\)\:]\s*([^|]{2,40}?)\s*\|\s*(.{5,})$/;
             const fallback = /^(\d+)[\.\)\:]\s*(.{5,})$/;
             const cards = [];
             let rawMode = false;
-            let rawLines = [];
 
             for (const line of lines) {
                 const m = line.match(pattern);
@@ -10696,7 +10700,7 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                 if (m) cards.push({ num: m[1], title: m[2].trim(), detail: m[3].trim() });
                 else if (m2) cards.push({ num: m2[1], title: null, detail: m2[2].trim() });
                 else if (cards.length > 0) cards[cards.length - 1].detail += ' ' + line;
-                else { rawMode = true; rawLines.push(line); }
+                else rawMode = true;
             }
 
             const classify = (t, d) => {
@@ -10705,8 +10709,6 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                 if (/good|great|strong|streak|momentum|peak|optimal|best|elite|improv|excel|on fire|ahead/.test(s)) return 'good';
                 return 'action';
             };
-
-            const modeLabelMap = { full:'Full Analysis', tasks:'Tasks', habits:'Habits', focus:'Focus', week:'Week Review', plan:'Action Plan', coach:'Personal Coach', sprint:'Sprint Now', deepwork:'Deep Work', mindset:'Mindset' };
 
             let bodyHTML;
             if (!rawMode && cards.length >= 2) {
@@ -10723,47 +10725,35 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                 }).join('');
             } else {
                 // Prose mode — render with markdown-like formatting
-                const formatted = (rawMode ? rawLines.join('\n') : cleanText)
+                const formatted = text
                     .replace(/</g, '&lt;').replace(/>/g, '&gt;')
                     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
                     .replace(/\*(.+?)\*/g, '<em>$1</em>')
-                    .replace(/`(.+?)`/g, '<code style="background:rgba(255,255,255,.06);padding:1px 5px;border-radius:3px;font-size:0.88em">$1</code>')
                     .replace(/\n/g, '<br>');
                 bodyHTML = `<div style="font-family:var(--body);font-size:0.97rem;color:var(--text2);line-height:1.72">${formatted}</div>`;
             }
 
-            // Action line card
-            const actionHTML = actionText ? `
-                <div style="margin-top:12px;padding:10px 14px;background:rgba(0,210,255,.07);border:1px solid rgba(0,210,255,.22);border-radius:8px;display:flex;align-items:center;gap:10px">
-                    <span style="font-family:var(--mono);font-size:0.72rem;font-weight:900;letter-spacing:.1em;color:var(--cyan);white-space:nowrap">→ ACTION</span>
-                    <span style="font-family:var(--body);font-size:0.95rem;color:var(--text)">${actionText.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span>
-                </div>` : '';
-
             const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const modelLabel = `Groq · ${GROQ_MODEL.replace('llama-', 'llama-').replace('-versatile', '')}`;
-            const modeLabel = modeLabelMap[_aiMode] || _aiMode;
+            const modelLabel = `Groq · ${GROQ_MODEL.replace('llama-', '').replace('-versatile', '')}`;
 
             el.innerHTML = `
                 <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
                 <div class="chat-bubble-body" style="max-width:88%">
-                    <div class="chat-bubble-name">OPERATOR AI <span style="font-size:0.62rem;opacity:0.55;margin-left:4px">${modeLabel}</span></div>
+                    <div class="chat-bubble-name">OPERATOR AI</div>
                     <div style="background:var(--card2);border:1px solid var(--border2);border-radius:14px 14px 14px 4px;padding:14px 16px">
                         ${bodyHTML}
-                        ${actionHTML}
                         <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);flex-wrap:wrap;gap:6px">
                             <span style="font-family:var(--mono);font-size:0.64rem;color:var(--text3)">${now} · ${modelLabel}</span>
                             <div style="display:flex;gap:6px">
-                                <button class="chat-action-btn" title="Copy response" onclick="(function(btn){
+                                <button class="chat-action-btn" title="Copy" onclick="(function(btn){
                                     const p=btn.closest('.chat-bubble-ai');
                                     const titles=Array.from(p.querySelectorAll('.chat-insight-title')).map(e=>e.textContent.replace(/^[✦⚠→]\s*/,''));
                                     const details=Array.from(p.querySelectorAll('.chat-insight-detail')).map(e=>e.textContent);
                                     const prose=p.querySelector('[style*=font-family:var(--body)]');
-                                    const action=p.querySelector('[style*=rgba(0,210,255]')?.querySelector('span:last-child')?.textContent||'';
-                                    const txt = titles.length>0 ? titles.map((t,i)=>(i+1)+'. '+(t?t+' — ':'')+details[i]).join('\n')+(action?'\n\n→ ACTION: '+action:'') : (prose?prose.innerText:'');
+                                    const txt = titles.length>0 ? titles.map((t,i)=>(i+1)+'. '+(t?t+' — ':'')+details[i]).join('\n') : (prose?prose.innerText:'');
                                     navigator.clipboard?.writeText(txt.trim()).then(()=>showToast('✦ Copied'));
                                 })(this)"><i class="fas fa-copy"></i></button>
                                 <button class="chat-action-btn" title="Re-run this analysis" onclick="setAIMode('${_aiMode}',document.getElementById('ai-mode-${_aiMode}'));askGeminiCoach()"><i class="fas fa-redo"></i></button>
-                                <button class="chat-action-btn" title="Run follow-up: Dig deeper" onclick="document.getElementById('ai-custom-question').value='Dig deeper on your last analysis. Give me more specific numbers and a clearer action plan.';askGeminiCoach()"><i class="fas fa-search-plus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -10777,12 +10767,11 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
             if (!win) return null;
             const el = document.createElement('div');
             el.className = 'chat-bubble-ai'; el.id = 'ai-stream-bubble';
-            const modeLabelMap = { full:'Full Analysis', tasks:'Tasks', habits:'Habits', focus:'Focus', week:'Week Review', plan:'Action Plan', coach:'Personal Coach', sprint:'Sprint Now', deepwork:'Deep Work', mindset:'Mindset' };
-            const modeLabel = modeLabelMap[_aiMode] || _aiMode;
+            const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             el.innerHTML = `
                 <div class="chat-avatar-ai" style="animation:aiPulse 1.5s infinite"><i class="fas fa-robot"></i></div>
                 <div class="chat-bubble-body" style="max-width:88%">
-                    <div class="chat-bubble-name">OPERATOR AI <span style="font-size:0.62rem;opacity:0.55;margin-left:4px">${modeLabel}</span></div>
+                    <div class="chat-bubble-name">OPERATOR AI</div>
                     <div style="background:var(--card2);border:1px solid var(--border2);border-radius:14px 14px 14px 4px;padding:14px 16px">
                         <div id="ai-stream-content" style="font-family:var(--mono);font-size:0.88rem;color:var(--text2);line-height:1.72;white-space:pre-wrap;word-break:break-word"></div>
                         <span id="ai-stream-cursor" style="display:inline-block;width:8px;height:14px;background:var(--accent2);border-radius:1px;animation:cursorBlink 0.7s infinite;vertical-align:middle;margin-left:2px"></span>
@@ -10795,13 +10784,318 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
         // ── Quick prompt helper ───────────────────────────────────────
         function _quickPrompt(text) {
             const inp = document.getElementById('ai-custom-question');
-            if (inp) { inp.value = text; inp.style.height = 'auto'; inp.style.height = Math.min(inp.scrollHeight, 120) + 'px'; inp.focus(); }
-            // Only reset to full mode if currently in a mode with no active state
-            if (!_aiMode || _aiMode === 'sprint' || _aiMode === 'deepwork') {
-                setAIMode('full', document.getElementById('ai-mode-full'));
-            }
+            if (inp) { inp.value = text; inp.style.height = 'auto'; inp.style.height = Math.min(inp.scrollHeight, 120) + 'px'; }
+            setAIMode('full', document.getElementById('ai-mode-full'));
             setTimeout(() => askGeminiCoach(), 80);
         }
+
+        // ══════════════════════════════════════════════════════════════
+        //  AI COMMAND ENGINE — Natural language → dashboard actions
+        //  Intercepts user input before sending to the AI API.
+        //  Supported commands (examples):
+        //    "set timer for 30 mins / 25 minutes / 1 hour"
+        //    "start focus session / start pomodoro"
+        //    "stop timer / cancel timer"
+        //    "add task <name>"
+        //    "mark task <name> done / complete"
+        //    "set energy to high / medium / low"
+        //    "show analytics / open tasks / go to habits"
+        //    "clear chat"
+        // ══════════════════════════════════════════════════════════════
+        (function _initAICommandEngine() {
+
+            // ── Active timer state ────────────────────────────────────
+            let _cmdTimerInterval = null;
+            let _cmdTimerEnd = null;
+            let _cmdTimerBubbleId = null;
+
+            function _cmdClearTimer() {
+                if (_cmdTimerInterval) { clearInterval(_cmdTimerInterval); _cmdTimerInterval = null; }
+                _cmdTimerEnd = null;
+            }
+
+            function _cmdStartTimer(totalMs, label) {
+                _cmdClearTimer();
+                _cmdTimerEnd = Date.now() + totalMs;
+
+                // Create a live countdown bubble in the chat
+                const bubbleId = 'cmd-timer-bubble-' + Date.now();
+                _cmdTimerBubbleId = bubbleId;
+                const win = document.getElementById('ai-chat-window');
+                if (win) {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'chat-bubble-ai';
+                    bubble.id = bubbleId;
+                    bubble.innerHTML = `
+                        <div class="chat-avatar-ai"><i class="fas fa-clock"></i></div>
+                        <div class="chat-bubble-body">
+                            <div class="chat-bubble-name">OPERATOR AI</div>
+                            <div class="chat-bubble-text" style="font-family:var(--mono);display:flex;flex-direction:column;gap:6px">
+                                <div style="font-size:0.85rem;color:var(--text2)">⏱ Timer set: <strong style="color:var(--accent)">${label}</strong></div>
+                                <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+                                    <div id="${bubbleId}-ring" style="width:52px;height:52px;border-radius:50%;background:conic-gradient(var(--accent) 0deg, var(--border2) 0deg);display:flex;align-items:center;justify-content:center;position:relative;transition:background 0.5s">
+                                        <div style="width:40px;height:40px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-family:var(--mono);color:var(--text2)" id="${bubbleId}-pct">100%</div>
+                                    </div>
+                                    <div>
+                                        <div id="${bubbleId}-countdown" style="font-size:1.4rem;font-weight:700;color:var(--accent);letter-spacing:.04em">--:--</div>
+                                        <div style="font-size:0.7rem;color:var(--text3);margin-top:2px">REMAINING</div>
+                                    </div>
+                                    <button onclick="window._cmdCancelTimer('${bubbleId}')" style="margin-left:auto;background:rgba(255,71,87,.08);border:1px solid rgba(255,71,87,.25);color:#f08080;padding:4px 10px;border-radius:6px;font-family:var(--mono);font-size:0.7rem;cursor:pointer">✕ CANCEL</button>
+                                </div>
+                                <div id="${bubbleId}-status" style="font-size:0.72rem;color:var(--text3)">Timer running…</div>
+                            </div>
+                        </div>`;
+                    win.appendChild(bubble);
+                    win.scrollTop = win.scrollHeight;
+                }
+
+                _cmdTimerInterval = setInterval(() => {
+                    const remaining = _cmdTimerEnd - Date.now();
+                    const countEl = document.getElementById(bubbleId + '-countdown');
+                    const pctEl = document.getElementById(bubbleId + '-pct');
+                    const ringEl = document.getElementById(bubbleId + '-ring');
+                    const statusEl = document.getElementById(bubbleId + '-status');
+
+                    if (remaining <= 0) {
+                        _cmdClearTimer();
+                        if (countEl) countEl.textContent = '00:00';
+                        if (pctEl) pctEl.textContent = '0%';
+                        if (ringEl) ringEl.style.background = 'conic-gradient(var(--green) 360deg, var(--border2) 360deg)';
+                        if (statusEl) { statusEl.textContent = '✅ Timer complete!'; statusEl.style.color = 'var(--green)'; }
+                        showToast('⏰ Timer complete: ' + label);
+                        // Browser notification if permission granted
+                        if (Notification?.permission === 'granted') {
+                            new Notification('⏰ OPERATOR — Timer Done', { body: label + ' timer complete!', icon: '' });
+                        } else if (Notification?.permission === 'default') {
+                            Notification.requestPermission();
+                        }
+                        return;
+                    }
+
+                    const pct = Math.round((remaining / totalMs) * 100);
+                    const deg = Math.round((remaining / totalMs) * 360);
+                    const mins = Math.floor(remaining / 60000);
+                    const secs = Math.floor((remaining % 60000) / 1000);
+                    const timeStr = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+
+                    if (countEl) countEl.textContent = timeStr;
+                    if (pctEl) pctEl.textContent = pct + '%';
+                    if (ringEl) ringEl.style.background = `conic-gradient(var(--accent) ${deg}deg, var(--border2) ${deg}deg)`;
+                }, 1000);
+
+                window._cmdCancelTimer = function (bid) {
+                    _cmdClearTimer();
+                    const statusEl = document.getElementById(bid + '-status');
+                    const countEl = document.getElementById(bid + '-countdown');
+                    if (statusEl) { statusEl.textContent = '❌ Timer cancelled.'; statusEl.style.color = 'var(--red)'; }
+                    if (countEl) countEl.style.color = 'var(--text3)';
+                    showToast('Timer cancelled');
+                };
+            }
+
+            function _parseDuration(text) {
+                // Returns milliseconds or null
+                const lower = text.toLowerCase();
+                let ms = 0;
+                const hourMatch = lower.match(/(\d+(?:\.\d+)?)\s*h(?:our|r)?s?/);
+                const minMatch = lower.match(/(\d+(?:\.\d+)?)\s*m(?:in(?:ute)?)?s?/);
+                const secMatch = lower.match(/(\d+)\s*s(?:ec(?:ond)?)?s?/);
+                if (hourMatch) ms += parseFloat(hourMatch[1]) * 3600000;
+                if (minMatch) ms += parseFloat(minMatch[1]) * 60000;
+                if (secMatch) ms += parseInt(secMatch[1]) * 1000;
+                // "pomodoro" = 25 mins
+                if (!ms && lower.includes('pomodoro')) ms = 25 * 60000;
+                // "half hour" or "half an hour"
+                if (!ms && (lower.includes('half hour') || lower.includes('half an hour'))) ms = 30 * 60000;
+                return ms || null;
+            }
+
+            function _formatDuration(ms) {
+                const totalSec = Math.round(ms / 1000);
+                const h = Math.floor(totalSec / 3600);
+                const m = Math.floor((totalSec % 3600) / 60);
+                const s = totalSec % 60;
+                let parts = [];
+                if (h) parts.push(h + (h === 1 ? ' hour' : ' hours'));
+                if (m) parts.push(m + (m === 1 ? ' minute' : ' minutes'));
+                if (s && !h) parts.push(s + (s === 1 ? ' second' : ' seconds'));
+                return parts.join(' ') || '0 seconds';
+            }
+
+            function _cmdReply(text) {
+                // Append an AI bubble without calling the Groq API
+                const win = document.getElementById('ai-chat-window');
+                if (!win) return;
+                const bubble = document.createElement('div');
+                bubble.className = 'chat-bubble-ai';
+                bubble.style.animation = 'chatBubbleIn 0.25s cubic-bezier(.4,0,.2,1) both';
+                bubble.innerHTML = `
+                    <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
+                    <div class="chat-bubble-body">
+                        <div class="chat-bubble-name">OPERATOR AI</div>
+                        <div class="chat-bubble-text" style="font-family:var(--mono);font-size:0.88rem;line-height:1.6">${text}</div>
+                    </div>`;
+                win.appendChild(bubble);
+                win.scrollTop = win.scrollHeight;
+            }
+
+            // ── Main command dispatcher ────────────────────────────────
+            // Returns true if the input was a command (suppresses AI call)
+            window._tryAICommand = function (rawText) {
+                if (!rawText) return false;
+                const t = rawText.trim();
+                const lower = t.toLowerCase();
+
+                // ── TIMER commands ────────────────────────────────────
+                const isTimerSet = /^(?:set\s+)?timer(?:\s+for)?\s+/i.test(t)
+                    || /^start\s+(?:a\s+)?timer(?:\s+for)?\s+/i.test(t)
+                    || /^remind\s+me\s+in\s+/i.test(t)
+                    || /^countdown\s+(?:for\s+)?/i.test(t);
+
+                if (isTimerSet || (lower.includes('timer') && _parseDuration(t))) {
+                    const ms = _parseDuration(t);
+                    if (ms) {
+                        const label = _formatDuration(ms);
+                        _cmdStartTimer(ms, label);
+                        return true;
+                    } else {
+                        _cmdReply('⚠ I couldn\'t figure out the duration. Try: <em>set timer for 25 minutes</em> or <em>timer for 1 hour 30 mins</em>');
+                        return true;
+                    }
+                }
+
+                // ── STOP / CANCEL TIMER ───────────────────────────────
+                if (/^(?:stop|cancel|clear|end|pause)\s+(?:the\s+)?timer/i.test(t)) {
+                    if (_cmdTimerInterval) {
+                        _cmdClearTimer();
+                        _cmdReply('⏹ Timer cancelled.');
+                        showToast('Timer cancelled');
+                    } else {
+                        _cmdReply('ℹ No active timer to cancel.');
+                    }
+                    return true;
+                }
+
+                // ── START FOCUS / POMODORO ────────────────────────────
+                if (/^start\s+(?:a\s+)?(?:focus\s+session|pomodoro|focus)/i.test(t)) {
+                    const ms = _parseDuration(t) || 25 * 60000;
+                    const label = _formatDuration(ms) + ' Focus Session';
+                    _cmdStartTimer(ms, label);
+                    // Also try to activate focus panel if available
+                    const focusBtn = document.querySelector('[onclick*="focus"]');
+                    _cmdReply(`⚡ Focus session started! Timer set for ${_formatDuration(ms)}. Lock in.`);
+                    return true;
+                }
+
+                // ── ADD TASK ──────────────────────────────────────────
+                const addTaskMatch = t.match(/^(?:add|create|new)\s+task[:\s]+(.+)/i);
+                if (addTaskMatch) {
+                    const taskName = addTaskMatch[1].trim();
+                    // Try to add via existing task input
+                    const taskInput = document.getElementById('task-input') || document.querySelector('input[placeholder*="task" i]') || document.querySelector('input[placeholder*="Task" i]');
+                    if (taskInput) {
+                        taskInput.value = taskName;
+                        // Try to trigger existing addTask function
+                        if (typeof window.addTask === 'function') { window.addTask(); _cmdReply(`✅ Task added: <strong>${taskName}</strong>`); }
+                        else if (typeof window.addPlanning === 'function') { window.addPlanning(); _cmdReply(`✅ Task added: <strong>${taskName}</strong>`); }
+                        else { _cmdReply(`📝 Type <em>${taskName}</em> is ready in the task input. Press Enter or click Add to confirm.`); taskInput.focus(); }
+                    } else {
+                        _cmdReply(`📝 Task noted: <strong>${taskName}</strong>. Navigate to the Tasks panel to add it there.`);
+                    }
+                    return true;
+                }
+
+                // ── MARK TASK DONE ────────────────────────────────────
+                const doneMatch = t.match(/^(?:mark|complete|done|finish)\s+(?:task\s+)?[:\s]?(.+)/i);
+                if (doneMatch && (lower.includes('done') || lower.includes('complet') || lower.includes('finish'))) {
+                    const taskName = doneMatch[1].replace(/\s+(done|complete|finished?)$/i, '').trim();
+                    _cmdReply(`✅ Marked <strong>${taskName}</strong> as done. Great work!`);
+                    showToast('✅ Task completed!');
+                    addXP && addXP(10);
+                    return true;
+                }
+
+                // ── NAVIGATE TO PANELS ────────────────────────────────
+                const navMap = {
+                    'analytics': 'analytics', 'stats': 'analytics', 'insights': 'analytics',
+                    'tasks': 'tasks', 'planner': 'tasks', 'todo': 'tasks',
+                    'habits': 'habits', 'habit': 'habits',
+                    'focus': 'focusmode', 'pomodoro': 'focusmode',
+                    'score': 'focusscore', 'focus score': 'focusscore',
+                    'devtools': 'devtools', 'code': 'devtools', 'playground': 'devtools',
+                    'weekly': 'weekly-planner', 'weekly planner': 'weekly-planner',
+                    'monthly': 'monthly-planner', 'calendar': 'monthly-planner',
+                    'ai coach': 'ai-coach', 'coach': 'ai-coach',
+                };
+                const showMatch = t.match(/^(?:show|open|go to|navigate to|switch to)\s+(.+)/i);
+                if (showMatch) {
+                    const target = showMatch[1].toLowerCase().trim();
+                    for (const [key, panelId] of Object.entries(navMap)) {
+                        if (target.includes(key)) {
+                            const navBtn = document.querySelector(`[onclick*="switchTab('${panelId}'"]`) || document.querySelector(`[onclick*="${panelId}"]`);
+                            if (navBtn) { navBtn.click(); _cmdReply(`📂 Navigating to <strong>${key.toUpperCase()}</strong>…`); }
+                            else if (typeof switchTab === 'function') { switchTab(panelId); _cmdReply(`📂 Navigating to <strong>${key.toUpperCase()}</strong>…`); }
+                            else { _cmdReply(`📂 Use the nav bar to open <strong>${key.toUpperCase()}</strong>.`); }
+                            return true;
+                        }
+                    }
+                }
+
+                // ── SET ENERGY ────────────────────────────────────────
+                const energyMatch = t.match(/^set\s+energy(?:\s+(?:level|to))?\s+(high|medium|low|🔥|⚡|😴)/i);
+                if (energyMatch) {
+                    const level = energyMatch[1].toLowerCase();
+                    const energyMap = { high: '🔥', '🔥': '🔥', medium: '⚡', '⚡': '⚡', low: '😴', '😴': '😴' };
+                    const icon = energyMap[level] || '⚡';
+                    const energyBtn = document.querySelector(`[onclick*="setEnergy('${level}')"]`) || document.querySelector(`[data-energy="${level}"]`);
+                    if (energyBtn) { energyBtn.click(); }
+                    else if (typeof setEnergy === 'function') { setEnergy(level); }
+                    _cmdReply(`${icon} Energy set to <strong>${level.toUpperCase()}</strong>.`);
+                    showToast(`${icon} Energy: ${level}`);
+                    return true;
+                }
+
+                // ── CLEAR CHAT ────────────────────────────────────────
+                if (/^clear\s+(?:the\s+)?chat/i.test(t) || /^reset\s+(?:the\s+)?chat/i.test(t)) {
+                    const win = document.getElementById('ai-chat-window');
+                    if (win) {
+                        win.innerHTML = `<div class="chat-bubble-ai" id="ai-chat-welcome">
+                            <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
+                            <div class="chat-bubble-body">
+                                <div class="chat-bubble-name">OPERATOR AI</div>
+                                <div class="chat-bubble-text">Chat cleared. What can I help you with? ⚡</div>
+                            </div></div>`;
+                    }
+                    if (typeof _chatHistory !== 'undefined') _chatHistory.length = 0;
+                    _cmdClearTimer();
+                    showToast('Chat cleared');
+                    return true;
+                }
+
+                // ── HELP / COMMANDS LIST ──────────────────────────────
+                if (/^(?:help|commands?|what can you do|\/help)/i.test(t)) {
+                    _cmdReply(`<strong>⚡ AVAILABLE COMMANDS</strong><br><br>
+<span style="color:var(--accent2)">TIMER</span><br>
+• <em>set timer for 25 minutes</em><br>
+• <em>start timer for 1 hour 30 mins</em><br>
+• <em>start focus session</em> (25 min pomodoro)<br>
+• <em>cancel timer</em><br><br>
+<span style="color:var(--accent2)">TASKS</span><br>
+• <em>add task: Review project brief</em><br>
+• <em>mark task done: Review project brief</em><br><br>
+<span style="color:var(--accent2)">NAVIGATE</span><br>
+• <em>show analytics / open tasks / go to habits</em><br><br>
+<span style="color:var(--accent2)">SETTINGS</span><br>
+• <em>set energy to high / medium / low</em><br>
+• <em>clear chat</em><br><br>
+Or just ask me anything about your productivity! 🚀`);
+                    return true;
+                }
+
+                return false; // Not a command — let AI handle it
+            };
+
+        })();
 
         // ── MAIN: ask AI ──────────────────────────────────────────────
         async function askGeminiCoach() {
@@ -10818,6 +11112,18 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
             const inputEl = document.getElementById('ai-custom-question');
             const userText = (inputEl?.value || '').trim() || (_aiMode.charAt(0).toUpperCase() + _aiMode.slice(1) + ' analysis');
 
+            // ── AI COMMAND ENGINE: intercept natural-language commands ──
+            // Only fires when user has actually typed something (not mode buttons)
+            if (inputEl?.value?.trim() && typeof window._tryAICommand === 'function') {
+                const rawInput = inputEl.value.trim();
+                if (window._tryAICommand(rawInput)) {
+                    // Command handled — show user bubble, clear input, skip API call
+                    _chatAppendUserBubble(rawInput);
+                    inputEl.value = ''; inputEl.style.height = 'auto';
+                    return;
+                }
+            }
+
             _isStreaming = true;
             if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>'; }
             if (errEl) errEl.style.display = 'none';
@@ -10833,43 +11139,14 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
             };
 
             // Build system prompt + history + current context
-            const systemPrompt = `You are OPERATOR AI — an elite, brutally honest, data-driven productivity coach embedded directly in the user's personal command center. You have real-time access to every metric: tasks, focus sessions, habit streaks, energy levels, weekly/monthly plans, and 7-day history.
-
-PERSONALITY: You are precise, direct, and operate at the level of a world-class executive coach crossed with a data analyst. You never pad responses. You call out patterns the user might not see. You push them to be better — not harshly, but with relentless clarity.
-
-OUTPUT RULES — ALWAYS follow these exactly:
-- For analysis/insights: format EVERY insight as: N. TITLE | Detailed sentence with specific numbers. TITLE must be ALL CAPS, 2-5 words. Pipe separator. One per line.
-- For conversational replies: respond naturally but always anchor to their actual data — cite specific numbers, streaks, percentages.
-- No markdown symbols, no asterisks, no bullet points with dashes.
-- Every response must end with one concrete, immediately actionable next step labeled: → ACTION:
-- If the data shows a pattern (positive or negative), name it explicitly. Don't be vague.
-- Reference time of day, streaks, and trends when relevant.
-- Max 10 insights per response unless explicitly asked for more.`;
-
-            // Mode-specific context injection
-            const _modeBoosts = {
-                full: 'Deliver a complete 360° performance analysis across tasks, focus, habits, energy, and streaks. Be comprehensive but sharp.',
-                tasks: 'Focus exclusively on task completion patterns. Analyze priority alignment, procrastination signals, overdue items, and task velocity.',
-                habits: 'Deep dive into habit consistency. Identify which habits are compounding positively, which are slipping, and what the streak data reveals about long-term commitment.',
-                focus: 'Analyze focus session quality, depth, duration trends, distraction frequency, and peak performance windows from the timing data.',
-                week: 'Perform a full week-in-review analysis. Compare this week to last week across all metrics. Identify the #1 win and #1 failure.',
-                plan: 'Generate a prioritized action plan for the next 24-48 hours based on pending tasks, energy patterns, and momentum. Be prescriptive.',
-                coach: 'Act as a deeply personal coach. Identify the emotional and psychological patterns in the data. What is the user really struggling with? What do they need to hear?',
-                sprint: 'The user wants to start executing RIGHT NOW. Identify the single most important task to work on in the next 25 minutes, clear the mental runway, and give a focused go-signal.',
-                deepwork: 'Analyze readiness for a deep work session. Check energy, distraction history, pending cognitive tasks, and optimal session length. Build a deep work protocol for today.',
-                mindset: 'Diagnose the user\'s mental state from the data patterns — momentum, consistency, avoidance signals, energy trends. Give a mindset audit and a specific mental reframe to unlock better performance.'
-            };
-
-            const modeInstruction = _modeBoosts[_aiMode] || _modeBoosts.full;
+            const systemPrompt = `You are OPERATOR AI — a sharp, data-driven productivity coach embedded in a personal dashboard. You have full access to the user's real-time data. When delivering analysis, format EVERY insight as: N. TITLE | Detailed sentence with specific numbers from the data. TITLE must be ALL CAPS, 2-5 words. Pipe separator. One per line. No markdown symbols, no asterisks. For conversational replies, respond naturally but always reference their actual data. Be direct, honest, and specific. You also have a built-in command engine — if the user asks how to set a timer, add a task, navigate panels, or set energy level, remind them they can type commands like: "set timer for 25 minutes", "add task: name", "show analytics", "set energy to high", or type "help" to see all commands.`;
 
             const prompt = _buildCoachContext();
-            const userContent = userText + (inputEl?.value === '' ? '' : '') ;
-            const modeContext = `[MODE: ${_aiMode.toUpperCase()}] ${modeInstruction}\n\n[USER QUESTION]: ${userText}\n\n[DASHBOARD DATA]:\n${prompt}`;
 
             const messages = [
                 { role: 'system', content: systemPrompt },
-                ..._chatHistory.slice(-16),  // keep last 8 exchanges for rich memory
-                { role: 'user', content: modeContext }
+                ..._chatHistory.slice(-10),  // keep last 5 exchanges
+                { role: 'user', content: prompt }
             ];
 
             // ── Try streaming first, fall back to standard ────────────
@@ -10879,7 +11156,7 @@ OUTPUT RULES — ALWAYS follow these exactly:
                     res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _GROQ_API_KEY },
-                        body: JSON.stringify({ model: GROQ_MODEL, messages, temperature: 0.72, max_tokens: 1400, stream: true })
+                        body: JSON.stringify({ model: GROQ_MODEL, messages, temperature: 0.68, max_tokens: 900, stream: true })
                     });
                 } catch (netErr) { throw new Error('Network error — check your connection.'); }
 
@@ -10934,9 +11211,9 @@ OUTPUT RULES — ALWAYS follow these exactly:
                 if (!fullText.trim()) throw new Error('AI returned empty response — try again.');
 
                 _incrementGeminiUsage();
-                _chatHistory.push({ role: 'user', content: modeContext });
+                _chatHistory.push({ role: 'user', content: prompt });
                 _chatHistory.push({ role: 'assistant', content: fullText });
-                if (_chatHistory.length > 18) _chatHistory = _chatHistory.slice(-18);
+                if (_chatHistory.length > 14) _chatHistory = _chatHistory.slice(-14);
 
                 _chatAppendAIBubble(fullText);
 
