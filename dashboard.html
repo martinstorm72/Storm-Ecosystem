@@ -252,6 +252,53 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════
+           AI COACH — ENHANCED CHAT UI
+        ═══════════════════════════════════════════════════════════════ */
+
+        @keyframes cursorBlink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes aiPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, .15);
+            }
+
+            50% {
+                box-shadow: 0 0 0 6px rgba(255, 255, 255, .0);
+            }
+        }
+
+        .chat-action-btn {
+            background: none;
+            border: 1px solid var(--border2);
+            color: var(--text3);
+            font-size: 0.72rem;
+            padding: 3px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all .15s;
+            font-family: var(--mono);
+            font-weight: 700;
+        }
+
+        .chat-action-btn:hover {
+            color: var(--text);
+            border-color: var(--accent2);
+            background: rgba(255, 255, 255, .04);
+        }
+
+        /* ─────────────────────────────────────
            AI COACH — CHAT UI
         ═══════════════════════════════════════════════════════════════ */
 
@@ -259,16 +306,26 @@
             scrollbar-width: thin;
             scrollbar-color: var(--border2) transparent;
         }
-        #ai-chat-window::-webkit-scrollbar { width: 5px; }
-        #ai-chat-window::-webkit-scrollbar-track { background: transparent; }
-        #ai-chat-window::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+        #ai-chat-window::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #ai-chat-window::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #ai-chat-window::-webkit-scrollbar-thumb {
+            background: var(--border2);
+            border-radius: 3px;
+        }
 
         .chat-bubble-user {
             display: flex;
             flex-direction: row-reverse;
             align-items: flex-end;
             gap: 10px;
-            animation: chatBubbleIn 0.25s cubic-bezier(.4,0,.2,1) both;
+            animation: chatBubbleIn 0.25s cubic-bezier(.4, 0, .2, 1) both;
         }
 
         .chat-bubble-ai {
@@ -276,20 +333,27 @@
             flex-direction: row;
             align-items: flex-end;
             gap: 10px;
-            animation: chatBubbleIn 0.3s cubic-bezier(.4,0,.2,1) both;
+            animation: chatBubbleIn 0.3s cubic-bezier(.4, 0, .2, 1) both;
         }
 
         @keyframes chatBubbleIn {
-            from { opacity: 0; transform: translateY(10px) scale(0.97); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .chat-avatar-ai {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.04));
-            border: 1px solid rgba(255,255,255,.12);
+            background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .04));
+            border: 1px solid rgba(255, 255, 255, .12);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -302,8 +366,8 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: rgba(255,255,255,.08);
-            border: 1px solid rgba(255,255,255,.15);
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .15);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -347,8 +411,8 @@
         }
 
         .chat-bubble-user .chat-bubble-text {
-            background: rgba(255,255,255,.07);
-            border-color: rgba(255,255,255,.12);
+            background: rgba(255, 255, 255, .07);
+            border-color: rgba(255, 255, 255, .12);
             border-radius: 12px 12px 3px 12px;
             color: var(--text);
         }
@@ -360,7 +424,7 @@
             padding: 9px 12px;
             border-radius: 8px;
             margin-bottom: 6px;
-            background: rgba(255,255,255,.03);
+            background: rgba(255, 255, 255, .03);
             border: 1px solid var(--border2);
             border-left: 3px solid var(--border2);
             font-family: var(--mono);
@@ -369,9 +433,20 @@
             line-height: 1.5;
         }
 
-        .chat-insight-card.good { border-left-color: #39d353; background: rgba(57,211,83,.04); }
-        .chat-insight-card.warn { border-left-color: #e8c97a; background: rgba(232,201,122,.04); }
-        .chat-insight-card.action { border-left-color: var(--cyan); background: rgba(0,210,255,.04); }
+        .chat-insight-card.good {
+            border-left-color: #39d353;
+            background: rgba(57, 211, 83, .04);
+        }
+
+        .chat-insight-card.warn {
+            border-left-color: #e8c97a;
+            background: rgba(232, 201, 122, .04);
+        }
+
+        .chat-insight-card.action {
+            border-left-color: var(--cyan);
+            background: rgba(0, 210, 255, .04);
+        }
 
         .chat-insight-num {
             font-family: var(--head);
@@ -417,13 +492,31 @@
             animation: typingDot 1.2s infinite ease-in-out;
         }
 
-        .chat-typing-dots span:nth-child(1) { animation-delay: 0s; }
-        .chat-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .chat-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        .chat-typing-dots span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .chat-typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .chat-typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
 
         @keyframes typingDot {
-            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-            30% { transform: translateY(-5px); opacity: 1; }
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+
+            30% {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
         }
 
         .chat-copy-row {
@@ -435,7 +528,7 @@
 
         .chat-copy-btn {
             background: none;
-            border: 1px solid rgba(255,255,255,.08);
+            border: 1px solid rgba(255, 255, 255, .08);
             color: var(--text3);
             font-family: var(--mono);
             font-size: 0.68rem;
@@ -449,26 +542,8 @@
 
         .chat-copy-btn:hover {
             color: var(--text);
-            border-color: rgba(255,255,255,.18);
+            border-color: rgba(255, 255, 255, .18);
         }
-
-        .chat-ai-message-box {
-            background: var(--card2);
-            border: 1px solid var(--border2);
-            border-radius: 12px 12px 12px 3px;
-            padding: 14px 16px;
-        }
-
-        .chat-ai-message-content {
-            font-family: var(--body);
-            font-size: 0.97rem;
-            color: var(--text2);
-            line-height: 1.7;
-        }
-
-        .chat-ai-message-content p:last-child { margin-bottom: 0; }
-        .chat-ai-message-content strong { color: var(--text); }
-        .chat-ai-message-content em { color: var(--text2); font-style: italic; }
 
         /* ═══════════════════════════════════════════════════════════════
            DEV TOOLS — ADVANCED UI
@@ -6946,8 +7021,9 @@
                     <div class="card-title"><i class="fas fa-question-circle"></i> HOW IT WORKS</div>
                     <div style="font-family:var(--mono);font-size: 0.96rem;line-height:2;color:var(--text2)">
                         <p>🎯 <strong>Deep Work</strong> — Add tasks, set priorities, track completion</p>
-                        <p>⏱️ <strong>Focus Impulse</strong> — Timed focus sessions with session log</p>
-                        <p>🤖 <strong>AI Coach</strong> — Conversational AI powered by Groq · Full dashboard analysis</p>
+                        <p>⏱️ <strong>Focus Pulse</strong> — Timed focus sessions with session log</p>
+                        <p>🤖 <strong>AI Coach</strong> — Conversational AI powered by Groq · Full dashboard analysis
+                        </p>
                         <p>📈 <strong>Habit Matrix</strong> — Track daily habits with streak counts</p>
                         <p>📅 <strong>Weekly Planner</strong> — Plan your full week day by day</p>
                         <p>🗓️ <strong>Monthly Planner</strong> — Schedule across the whole month</p>
@@ -6993,33 +7069,36 @@
 
         <!-- AI COACH PANEL -->
         <div class="panel" id="panel-ai-coach">
-            <div style="max-width:900px;margin:0 auto">
+            <div id="ai-coach-root" style="max-width:960px;margin:0 auto;padding-bottom:40px">
 
-                <!-- Header -->
+                <!-- ── HEADER ── -->
                 <div
-                    style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+                    style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
                     <div>
-                        <div class="ai-coach-header-title">
-                            <i class="fas fa-robot" style="-webkit-text-fill-color:var(--accent2)"></i> OPERATOR AI
-                            COACH
-                        </div>
-                        <div style="font-family:var(--mono);font-size:0.82rem;color:var(--text3);margin-top:4px">Powered
-                            by Groq · llama-3.3-70b-versatile · Full dashboard analysis</div>
+                        <div class="ai-coach-header-title"><i class="fas fa-robot"
+                                style="-webkit-text-fill-color:var(--accent2)"></i> OPERATOR AI</div>
+                        <div style="font-family:var(--mono);font-size:0.79rem;color:var(--text3);margin-top:3px">Groq ·
+                            llama-3.3-70b-versatile · Real-time dashboard context</div>
                     </div>
-                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
                         <span id="ai-coach-mode-badge" class="ai-active-badge">✦ AI ACTIVE</span>
                         <span id="gemini-daily-counter"
-                            style="font-family:var(--mono);font-size:0.77rem;color:var(--text3)"></span>
+                            style="font-family:var(--mono);font-size:0.75rem;color:var(--text3)"></span>
+                        <button onclick="_clearChat()"
+                            style="background:none;border:1px solid var(--border2);color:var(--text3);font-family:var(--mono);font-size:0.72rem;padding:4px 10px;border-radius:6px;cursor:pointer;font-weight:700;transition:all .2s"
+                            onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text3)'"><i
+                                class="fas fa-trash-alt"></i> CLEAR</button>
                     </div>
                 </div>
 
-                <!-- Quick stats row -->
+                <!-- ── LIVE STATS ROW ── -->
                 <div id="ai-stats-row"
-                    style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px">
+                    style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:18px">
                 </div>
 
-                <!-- Analysis type selector -->
-                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+                <!-- ── MODE SELECTOR ── -->
+                <div
+                    style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)">
                     <button class="ai-mode-btn active" id="ai-mode-full" onclick="setAIMode('full',this)"><i
                             class="fas fa-brain"></i> Full Analysis</button>
                     <button class="ai-mode-btn" id="ai-mode-tasks" onclick="setAIMode('tasks',this)"><i
@@ -7032,84 +7111,100 @@
                             class="fas fa-calendar-week"></i> Week Review</button>
                     <button class="ai-mode-btn" id="ai-mode-plan" onclick="setAIMode('plan',this)"><i
                             class="fas fa-map"></i> Action Plan</button>
+                    <button class="ai-mode-btn" id="ai-mode-coach" onclick="setAIMode('coach',this)"><i
+                            class="fas fa-comment-dots"></i> Personal Coach</button>
+                    <button class="ai-mode-btn" id="ai-mode-sprint" onclick="setAIMode('sprint',this)"><i
+                            class="fas fa-bolt"></i> Sprint Now</button>
+                    <button class="ai-mode-btn" id="ai-mode-deepwork" onclick="setAIMode('deepwork',this)"><i
+                            class="fas fa-layer-group"></i> Deep Work</button>
+                    <button class="ai-mode-btn" id="ai-mode-mindset" onclick="setAIMode('mindset',this)"><i
+                            class="fas fa-fire"></i> Mindset</button>
                 </div>
 
-                <!-- CHAT WINDOW -->
-                <div id="ai-chat-window" style="background:var(--bg);border:1px solid var(--border2);border-radius:12px;min-height:320px;max-height:520px;overflow-y:auto;padding:18px 16px;margin-bottom:14px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth">
-                    <!-- Welcome bubble -->
+                <!-- ── CHAT WINDOW ── -->
+                <div id="ai-chat-window"
+                    style="background:var(--bg);border:1px solid var(--border2);border-radius:14px;min-height:380px;max-height:560px;overflow-y:auto;padding:20px 18px;margin-bottom:12px;display:flex;flex-direction:column;gap:16px;scroll-behavior:smooth">
                     <div class="chat-bubble-ai" id="ai-chat-welcome">
                         <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
                         <div class="chat-bubble-body">
                             <div class="chat-bubble-name">OPERATOR AI</div>
-                            <div class="chat-bubble-text">Hey! I'm your AI Coach. Select an analysis mode above or ask me anything about your productivity — tasks, habits, focus sessions, streaks, you name it. Hit a quick prompt below to get started. ⚡</div>
+                    <div class="chat-bubble-text">Hey — I'm OPERATOR AI, your elite productivity coach. I have full real-time access to your tasks, habits, focus sessions, streaks, energy, and 7-day history. I don't do vague advice — I work from your actual data and give you precise, actionable direction. Pick a mode above, fire a quick prompt, or just ask me anything. ⚡</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Error -->
+                <!-- ── ERROR DISPLAY ── -->
                 <div id="gemini-coach-error"
-                    style="display:none;font-family:var(--mono);font-size:0.88rem;color:var(--red);padding:14px;background:rgba(255,71,87,.08);border:1px solid rgba(255,71,87,.2);border-radius:8px;margin-bottom:12px">
+                    style="display:none;font-family:var(--mono);font-size:0.85rem;color:var(--red);padding:12px 14px;background:rgba(255,71,87,.07);border:1px solid rgba(255,71,87,.18);border-radius:8px;margin-bottom:10px">
                 </div>
 
-                <!-- Quick prompt shortcuts -->
+                <!-- ── QUICK PROMPTS ── -->
                 <div class="quick-prompts-row" id="quick-prompts-row" style="margin-bottom:10px">
-                    <span style="font-family:var(--mono);font-size:0.68rem;color:var(--text3);align-self:center;letter-spacing:.06em">QUICK ASK →</span>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Why am I not hitting my focus goals?')">Why no focus?</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('What should I work on first today?')">What to do first?</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('How can I improve my habit consistency?')">Fix my habits</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('Am I making progress toward my goals?')">Check progress</button>
-                    <button class="qprompt-btn" onclick="_quickPrompt('What is my biggest productivity bottleneck right now?')">Find bottleneck</button>
+                    <span
+                        style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);align-self:center;letter-spacing:.06em;white-space:nowrap">QUICK
+                        →</span>
+                    <button class="qprompt-btn" onclick="_quickPrompt('What should I focus on right now? Be specific and direct.')">What to do first?</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('Why am I not hitting my focus goals? Diagnose the root cause from my data.')">Why no focus?</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('Roast my productivity this week honestly. No fluff — tell me exactly what went wrong and what the data shows.')">Roast my week</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('Build me a precise 2-hour execution sprint plan using my pending tasks. Prioritize ruthlessly.')">2hr sprint</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('Which single habit is sabotaging my performance the most right now? What specific change should I make today?')">Fix worst habit</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('Am I genuinely improving compared to last week? Compare the numbers and give me a verdict.')">Am I improving?</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('What is my biggest productivity bottleneck right now and how do I break through it in the next 24 hours?')">Break bottleneck</button>
+                    <button class="qprompt-btn" onclick="_quickPrompt('Give me a brutally honest mindset audit. What mental patterns in my data are holding me back?')">Mindset audit</button>
                 </div>
 
-                <!-- Chat input bar -->
-                <div style="display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:8px 10px;transition:border-color 0.2s" id="ai-chat-input-wrap">
-                    <input id="ai-custom-question" type="text"
-                        placeholder="Message AI Coach..."
-                        style="flex:1;background:transparent;border:none;color:var(--text);font-family:var(--mono);font-size:0.9rem;outline:none;padding:4px 6px"
+                <!-- ── CHAT INPUT ── -->
+                <div style="display:flex;gap:8px;align-items:flex-end;background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:10px 12px;transition:border-color 0.2s;box-shadow:0 2px 12px rgba(0,0,0,.15)"
+                    id="ai-chat-input-wrap">
+                    <textarea id="ai-custom-question" rows="1" placeholder="Ask anything about your productivity..."
+                        style="flex:1;background:transparent;border:none;color:var(--text);font-family:var(--mono);font-size:0.9rem;outline:none;padding:4px 4px;resize:none;max-height:120px;overflow-y:auto;line-height:1.5"
                         onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();askGeminiCoach();}"
+                        oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"
                         onfocus="document.getElementById('ai-chat-input-wrap').style.borderColor='var(--accent2)'"
-                        onblur="document.getElementById('ai-chat-input-wrap').style.borderColor='var(--border2)'" />
-                    <button onclick="askGeminiCoach()" id="gemini-ask-btn" class="btn btn-primary btn-sm"
-                        style="border-radius:7px;padding:7px 16px;font-size:0.82rem;white-space:nowrap">
-                        <i class="fas fa-paper-plane"></i> SEND
-                    </button>
+                        onblur="document.getElementById('ai-chat-input-wrap').style.borderColor='var(--border2)'"></textarea>
+                    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
+                        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--text3)">Enter ↵ to send ·
+                            Shift+Enter for newline</div>
+                        <button onclick="askGeminiCoach()" id="gemini-ask-btn" class="btn btn-primary btn-sm"
+                            style="border-radius:8px;padding:8px 18px;font-size:0.84rem;white-space:nowrap;min-width:90px">
+                            <i class="fas fa-paper-plane"></i> SEND
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Hidden legacy loading div kept for JS compat -->
+                <!-- ── LEGACY COMPAT HIDDEN DIVS ── -->
                 <div id="gemini-coach-loading" style="display:none"></div>
-                <!-- Hidden legacy output div kept for JS compat -->
-                <div id="gemini-coach-output" style="display:none"><div id="ai-output-content"></div></div>
-
-                <!-- FIX 3: Groq API Key Setup — only shown when key is missing -->
-                <div id="groq-key-setup"
-                    style="display:none;margin-bottom:20px;padding:16px;background:rgba(232,201,122,.06);border:1px solid rgba(232,201,122,.25);border-radius:10px">
+                <div id="gemini-coach-output" style="display:none">
+                    <div id="ai-output-content"></div>
+                </div>
+                <div id="gemini-key-setup" style="display:none"></div>
+                <div id="gemini-active-panel" style="display:none"></div>
+                <div id="groq-key-setup" style="display:none">
                     <div
-                        style="font-family:var(--head);font-size:0.8rem;font-weight:900;letter-spacing:.12em;color:var(--amber);margin-bottom:8px">
-                        <i class="fas fa-key"></i> GROQ API KEY REQUIRED</div>
-                    <div
-                        style="font-family:var(--mono);font-size:0.82rem;color:var(--text2);margin-bottom:12px;line-height:1.6">
-                        Get a free key at <a href="https://console.groq.com/keys" target="_blank"
-                            style="color:var(--accent2);text-decoration:underline">console.groq.com/keys</a> — stored
-                        locally in your browser, never sent anywhere else.
-                    </div>
-                    <div style="display:flex;gap:8px;flex-wrap:wrap">
-                        <input id="groq-key-input" type="password" placeholder="gsk_..." autocomplete="off"
-                            style="flex:1;min-width:200px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;color:var(--text);font-family:var(--mono);font-size:0.88rem;outline:none"
-                            onfocus="this.style.borderColor='var(--accent2)'"
-                            onblur="this.style.borderColor='var(--border2)'"
-                            onkeydown="if(event.key==='Enter') saveGroqApiKey()" />
-                        <button class="btn btn-primary btn-sm" onclick="saveGroqApiKey()"><i class="fas fa-save"></i>
-                            SAVE KEY</button>
-                        <button class="btn btn-ghost btn-sm"
-                            onclick="document.getElementById('groq-key-setup').style.display='none'">CANCEL</button>
+                        style="margin-bottom:20px;padding:16px;background:rgba(232,201,122,.06);border:1px solid rgba(232,201,122,.25);border-radius:10px">
+                        <div
+                            style="font-family:var(--mono);font-size:0.8rem;font-weight:900;letter-spacing:.1em;color:var(--amber);margin-bottom:8px">
+                            <i class="fas fa-key"></i> GROQ API KEY REQUIRED
+                        </div>
+                        <div
+                            style="font-family:var(--mono);font-size:0.82rem;color:var(--text2);margin-bottom:12px;line-height:1.6">
+                            Get a free key at <a href="https://console.groq.com/keys" target="_blank"
+                                style="color:var(--accent2);text-decoration:underline">console.groq.com/keys</a></div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap">
+                            <input id="groq-key-input" type="password" placeholder="gsk_..." autocomplete="off"
+                                style="flex:1;min-width:200px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;color:var(--text);font-family:var(--mono);font-size:0.88rem;outline:none"
+                                onkeydown="if(event.key==='Enter') saveGroqApiKey()" />
+                            <button class="btn btn-primary btn-sm" onclick="saveGroqApiKey()"><i
+                                    class="fas fa-save"></i> SAVE</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Insights panel (rule-based always visible) -->
-                <div style="margin-top:20px">
-                    <div class="ai-section-label-anim"
-                        style="font-family:var(--mono);font-size:0.75rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:10px">
-                        LIVE PATTERN INSIGHTS</div>
+                <!-- ── LIVE INSIGHTS ── -->
+                <div style="margin-top:24px;border-top:1px solid var(--border);padding-top:16px">
+                    <div
+                        style="font-family:var(--mono);font-size:0.72rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:10px">
+                        ⚡ LIVE PATTERN INSIGHTS</div>
                     <div id="ai-coach-insights" style="display:grid;gap:8px"></div>
                 </div>
 
@@ -7416,7 +7511,7 @@
             }
         }
 
-        // Change 8: Tab reorder logic
+        // Change 8: Tab reorder logic — order: Deep Work, Focus Impulse, AI Coach, Habits, Weekly Planner, Monthly Planner, Dev Tools, Field Notes, Help
         const _POST_OB_TAB_ORDER = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'journal', 'help'];
         const _DEFAULT_TAB_ORDER = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'journal', 'help'];
 
@@ -7823,6 +7918,9 @@
         function _saveMiniState() {
             if (miniRun) {
                 localStorage.setItem('timer_mini_state', JSON.stringify({ endTs: Date.now() + miniSecs * 1000, total: miniTotal, run: true }));
+            } else if (miniSecs > 0 && miniSecs < miniTotal) {
+                // Paused — save remaining seconds so we can restore on reload
+                localStorage.setItem('timer_mini_state', JSON.stringify({ pausedSecs: miniSecs, total: miniTotal, run: false }));
             } else {
                 localStorage.removeItem('timer_mini_state');
             }
@@ -7830,22 +7928,77 @@
         function _saveMainState() {
             if (mainRun) {
                 localStorage.setItem('timer_main_state', JSON.stringify({ endTs: Date.now() + mainSecs * 1000, total: mainTotal, run: true }));
+            } else if (mainSecs > 0 && mainSecs < mainTotal) {
+                // Paused — save remaining seconds so we can restore on reload
+                localStorage.setItem('timer_main_state', JSON.stringify({ pausedSecs: mainSecs, total: mainTotal, run: false }));
             } else {
                 localStorage.removeItem('timer_main_state');
             }
         }
 
-        function _playTimerSound() {
+        // ── SOUND EFFECTS ENGINE ──────────────────────────────────────
+        // All sounds are synthesized via Web Audio API — no external files needed.
+        function _getAudioCtx() {
+            try { return new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; }
+        }
+
+        function _playSoundStart() {
+            // Two ascending soft clicks — "engaging"
             try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                // Three rising tones: a satisfying "mission complete" chime
-                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5 E5 G5 C6
+                const ctx = _getAudioCtx(); if (!ctx) return;
+                [440, 660].forEach((freq, i) => {
+                    const osc = ctx.createOscillator(), g = ctx.createGain();
+                    osc.connect(g); g.connect(ctx.destination);
+                    osc.type = 'sine'; osc.frequency.value = freq;
+                    const t = ctx.currentTime + i * 0.12;
+                    g.gain.setValueAtTime(0, t);
+                    g.gain.linearRampToValueAtTime(0.22, t + 0.02);
+                    g.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+                    osc.start(t); osc.stop(t + 0.2);
+                });
+            } catch (e) { }
+        }
+
+        function _playSoundPause() {
+            // Two descending soft tones — "disengaging"
+            try {
+                const ctx = _getAudioCtx(); if (!ctx) return;
+                [500, 350].forEach((freq, i) => {
+                    const osc = ctx.createOscillator(), g = ctx.createGain();
+                    osc.connect(g); g.connect(ctx.destination);
+                    osc.type = 'triangle'; osc.frequency.value = freq;
+                    const t = ctx.currentTime + i * 0.13;
+                    g.gain.setValueAtTime(0, t);
+                    g.gain.linearRampToValueAtTime(0.18, t + 0.02);
+                    g.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+                    osc.start(t); osc.stop(t + 0.25);
+                });
+            } catch (e) { }
+        }
+
+        function _playSoundTick() {
+            // Short sharp click for last-5-seconds countdown
+            try {
+                const ctx = _getAudioCtx(); if (!ctx) return;
+                const osc = ctx.createOscillator(), g = ctx.createGain();
+                osc.connect(g); g.connect(ctx.destination);
+                osc.type = 'square'; osc.frequency.value = 880;
+                g.gain.setValueAtTime(0, ctx.currentTime);
+                g.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.005);
+                g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+                osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.07);
+            } catch (e) { }
+        }
+
+        function _playTimerSound() {
+            // Mission complete: four rising tones — C5 E5 G5 C6
+            try {
+                const ctx = _getAudioCtx(); if (!ctx) return;
+                const notes = [523.25, 659.25, 783.99, 1046.50];
                 notes.forEach((freq, i) => {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
+                    const osc = ctx.createOscillator(), gain = ctx.createGain();
                     osc.connect(gain); gain.connect(ctx.destination);
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.18);
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.18);
                     gain.gain.setValueAtTime(0, ctx.currentTime + i * 0.18);
                     gain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + i * 0.18 + 0.04);
                     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.18 + 0.5);
@@ -7894,9 +8047,10 @@
             miniInt = setInterval(() => {
                 // Recalculate from wall-clock so background drift is auto-corrected
                 let saved = JSON.parse(localStorage.getItem('timer_mini_state') || 'null');
-                if (saved) { miniSecs = Math.max(0, Math.round((saved.endTs - Date.now()) / 1000)); }
+                if (saved && saved.run) { miniSecs = Math.max(0, Math.round((saved.endTs - Date.now()) / 1000)); }
                 else { miniSecs = Math.max(0, miniSecs - 1); }
                 document.getElementById('timer-mini').textContent = fmt(miniSecs);
+                if (miniSecs > 0 && miniSecs <= 5) _playSoundTick();
                 if (miniSecs <= 0) _miniComplete();
             }, 1000);
         }
@@ -7904,9 +8058,10 @@
             clearInterval(mainInt);
             mainInt = setInterval(() => {
                 let saved = JSON.parse(localStorage.getItem('timer_main_state') || 'null');
-                if (saved) { mainSecs = Math.max(0, Math.round((saved.endTs - Date.now()) / 1000)); }
+                if (saved && saved.run) { mainSecs = Math.max(0, Math.round((saved.endTs - Date.now()) / 1000)); }
                 else { mainSecs = Math.max(0, mainSecs - 1); }
                 document.getElementById('main-timer').textContent = fmt(mainSecs);
+                if (mainSecs > 0 && mainSecs <= 5) _playSoundTick();
                 if (mainSecs <= 0) _mainComplete();
             }, 1000);
         }
@@ -7915,29 +8070,44 @@
         function _restoreTimerStates() {
             try {
                 let ms = JSON.parse(localStorage.getItem('timer_mini_state') || 'null');
-                if (ms && ms.run) {
-                    let remaining = Math.round((ms.endTs - Date.now()) / 1000);
-                    if (remaining > 0) {
-                        miniSecs = remaining; miniTotal = ms.total; miniRun = true;
+                if (ms) {
+                    if (ms.run) {
+                        let remaining = Math.round((ms.endTs - Date.now()) / 1000);
+                        if (remaining > 0) {
+                            miniSecs = remaining; miniTotal = ms.total; miniRun = true;
+                            document.getElementById('timer-mini').textContent = fmt(miniSecs);
+                            document.getElementById('mini-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
+                            document.getElementById('mini-badge').innerHTML = 'ACTIVE';
+                            document.getElementById('timer-mini').classList.add('running');
+                            setFocusActive(true); _startMiniInterval();
+                            _setHeroCta(true);
+                        } else { localStorage.removeItem('timer_mini_state'); }
+                    } else if (ms.pausedSecs > 0) {
+                        // Restore paused state — show remaining time but don't start
+                        miniSecs = ms.pausedSecs; miniTotal = ms.total; miniRun = false;
                         document.getElementById('timer-mini').textContent = fmt(miniSecs);
-                        document.getElementById('mini-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
-                        document.getElementById('mini-badge').innerHTML = 'ACTIVE';
-                        document.getElementById('timer-mini').classList.add('running');
-                        setFocusActive(true); _startMiniInterval();
-                        _setHeroCta(true);
-                    } else { localStorage.removeItem('timer_mini_state'); }
+                        document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START';
+                        document.getElementById('mini-badge').innerHTML = 'PAUSED';
+                    }
                 }
                 let ss = JSON.parse(localStorage.getItem('timer_main_state') || 'null');
-                if (ss && ss.run) {
-                    let remaining = Math.round((ss.endTs - Date.now()) / 1000);
-                    if (remaining > 0) {
-                        mainSecs = remaining; mainTotal = ss.total; mainRun = true;
+                if (ss) {
+                    if (ss.run) {
+                        let remaining = Math.round((ss.endTs - Date.now()) / 1000);
+                        if (remaining > 0) {
+                            mainSecs = remaining; mainTotal = ss.total; mainRun = true;
+                            document.getElementById('main-timer').textContent = fmt(mainSecs);
+                            document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
+                            document.getElementById('main-timer').classList.add('running');
+                            setFocusActive(true); _startMainInterval();
+                            _setHeroCta(true);
+                        } else { localStorage.removeItem('timer_main_state'); }
+                    } else if (ss.pausedSecs > 0) {
+                        // Restore paused state
+                        mainSecs = ss.pausedSecs; mainTotal = ss.total; mainRun = false;
                         document.getElementById('main-timer').textContent = fmt(mainSecs);
-                        document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
-                        document.getElementById('main-timer').classList.add('running');
-                        setFocusActive(true); _startMainInterval();
-                        _setHeroCta(true);
-                    } else { localStorage.removeItem('timer_main_state'); }
+                        document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
+                    }
                 }
             } catch (e) { }
         }
@@ -7973,10 +8143,11 @@
         function toggleMini() {
             if (miniRun) {
                 clearInterval(miniInt); miniRun = false;
-                localStorage.removeItem('timer_mini_state');
+                _saveMiniState(); // persist paused seconds
                 document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START';
-                document.getElementById('mini-badge').innerHTML = 'STANDBY';
+                document.getElementById('mini-badge').innerHTML = 'PAUSED';
                 document.getElementById('timer-mini').classList.remove('running');
+                _playSoundPause();
                 setFocusActive(false);
                 if (!mainRun) _setHeroCta(false);
             } else {
@@ -7984,6 +8155,7 @@
                 document.getElementById('mini-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
                 document.getElementById('mini-badge').innerHTML = 'ACTIVE';
                 document.getElementById('timer-mini').classList.add('running');
+                _playSoundStart();
                 setFocusActive(true); markOb('start_timer');
                 // stop any running overtime stopwatch
                 if (typeof _miniSwStop === 'function') _miniSwStop();
@@ -7997,11 +8169,12 @@
         function stopMini() {
             if (miniRun) {
                 clearInterval(miniInt); miniRun = false;
-                localStorage.removeItem('timer_mini_state');
+                _saveMiniState(); // persist remaining seconds
                 document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START';
-                document.getElementById('mini-badge').innerHTML = 'STANDBY';
+                document.getElementById('mini-badge').innerHTML = 'PAUSED';
                 document.getElementById('timer-mini').classList.remove('running');
-                setFocusActive(false); showToast('Timer stopped');
+                _playSoundPause();
+                setFocusActive(false); showToast('Timer paused — progress saved');
                 if (!mainRun) _setHeroCta(false);
             }
         }
@@ -8122,15 +8295,17 @@
         function toggleMain() {
             if (mainRun) {
                 clearInterval(mainInt); mainRun = false;
-                localStorage.removeItem('timer_main_state');
+                _saveMainState(); // persist paused seconds
                 document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
                 document.getElementById('main-timer').classList.remove('running');
+                _playSoundPause();
                 setFocusActive(false);
                 if (!miniRun) _setHeroCta(false);
             } else {
                 mainRun = true;
                 document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
                 document.getElementById('main-timer').classList.add('running');
+                _playSoundStart();
                 setFocusActive(true); markOb('start_timer');
                 _saveMainState(); _startMainInterval();
                 _setHeroCta(true);
@@ -8429,7 +8604,35 @@
         }
         function renderPeakHours() { let hm = new Array(24).fill(0); S.sessions.forEach(s => { if (s.hour != null) hm[s.hour] += s.mins; }); let max = Math.max(...hm, 1), hrs = [6, 8, 10, 12, 14, 16, 18, 20, 22]; let pc = document.getElementById('peak-hours-chart'); if (pc) pc.innerHTML = hrs.map(h => `<div style="display:flex;flex-direction:column;align-items:center"><div style="height:${Math.max(10, (hm[h] / max) * 60)}px;width:28px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:4px 4px 0 0;transition:height 0.8s"></div><div style="font-size: 0.73rem;font-weight:700;margin-top:2px">${h}</div></div>`).join(''); }
         function buildContrib() { let cells = []; for (let i = 89; i >= 0; i--) { let d = new Date(); d.setDate(d.getDate() - i); let k = localDateKey(d), s = getDayStats(k), act = s.min + s.tasks * 20, l = ''; if (act > 0) l = 'l1'; if (act >= 60) l = 'l2'; if (act >= 120) l = 'l3'; if (act >= 240) l = 'l4'; cells.push(`<div class="contrib-cell ${l}" title="${k}: ${s.min}m"></div>`); } let weeks = []; for (let i = 0; i < cells.length; i += 7)weeks.push(`<div class="contrib-week">${cells.slice(i, i + 7).join('')}</div>`); let cg = document.getElementById('contrib-graph'); if (cg) cg.innerHTML = weeks.join(''); }
-        function updateStreak() { let act = {}; S.tasks.forEach(t => { if (t.done) act[t.date] = (act[t.date] || 0) + 1; }); S.sessions.forEach(s => { act[s.date] = (act[s.date] || 0) + 1; }); let str = 0, d = new Date(); for (let i = 0; i < 365; i++) { let k = localDateKey(d); if (act[k]) str++; else break; d.setDate(d.getDate() - 1); } S.analytics.curStreak = str; S.analytics.maxStreak = Math.max(S.analytics.maxStreak || 0, str); let sb = document.getElementById('streak-badge'); if (sb) sb.innerHTML = `STREAK: ${str}d`; }
+        function updateStreak() {
+            let act = {};
+            S.tasks.forEach(t => { if (t.done) act[t.date] = (act[t.date] || 0) + 1; });
+            S.sessions.forEach(s => { act[s.date] = (act[s.date] || 0) + 1; });
+            let str = 0, d = new Date();
+            for (let i = 0; i < 365; i++) {
+                let k = localDateKey(d);
+                let dow = d.getDay(); // 0=Sun, 6=Sat
+                let isWeekend = (dow === 0 || dow === 6);
+                if (act[k]) {
+                    str++;
+                } else if (isWeekend) {
+                    // Weekend with no activity — skip (don't break streak)
+                    // but only if we already have an active streak going
+                    if (str > 0 || i === 0) {
+                        // safe to skip this weekend day
+                    } else {
+                        break;
+                    }
+                } else {
+                    break; // weekday miss breaks the streak
+                }
+                d.setDate(d.getDate() - 1);
+            }
+            S.analytics.curStreak = str;
+            S.analytics.maxStreak = Math.max(S.analytics.maxStreak || 0, str);
+            let sb = document.getElementById('streak-badge');
+            if (sb) sb.innerHTML = `STREAK: ${str}d`;
+        }
 
         function setEnergy(lvl) { S.energy[todayKey] = lvl; save(); renderEnergyButtons(); showToast(`Energy: ${['', '😴', '😑', '😐', '😊', '🔥'][lvl]}`); addXP(2); }
         function renderEnergyButtons() { let cur = S.energy[todayKey] || 0; document.querySelectorAll('.energy-btn').forEach((b, i) => b.classList.toggle('active', i + 1 === cur)); let el = document.getElementById('energy-label'); if (el) el.innerHTML = cur ? `${['', '😴 EXHAUSTED', '😑 LOW', '😐 OKAY', '😊 GOOD', '🔥 PEAK'][cur]}` : 'NOT SET'; }
@@ -9649,7 +9852,7 @@
             if (!inInput) {
                 if (e.code === 'Space') { e.preventDefault(); let tp = document.getElementById('panel-timer'); if (tp && tp.classList.contains('active')) toggleMain(); else toggleMini(); }
                 if (e.key === '?') showShortcuts();
-                const tabs = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'journal', 'help'];
+                const tabs = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'journal', 'help']; // Deep Work=1, Focus Impulse=2, AI Coach=3, Habits=4, Weekly Planner=5, Monthly Planner=6, Dev Tools=7, Field Notes=8, Help=9
                 let num = parseInt(e.key); if (e.key === '0') num = 10; if (num >= 1 && num <= tabs.length) { let tabEl = document.querySelectorAll('.nav-tab')[num - 1]; switchTab(tabs[num - 1], tabEl); }
             }
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runCode(); }
@@ -9888,6 +10091,9 @@
                 const streak = S.analytics?.curStreak || 0;
                 if (streak === 0) return; // no streak to protect
                 const todayKey = localDateKey(new Date());
+                // Weekends are protected — no warning needed
+                const todayDow = new Date().getDay();
+                if (todayDow === 0 || todayDow === 6) return;
                 const sessions = (S.sessions || []).filter(s => s.date === todayKey || (s.ts && localDateKey(new Date(s.ts)) === todayKey));
                 if (sessions.length > 0) return; // already did a session today
                 // Check if we already warned today
@@ -10227,87 +10433,71 @@
             if (badge) badge.textContent = 'RULE-BASED';
         }
 
-        // ── AI COACH INTEGRATION (Groq) ──────────────────────────────
+        // ══════════════════════════════════════════════════════════════
+        //  OPERATOR AI — ENHANCED ENGINE  (Groq / llama-3.3-70b)
+        // ══════════════════════════════════════════════════════════════
 
-        // FIX 3: API key stored in localStorage — never hardcoded in source.
-        // Get a free key at https://console.groq.com/keys and paste it in the AI Coach tab.
         const _GROQ_KEY_STORAGE = 'operator_groq_key';
-        // Key is split and assembled at runtime so it isn't a plain string in source
         const _GROQ_KEY_DEFAULT = (() => { const p = ['gsk_sT3rSV0qzpKj', 'SUvBJKnVWGdyb3FY', '2SKqUGkUnMyFYIS', 'ZXMFVd22Y']; return p.join(''); })();
-        function _getGroqKey() {
-            try { return localStorage.getItem(_GROQ_KEY_STORAGE) || _GROQ_KEY_DEFAULT; } catch (e) { return _GROQ_KEY_DEFAULT; }
-        }
-        function _setGroqKey(k) {
-            try {
-                if (k && k.trim()) localStorage.setItem(_GROQ_KEY_STORAGE, k.trim());
-                else localStorage.removeItem(_GROQ_KEY_STORAGE);
-            } catch (e) { }
-        }
-        // Backward-compat: _GROQ_API_KEY is now a live getter so all existing call-sites work
-        let _GROQ_API_KEY = ''; // overwritten at call-time by _getGroqKey()
         const GROQ_MODEL = 'llama-3.3-70b-versatile';
-        const GEMINI_DAILY_LIMIT = 100;
+        const GEMINI_DAILY_LIMIT = 200;
         const GEMINI_USAGE_KEY = 'operator_gemini_usage';
-        let _aiMode = 'full';
 
+        let _GROQ_API_KEY = '';
+        let _aiMode = 'full';
+        let _chatHistory = [];   // [{role,content}] multi-turn memory
+        let _isStreaming = false;
+
+        // ── Key helpers ──────────────────────────────────────────────
+        function _getGroqKey() { try { return localStorage.getItem(_GROQ_KEY_STORAGE) || _GROQ_KEY_DEFAULT; } catch (e) { return _GROQ_KEY_DEFAULT; } }
+        function _setGroqKey(k) { try { k && k.trim() ? localStorage.setItem(_GROQ_KEY_STORAGE, k.trim()) : localStorage.removeItem(_GROQ_KEY_STORAGE); } catch (e) { } }
+
+        // ── Usage counter ─────────────────────────────────────────────
         function _getGeminiUsage() {
             try {
-                const today = (typeof getTodayKey === 'function') ? getTodayKey() : new Date().toISOString().split('T')[0];
+                const today = typeof getTodayKey === 'function' ? getTodayKey() : new Date().toISOString().split('T')[0];
                 const raw = localStorage.getItem(GEMINI_USAGE_KEY);
                 const data = raw ? JSON.parse(raw) : {};
-                if (data.date !== today) return { date: today, count: 0 };
-                return data;
+                return data.date === today ? data : { date: today, count: 0 };
             } catch (e) { return { date: new Date().toISOString().split('T')[0], count: 0 }; }
         }
         function _incrementGeminiUsage() {
             const u = _getGeminiUsage(); u.count = (u.count || 0) + 1;
-            localStorage.setItem(GEMINI_USAGE_KEY, JSON.stringify(u));
-            _updateGeminiCounter();
+            localStorage.setItem(GEMINI_USAGE_KEY, JSON.stringify(u)); _updateGeminiCounter();
         }
         function _updateGeminiCounter() {
             const u = _getGeminiUsage();
             const rem = Math.max(0, GEMINI_DAILY_LIMIT - u.count);
             const el = document.getElementById('gemini-daily-counter');
             if (el) {
-                const color = rem <= 5 ? 'var(--red)' : rem <= 20 ? 'var(--amber)' : 'var(--text3)';
-                el.innerHTML = `<span style="color:${color}">${rem}/${GEMINI_DAILY_LIMIT} requests left</span>`;
+                const color = rem <= 10 ? 'var(--red)' : rem <= 40 ? 'var(--amber)' : 'var(--text3)';
+                el.innerHTML = `<span style="color:${color}">${rem}/${GEMINI_DAILY_LIMIT} left</span>`;
             }
             const btn = document.getElementById('gemini-ask-btn');
-            if (btn) btn.disabled = rem <= 0;
+            if (btn && !_isStreaming) btn.disabled = rem <= 0;
         }
-        function saveGeminiKey() { } // legacy no-op
-        function clearGeminiKey() { }  // legacy no-op
+
+        // ── Legacy no-ops ─────────────────────────────────────────────
+        function saveGeminiKey() { }
+        function clearGeminiKey() { }
+
+        // ── Groq key management ───────────────────────────────────────
         function saveGroqApiKey() {
             const inp = document.getElementById('groq-key-input');
             const key = inp ? inp.value.trim() : '';
-            if (!key || !key.startsWith('gsk_')) {
-                showToast('⚠ Key must start with gsk_'); return;
-            }
-            _setGroqKey(key);
-            if (inp) inp.value = '';
-            const setupEl = document.getElementById('groq-key-setup');
-            if (setupEl) setupEl.style.display = 'none';
-            _initGeminiUI();
-            showToast('✅ Groq API key saved — AI Coach is ready!');
+            if (!key || !key.startsWith('gsk_')) { showToast('⚠ Key must start with gsk_'); return; }
+            _setGroqKey(key); if (inp) inp.value = '';
+            document.getElementById('groq-key-setup')?.style && (document.getElementById('groq-key-setup').style.display = 'none');
+            _initGeminiUI(); showToast('✅ Groq key saved — AI ready!');
         }
         function clearGroqApiKey() {
-            _setGroqKey('');
-            const badge = document.getElementById('ai-coach-mode-badge');
-            if (badge) badge.textContent = '⚠ NO API KEY';
-            const setupEl = document.getElementById('groq-key-setup');
-            if (setupEl) setupEl.style.display = 'block';
-            showToast('🗑 Groq API key removed');
+            _setGroqKey(''); showToast('🗑 Key removed');
+            document.getElementById('ai-coach-mode-badge') && (document.getElementById('ai-coach-mode-badge').textContent = '⚠ NO API KEY');
         }
-        function _activateGeminiUI() {
-            const s = document.getElementById('gemini-key-setup');
-            const p = document.getElementById('gemini-active-panel');
-            if (s) s.style.display = 'none';
-            if (p) p.style.display = 'block';
-        }
+        function _activateGeminiUI() { }  // legacy no-op
+
         function _initGeminiUI() {
-            _activateGeminiUI();
-            _updateGeminiCounter();
-            _renderAIStats();
+            _updateGeminiCounter(); _renderAIStats();
             const badge = document.getElementById('ai-coach-mode-badge');
             const hasKey = !!_getGroqKey();
             const setupEl = document.getElementById('groq-key-setup');
@@ -10320,12 +10510,14 @@
             }
         }
 
+        // ── Mode selector ─────────────────────────────────────────────
         function setAIMode(mode, el) {
             _aiMode = mode;
             document.querySelectorAll('.ai-mode-btn').forEach(b => b.classList.remove('active'));
             if (el) el.classList.add('active');
         }
 
+        // ── Live stats chips ──────────────────────────────────────────
         function _renderAIStats() {
             const row = document.getElementById('ai-stats-row');
             if (!row) return;
@@ -10335,40 +10527,35 @@
             const todaySess = (S.sessions || []).filter(s => s.date === today);
             const focusMins = todaySess.reduce((a, s) => a + (s.mins || 0), 0);
             const streak = S.analytics?.curStreak || 0;
-            const habits = (S.habits || []);
+            const habits = S.habits || [];
             const habitsDone = habits.filter(h => h.days && h.days[today]).length;
             const energy = (S.energy && S.energy[today]) || 0;
-            const energyLabel = ['—', '😴 Exhausted', '😑 Low', '😐 Neutral', '😊 Good', '🔥 On Fire'][energy] || '—';
+            const eLabel = ['—', '😴', '😑', '😐', '😊', '🔥'][energy] || '—';
+            const allDone = (S.tasks || []).filter(t => t.done).length;
+            const totalMins = S.analytics?.totalMin || 0;
 
-            row.innerHTML = [
-                { val: tasks, lbl: 'TASKS DONE', color: '#39d353' },
+            const chips = [
+                { val: tasks, lbl: 'DONE TODAY', color: '#39d353' },
                 { val: pending, lbl: 'PENDING', color: 'var(--amber)' },
-                { val: focusMins + 'm', lbl: 'FOCUS TODAY', color: 'var(--accent)' },
+                { val: focusMins + 'm', lbl: 'FOCUS', color: 'var(--accent)' },
                 { val: streak + 'd', lbl: 'STREAK', color: '#ffd700' },
                 { val: habitsDone + '/' + habits.length, lbl: 'HABITS', color: 'var(--cyan)' },
-                { val: energyLabel, lbl: 'ENERGY', color: 'var(--text2)' },
-            ].map(c => `<div class="ai-stat-chip"><div class="val" style="color:${c.color};font-size:${String(c.val).length > 5 ? '1rem' : '1.4rem'}">${c.val}</div><div class="lbl">${c.lbl}</div></div>`).join('');
+                { val: eLabel, lbl: 'ENERGY', color: 'var(--text2)' },
+                { val: allDone, lbl: 'ALL TIME ✓', color: 'var(--text3)' },
+                { val: Math.round(totalMins / 60 * 10) / 10 + 'h', lbl: 'TOTAL FOCUS', color: 'var(--text3)' },
+            ];
+            row.innerHTML = chips.map(c => `<div class="ai-stat-chip"><div class="val" style="color:${c.color};font-size:${String(c.val).length > 6 ? '0.95rem' : '1.3rem'}">${c.val}</div><div class="lbl">${c.lbl}</div></div>`).join('');
         }
 
-        function copyAIOutput() {
-            const el = document.getElementById('ai-output-content');
-            if (!el) return;
-            // Extract readable text from cards or raw
-            const cards = el.querySelectorAll('.ai-output-card');
-            let text = '';
-            if (cards.length > 0) {
-                cards.forEach((c, i) => {
-                    const num = c.querySelector('.ai-card-num')?.textContent?.trim() || (i + 1);
-                    const title = c.querySelector('.ai-card-headline')?.textContent?.trim() || '';
-                    const detail = c.querySelector('.ai-card-detail')?.textContent?.trim() || '';
-                    text += num + '. ' + (title ? title + ' — ' : '') + detail + '\n';
-                });
-            } else {
-                text = el.innerText || el.textContent || '';
-            }
-            navigator.clipboard?.writeText(text.trim()).then(() => showToast('✦ Copied to clipboard'));
+        // ── Clear chat ────────────────────────────────────────────────
+        function _clearChat() {
+            _chatHistory = [];
+            const win = document.getElementById('ai-chat-window');
+            if (!win) return;
+            win.innerHTML = `<div class="chat-bubble-ai"><div class="chat-avatar-ai"><i class="fas fa-robot"></i></div><div class="chat-bubble-body"><div class="chat-bubble-name">OPERATOR AI</div><div class="chat-bubble-text">Chat cleared. Fresh start — ask me anything or run an analysis. ⚡</div></div></div>`;
         }
 
+        // ── Build rich dashboard context ──────────────────────────────
         function _buildCoachContext() {
             const today = typeof getTodayKey === 'function' ? getTodayKey() : new Date().toISOString().split('T')[0];
             const sessions = S.sessions || [];
@@ -10380,224 +10567,390 @@
             const totalSess = S.analytics?.totalSess || 0;
             const totalMins = S.analytics?.totalMin || 0;
             const energy = (S.energy && S.energy[today]) || 0;
-            const energyLabel = ['not set', 'exhausted', 'low', 'neutral', 'good', 'on fire'][energy] || 'not set';
-            const habits = (S.habits || []).map(h => `${h.name}(streak:${h.streak || 0},today:${h.days && h.days[today] ? 'done' : 'missed'})`).join(', ') || 'none';
-            const distractions = (S.distractions || []).filter(d => d.date === today).length;
-            const goals = (S.goals || []).map(g => g.text || g.title || '').filter(Boolean).slice(0, 3).join(', ') || 'none set';
-            const wins = (S.wins || []).slice(-3).map(w => w.text || w).join(', ') || 'none';
-            const last7 = [];
-            for (let i = 6; i >= 0; i--) {
+            const eLabel = ['not set', 'exhausted', 'low', 'neutral', 'good', 'on fire'][energy] || 'not set';
+            const habitsStr = (S.habits || []).map(h => `${h.name}(streak:${h.streak || 0},today:${h.days && h.days[today] ? '✓' : '✗'})`).join(', ') || 'none';
+            const distr = (S.distractions || []).filter(d => d.date === today).length;
+            const goals = (S.goals || []).map(g => g.text || g.title || '').filter(Boolean).slice(0, 5).join(' | ') || 'none set';
+            const wins = (S.wins || []).slice(-5).map(w => w.text || w).filter(Boolean).join(' | ') || 'none';
+            const avgSess = sessions.length > 0 ? Math.round(totalMins / sessions.length) : 0;
+
+            // 14-day history
+            const history = [];
+            for (let i = 13; i >= 0; i--) {
                 const d = new Date(); d.setDate(d.getDate() - i);
-                const dk = (typeof localDateKey === 'function') ? localDateKey(d) : d.toISOString().split('T')[0];
+                const dk = typeof localDateKey === 'function' ? localDateKey(d) : d.toISOString().split('T')[0];
                 const day = S.analytics?.daily?.[dk];
                 if (day && (day.sess > 0 || day.tasks > 0 || day.min > 0))
-                    last7.push(`${dk}:${day.sess || 0}sess,${day.tasks || 0}tasks,${day.min || 0}min`);
+                    history.push(`${dk}:${day.sess || 0}s,${day.tasks || 0}t,${day.min || 0}m`);
             }
-            const avgSession = sessions.length > 0 ? Math.round(totalMins / sessions.length) : 0;
+
+            // Task priority breakdown
+            const highTasks = pending.filter(t => t.priority === 'high').map(t => t.text).slice(0, 3);
+            const medTasks = pending.filter(t => t.priority === 'med').map(t => t.text).slice(0, 3);
+            const doneTasks = todayDone.map(t => t.text).slice(0, 5);
+
             const customQ = (document.getElementById('ai-custom-question')?.value || '').trim();
 
-            const modeContext = {
-                full: 'Give a well-rounded analysis covering tasks, focus sessions, habits, streaks, and energy.',
-                tasks: 'Focus on the user\'s tasks — what\'s done, what\'s pending, and what they should prioritize.',
-                habits: 'Focus on the user\'s habits — which are strong, which are slipping, and how to fix them.',
-                focus: 'Focus on the user\'s focus sessions — session length, frequency, and how to improve deep work.',
-                week: 'Give a weekly performance review — what went well, what didn\'t, and key priorities ahead.',
-                plan: 'Create a concrete action plan for today — what the user should do right now, in priority order.'
+            const modeInstructions = {
+                full: 'Deliver 5-7 sharp numbered insights. Cover: task completion rate, focus session quality, habit consistency, streak momentum, energy vs output correlation, top risk, and one actionable win for today. Be specific — use exact numbers from the data.',
+                tasks: 'Analyze task execution deeply. Look at: completion rate, priority distribution (are they doing high-priority work?), time estimates vs reality, recurring task patterns. Give 4-5 concrete recommendations to optimize their task workflow today.',
+                habits: 'Deep habit analysis. Which habits have the best streaks? Which are breaking? What day patterns show weakness? Calculate consistency % for each habit over 14 days. Give direct advice on the 1-2 habits to fix immediately.',
+                focus: 'Analyze focus session quality. Look at: session frequency, duration trends, sessions per day avg, best/worst days, distraction rate (distractions per session). Tell them exactly how to improve deep work output.',
+                week: 'Comprehensive 14-day performance review. What improved, what declined, key inflection points, productivity trend direction. Give 3 specific goals for the next 7 days based on the data.',
+                plan: 'Create a concrete, time-blocked action plan for TODAY based on their current energy, pending high-priority tasks, and focus history. Be prescriptive — tell them exactly what to do in what order.',
+                coach: 'Act as a personal productivity mentor. Be warm but honest. Acknowledge what they are doing well, identify the single biggest obstacle to their growth, and give them one transformational piece of advice tailored to their exact data patterns.'
             };
-            const ctx = modeContext[_aiMode] || modeContext.full;
-            const questionLine = customQ ? `\n\nThe user is specifically asking: "${customQ}"` : '';
 
-            return `Here is the user's dashboard data for today:
+            const modeInstruction = modeInstructions[_aiMode] || modeInstructions.full;
+            const questionLine = customQ ? `\n\nUSER QUESTION: "${customQ}"` : '';
 
-- Date: ${today} | Energy level: ${energyLabel}
-- Focus sessions today: ${todaySess.length} (${todaySess.reduce((a, s) => a + (s.mins || 0), 0)} min total)
-- Tasks completed today: ${todayDone.length} | Pending: ${pending.length}
-- Pending task list: ${pending.slice(0, 5).map(t => t.text).join(', ') || 'none'}
-- Distractions logged: ${distractions}
-- Current streak: ${streak} days | All-time: ${totalSess} sessions, ${Math.round(totalMins / 60 * 10) / 10}h
-- Avg session: ${avgSession} min
-- Habits (${(S.habits || []).length} total): ${habits}
-- Goals: ${goals}
-- Recent wins: ${wins}
-- Last 7 days: ${last7.length > 0 ? last7.join(' | ') : 'no data yet'}
-- Total tasks done all-time: ${allTasks.filter(t => t.done).length}
-${questionLine}
+            return `${modeInstruction}
 
-${ctx}`;
+Format each insight as: N. TITLE | Detail sentence with exact numbers from the data.
+TITLE = 2-5 words, ALL CAPS. Pipe separator. One insight per line. No markdown, no asterisks.
+For conversational questions (not analysis), respond naturally in 2-4 sentences referencing their data.${questionLine}
+
+━━ LIVE DASHBOARD DATA ━━
+Date: ${today} | Energy level: ${eLabel} | Distractions today: ${distr}
+
+FOCUS SESSIONS TODAY:
+- Sessions: ${todaySess.length} | Total focus time: ${todaySess.reduce((a, s) => a + (s.mins || 0), 0)}min
+- Avg session (all-time): ${avgSess}min | Total sessions all-time: ${totalSess}
+- All-time focus hours: ${Math.round(totalMins / 60 * 10) / 10}h
+
+TASKS TODAY:
+- Completed: ${todayDone.length} | Pending: ${pending.length}
+- High-priority pending: ${highTasks.join(', ') || 'none'}
+- Medium-priority pending: ${medTasks.join(', ') || 'none'}
+- Completed today: ${doneTasks.join(', ') || 'none'}
+- Total tasks completed all-time: ${allTasks.filter(t => t.done).length}
+
+STREAK & CONSISTENCY:
+- Current streak: ${streak} days | Max streak: ${S.analytics?.maxStreak || 0} days
+
+HABITS (${(S.habits || []).length} tracked):
+${habitsStr}
+
+GOALS: ${goals}
+RECENT WINS: ${wins}
+
+14-DAY HISTORY (date:sessions,tasks,focusmins):
+${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getting started'}`;
         }
 
-        // ── Lightweight markdown renderer ──────────────────────────────
-        function _renderMarkdown(text) {
-            let html = text
-                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                // code blocks
-                .replace(/```[\s\S]*?```/g, m => `<pre style="background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:6px;padding:10px 12px;font-family:var(--mono);font-size:0.85rem;overflow-x:auto;margin:8px 0">${m.slice(3,-3).replace(/^[a-z]+\n/,'')}</pre>`)
-                // inline code
-                .replace(/`([^`]+)`/g, '<code style="background:rgba(255,255,255,.07);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:0.88em">$1</code>')
-                // bold
-                .replace(/\*\*(.+?)\*\*/g, '<strong style="color:var(--text);font-weight:700">$1</strong>')
-                // italic
-                .replace(/\*(.+?)\*/g, '<em>$1</em>')
-                // headings h3/h2/h1
-                .replace(/^### (.+)$/gm, '<div style="font-family:var(--head);font-size:1rem;font-weight:700;color:var(--text);margin:14px 0 4px">$1</div>')
-                .replace(/^## (.+)$/gm, '<div style="font-family:var(--head);font-size:1.1rem;font-weight:700;color:var(--text);margin:16px 0 6px">$1</div>')
-                .replace(/^# (.+)$/gm, '<div style="font-family:var(--head);font-size:1.2rem;font-weight:700;color:var(--text);margin:16px 0 6px">$1</div>')
-                // numbered lists
-                .replace(/^\d+\.\s+(.+)$/gm, '<div style="display:flex;gap:8px;margin:3px 0"><span style="color:var(--accent2);font-weight:700;min-width:18px;font-family:var(--mono);font-size:0.88em">•</span><span>$1</span></div>')
-                // bullet lists
-                .replace(/^[-*]\s+(.+)$/gm, '<div style="display:flex;gap:8px;margin:3px 0"><span style="color:var(--accent2);font-family:var(--mono);font-size:0.88em;min-width:18px">–</span><span>$1</span></div>')
-                // horizontal rule
-                .replace(/^---$/gm, '<hr style="border:none;border-top:1px solid var(--border2);margin:12px 0">')
-                // paragraphs — double newline → paragraph break
-                .replace(/\n{2,}/g, '</p><p style="margin:0 0 8px">')
-                // single newlines
-                .replace(/\n/g, '<br>');
-            return `<p style="margin:0 0 8px">${html}</p>`;
-        }
-
-        // ── Chat history for the AI Coach chat UI ──────────────────────
-        let _chatHistory = [];
-
+        // ── Chat bubble renderers ─────────────────────────────────────
         function _chatAppendUserBubble(text) {
             const win = document.getElementById('ai-chat-window');
             if (!win) return;
             const el = document.createElement('div');
             el.className = 'chat-bubble-user';
+            const safe = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
             el.innerHTML = `
                 <div class="chat-bubble-body">
                     <div class="chat-bubble-name">YOU</div>
-                    <div class="chat-bubble-text">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+                    <div class="chat-bubble-text">${safe}</div>
                 </div>
                 <div class="chat-avatar-user"><i class="fas fa-user"></i></div>`;
-            win.appendChild(el);
-            win.scrollTop = win.scrollHeight;
+            win.appendChild(el); win.scrollTop = win.scrollHeight;
         }
 
         function _chatAppendTyping() {
             const win = document.getElementById('ai-chat-window');
-            if (!win) return null;
+            if (!win) return;
             const el = document.createElement('div');
-            el.className = 'chat-typing-indicator';
-            el.id = 'ai-chat-typing';
+            el.className = 'chat-typing-indicator'; el.id = 'ai-chat-typing';
             el.innerHTML = `
                 <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
                 <div class="chat-typing-dots"><span></span><span></span><span></span></div>`;
-            win.appendChild(el);
-            win.scrollTop = win.scrollHeight;
-            return el;
+            win.appendChild(el); win.scrollTop = win.scrollHeight;
         }
 
         function _chatRemoveTyping() {
-            const el = document.getElementById('ai-chat-typing');
-            if (el) el.remove();
+            document.getElementById('ai-chat-typing')?.remove();
         }
 
-        function _chatAppendAIBubble(rawText) {
+        // Renders AI response — parses numbered insights into cards, or renders prose
+        function _chatAppendAIBubble(text) {
             const win = document.getElementById('ai-chat-window');
             if (!win) return;
+
             const el = document.createElement('div');
             el.className = 'chat-bubble-ai';
-            const now = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-            const rendered = _renderMarkdown(rawText);
+
+            // Extract ACTION line if present
+            const actionMatch = text.match(/→\s*ACTION:\s*(.+?)(?:\n|$)/i);
+            const actionText = actionMatch ? actionMatch[1].trim() : null;
+            const cleanText = actionMatch ? text.replace(actionMatch[0], '').trim() : text;
+
+            // Parse structured insights: "N. TITLE | detail"
+            const lines = cleanText.split('\n').map(l => l.trim()).filter(Boolean);
+            const pattern = /^(\d+)[\.\)\:]\s*([^|]{2,50}?)\s*\|\s*(.{5,})$/;
+            const fallback = /^(\d+)[\.\)\:]\s*(.{5,})$/;
+            const cards = [];
+            let rawMode = false;
+            let rawLines = [];
+
+            for (const line of lines) {
+                const m = line.match(pattern);
+                const m2 = !m && line.match(fallback);
+                if (m) cards.push({ num: m[1], title: m[2].trim(), detail: m[3].trim() });
+                else if (m2) cards.push({ num: m2[1], title: null, detail: m2[2].trim() });
+                else if (cards.length > 0) cards[cards.length - 1].detail += ' ' + line;
+                else { rawMode = true; rawLines.push(line); }
+            }
+
+            const classify = (t, d) => {
+                const s = ((t || '') + (d || '')).toLowerCase();
+                if (/warn|risk|drop|miss|fail|low|0 sess|distract|decline|break|no sess|struggl|weak|behind|0 task/.test(s)) return 'warn';
+                if (/good|great|strong|streak|momentum|peak|optimal|best|elite|improv|excel|on fire|ahead/.test(s)) return 'good';
+                return 'action';
+            };
+
+            const modeLabelMap = { full:'Full Analysis', tasks:'Tasks', habits:'Habits', focus:'Focus', week:'Week Review', plan:'Action Plan', coach:'Personal Coach', sprint:'Sprint Now', deepwork:'Deep Work', mindset:'Mindset' };
+
+            let bodyHTML;
+            if (!rawMode && cards.length >= 2) {
+                bodyHTML = cards.map((c, i) => {
+                    const cls = classify(c.title, c.detail);
+                    const icon = cls === 'good' ? '✦' : cls === 'warn' ? '⚠' : '→';
+                    return `<div class="chat-insight-card ${cls}" style="animation-delay:${i * 0.04}s">
+                        <div class="chat-insight-num">${c.num.padStart(2, '0')}</div>
+                        <div style="flex:1">
+                            ${c.title ? `<div class="chat-insight-title"><span style="color:${cls === 'good' ? '#39d353' : cls === 'warn' ? '#e8c97a' : 'var(--cyan)'};margin-right:5px">${icon}</span>${c.title}</div>` : ''}
+                            <div class="chat-insight-detail">${c.detail.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+                        </div>
+                    </div>`;
+                }).join('');
+            } else {
+                // Prose mode — render with markdown-like formatting
+                const formatted = (rawMode ? rawLines.join('\n') : cleanText)
+                    .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                    .replace(/`(.+?)`/g, '<code style="background:rgba(255,255,255,.06);padding:1px 5px;border-radius:3px;font-size:0.88em">$1</code>')
+                    .replace(/\n/g, '<br>');
+                bodyHTML = `<div style="font-family:var(--body);font-size:0.97rem;color:var(--text2);line-height:1.72">${formatted}</div>`;
+            }
+
+            // Action line card
+            const actionHTML = actionText ? `
+                <div style="margin-top:12px;padding:10px 14px;background:rgba(0,210,255,.07);border:1px solid rgba(0,210,255,.22);border-radius:8px;display:flex;align-items:center;gap:10px">
+                    <span style="font-family:var(--mono);font-size:0.72rem;font-weight:900;letter-spacing:.1em;color:var(--cyan);white-space:nowrap">→ ACTION</span>
+                    <span style="font-family:var(--body);font-size:0.95rem;color:var(--text)">${actionText.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span>
+                </div>` : '';
+
+            const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const modelLabel = `Groq · ${GROQ_MODEL.replace('llama-', 'llama-').replace('-versatile', '')}`;
+            const modeLabel = modeLabelMap[_aiMode] || _aiMode;
+
             el.innerHTML = `
                 <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
-                <div class="chat-bubble-body" style="max-width:86%">
-                    <div class="chat-bubble-name">OPERATOR AI</div>
-                    <div class="chat-ai-message-box">
-                        <div class="chat-ai-message-content">${rendered}</div>
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05)">
-                            <span style="font-family:var(--mono);font-size:0.67rem;color:var(--text3)">${now}</span>
-                            <button class="chat-copy-btn" onclick="(function(btn){
-                                const box=btn.closest('.chat-ai-message-box');
-                                const txt=box?box.querySelector('.chat-ai-message-content')?.innerText||'':'';
-                                navigator.clipboard?.writeText(txt.trim()).then(()=>showToast('✦ Copied'));
-                            })(this)"><i class="fas fa-copy"></i> COPY</button>
+                <div class="chat-bubble-body" style="max-width:88%">
+                    <div class="chat-bubble-name">OPERATOR AI <span style="font-size:0.62rem;opacity:0.55;margin-left:4px">${modeLabel}</span></div>
+                    <div style="background:var(--card2);border:1px solid var(--border2);border-radius:14px 14px 14px 4px;padding:14px 16px">
+                        ${bodyHTML}
+                        ${actionHTML}
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);flex-wrap:wrap;gap:6px">
+                            <span style="font-family:var(--mono);font-size:0.64rem;color:var(--text3)">${now} · ${modelLabel}</span>
+                            <div style="display:flex;gap:6px">
+                                <button class="chat-action-btn" title="Copy response" onclick="(function(btn){
+                                    const p=btn.closest('.chat-bubble-ai');
+                                    const titles=Array.from(p.querySelectorAll('.chat-insight-title')).map(e=>e.textContent.replace(/^[✦⚠→]\s*/,''));
+                                    const details=Array.from(p.querySelectorAll('.chat-insight-detail')).map(e=>e.textContent);
+                                    const prose=p.querySelector('[style*=font-family:var(--body)]');
+                                    const action=p.querySelector('[style*=rgba(0,210,255]')?.querySelector('span:last-child')?.textContent||'';
+                                    const txt = titles.length>0 ? titles.map((t,i)=>(i+1)+'. '+(t?t+' — ':'')+details[i]).join('\n')+(action?'\n\n→ ACTION: '+action:'') : (prose?prose.innerText:'');
+                                    navigator.clipboard?.writeText(txt.trim()).then(()=>showToast('✦ Copied'));
+                                })(this)"><i class="fas fa-copy"></i></button>
+                                <button class="chat-action-btn" title="Re-run this analysis" onclick="setAIMode('${_aiMode}',document.getElementById('ai-mode-${_aiMode}'));askGeminiCoach()"><i class="fas fa-redo"></i></button>
+                                <button class="chat-action-btn" title="Run follow-up: Dig deeper" onclick="document.getElementById('ai-custom-question').value='Dig deeper on your last analysis. Give me more specific numbers and a clearer action plan.';askGeminiCoach()"><i class="fas fa-search-plus"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>`;
-            win.appendChild(el);
-            win.scrollTop = win.scrollHeight;
+            win.appendChild(el); win.scrollTop = win.scrollHeight;
         }
 
+        // ── Streaming text renderer ───────────────────────────────────
+        function _chatAppendStreamBubble() {
+            const win = document.getElementById('ai-chat-window');
+            if (!win) return null;
+            const el = document.createElement('div');
+            el.className = 'chat-bubble-ai'; el.id = 'ai-stream-bubble';
+            const modeLabelMap = { full:'Full Analysis', tasks:'Tasks', habits:'Habits', focus:'Focus', week:'Week Review', plan:'Action Plan', coach:'Personal Coach', sprint:'Sprint Now', deepwork:'Deep Work', mindset:'Mindset' };
+            const modeLabel = modeLabelMap[_aiMode] || _aiMode;
+            el.innerHTML = `
+                <div class="chat-avatar-ai" style="animation:aiPulse 1.5s infinite"><i class="fas fa-robot"></i></div>
+                <div class="chat-bubble-body" style="max-width:88%">
+                    <div class="chat-bubble-name">OPERATOR AI <span style="font-size:0.62rem;opacity:0.55;margin-left:4px">${modeLabel}</span></div>
+                    <div style="background:var(--card2);border:1px solid var(--border2);border-radius:14px 14px 14px 4px;padding:14px 16px">
+                        <div id="ai-stream-content" style="font-family:var(--mono);font-size:0.88rem;color:var(--text2);line-height:1.72;white-space:pre-wrap;word-break:break-word"></div>
+                        <span id="ai-stream-cursor" style="display:inline-block;width:8px;height:14px;background:var(--accent2);border-radius:1px;animation:cursorBlink 0.7s infinite;vertical-align:middle;margin-left:2px"></span>
+                    </div>
+                </div>`;
+            win.appendChild(el); win.scrollTop = win.scrollHeight;
+            return el;
+        }
+
+        // ── Quick prompt helper ───────────────────────────────────────
+        function _quickPrompt(text) {
+            const inp = document.getElementById('ai-custom-question');
+            if (inp) { inp.value = text; inp.style.height = 'auto'; inp.style.height = Math.min(inp.scrollHeight, 120) + 'px'; inp.focus(); }
+            // Only reset to full mode if currently in a mode with no active state
+            if (!_aiMode || _aiMode === 'sprint' || _aiMode === 'deepwork') {
+                setAIMode('full', document.getElementById('ai-mode-full'));
+            }
+            setTimeout(() => askGeminiCoach(), 80);
+        }
+
+        // ── MAIN: ask AI ──────────────────────────────────────────────
         async function askGeminiCoach() {
+            if (_isStreaming) return;
+
             _GROQ_API_KEY = _getGroqKey();
             if (!_GROQ_API_KEY) {
-                const setupEl = document.getElementById('groq-key-setup');
-                if (setupEl) { setupEl.style.display = 'block'; setupEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-                showToast('⚠ Enter your Groq API key to use AI Coach');
-                return;
+                document.getElementById('groq-key-setup')?.style && (document.getElementById('groq-key-setup').style.display = 'block');
+                showToast('⚠ Enter your Groq API key first'); return;
             }
 
             const btn = document.getElementById('gemini-ask-btn');
             const errEl = document.getElementById('gemini-coach-error');
             const inputEl = document.getElementById('ai-custom-question');
-            const userText = (inputEl ? inputEl.value.trim() : '') || _aiMode.charAt(0).toUpperCase() + _aiMode.slice(1) + ' analysis';
+            const userText = (inputEl?.value || '').trim() || (_aiMode.charAt(0).toUpperCase() + _aiMode.slice(1) + ' analysis');
 
+            _isStreaming = true;
             if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>'; }
             if (errEl) errEl.style.display = 'none';
-            if (inputEl) inputEl.value = '';
+            if (inputEl) { inputEl.value = ''; inputEl.style.height = 'auto'; }
 
+            // Append user bubble
             _chatAppendUserBubble(userText);
-            _chatAppendTyping();
             _renderAIStats();
 
             const _done = () => {
-                _chatRemoveTyping();
+                _isStreaming = false;
                 if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> SEND'; _updateGeminiCounter(); }
             };
 
+            // Build system prompt + history + current context
+            const systemPrompt = `You are OPERATOR AI — an elite, brutally honest, data-driven productivity coach embedded directly in the user's personal command center. You have real-time access to every metric: tasks, focus sessions, habit streaks, energy levels, weekly/monthly plans, and 7-day history.
+
+PERSONALITY: You are precise, direct, and operate at the level of a world-class executive coach crossed with a data analyst. You never pad responses. You call out patterns the user might not see. You push them to be better — not harshly, but with relentless clarity.
+
+OUTPUT RULES — ALWAYS follow these exactly:
+- For analysis/insights: format EVERY insight as: N. TITLE | Detailed sentence with specific numbers. TITLE must be ALL CAPS, 2-5 words. Pipe separator. One per line.
+- For conversational replies: respond naturally but always anchor to their actual data — cite specific numbers, streaks, percentages.
+- No markdown symbols, no asterisks, no bullet points with dashes.
+- Every response must end with one concrete, immediately actionable next step labeled: → ACTION:
+- If the data shows a pattern (positive or negative), name it explicitly. Don't be vague.
+- Reference time of day, streaks, and trends when relevant.
+- Max 10 insights per response unless explicitly asked for more.`;
+
+            // Mode-specific context injection
+            const _modeBoosts = {
+                full: 'Deliver a complete 360° performance analysis across tasks, focus, habits, energy, and streaks. Be comprehensive but sharp.',
+                tasks: 'Focus exclusively on task completion patterns. Analyze priority alignment, procrastination signals, overdue items, and task velocity.',
+                habits: 'Deep dive into habit consistency. Identify which habits are compounding positively, which are slipping, and what the streak data reveals about long-term commitment.',
+                focus: 'Analyze focus session quality, depth, duration trends, distraction frequency, and peak performance windows from the timing data.',
+                week: 'Perform a full week-in-review analysis. Compare this week to last week across all metrics. Identify the #1 win and #1 failure.',
+                plan: 'Generate a prioritized action plan for the next 24-48 hours based on pending tasks, energy patterns, and momentum. Be prescriptive.',
+                coach: 'Act as a deeply personal coach. Identify the emotional and psychological patterns in the data. What is the user really struggling with? What do they need to hear?',
+                sprint: 'The user wants to start executing RIGHT NOW. Identify the single most important task to work on in the next 25 minutes, clear the mental runway, and give a focused go-signal.',
+                deepwork: 'Analyze readiness for a deep work session. Check energy, distraction history, pending cognitive tasks, and optimal session length. Build a deep work protocol for today.',
+                mindset: 'Diagnose the user\'s mental state from the data patterns — momentum, consistency, avoidance signals, energy trends. Give a mindset audit and a specific mental reframe to unlock better performance.'
+            };
+
+            const modeInstruction = _modeBoosts[_aiMode] || _modeBoosts.full;
+
+            const prompt = _buildCoachContext();
+            const userContent = userText + (inputEl?.value === '' ? '' : '') ;
+            const modeContext = `[MODE: ${_aiMode.toUpperCase()}] ${modeInstruction}\n\n[USER QUESTION]: ${userText}\n\n[DASHBOARD DATA]:\n${prompt}`;
+
+            const messages = [
+                { role: 'system', content: systemPrompt },
+                ..._chatHistory.slice(-16),  // keep last 8 exchanges for rich memory
+                { role: 'user', content: modeContext }
+            ];
+
+            // ── Try streaming first, fall back to standard ────────────
             try {
-                const prompt = _buildCoachContext();
-
-                const messages = [
-                    { role: 'system', content: 'You are OPERATOR AI, a sharp and friendly productivity coach embedded in a personal dashboard. You have access to the user\'s real data: tasks, habits, focus sessions, streaks, and energy levels. Respond conversationally and naturally — like ChatGPT would. Use markdown freely: **bold** for emphasis, bullet points for lists, numbered steps for action plans, headers for sections when needed. Be direct, specific, and reference the user\'s actual numbers. Keep responses focused and useful — not too long, not too short. Adapt your tone to the question: analytical for data questions, encouraging for motivation, tactical for planning.' },
-                    ..._chatHistory,
-                    { role: 'user', content: prompt }
-                ];
-
                 let res;
                 try {
                     res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _GROQ_API_KEY },
-                        body: JSON.stringify({ model: GROQ_MODEL, messages, temperature: 0.7, max_tokens: 900 })
+                        body: JSON.stringify({ model: GROQ_MODEL, messages, temperature: 0.72, max_tokens: 1400, stream: true })
                     });
-                } catch (netErr) {
-                    throw new Error('Network error — check your internet connection.');
-                }
+                } catch (netErr) { throw new Error('Network error — check your connection.'); }
 
                 if (!res.ok) {
-                    let errMsg = 'HTTP ' + res.status;
-                    try { const j = await res.json(); errMsg = j?.error?.message || errMsg; } catch (_) { }
+                    let msg = 'HTTP ' + res.status;
+                    try { const j = await res.json(); msg = j?.error?.message || msg; } catch (_) { }
                     if (res.status === 401) throw new Error('Invalid API key.');
-                    if (res.status === 429) throw new Error('Rate limit — wait a few seconds.');
-                    throw new Error(errMsg);
+                    if (res.status === 429) throw new Error('Rate limit — wait a few seconds and retry.');
+                    throw new Error(msg);
                 }
 
-                let data;
-                try { data = await res.json(); } catch (_) { throw new Error('Invalid response from server.'); }
+                // ── Stream SSE response token by token ────────────────
+                _chatRemoveTyping();
+                _chatAppendStreamBubble();
 
-                const text = data?.choices?.[0]?.message?.content?.trim();
-                if (!text) throw new Error('AI returned empty response — please try again.');
+                const streamContent = document.getElementById('ai-stream-content');
+                const streamCursor = document.getElementById('ai-stream-cursor');
+                const streamBubble = document.getElementById('ai-stream-bubble');
+                const win = document.getElementById('ai-chat-window');
+
+                const reader = res.body.getReader();
+                const decoder = new TextDecoder();
+                let fullText = '';
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    buffer += decoder.decode(value, { stream: true });
+                    const parts = buffer.split('\n');
+                    buffer = parts.pop(); // keep incomplete last line
+                    for (const part of parts) {
+                        const line = part.trim();
+                        if (!line || line === 'data: [DONE]') continue;
+                        if (line.startsWith('data: ')) {
+                            try {
+                                const json = JSON.parse(line.slice(6));
+                                const delta = json?.choices?.[0]?.delta?.content;
+                                if (delta) {
+                                    fullText += delta;
+                                    if (streamContent) streamContent.textContent = fullText;
+                                    if (win) win.scrollTop = win.scrollHeight;
+                                }
+                            } catch (_) { }
+                        }
+                    }
+                }
+
+                // Remove stream bubble and re-render as proper formatted bubble
+                if (streamBubble) streamBubble.remove();
+
+                if (!fullText.trim()) throw new Error('AI returned empty response — try again.');
 
                 _incrementGeminiUsage();
+                _chatHistory.push({ role: 'user', content: modeContext });
+                _chatHistory.push({ role: 'assistant', content: fullText });
+                if (_chatHistory.length > 18) _chatHistory = _chatHistory.slice(-18);
 
-                // Keep last 6 exchanges for context
-                _chatHistory.push({ role: 'user', content: prompt });
-                _chatHistory.push({ role: 'assistant', content: text });
-                if (_chatHistory.length > 12) _chatHistory = _chatHistory.slice(_chatHistory.length - 12);
-
-                _done();
-                _chatAppendAIBubble(text);
+                _chatAppendAIBubble(fullText);
 
                 // Legacy compat
-                const content = document.getElementById('ai-output-content');
-                if (content) content.innerHTML = `<div class="ai-raw-output">${text}</div>`;
+                const legacyOut = document.getElementById('ai-output-content');
+                if (legacyOut) legacyOut.innerHTML = `<div>${fullText.replace(/</g, '&lt;')}</div>`;
 
+                _done();
                 addXP(5);
-                showToast('✦ AI replied!');
+                showToast('✦ Analysis complete!');
 
             } catch (err) {
+                _chatRemoveTyping();
+                document.getElementById('ai-stream-bubble')?.remove();
                 _done();
                 const msg = err?.message || 'Unknown error';
                 const win = document.getElementById('ai-chat-window');
@@ -10610,11 +10963,16 @@ ${ctx}`;
                             <div class="chat-bubble-name">OPERATOR AI</div>
                             <div class="chat-bubble-text" style="border-color:rgba(255,71,87,.2);background:rgba(255,71,87,.06);color:var(--red)">⚠ ${msg}</div>
                         </div>`;
-                    win.appendChild(errBubble);
-                    win.scrollTop = win.scrollHeight;
+                    win.appendChild(errBubble); win.scrollTop = win.scrollHeight;
                 }
                 showToast('⚠ ' + msg);
             }
+        }
+
+        // Legacy copy helper
+        function copyAIOutput() {
+            const el = document.getElementById('ai-output-content');
+            if (el) navigator.clipboard?.writeText(el.innerText || el.textContent || '').then(() => showToast('Copied!'));
         }
 
         // ── MODULE 2: SMART TASK BREAKDOWN ──────────────────────────
