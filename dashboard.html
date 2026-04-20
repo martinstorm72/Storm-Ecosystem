@@ -6340,6 +6340,7 @@
                                     class="fas fa-play"></i> START</button>
                             <button class="btn btn-ghost" onclick="resetMini()"><i class="fas fa-undo-alt"></i>
                                 RESET</button>
+                            <button class="btn btn-success" id="mini-finished-btn" onclick="finishMiniTimer()" style="display:none;background:linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08));border:1px solid rgba(57,211,83,.45);color:#39d353;font-weight:700;letter-spacing:.06em;transition:all .2s" onmouseover="this.style.background='linear-gradient(135deg,rgba(57,211,83,.32),rgba(57,211,83,.16))'" onmouseout="this.style.background='linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08))'"><i class="fas fa-check-circle"></i> FINISHED</button>
                         </div>
                     </div>
                     <div class="card" style="margin-top:16px">
@@ -6425,6 +6426,7 @@
                             RESET</button>
                         <button class="btn btn-ghost btn-sm" onclick="skipTimer()"><i class="fas fa-forward"></i>
                             SKIP</button>
+                        <button class="btn btn-success" id="main-finished-btn" onclick="finishMainTimer()" style="display:none;background:linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08));border:1px solid rgba(57,211,83,.45);color:#39d353;font-weight:700;letter-spacing:.06em;transition:all .2s" onmouseover="this.style.background='linear-gradient(135deg,rgba(57,211,83,.32),rgba(57,211,83,.16))'" onmouseout="this.style.background='linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08))'"><i class="fas fa-check-circle"></i> FINISHED</button>
                     </div>
                     <!-- ADAPTIVE FOCUS TIMER -->
                     <div class="adaptive-timer-bar" id="adaptive-timer-bar">
@@ -7137,26 +7139,31 @@
                 <!-- ── QUICK PROMPTS ── -->
                 <!-- ── SMART QUICK PROMPTS (rotate based on weak spots) ── -->
                 <div class="quick-prompts-row" id="quick-prompts-row" style="margin-bottom:10px">
-                    <span style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);align-self:center;letter-spacing:.06em;white-space:nowrap">QUICK →</span>
+                    <span
+                        style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);align-self:center;letter-spacing:.06em;white-space:nowrap">QUICK
+                        →</span>
                     <div id="smart-quick-prompts" style="display:flex;gap:6px;flex-wrap:wrap"></div>
                 </div>
 
                 <!-- ── COMMAND AUTOCOMPLETE ── -->
-                <div id="cmd-autocomplete" style="display:none;background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:4px 0;margin-bottom:6px;font-family:var(--mono);font-size:0.75rem;max-height:120px;overflow-y:auto"></div>
+                <div id="cmd-autocomplete"
+                    style="display:none;background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:4px 0;margin-bottom:6px;font-family:var(--mono);font-size:0.75rem;max-height:120px;overflow-y:auto">
+                </div>
 
                 <!-- ── CHAT INPUT ── -->
                 <div style="display:flex;gap:8px;align-items:flex-end;background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:10px 12px;transition:border-color 0.2s;box-shadow:0 2px 12px rgba(0,0,0,.15)"
                     id="ai-chat-input-wrap">
                     <textarea id="ai-custom-question" rows="1" placeholder="Ask anything… or type 'help' for commands"
                         style="flex:1;background:transparent;border:none;color:var(--text);font-family:var(--mono);font-size:0.9rem;outline:none;padding:4px 4px;resize:none;max-height:120px;overflow-y:auto;line-height:1.5"
-                        onkeydown="_aiInputKeydown(event)"
-                        oninput="_aiInputHandler(this)"
+                        onkeydown="_aiInputKeydown(event)" oninput="_aiInputHandler(this)"
                         onfocus="document.getElementById('ai-chat-input-wrap').style.borderColor='var(--accent2)'"
                         onblur="setTimeout(()=>{document.getElementById('cmd-autocomplete').style.display='none'},150);document.getElementById('ai-chat-input-wrap').style.borderColor='var(--border2)'"></textarea>
                     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
                         <div style="display:flex;gap:8px;align-items:center">
-                            <span id="ai-char-counter" style="font-family:var(--mono);font-size:0.62rem;color:var(--text3)"></span>
-                            <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text3)">↵ send · ⇧↵ newline</span>
+                            <span id="ai-char-counter"
+                                style="font-family:var(--mono);font-size:0.62rem;color:var(--text3)"></span>
+                            <span style="font-family:var(--mono);font-size:0.65rem;color:var(--text3)">↵ send · ⇧↵
+                                newline</span>
                         </div>
                         <button onclick="askGeminiCoach()" id="gemini-ask-btn" class="btn btn-primary btn-sm"
                             style="border-radius:8px;padding:8px 18px;font-size:0.84rem;white-space:nowrap;min-width:90px">
@@ -7196,14 +7203,22 @@
                 <!-- ── LIVE INSIGHTS ── -->
                 <div style="margin-top:24px;border-top:1px solid var(--border);padding-top:16px">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-                        <div style="font-family:var(--mono);font-size:0.72rem;font-weight:900;letter-spacing:.12em;color:var(--text3)">
+                        <div
+                            style="font-family:var(--mono);font-size:0.72rem;font-weight:900;letter-spacing:.12em;color:var(--text3)">
                             ⚡ LIVE PATTERN INSIGHTS</div>
                         <div style="display:flex;align-items:center;gap:8px">
-                            <span id="insights-last-updated" style="font-family:var(--mono);font-size:0.62rem;color:var(--text3)"></span>
-                            <button onclick="_refreshInsights()" title="Refresh insights" style="background:none;border:1px solid var(--border2);color:var(--text3);padding:2px 8px;border-radius:5px;font-size:0.7rem;cursor:pointer;font-family:var(--mono);transition:all 0.15s" onmouseover="this.style.color='var(--text2)';this.style.borderColor='var(--accent2)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">↻ REFRESH</button>
+                            <span id="insights-last-updated"
+                                style="font-family:var(--mono);font-size:0.62rem;color:var(--text3)"></span>
+                            <button onclick="_refreshInsights()" title="Refresh insights"
+                                style="background:none;border:1px solid var(--border2);color:var(--text3);padding:2px 8px;border-radius:5px;font-size:0.7rem;cursor:pointer;font-family:var(--mono);transition:all 0.15s"
+                                onmouseover="this.style.color='var(--text2)';this.style.borderColor='var(--accent2)'"
+                                onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">↻
+                                REFRESH</button>
                         </div>
                     </div>
-                    <div style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);margin-bottom:8px;opacity:0.7">💡 Click any insight to ask AI about it</div>
+                    <div
+                        style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);margin-bottom:8px;opacity:0.7">
+                        💡 Click any insight to ask AI about it</div>
                     <div id="ai-coach-insights" style="display:grid;gap:8px"></div>
                 </div>
 
@@ -7460,7 +7475,28 @@
         async function getCurrentUser() { if (!supabaseClient) return null; try { const { data: { session } } = await supabaseClient.auth.getSession(); return session?.user || null; } catch (e) { return null; } }
         async function checkPaidStatus(userId) { if (!supabaseClient || !userId) return true; try { const { data, error } = await supabaseClient.from('profiles').select('is_paid,subscription_status').eq('id', userId).single(); if (error) return true; return data ? (data.is_paid === true || data.subscription_status === 'active') : true; } catch (e) { return true; } }
         async function protectDashboard() { if (!supabaseClient) { window.location.href = 'login.html'; return false; } const user = await getCurrentUser(); if (!user) { window.location.href = 'login.html'; return false; } const hasPaid = await checkPaidStatus(user.id); if (!hasPaid) { window.location.href = 'index.html#pricing'; return false; } currentUser = user; return true; }
-        async function handleLogout() { if (!supabaseClient) return; try { await saveCloudData(); await supabaseClient.auth.signOut(); localStorage.removeItem('storm_os_auth'); localStorage.removeItem('storm_os_paid'); localStorage.removeItem('storm_os_payment_tx'); localStorage.removeItem('storm_os_payment_pending'); showToast('✅ Logged out'); setTimeout(() => window.location.href = 'login.html', 500); } catch (e) { showToast('⚠ Logout failed'); } }
+        async function handleLogout() { if (!supabaseClient) return; try { await saveCloudData(); await supabaseClient.auth.signOut(); localStorage.removeItem('storm_os_auth'); localStorage.removeItem('storm_os_paid'); localStorage.removeItem('storm_os_payment_tx'); localStorage.removeItem('storm_os_payment_pending'); localStorage.removeItem('storm_os_operator_access'); localStorage.removeItem('storm_os_operator_granted_at'); showToast('✅ Logged out'); setTimeout(() => window.location.href = 'login.html', 500); } catch (e) { showToast('⚠ Logout failed'); } }
+
+        // ===== OPERATOR COMMAND ACCESS TEST (run in console) =====
+        window.testOperatorAccess = function() {
+            const paid = localStorage.getItem('storm_os_paid') === 'true';
+            const loggedIn = localStorage.getItem('storm_os_auth') === 'true';
+            const operatorAccess = localStorage.getItem('storm_os_operator_access') === 'true';
+            const grantedAt = localStorage.getItem('storm_os_operator_granted_at');
+            const tx = localStorage.getItem('storm_os_payment_tx');
+            const results = [
+                '=== OPERATOR COMMAND ACCESS TEST (DASHBOARD) ===',
+                `[${paid ? 'PASS' : 'FAIL'}] storm_os_paid: ${paid}`,
+                `[${loggedIn ? 'PASS' : 'FAIL'}] storm_os_auth: ${loggedIn}`,
+                `[${operatorAccess ? 'PASS' : 'FAIL'}] storm_os_operator_access: ${operatorAccess}`,
+                `[${currentUser ? 'PASS' : 'FAIL'}] currentUser loaded: ${currentUser ? currentUser.email : 'null'}`,
+                `[INFO] Access granted at: ${grantedAt || 'not set'}`,
+                `[INFO] Payment TX: ${tx || 'not set'}`,
+                '=== END TEST ==='
+            ];
+            console.log(results.join('\n'));
+            return results;
+        };
         function addLogoutButton() { const ha = document.querySelector('.header-actions'); if (ha && !document.getElementById('logout-btn')) { const btn = document.createElement('button'); btn.id = 'logout-btn'; btn.className = 'btn btn-ghost btn-sm'; btn.innerHTML = '<i class="fas fa-sign-out-alt"></i> LOGOUT'; btn.onclick = handleLogout; ha.appendChild(btn); } }
         function updateHeaderUserArea(user) { let el = document.getElementById("header-user-area"); if (!el) return; if (user) { let initials = (user.user_metadata?.full_name || user.email || "OP").substring(0, 2).toUpperCase(); let name = user.user_metadata?.full_name || user.user_metadata?.display_name || user.email?.split("@")[0] || "OPERATOR"; el.innerHTML = `<a href="Profile.html" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#ffffff,#888888);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:0.83rem;font-weight:900;color:#000;cursor:pointer;border:2px solid rgba(255,255,255,0.3);text-decoration:none;" title="View Profile">${initials}</a>`; document.getElementById("user-name").innerHTML = name.toUpperCase(); if (window.S && window.S.user) S.user.name = name.toUpperCase(); } else { el.innerHTML = ""; } }
 
@@ -8031,6 +8067,7 @@
             // Ensure task name row stays fully interactive after completion
             let _taskRow = document.getElementById('mini-task-name-row');
             if (_taskRow) { _taskRow.style.pointerEvents = ''; _taskRow.style.opacity = ''; }
+            _showFinishedBtn('mini', false);
             logSess(Math.round(miniTotal / 60)); showToast('\uD83C\uDF89 Focus complete! +20 XP'); setFocusActive(false);
             // start overtime stopwatch if toggle is on
             if (typeof _miniSwStart === 'function') setTimeout(_miniSwStart, 300);
@@ -8044,7 +8081,102 @@
             setTimeout(() => document.getElementById('main-timer').classList.remove('complete'), 4000);
             _playTimerSound();
             if (!miniRun) _setHeroCta(false);
+            _showFinishedBtn('main', false);
             logSess(Math.round(mainTotal / 60)); showToast('\uD83C\uDF89 Session! +20 XP'); setFocusActive(false);
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        //  FINISHED BUTTON — show when timer is running, record on click
+        // ═══════════════════════════════════════════════════════════════
+        function _showFinishedBtn(which, show) {
+            const id = which === 'mini' ? 'mini-finished-btn' : 'main-finished-btn';
+            const btn = document.getElementById(id);
+            if (btn) btn.style.display = show ? 'inline-flex' : 'none';
+        }
+
+        function finishMiniTimer() {
+            if (!miniRun && miniSecs === miniTotal) { showToast('Start the timer first'); return; }
+            const now = new Date();
+            const finishTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const finishDate = now.toLocaleDateString([], { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+            const elapsedMins = Math.round((miniTotal - miniSecs) / 60);
+            const taskName = (typeof getMiniTaskName === 'function') ? getMiniTaskName() : (document.getElementById('sess-task')?.value || 'Focus Task');
+
+            // Stop the timer
+            clearInterval(miniInt); miniRun = false;
+            localStorage.removeItem('timer_mini_state');
+            document.getElementById('mini-btn').innerHTML = '<i class="fas fa-play"></i> START';
+            document.getElementById('mini-badge').innerHTML = 'DONE ✓';
+            document.getElementById('timer-mini').classList.remove('running');
+            document.getElementById('timer-mini').classList.add('complete');
+            setTimeout(() => { document.getElementById('timer-mini').classList.remove('complete'); document.getElementById('mini-badge').innerHTML = 'STANDBY'; }, 4000);
+            _showFinishedBtn('mini', false);
+            if (!mainRun) _setHeroCta(false);
+
+            // Record the finished task with exact finish time
+            const recordedMins = Math.max(1, elapsedMins);
+            const entryTask = taskName ? `${taskName} [FINISHED @ ${finishTime}]` : `Focus Task [FINISHED @ ${finishTime}]`;
+            S.sessions.push({
+                time: finishTime,
+                task: entryTask,
+                mins: recordedMins,
+                date: todayKey,
+                hour: now.getHours(),
+                finishedManually: true,
+                finishedAt: now.toISOString(),
+                finishedDateLabel: finishDate
+            });
+            S.analytics.totalSess = (S.analytics.totalSess || 0) + 1;
+            S.analytics.totalMin = (S.analytics.totalMin || 0) + recordedMins;
+            if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
+            S.analytics.daily[todayKey].sess = (S.analytics.daily[todayKey].sess || 0) + 1;
+            S.analytics.daily[todayKey].min = (S.analytics.daily[todayKey].min || 0) + recordedMins;
+            updateScore(); renderSessLog(); renderWeekBars(); saveNow(); addXP(20);
+            setFocusActive(false);
+            showToast(`✅ Task finished at ${finishTime} — +20 XP!`);
+            _playTimerSound();
+        }
+
+        function finishMainTimer() {
+            if (!mainRun && mainSecs === mainTotal) { showToast('Start the timer first'); return; }
+            const now = new Date();
+            const finishTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const finishDate = now.toLocaleDateString([], { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+            const elapsedMins = Math.round((mainTotal - mainSecs) / 60);
+            const taskName = document.getElementById('sess-task')?.value || 'Focus Session';
+
+            // Stop the timer
+            clearInterval(mainInt); mainRun = false;
+            localStorage.removeItem('timer_main_state');
+            document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
+            document.getElementById('main-timer').classList.remove('running');
+            document.getElementById('main-timer').classList.add('complete');
+            setTimeout(() => document.getElementById('main-timer').classList.remove('complete'), 4000);
+            _showFinishedBtn('main', false);
+            if (!miniRun) _setHeroCta(false);
+
+            // Record the finished task with exact finish time
+            const recordedMins = Math.max(1, elapsedMins);
+            const entryTask = taskName ? `${taskName} [FINISHED @ ${finishTime}]` : `Focus Session [FINISHED @ ${finishTime}]`;
+            S.sessions.push({
+                time: finishTime,
+                task: entryTask,
+                mins: recordedMins,
+                date: todayKey,
+                hour: now.getHours(),
+                finishedManually: true,
+                finishedAt: now.toISOString(),
+                finishedDateLabel: finishDate
+            });
+            S.analytics.totalSess = (S.analytics.totalSess || 0) + 1;
+            S.analytics.totalMin = (S.analytics.totalMin || 0) + recordedMins;
+            if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
+            S.analytics.daily[todayKey].sess = (S.analytics.daily[todayKey].sess || 0) + 1;
+            S.analytics.daily[todayKey].min = (S.analytics.daily[todayKey].min || 0) + recordedMins;
+            updateScore(); renderSessLog(); renderWeekBars(); saveNow(); addXP(20);
+            setFocusActive(false);
+            showToast(`✅ Session finished at ${finishTime} — +20 XP!`);
+            _playTimerSound();
         }
 
         function _startMiniInterval() {
@@ -8155,6 +8287,7 @@
                 _playSoundPause();
                 setFocusActive(false);
                 if (!mainRun) _setHeroCta(false);
+                _showFinishedBtn('mini', true); // show FINISHED when paused too
             } else {
                 miniRun = true;
                 document.getElementById('mini-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
@@ -8169,6 +8302,7 @@
                 if (_mtn) { let _st = document.getElementById('sess-task'); if (_st) _st.value = _mtn; }
                 _saveMiniState(); _startMiniInterval();
                 _setHeroCta(true);
+                _showFinishedBtn('mini', true); // show FINISHED when running
             }
         }
         function stopMini() {
@@ -8191,6 +8325,7 @@
             document.getElementById('mini-badge').innerHTML = 'STANDBY';
             document.getElementById('timer-mini').classList.remove('running', 'complete');
             setFocusActive(false);
+            _showFinishedBtn('mini', false);
             // Restore persisted task name on reset (don't blank it out)
             let _savedName = _loadMiniTaskName ? _loadMiniTaskName() : '';
             let _nameEl = document.getElementById('mini-task-name-display');
@@ -8306,6 +8441,7 @@
                 _playSoundPause();
                 setFocusActive(false);
                 if (!miniRun) _setHeroCta(false);
+                _showFinishedBtn('main', true); // show FINISHED when paused
             } else {
                 mainRun = true;
                 document.getElementById('main-btn').innerHTML = '<i class="fas fa-pause"></i> PAUSE';
@@ -8314,6 +8450,7 @@
                 setFocusActive(true); markOb('start_timer');
                 _saveMainState(); _startMainInterval();
                 _setHeroCta(true);
+                _showFinishedBtn('main', true); // show FINISHED when running
             }
         }
         function stopMain() {
@@ -8333,6 +8470,7 @@
             document.getElementById('main-btn').innerHTML = '<i class="fas fa-play"></i> START';
             document.getElementById('main-timer').classList.remove('running', 'complete');
             setFocusActive(false);
+            _showFinishedBtn('main', false);
         }
         function skipTimer() { if (mainRun) clearInterval(mainInt); resetMain(); }
 
@@ -10443,7 +10581,7 @@
             const updEl = document.getElementById('insights-last-updated');
             if (updEl) {
                 const now = new Date();
-                updEl.textContent = 'Updated ' + now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+                updEl.textContent = 'Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             }
 
             // Update mode badge
@@ -10467,7 +10605,7 @@
                         localStorage.setItem('operator_groq_key', cfgKey.trim());
                     }
                 }
-            } catch(e) {}
+            } catch (e) { }
         })();
 
         const _GROQ_KEY_DEFAULT = (window.__APP_CONFIG__ && window.__APP_CONFIG__.GROQ_API_KEY) || '';
@@ -10652,7 +10790,7 @@
             const weeklyEvents = (S.weeklyEvents || []).slice(0, 5).map(e => e.title || e.text || '').filter(Boolean).join(', ') || 'none';
             const currentHour = new Date().getHours();
             const timeOfDay = currentHour < 12 ? 'morning' : currentHour < 17 ? 'afternoon' : 'evening';
-            const allPendingTasks = allTasks.filter(t => !t.done).slice(0, 8).map(t => `[${t.priority||'med'}] ${t.text||t.title||''}`).filter(Boolean).join(', ') || 'none';
+            const allPendingTasks = allTasks.filter(t => !t.done).slice(0, 8).map(t => `[${t.priority || 'med'}] ${t.text || t.title || ''}`).filter(Boolean).join(', ') || 'none';
 
             return `${modeInstruction}
 
@@ -11144,16 +11282,16 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                 // ── INSTANT STAT COMMANDS (no API call) ──────────────
                 // "my stats" / "show my stats"
                 if (/^(?:my\s+stats|show\s+my\s+stats|stats|statistics)$/i.test(t)) {
-                    const today2 = typeof getTodayKey==='function'?getTodayKey():new Date().toISOString().split('T')[0];
+                    const today2 = typeof getTodayKey === 'function' ? getTodayKey() : new Date().toISOString().split('T')[0];
                     const streak2 = S.analytics?.curStreak || 0;
                     const maxStreak2 = S.analytics?.maxStreak || 0;
-                    const todaySess2 = (S.sessions||[]).filter(s=>s.date===today2);
-                    const focusMins2 = todaySess2.reduce((a,s)=>a+(s.mins||0),0);
-                    const doneTasks2 = (S.tasks||[]).filter(t=>t.done&&(t.doneDate===today2||t.date===today2)).length;
-                    const totalTasks2 = (S.tasks||[]).filter(t=>t.done).length;
+                    const todaySess2 = (S.sessions || []).filter(s => s.date === today2);
+                    const focusMins2 = todaySess2.reduce((a, s) => a + (s.mins || 0), 0);
+                    const doneTasks2 = (S.tasks || []).filter(t => t.done && (t.doneDate === today2 || t.date === today2)).length;
+                    const totalTasks2 = (S.tasks || []).filter(t => t.done).length;
                     const totalMins2 = S.analytics?.totalMin || 0;
-                    const energy2 = (S.energy&&S.energy[today2])||0;
-                    const eLabel2 = ['—','😴😴','😑','😐','😊','🔥'][energy2]||'—';
+                    const energy2 = (S.energy && S.energy[today2]) || 0;
+                    const eLabel2 = ['—', '😴😴', '😑', '😐', '😊', '🔥'][energy2] || '—';
                     _cmdReply(`<strong>📊 YOUR STATS</strong><br><br>
 <span style="color:var(--accent2)">TODAY</span><br>
 • Focus sessions: <strong>${todaySess2.length}</strong> (${focusMins2} min)<br>
@@ -11161,7 +11299,7 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
 • Energy: <strong>${eLabel2}</strong><br><br>
 <span style="color:var(--accent2)">ALL TIME</span><br>
 • Current streak: <strong>${streak2} days</strong> (best: ${maxStreak2})<br>
-• Total focus: <strong>${Math.round(totalMins2/60*10)/10}h</strong><br>
+• Total focus: <strong>${Math.round(totalMins2 / 60 * 10) / 10}h</strong><br>
 • Tasks done: <strong>${totalTasks2}</strong>`);
                     return true;
                 }
@@ -11172,16 +11310,16 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                     const max3 = S.analytics?.maxStreak || 0;
                     if (streak3 === 0) _cmdReply(`🔴 No active streak. Start one today — even a single 10-min session counts!`);
                     else if (streak3 >= 7) _cmdReply(`🏆 <strong>${streak3}-day streak!</strong> Your best is ${max3} days. You're in elite territory — don't break it.`);
-                    else _cmdReply(`🔥 <strong>${streak3}-day streak</strong> active. Best ever: ${max3} days. Keep going — ${7-streak3} more days for a full week!`);
+                    else _cmdReply(`🔥 <strong>${streak3}-day streak</strong> active. Best ever: ${max3} days. Keep going — ${7 - streak3} more days for a full week!`);
                     return true;
                 }
 
                 // "how many tasks today" / "tasks today"
                 if (/(?:how\s+many\s+tasks|tasks\s+today|task\s+count)/i.test(t)) {
-                    const today3 = typeof getTodayKey==='function'?getTodayKey():new Date().toISOString().split('T')[0];
-                    const done3 = (S.tasks||[]).filter(t=>t.done&&(t.doneDate===today3||t.date===today3)).length;
-                    const pending3 = (S.tasks||[]).filter(t=>!t.done&&t.date===today3).length;
-                    _cmdReply(`📋 Today: <strong>${done3} completed</strong>, <strong>${pending3} pending</strong>.${pending3>0?' Keep pushing!':' All done — nice work! 🎉'}`);
+                    const today3 = typeof getTodayKey === 'function' ? getTodayKey() : new Date().toISOString().split('T')[0];
+                    const done3 = (S.tasks || []).filter(t => t.done && (t.doneDate === today3 || t.date === today3)).length;
+                    const pending3 = (S.tasks || []).filter(t => !t.done && t.date === today3).length;
+                    _cmdReply(`📋 Today: <strong>${done3} completed</strong>, <strong>${pending3} pending</strong>.${pending3 > 0 ? ' Keep pushing!' : ' All done — nice work! 🎉'}`);
                     return true;
                 }
 
@@ -11190,34 +11328,34 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                     try {
                         const daily = S.analytics?.daily || {};
                         let bestDay = null, bestScore = -1;
-                        for (let i=0; i<7; i++) {
-                            const d = new Date(); d.setDate(d.getDate()-i);
-                            const dk = typeof localDateKey==='function'?localDateKey(d):d.toISOString().split('T')[0];
+                        for (let i = 0; i < 7; i++) {
+                            const d = new Date(); d.setDate(d.getDate() - i);
+                            const dk = typeof localDateKey === 'function' ? localDateKey(d) : d.toISOString().split('T')[0];
                             const day = daily[dk];
                             if (day) {
-                                const score = (day.sess||0)*2 + (day.tasks||0) + Math.round((day.min||0)/10);
-                                if (score > bestScore) { bestScore = score; bestDay = {dk, day}; }
+                                const score = (day.sess || 0) * 2 + (day.tasks || 0) + Math.round((day.min || 0) / 10);
+                                if (score > bestScore) { bestScore = score; bestDay = { dk, day }; }
                             }
                         }
                         if (bestDay) {
-                            const dt = new Date(bestDay.dk+'T00:00:00');
-                            const dayName = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][dt.getDay()];
-                            _cmdReply(`🏅 Best day this week: <strong>${dayName} (${bestDay.dk})</strong> — ${bestDay.day.sess||0} sessions, ${bestDay.day.tasks||0} tasks, ${bestDay.day.min||0} focus mins.`);
+                            const dt = new Date(bestDay.dk + 'T00:00:00');
+                            const dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][dt.getDay()];
+                            _cmdReply(`🏅 Best day this week: <strong>${dayName} (${bestDay.dk})</strong> — ${bestDay.day.sess || 0} sessions, ${bestDay.day.tasks || 0} tasks, ${bestDay.day.min || 0} focus mins.`);
                         } else {
                             _cmdReply(`📅 Not enough data yet for this week. Start logging sessions!`);
                         }
-                    } catch(e) { _cmdReply(`📅 Could not calculate — try again after logging some sessions.`); }
+                    } catch (e) { _cmdReply(`📅 Could not calculate — try again after logging some sessions.`); }
                     return true;
                 }
 
                 // "focus today" / "how much focus today"
                 if (/(?:focus\s+today|how\s+much\s+focus|focus\s+time|minutes\s+today)/i.test(t)) {
-                    const today4 = typeof getTodayKey==='function'?getTodayKey():new Date().toISOString().split('T')[0];
-                    const sess4 = (S.sessions||[]).filter(s=>s.date===today4);
-                    const mins4 = sess4.reduce((a,s)=>a+(s.mins||0),0);
-                    const target4 = (S.user?.target||6)*25;
-                    const pct4 = target4>0?Math.round(mins4/target4*100):0;
-                    _cmdReply(`⏱ Focus today: <strong>${mins4} minutes</strong> across ${sess4.length} session${sess4.length!==1?'s':''}. ${pct4>=100?'🎯 Daily target hit!':pct4>0?`${pct4}% of daily target.`:'No sessions yet — start one now!'}`);
+                    const today4 = typeof getTodayKey === 'function' ? getTodayKey() : new Date().toISOString().split('T')[0];
+                    const sess4 = (S.sessions || []).filter(s => s.date === today4);
+                    const mins4 = sess4.reduce((a, s) => a + (s.mins || 0), 0);
+                    const target4 = (S.user?.target || 6) * 25;
+                    const pct4 = target4 > 0 ? Math.round(mins4 / target4 * 100) : 0;
+                    _cmdReply(`⏱ Focus today: <strong>${mins4} minutes</strong> across ${sess4.length} session${sess4.length !== 1 ? 's' : ''}. ${pct4 >= 100 ? '🎯 Daily target hit!' : pct4 > 0 ? `${pct4}% of daily target.` : 'No sessions yet — start one now!'}`);
                     return true;
                 }
 
@@ -11296,11 +11434,12 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
             else prompts.push({ label: 'Habit check', text: 'Which habit is hurting me the most right now?' });
 
             // No session yet today
-            if (todaySessions === 0) prompts.push({ label: 'Get started', text: 'I haven't started yet today — give me a 5-minute kickstart plan.' });
+            if (todaySessions === 0) prompts.push({
+                label: 'Get started', text: 'I haven't started yet today — give me a 5-minute kickstart plan.' });
             else prompts.push({ label: '2hr plan', text: 'Give me a concrete plan for the next 2 hours.' });
 
-            // Streak risk
-            if (streak === 0) prompts.push({ label: 'Start streak', text: 'How do I build a consistent daily streak?' });
+                // Streak risk
+                if(streak === 0) prompts.push({ label: 'Start streak', text: 'How do I build a consistent daily streak?' });
             else if (streak >= 7) prompts.push({ label: 'Protect streak', text: `I have a ${streak}-day streak — how do I protect it?` });
             else prompts.push({ label: 'Roast my week', text: 'Roast my productivity this week honestly.' });
 
@@ -11350,7 +11489,7 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                     onmouseover="this.style.background='var(--card)'"
                     onmouseout="this.style.background=''"
                     onclick="_fillAutocomplete('${s.fill.replace(/'/g, "\'")}')">
-                    <span style="color:var(--accent2)">${s.fill}</span><span style="opacity:0.5">${s.display.replace(s.fill,'')}</span>
+                    <span style="color:var(--accent2)">${s.fill}</span><span style="opacity:0.5">${s.display.replace(s.fill, '')}</span>
                 </div>`
             ).join('');
         }
@@ -11448,9 +11587,9 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
             // ── Dynamic system prompt based on real user state ────────
             const _dynTone = (() => {
                 const streak = S.analytics?.curStreak || 0;
-                const energy = (S.energy && S.energy[typeof getTodayKey==='function'?getTodayKey():new Date().toISOString().split('T')[0]]) || 0;
-                const todayKey2 = typeof getTodayKey==='function'?getTodayKey():new Date().toISOString().split('T')[0];
-                const todaySess2 = (S.sessions||[]).filter(s=>s.date===todayKey2).length;
+                const energy = (S.energy && S.energy[typeof getTodayKey === 'function' ? getTodayKey() : new Date().toISOString().split('T')[0]]) || 0;
+                const todayKey2 = typeof getTodayKey === 'function' ? getTodayKey() : new Date().toISOString().split('T')[0];
+                const todaySess2 = (S.sessions || []).filter(s => s.date === todayKey2).length;
                 if (streak === 0 && todaySess2 === 0) return 'The user is just getting started or coming back after a break. Be warm, encouraging, and focus on one small win they can get today.';
                 if (energy >= 4 && streak >= 7) return 'The user is in peak state — high energy and strong streak. Be ambitious, push them to do their best work, challenge them to level up.';
                 if (energy <= 2) return 'The user has low energy today. Be supportive, suggest sustainable actions, prioritize rest and recovery alongside productivity.';
