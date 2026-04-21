@@ -1292,16 +1292,50 @@
             }
         }
 
+        // Tracks whether the user has touched the form — if so, never redirect mid-session
+        let _userStartedTyping = false;
+        document.addEventListener('keydown', () => { _userStartedTyping = true; }, { once: true });
+        document.addEventListener('mousedown', () => { _userStartedTyping = true; }, { once: true });
+        document.addEventListener('touchstart', () => { _userStartedTyping = true; }, { once: true });
+
+        // Race a promise against a hard timeout — returns null on timeout instead of hanging
+        function _withLoginTimeout(promise, ms) {
+            return Promise.race([
+                promise,
+                new Promise(resolve => setTimeout(() => resolve(null), ms))
+            ]);
+        }
+
         async function redirectIfAuthenticated() {
-            const user = await getCurrentUser();
-            if (user) {
-                const hasPaid = await checkPaidStatus(user.id);
-                if (hasPaid) {
-                    localStorage.setItem('storm_os_auth', 'true');
-                    localStorage.setItem('storm_os_paid', 'true');
-                    localStorage.setItem('storm_os_operator_access', 'true');
-                    window.location.href = 'index.html';
-                }
+            try {
+                // 1 — get session with 2s timeout so slow networks never block the login form
+                const sessionResult = await _withLoginTimeout(sb.auth.getSession(), 2000);
+
+                // Timed out or empty → stay on page, let user type
+                if (!sessionResult) return;
+
+                const user = sessionResult?.data?.session?.user || null;
+                if (!user) return;
+
+                // 2 — abort if user already touched the form while we were waiting
+                if (_userStartedTyping) return;
+
+                // 3 — check paid status with 2s timeout (failure = stay on page)
+                const paidResult = await _withLoginTimeout(checkPaidStatus(user.id), 2000);
+                if (!paidResult) return;
+
+                // 4 — final check: did user start typing during the paid check?
+                if (_userStartedTyping) return;
+
+                // Confirmed active session + paid → redirect home
+                localStorage.setItem('storm_os_auth', 'true');
+                localStorage.setItem('storm_os_paid', 'true');
+                localStorage.setItem('storm_os_operator_access', 'true');
+                window.location.href = 'index.html';
+
+            } catch (e) {
+                // Any error → stay on login page, never block the user
+                console.warn('[login] redirectIfAuthenticated error — staying on page:', e);
             }
         }
 
