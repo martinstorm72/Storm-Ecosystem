@@ -5886,6 +5886,10 @@
         // Auto-run on page load if tx param present (payment return)
         processPaymentReturn();
 
+        // Always run on page load — shows the OPERATOR COMMAND button for paid logged-in users
+        // This fires after login redirect so the nav state is always correct
+        updateDashboardNavLink();
+
         // ===== SCROLL PROGRESS BAR =====
         const progressBar = document.getElementById('scroll-progress');
         function updateProgress() {
