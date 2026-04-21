@@ -1250,8 +1250,15 @@
             </div>
             <div class="form-group">
                 <label class="form-label">USERNAME</label>
-                <div class="input-wrap"><span class="input-icon">@</span><input type="text" id="username"
-                        placeholder="@handle (no spaces)" autocomplete="username" oninput="sanitizeUsername(this)" />
+                <div class="input-wrap" style="position:relative">
+                    <span class="input-icon">@</span>
+                    <input type="text" id="username" placeholder="@handle (no spaces)" autocomplete="username"
+                        oninput="sanitizeUsername(this); _debouncedUsernameCheck(this.value)" />
+                    <span id="username-status"
+                        style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:0.78rem;font-family:var(--mono);font-weight:700;letter-spacing:.05em;pointer-events:none;transition:all 0.2s"></span>
+                </div>
+                <div id="username-hint"
+                    style="font-family:var(--mono);font-size:0.7rem;margin-top:4px;padding-left:4px;min-height:16px;transition:all 0.2s">
                 </div>
             </div>
             <div class="form-group">
@@ -1385,10 +1392,17 @@
                     }, { onConflict: 'id' });
 
                 if (error) {
+                    // Check for unique constraint violation on username
+                    if (error.code === '23505' && error.message?.includes('username')) {
+                        return { usernameConflict: true };
+                    }
                     console.error('Profile update error:', error);
+                    return { dbError: true };
                 }
+                return { ok: true };
             } catch (e) {
                 console.error('Profile update failed:', e);
+                return { dbError: true };
             }
         }
 
@@ -1459,6 +1473,95 @@
             input.value = input.value.replace(/[^a-zA-Z0-9._-]/g, '').toLowerCase();
         }
 
+        // ── USERNAME AVAILABILITY ──────────────────────────────────────
+        let _usernameCheckTimer = null;
+        let _lastCheckedUsername = '';
+        let _usernameIsAvailable = null; // true | false | null (unknown/checking)
+
+        function _setUsernameStatus(state, message) {
+            const statusEl = document.getElementById('username-status');
+            const hintEl = document.getElementById('username-hint');
+            const inputWrap = document.querySelector('#username')?.closest('.input-wrap');
+            if (!statusEl || !hintEl) return;
+
+            // Reset border
+            if (inputWrap) inputWrap.style.borderColor = '';
+
+            if (state === 'checking') {
+                statusEl.textContent = '…';
+                statusEl.style.color = 'var(--text3)';
+                hintEl.textContent = 'Checking availability…';
+                hintEl.style.color = 'var(--text3)';
+                _usernameIsAvailable = null;
+            } else if (state === 'available') {
+                statusEl.textContent = '✓ AVAILABLE';
+                statusEl.style.color = '#39d353';
+                hintEl.textContent = message || '';
+                hintEl.style.color = '#39d353';
+                if (inputWrap) inputWrap.style.borderColor = 'rgba(57,211,83,.4)';
+                _usernameIsAvailable = true;
+            } else if (state === 'taken') {
+                statusEl.textContent = '✗ TAKEN';
+                statusEl.style.color = '#ff4757';
+                hintEl.textContent = message || 'That username is already in use. Choose another.';
+                hintEl.style.color = '#ff4757';
+                if (inputWrap) inputWrap.style.borderColor = 'rgba(255,71,87,.4)';
+                _usernameIsAvailable = false;
+            } else if (state === 'error') {
+                statusEl.textContent = '';
+                hintEl.textContent = message || '';
+                hintEl.style.color = 'var(--text3)';
+                _usernameIsAvailable = null;
+            } else {
+                statusEl.textContent = '';
+                hintEl.textContent = '';
+                _usernameIsAvailable = null;
+            }
+        }
+
+        async function _checkUsernameAvailable(username) {
+            if (!username || username.length < 3) {
+                _setUsernameStatus('clear');
+                return;
+            }
+            _lastCheckedUsername = username;
+            _setUsernameStatus('checking');
+            try {
+                const { data, error } = await sb
+                    .from('profiles')
+                    .select('id')
+                    .ilike('username', username)
+                    .limit(1);
+
+                // Ignore stale responses if user kept typing
+                if (username !== document.getElementById('username')?.value.trim().replace('@', '')) return;
+
+                if (error) {
+                    // If RLS blocks anonymous reads, we fall back to checking at submit time
+                    _setUsernameStatus('error', '');
+                    return;
+                }
+                if (data && data.length > 0) {
+                    _setUsernameStatus('taken');
+                } else {
+                    _setUsernameStatus('available', '@' + username + ' is yours!');
+                }
+            } catch (e) {
+                _setUsernameStatus('error', '');
+            }
+        }
+
+        function _debouncedUsernameCheck(rawValue) {
+            const username = rawValue.trim().replace('@', '');
+            clearTimeout(_usernameCheckTimer);
+            if (!username || username.length < 3) {
+                _setUsernameStatus('clear');
+                return;
+            }
+            _setUsernameStatus('checking');
+            _usernameCheckTimer = setTimeout(() => _checkUsernameAvailable(username), 500);
+        }
+
         // ===== SIGNUP HANDLER =====
         async function handleSignup() {
             const name = document.getElementById('name').value.trim();
@@ -1477,6 +1580,26 @@
             if (username.length < 3) {
                 showMsg('// ERROR: USERNAME MUST BE 3+ CHARACTERS', 'error');
                 return;
+            }
+
+            // ── HARD USERNAME UNIQUENESS CHECK ──────────────────────────
+            // Re-check at submit time regardless of live indicator state
+            try {
+                const { data: existingUsers, error: uqErr } = await sb
+                    .from('profiles')
+                    .select('id')
+                    .ilike('username', username)
+                    .limit(1);
+
+                if (!uqErr && existingUsers && existingUsers.length > 0) {
+                    showMsg('// ERROR: USERNAME @' + username.toUpperCase() + ' IS ALREADY TAKEN — CHOOSE ANOTHER', 'error');
+                    document.getElementById('username').focus();
+                    _setUsernameStatus('taken');
+                    return;
+                }
+            } catch (uqEx) {
+                // If check fails (e.g. RLS), proceed — Supabase unique constraint will catch it
+                console.warn('Username uniqueness pre-check failed:', uqEx);
             }
 
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -1531,7 +1654,15 @@
                     showMsg('// ACCOUNT CREATED — OPENING PAYMENT PORTAL...', 'success');
 
                     // Create profile record
-                    await updateUserProfile(data.user.id, email, name, username, location);
+                    const profileResult = await updateUserProfile(data.user.id, email, name, username, location);
+                    if (profileResult?.usernameConflict) {
+                        showMsg('// ERROR: USERNAME @' + username.toUpperCase() + ' IS ALREADY TAKEN — CHOOSE ANOTHER', 'error');
+                        document.getElementById('username').focus();
+                        _setUsernameStatus('taken');
+                        btn.classList.remove('loading');
+                        btn.disabled = false;
+                        return;
+                    }
 
                     // Open Paddle checkout
                     paddleCheckoutOpened = true;
