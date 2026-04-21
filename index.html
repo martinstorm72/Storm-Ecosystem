@@ -5850,7 +5850,7 @@
         }
         // ===== OPERATOR COMMAND ACCESS TESTS =====
         // Run window.testOperatorAccess() in console to verify flow
-        window.testOperatorAccess = function() {
+        window.testOperatorAccess = function () {
             const results = [];
             const paid = localStorage.getItem('storm_os_paid') === 'true';
             const loggedIn = localStorage.getItem('storm_os_auth') === 'true';
@@ -5873,7 +5873,7 @@
         };
 
         // Simulate a successful purchase (for QA/testing only — no real payment)
-        window.simulateOperatorPurchase = function() {
+        window.simulateOperatorPurchase = function () {
             localStorage.setItem('storm_os_paid', 'true');
             localStorage.setItem('storm_os_auth', 'true');
             localStorage.setItem('storm_os_operator_access', 'true');
