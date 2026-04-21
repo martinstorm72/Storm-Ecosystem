@@ -7461,15 +7461,14 @@
         </div>
     </div>
 
-    <!-- CONFIG LOADER: secrets live in config.js (gitignored). See config.example.js. -->
-    <script src="config.js" onerror="console.info('[OPERATOR] config.js not found — using built-in config.')"></script>
+    <!-- CONFIG LOADER: optional — falls back to built-in config if missing -->
+    <script src="config.js" onerror="console.info('[OPERATOR] config.js not found — using built-in credentials.')"></script>
     <script>
         // ===== SUPABASE CONFIG =====
-        // Falls back to hardcoded values if config.js is missing or incomplete
+        // Uses config.js if present, otherwise falls back to hardcoded project credentials
         const _CFG = window.__APP_CONFIG__ || {};
         const SUPABASE_URL = _CFG.SUPABASE_URL || 'https://mryishzprrgpxauoccmr.supabase.co';
         const SUPABASE_KEY = _CFG.SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
-        // Always configured now — guard kept for safety
         const _SUPABASE_CONFIGURED = !!(SUPABASE_URL && SUPABASE_URL.startsWith('https://') && SUPABASE_KEY && SUPABASE_KEY.length > 20);
         window._SUPABASE_CONFIGURED = _SUPABASE_CONFIGURED;
         let supabaseClient = null, currentUser = null, isSupabaseReady = false;
@@ -7479,29 +7478,8 @@
 
         async function getCurrentUser() { if (!supabaseClient) return null; try { const { data: { session } } = await supabaseClient.auth.getSession(); return session?.user || null; } catch (e) { return null; } }
         async function checkPaidStatus(userId) { if (!supabaseClient || !userId) return true; try { const { data, error } = await supabaseClient.from('profiles').select('is_paid,subscription_status').eq('id', userId).single(); if (error) return true; return data ? (data.is_paid === true || data.subscription_status === 'active') : true; } catch (e) { return true; } }
-
-        // protectDashboard — boots from localStorage instantly, verifies with Supabase in background
-        // Never blocks the dashboard from loading; redirects only when Supabase confirms no session
-        async function protectDashboard() {
-            // Fast-path: trust localStorage so the dashboard opens instantly on page load
-            const lsAuth = localStorage.getItem('storm_os_auth') === 'true';
-            const lsPaid = localStorage.getItem('storm_os_paid') === 'true';
-            if (lsAuth && lsPaid) return true; // optimistically allow, Supabase will verify in background
-
-            // No localStorage auth — must check Supabase before allowing access
-            if (!supabaseClient) {
-                // Supabase not ready yet — allow local-only mode rather than redirect loop
-                return true;
-            }
-            const user = await getCurrentUser();
-            if (!user) { window.location.href = 'login.html'; return false; }
-            const hasPaid = await checkPaidStatus(user.id);
-            if (!hasPaid) { window.location.href = 'index.html#pricing'; return false; }
-            currentUser = user;
-            localStorage.setItem('storm_os_auth', 'true');
-            localStorage.setItem('storm_os_paid', 'true');
-            return true;
-        }
+        // protectDashboard is no longer used directly — auth is handled inside initSupabase after boot
+        async function protectDashboard() { return true; }
         async function handleLogout() { if (!supabaseClient) return; try { await saveCloudData(); await supabaseClient.auth.signOut(); localStorage.removeItem('storm_os_auth'); localStorage.removeItem('storm_os_paid'); localStorage.removeItem('storm_os_payment_tx'); localStorage.removeItem('storm_os_payment_pending'); localStorage.removeItem('storm_os_operator_access'); localStorage.removeItem('storm_os_operator_granted_at'); showToast('✅ Logged out'); setTimeout(() => window.location.href = 'login.html', 500); } catch (e) { showToast('⚠ Logout failed'); } }
 
         // ===== OPERATOR COMMAND ACCESS TEST (run in console) =====
@@ -7747,11 +7725,23 @@
                     el.innerHTML = '<i class="fas fa-sync fa-spin"></i> SYNCING';
                     el.className = 'sync-indicator syncing';
                 } else if (status === 'error') {
-                    el.innerHTML = '<i class="fas fa-exclamation-triangle"></i> SYNC ERROR';
+                    el.innerHTML = '<i class="fas fa-exclamation-triangle"></i> SYNC ERROR — will retry';
+                    el.className = 'sync-indicator error';
+                } else if (status === 'offline') {
+                    el.innerHTML = '<i class="fas fa-wifi"></i> OFFLINE';
                     el.className = 'sync-indicator error';
                 }
             } else { el.style.display = 'none'; }
         }
+
+        // Flush pending save when network comes back online
+        window.addEventListener('online', () => {
+            if (currentUser && _pendingCloudSave) {
+                console.info('[SYNC] Network restored — flushing pending save');
+                _flushToCloud();
+            }
+        });
+        window.addEventListener('offline', () => { updateSyncStatus('offline'); });
 
         // ── Smart merge: union arrays by unique id or text, prefer newest item ──
         function _mergeArrayById(local, cloud, idKey) {
@@ -9856,80 +9846,108 @@
         }
 
         async function initSupabase() {
-            // STEP 1 — Boot immediately from local data. No waiting on network.
+            // ── STEP 1: ALWAYS boot from local data immediately ──────────────
+            // This runs regardless of Supabase, network, or config state.
+            // The dashboard MUST open — sync happens in background.
             setLoadingMsg('BOOTING SYSTEMS...');
-            try { await boot(); } catch (e) { console.error('boot error:', e); }
+            try {
+                load(); ensureArrays();
+                if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
+                await boot();
+            } catch (e) {
+                console.error('[OPERATOR] boot() error:', e);
+                // Even on error, we must continue and hide the overlay
+            }
+
+            // Always hide overlay — never leave user stuck on loading screen
             hideLoadingOverlay();
 
-            // STEP 2 — Auth + initial cloud sync in background after dashboard is visible
+            // ── STEP 2: Auth + cloud sync in background ──────────────────────
+            // Runs 300ms after dashboard is visible and interactive
             setTimeout(async () => {
                 try {
                     if (!window.supabase || !window.supabase.createClient) {
                         console.info('[OPERATOR] Supabase SDK not loaded — local-only mode.');
+                        const syncEl = document.getElementById('sync-status');
+                        if (syncEl) syncEl.style.display = 'none';
                         return;
                     }
 
                     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
                     isSupabaseReady = true;
 
+                    // Get session with timeout
                     let session = null;
                     try {
                         const r = await _withTimeout(supabaseClient.auth.getSession(), 6000);
                         session = r?.data?.session || null;
-                    } catch (e) { console.warn('[SYNC] getSession timeout/error:', e.message); }
+                    } catch (e) {
+                        console.warn('[SYNC] getSession timeout/error:', e.message);
+                    }
 
                     if (!session) {
-                        // No active Supabase session
+                        // No Supabase session — check localStorage flags
                         const lsAuth = localStorage.getItem('storm_os_auth') === 'true';
                         const lsPaid = localStorage.getItem('storm_os_paid') === 'true';
-                        if (!lsAuth || !lsPaid) {
-                            // Truly not logged in — redirect to login
-                            console.info('[OPERATOR] No session found — redirecting to login.');
-                            window.location.href = 'login.html';
-                        }
-                        // If localStorage says logged in but Supabase session is gone (e.g. expired token),
-                        // clear stale flags and redirect cleanly
-                        else {
-                            console.info('[OPERATOR] Stale localStorage auth — clearing and redirecting to login.');
+                        if (lsAuth && lsPaid) {
+                            // Stale flags — session expired. Clear and redirect.
+                            console.info('[OPERATOR] Session expired — clearing auth and redirecting to login.');
                             localStorage.removeItem('storm_os_auth');
                             localStorage.removeItem('storm_os_paid');
                             localStorage.removeItem('storm_os_operator_access');
+                            window.location.href = 'login.html';
+                        } else {
+                            // Not logged in — redirect to login
+                            console.info('[OPERATOR] No session — redirecting to login.');
                             window.location.href = 'login.html';
                         }
                         return;
                     }
 
-                    // Session confirmed — update localStorage
+                    // ── Session confirmed ─────────────────────────────────────
                     localStorage.setItem('storm_os_auth', 'true');
 
+                    // Check payment status
                     let paid = true;
                     try { paid = await _withTimeout(checkPaidStatus(session.user.id), 4000); } catch (e) { paid = true; }
                     if (paid === false) {
                         localStorage.removeItem('storm_os_paid');
+                        localStorage.removeItem('storm_os_operator_access');
                         window.location.href = 'index.html#pricing';
                         return;
                     }
                     localStorage.setItem('storm_os_paid', 'true');
                     localStorage.setItem('storm_os_operator_access', 'true');
 
+                    // Update UI with user info
                     currentUser = session.user;
-                    addLogoutButton();
-                    updateHeaderUserArea(currentUser);
+                    try { addLogoutButton(); } catch(e) {}
+                    try { updateHeaderUserArea(currentUser); } catch(e) {}
                     const nameEl = document.getElementById('user-name');
                     if (nameEl) {
-                        const n = currentUser.user_metadata?.full_name || currentUser.user_metadata?.display_name || currentUser.email?.split('@')[0] || 'OPERATOR';
+                        const n = currentUser.user_metadata?.full_name ||
+                                  currentUser.user_metadata?.display_name ||
+                                  currentUser.email?.split('@')[0] || 'OPERATOR';
                         nameEl.innerHTML = n.toUpperCase();
+                        S.user.name = n.toUpperCase();
                     }
 
-                    // Initial cloud load — retry once on timeout
+                    // ── Cloud sync: pull then render ──────────────────────────
                     let got = false;
-                    try { got = await _withTimeout(loadCloudData(currentUser.id), 8000); }
-                    catch (e) {
-                        console.warn('[SYNC] Initial load timeout, retrying…');
+                    try {
+                        got = await _withTimeout(loadCloudData(currentUser.id), 8000);
+                    } catch (e) {
+                        console.warn('[SYNC] Initial load timeout, retrying once…');
                         try { got = await loadCloudData(currentUser.id); } catch (e2) { console.warn('[SYNC] Retry failed:', e2.message); }
                     }
-                    if (got) renderAll();
+                    if (got) {
+                        renderAll();
+                        updateXPBar();
+                        const nameEl2 = document.getElementById('user-name');
+                        if (nameEl2 && S.user.name) nameEl2.innerHTML = S.user.name.toUpperCase();
+                    }
 
+                    // Listen for auth events
                     supabaseClient.auth.onAuthStateChange((event, changedSession) => {
                         if (event === 'SIGNED_OUT') {
                             localStorage.removeItem('storm_os_auth');
@@ -9941,8 +9959,11 @@
                             currentUser = changedSession.user;
                         }
                     });
-                } catch (e) { console.warn('[SYNC] Background auth error (non-fatal):', e); }
-            }, 200);
+
+                } catch (e) {
+                    console.warn('[SYNC] Background auth/sync error (dashboard still usable):', e);
+                }
+            }, 300);
         }
 
         async function boot() {
@@ -10000,8 +10021,6 @@
             } catch (e) { console.error('boot() error:', e); }
         }
 
-        load(); ensureArrays();
-        if (!S.analytics.daily[todayKey]) S.analytics.daily[todayKey] = { tasks: 0, min: 0, sess: 0, score: 0 };
         initSupabase();
         checkDailyOnLoad();
         setInterval(checkAndReset, 60000);
