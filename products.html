@@ -2002,8 +2002,18 @@
                 <div class="nav-status">
                     <div class="dot"></div>OPERATIONAL
                 </div>
-                <a href="login.html" class="btn btn-ghost" style="margin-left:4px">LOGIN</a>
-                <a href="signup.html" class="btn btn-primary" style="margin-left:4px">GET STARTED</a>
+                <a id="nav-dashboard-link" href="dashboard.html" class="btn btn-ghost"
+                    style="display:none;margin-left:4px">OPERATOR COMMAND</a>
+                <a id="nav-login-link" href="login.html" class="btn btn-ghost" style="margin-left:4px">LOGIN</a>
+                <a id="nav-signup-link" href="signup.html" class="btn btn-primary" style="margin-left:4px">GET
+                    STARTED</a>
+                <div id="nav-user-area" style="display:none;align-items:center;gap:8px;margin-left:4px;">
+                    <a href="Profile.html" id="nav-user-avatar"
+                        style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.65rem;font-weight:700;color:var(--text);text-decoration:none;cursor:pointer"
+                        title="Profile">OP</a>
+                    <button onclick="handleNavLogout()" class="btn btn-ghost"
+                        style="font-size:.65rem;padding:4px 10px;cursor:pointer">LOGOUT</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -2578,6 +2588,66 @@
             const empty = document.getElementById('no-products');
             if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
         }
+
+        // ── AUTH-AWARE NAV ──
+        const _SUPA_URL_P = 'https://mryishzprrgpxauoccmr.supabase.co';
+        const _SUPA_KEY_P = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
+        let _sbP = null;
+        try { _sbP = window.supabase?.createClient(_SUPA_URL_P, _SUPA_KEY_P) || null; } catch (e) { }
+
+        async function _checkPaidP(userId) {
+            if (!_sbP || !userId) return false;
+            try {
+                const { data, error } = await _sbP.from('profiles').select('is_paid,subscription_status').eq('id', userId).single();
+                return !error && data && (data.is_paid === true || data.subscription_status === 'active');
+            } catch (e) { return false; }
+        }
+
+        function _setNavLoggedInP(user) {
+            document.getElementById('nav-dashboard-link').style.display = 'inline-flex';
+            document.getElementById('nav-login-link').style.display = 'none';
+            document.getElementById('nav-signup-link').style.display = 'none';
+            document.getElementById('nav-user-area').style.display = 'flex';
+            const av = document.getElementById('nav-user-avatar');
+            if (av && user) av.textContent = (user.user_metadata?.full_name || user.email || 'OP').substring(0, 2).toUpperCase();
+            localStorage.setItem('storm_os_auth', 'true');
+            localStorage.setItem('storm_os_paid', 'true');
+        }
+
+        function _setNavLoggedOutP() {
+            document.getElementById('nav-dashboard-link').style.display = 'none';
+            document.getElementById('nav-login-link').style.display = 'inline-flex';
+            document.getElementById('nav-signup-link').style.display = 'inline-flex';
+            document.getElementById('nav-user-area').style.display = 'none';
+            localStorage.removeItem('storm_os_auth');
+            localStorage.removeItem('storm_os_paid');
+        }
+
+        async function handleNavLogout() {
+            try { if (_sbP) await _sbP.auth.signOut(); } catch (e) { }
+            _setNavLoggedOutP();
+            window.location.href = 'index.html';
+        }
+
+        (async function updateNavP() {
+            // Instant: localStorage first (zero flicker)
+            if (localStorage.getItem('storm_os_auth') === 'true' && localStorage.getItem('storm_os_paid') === 'true') {
+                document.getElementById('nav-dashboard-link').style.display = 'inline-flex';
+                document.getElementById('nav-login-link').style.display = 'none';
+                document.getElementById('nav-signup-link').style.display = 'none';
+            }
+            if (!_sbP) return;
+            try {
+                const { data: { session } } = await _sbP.auth.getSession();
+                if (session?.user) {
+                    const paid = await _checkPaidP(session.user.id);
+                    if (paid) _setNavLoggedInP(session.user);
+                    else _setNavLoggedOutP();
+                } else {
+                    _setNavLoggedOutP();
+                }
+            } catch (e) { }
+        })();
     </script>
 </body>
 
