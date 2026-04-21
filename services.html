@@ -1661,8 +1661,16 @@
                 <a href="policy.html">Legal</a>
             </div>
             <div class="nav-btns">
-                <a href="login.html" class="btn-o">LOGIN</a>
-                <a href="signup.html" class="btn-p">GET STARTED</a>
+                <a id="nav-dashboard-link-s" href="dashboard.html" class="btn-o" style="display:none">OPERATOR
+                    COMMAND</a>
+                <a id="nav-login-link-s" href="login.html" class="btn-o">LOGIN</a>
+                <a id="nav-signup-link-s" href="signup.html" class="btn-p">GET STARTED</a>
+                <div id="nav-user-area-s" style="display:none;align-items:center;gap:8px;">
+                    <a href="Profile.html"
+                        style="font-family:var(--mono);font-size:.65rem;color:var(--text2);text-decoration:none">PROFILE</a>
+                    <button onclick="handleNavLogoutS()" class="btn-o"
+                        style="cursor:pointer;background:none;border:1px solid rgba(255,255,255,.15);padding:4px 10px;border-radius:4px;font-family:var(--mono);font-size:.65rem;color:var(--text2)">LOGOUT</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -2475,6 +2483,61 @@
                 });
             }, { threshold: 0.08 });
             document.querySelectorAll('.rev, .rev-left, .rev-right').forEach(el => obs.observe(el));
+        })();
+
+        // ── AUTH-AWARE NAV ──
+        const _SUPA_URL_S = 'https://mryishzprrgpxauoccmr.supabase.co';
+        const _SUPA_KEY_S = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
+        let _sbS = null;
+        try { _sbS = window.supabase?.createClient(_SUPA_URL_S, _SUPA_KEY_S) || null; } catch (e) { }
+
+        function _setNavLoggedInS() {
+            const d = document.getElementById('nav-dashboard-link-s');
+            const l = document.getElementById('nav-login-link-s');
+            const g = document.getElementById('nav-signup-link-s');
+            const u = document.getElementById('nav-user-area-s');
+            if (d) d.style.display = 'inline-flex';
+            if (l) l.style.display = 'none';
+            if (g) g.style.display = 'none';
+            if (u) u.style.display = 'flex';
+        }
+
+        function _setNavLoggedOutS() {
+            const d = document.getElementById('nav-dashboard-link-s');
+            const l = document.getElementById('nav-login-link-s');
+            const g = document.getElementById('nav-signup-link-s');
+            const u = document.getElementById('nav-user-area-s');
+            if (d) d.style.display = 'none';
+            if (l) l.style.display = 'inline-flex';
+            if (g) g.style.display = 'inline-flex';
+            if (u) u.style.display = 'none';
+        }
+
+        async function handleNavLogoutS() {
+            try { if (_sbS) await _sbS.auth.signOut(); } catch (e) { }
+            localStorage.removeItem('storm_os_auth');
+            localStorage.removeItem('storm_os_paid');
+            localStorage.removeItem('storm_os_operator_access');
+            _setNavLoggedOutS();
+            window.location.href = 'index.html';
+        }
+
+        (async function updateNavS() {
+            if (localStorage.getItem('storm_os_auth') === 'true' && localStorage.getItem('storm_os_paid') === 'true') {
+                _setNavLoggedInS();
+            }
+            if (!_sbS) return;
+            try {
+                const { data: { session } } = await _sbS.auth.getSession();
+                if (session?.user) {
+                    const { data } = await _sbS.from('profiles').select('is_paid,subscription_status').eq('id', session.user.id).single();
+                    const paid = data && (data.is_paid === true || data.subscription_status === 'active');
+                    if (paid) { _setNavLoggedInS(); localStorage.setItem('storm_os_auth', 'true'); localStorage.setItem('storm_os_paid', 'true'); }
+                    else _setNavLoggedOutS();
+                } else {
+                    _setNavLoggedOutS();
+                }
+            } catch (e) { }
         })();
     </script>
 
