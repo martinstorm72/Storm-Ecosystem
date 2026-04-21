@@ -1828,8 +1828,19 @@
                 <div class="nav-status">
                     <div class="dot"></div>AVAILABLE NOW
                 </div>
-                <a href="login.html" class="btn btn-ghost" style="margin-left:4px;cursor:pointer">LOGIN</a>
-                <a href="signup.html" class="btn btn-primary" style="margin-left:4px;cursor:pointer">GET STARTED</a>
+                <a id="nav-dashboard-link-li" href="dashboard.html" class="btn btn-ghost"
+                    style="display:none;margin-left:4px">OPERATOR COMMAND</a>
+                <a id="nav-login-link-li" href="login.html" class="btn btn-ghost"
+                    style="margin-left:4px;cursor:pointer">LOGIN</a>
+                <a id="nav-signup-link-li" href="signup.html" class="btn btn-primary"
+                    style="margin-left:4px;cursor:pointer">GET STARTED</a>
+                <div id="nav-user-area-li" style="display:none;align-items:center;gap:8px;margin-left:4px;">
+                    <a href="Profile.html" id="nav-user-avatar-li"
+                        style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.65rem;font-weight:700;color:var(--text);text-decoration:none"
+                        title="Profile">OP</a>
+                    <button onclick="handleNavLogoutLI()" class="btn btn-ghost"
+                        style="font-size:.65rem;padding:4px 10px;cursor:pointer">LOGOUT</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -2223,7 +2234,7 @@
 
         // ── TEST UTILITY (run in console) ───────────────────────────────
         // window.testLockInDownload()  — simulate successful purchase + PDF download
-        window.testLockInDownload = function() {
+        window.testLockInDownload = function () {
             console.log('[Lock In TEST] Simulating successful payment...');
             localStorage.setItem('lockin_paid', 'true');
             localStorage.setItem('lockin_payment_tx', 'TEST-' + Date.now());
@@ -2238,7 +2249,71 @@
 
         // ── RUN ON LOAD ─────────────────────────────────────────────────
         processLockInPaymentReturn();
+
+        // ── AUTH-AWARE NAV ──────────────────────────────────────────────
+        (async function initLINav() {
+            // Instant: use localStorage so nav renders before Supabase responds
+            const lsPaid = localStorage.getItem('storm_os_paid') === 'true';
+            const lsAuth = localStorage.getItem('storm_os_auth') === 'true';
+
+            function setNavIn(user) {
+                document.getElementById('nav-dashboard-link-li').style.display = 'inline-flex';
+                document.getElementById('nav-login-link-li').style.display = 'none';
+                document.getElementById('nav-signup-link-li').style.display = 'none';
+                document.getElementById('nav-user-area-li').style.display = 'flex';
+                const av = document.getElementById('nav-user-avatar-li');
+                if (av && user) av.textContent = (user.user_metadata?.full_name || user.email || 'OP').substring(0, 2).toUpperCase();
+            }
+            function setNavOut() {
+                document.getElementById('nav-dashboard-link-li').style.display = 'none';
+                document.getElementById('nav-login-link-li').style.display = 'inline-flex';
+                document.getElementById('nav-signup-link-li').style.display = 'inline-flex';
+                document.getElementById('nav-user-area-li').style.display = 'none';
+            }
+
+            if (lsAuth && lsPaid) setNavIn(null); // optimistic instant render
+
+            // Load Supabase dynamically for authoritative check
+            try {
+                if (typeof window.supabase === 'undefined') {
+                    await new Promise((resolve, reject) => {
+                        const s = document.createElement('script');
+                        s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+                        s.onload = resolve; s.onerror = reject;
+                        document.head.appendChild(s);
+                    });
+                }
+                const _sbLI = window.supabase.createClient(
+                    'https://mryishzprrgpxauoccmr.supabase.co',
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ'
+                );
+                const { data: { session } } = await _sbLI.auth.getSession();
+                if (session?.user) {
+                    const { data } = await _sbLI.from('profiles').select('is_paid,subscription_status').eq('id', session.user.id).single();
+                    const paid = data && (data.is_paid === true || data.subscription_status === 'active');
+                    if (paid) {
+                        setNavIn(session.user);
+                        localStorage.setItem('storm_os_auth', 'true');
+                        localStorage.setItem('storm_os_paid', 'true');
+                    } else { setNavOut(); }
+                } else { setNavOut(); }
+
+                // Wire logout button
+                window.handleNavLogoutLI = async function () {
+                    try { await _sbLI.auth.signOut(); } catch (e) { }
+                    localStorage.removeItem('storm_os_auth');
+                    localStorage.removeItem('storm_os_paid');
+                    localStorage.removeItem('storm_os_operator_access');
+                    setNavOut();
+                    window.location.href = 'index.html';
+                };
+            } catch (e) {
+                // Fallback: if Supabase fails, trust localStorage
+                if (lsAuth && lsPaid) setNavIn(null);
+                else setNavOut();
+            }
+        })();
     </script>
 </body>
 
-</html>
+</html>s
