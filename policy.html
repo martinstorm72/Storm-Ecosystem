@@ -1055,8 +1055,16 @@
                 <a href="index.html#pricing">Pricing</a>
             </div>
             <div class="nav-btns">
-                <a href="login.html" class="btn-o">LOGIN</a>
-                <a href="signup.html" class="btn-p">GET STARTED</a>
+                <a id="nav-dashboard-link-pol" href="dashboard.html" class="btn-o" style="display:none">OPERATOR
+                    COMMAND</a>
+                <a id="nav-login-link-pol" href="login.html" class="btn-o">LOGIN</a>
+                <a id="nav-signup-link-pol" href="signup.html" class="btn-p">GET STARTED</a>
+                <div id="nav-user-area-pol" style="display:none;align-items:center;gap:8px;">
+                    <a href="Profile.html"
+                        style="font-family:var(--mono);font-size:.65rem;color:var(--text2);text-decoration:none">PROFILE</a>
+                    <button onclick="handleNavLogoutPol()" class="btn-o"
+                        style="cursor:pointer;background:none;border:1px solid rgba(255,255,255,.15);padding:4px 10px;border-radius:4px;font-family:var(--mono);font-size:.65rem;color:var(--text2)">LOGOUT</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -1460,6 +1468,48 @@
                 });
             }, { threshold: 0.08 });
             document.querySelectorAll('.rev, .rev-left, .rev-right').forEach(el => obs.observe(el));
+        })();
+
+        // ── AUTH-AWARE NAV ──
+        const _SUPA_URL_POL = 'https://mryishzprrgpxauoccmr.supabase.co';
+        const _SUPA_KEY_POL = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
+        let _sbPol = null;
+        try { _sbPol = window.supabase?.createClient(_SUPA_URL_POL, _SUPA_KEY_POL) || null; } catch (e) { }
+
+        function _setNavLoggedInPol() {
+            document.getElementById('nav-dashboard-link-pol').style.display = 'inline-flex';
+            document.getElementById('nav-login-link-pol').style.display = 'none';
+            document.getElementById('nav-signup-link-pol').style.display = 'none';
+            document.getElementById('nav-user-area-pol').style.display = 'flex';
+        }
+        function _setNavLoggedOutPol() {
+            document.getElementById('nav-dashboard-link-pol').style.display = 'none';
+            document.getElementById('nav-login-link-pol').style.display = 'inline-flex';
+            document.getElementById('nav-signup-link-pol').style.display = 'inline-flex';
+            document.getElementById('nav-user-area-pol').style.display = 'none';
+        }
+        async function handleNavLogoutPol() {
+            try { if (_sbPol) await _sbPol.auth.signOut(); } catch (e) { }
+            localStorage.removeItem('storm_os_auth');
+            localStorage.removeItem('storm_os_paid');
+            localStorage.removeItem('storm_os_operator_access');
+            _setNavLoggedOutPol();
+            window.location.href = 'index.html';
+        }
+        (async function updateNavPol() {
+            if (localStorage.getItem('storm_os_auth') === 'true' && localStorage.getItem('storm_os_paid') === 'true') {
+                _setNavLoggedInPol();
+            }
+            if (!_sbPol) return;
+            try {
+                const { data: { session } } = await _sbPol.auth.getSession();
+                if (session?.user) {
+                    const { data } = await _sbPol.from('profiles').select('is_paid,subscription_status').eq('id', session.user.id).single();
+                    const paid = data && (data.is_paid === true || data.subscription_status === 'active');
+                    if (paid) { _setNavLoggedInPol(); localStorage.setItem('storm_os_auth', 'true'); localStorage.setItem('storm_os_paid', 'true'); }
+                    else _setNavLoggedOutPol();
+                } else { _setNavLoggedOutPol(); }
+            } catch (e) { }
         })();
     </script>
 
