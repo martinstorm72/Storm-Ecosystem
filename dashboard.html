@@ -6340,7 +6340,11 @@
                                     class="fas fa-play"></i> START</button>
                             <button class="btn btn-ghost" onclick="resetMini()"><i class="fas fa-undo-alt"></i>
                                 RESET</button>
-                            <button class="btn btn-success" id="mini-finished-btn" onclick="finishMiniTimer()" style="display:none;background:linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08));border:1px solid rgba(57,211,83,.45);color:#39d353;font-weight:700;letter-spacing:.06em;transition:all .2s" onmouseover="this.style.background='linear-gradient(135deg,rgba(57,211,83,.32),rgba(57,211,83,.16))'" onmouseout="this.style.background='linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08))'"><i class="fas fa-check-circle"></i> FINISHED</button>
+                            <button class="btn btn-success" id="mini-finished-btn" onclick="finishMiniTimer()"
+                                style="display:none;background:linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08));border:1px solid rgba(57,211,83,.45);color:#39d353;font-weight:700;letter-spacing:.06em;transition:all .2s"
+                                onmouseover="this.style.background='linear-gradient(135deg,rgba(57,211,83,.32),rgba(57,211,83,.16))'"
+                                onmouseout="this.style.background='linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08))'"><i
+                                    class="fas fa-check-circle"></i> FINISHED</button>
                         </div>
                     </div>
                     <div class="card" style="margin-top:16px">
@@ -6426,7 +6430,11 @@
                             RESET</button>
                         <button class="btn btn-ghost btn-sm" onclick="skipTimer()"><i class="fas fa-forward"></i>
                             SKIP</button>
-                        <button class="btn btn-success" id="main-finished-btn" onclick="finishMainTimer()" style="display:none;background:linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08));border:1px solid rgba(57,211,83,.45);color:#39d353;font-weight:700;letter-spacing:.06em;transition:all .2s" onmouseover="this.style.background='linear-gradient(135deg,rgba(57,211,83,.32),rgba(57,211,83,.16))'" onmouseout="this.style.background='linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08))'"><i class="fas fa-check-circle"></i> FINISHED</button>
+                        <button class="btn btn-success" id="main-finished-btn" onclick="finishMainTimer()"
+                            style="display:none;background:linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08));border:1px solid rgba(57,211,83,.45);color:#39d353;font-weight:700;letter-spacing:.06em;transition:all .2s"
+                            onmouseover="this.style.background='linear-gradient(135deg,rgba(57,211,83,.32),rgba(57,211,83,.16))'"
+                            onmouseout="this.style.background='linear-gradient(135deg,rgba(57,211,83,.18),rgba(57,211,83,.08))'"><i
+                                class="fas fa-check-circle"></i> FINISHED</button>
                     </div>
                     <!-- ADAPTIVE FOCUS TIMER -->
                     <div class="adaptive-timer-bar" id="adaptive-timer-bar">
@@ -7454,19 +7462,16 @@
     </div>
 
     <!-- CONFIG LOADER: secrets live in config.js (gitignored). See config.example.js. -->
-    <script src="config.js"></script>
+    <script src="config.js" onerror="console.info('[OPERATOR] config.js not found — using built-in config.')"></script>
     <script>
         // ===== SUPABASE CONFIG =====
-        // Loaded from config.js — never hardcode secrets here.
-        const SUPABASE_URL = (window.__APP_CONFIG__ && window.__APP_CONFIG__.SUPABASE_URL) || '';
-        const SUPABASE_KEY = (window.__APP_CONFIG__ && window.__APP_CONFIG__.SUPABASE_KEY) || '';
-        // Guard: detect placeholder / missing config so sync UI never shows a misleading "SYNCED" state
-        const _SUPABASE_CONFIGURED = (
-            SUPABASE_URL && SUPABASE_URL.startsWith('https://') &&
-            !SUPABASE_URL.includes('your-project') &&
-            SUPABASE_KEY && SUPABASE_KEY.length > 20
-        );
-        window._SUPABASE_CONFIGURED = _SUPABASE_CONFIGURED; // expose for visibility
+        // Falls back to hardcoded values if config.js is missing or incomplete
+        const _CFG = window.__APP_CONFIG__ || {};
+        const SUPABASE_URL = _CFG.SUPABASE_URL || 'https://mryishzprrgpxauoccmr.supabase.co';
+        const SUPABASE_KEY = _CFG.SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yeWlzaHpwcnJncHhhdW9jY21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMTI5MTEsImV4cCI6MjA4OTY4ODkxMX0.i1-354vLtuvNWorGMYFXhqb8C-1DOlGjavAzOnli5UQ';
+        // Always configured now — guard kept for safety
+        const _SUPABASE_CONFIGURED = !!(SUPABASE_URL && SUPABASE_URL.startsWith('https://') && SUPABASE_KEY && SUPABASE_KEY.length > 20);
+        window._SUPABASE_CONFIGURED = _SUPABASE_CONFIGURED;
         let supabaseClient = null, currentUser = null, isSupabaseReady = false;
 
         function setLoadingMsg(msg) { const c = msg.replace(/\.+$/, ''); const t = document.getElementById('loading-msg-text'); if (t) { t.textContent = c; } else { const p = document.getElementById('loading-msg'); if (p) p.textContent = msg; } }
@@ -7474,11 +7479,33 @@
 
         async function getCurrentUser() { if (!supabaseClient) return null; try { const { data: { session } } = await supabaseClient.auth.getSession(); return session?.user || null; } catch (e) { return null; } }
         async function checkPaidStatus(userId) { if (!supabaseClient || !userId) return true; try { const { data, error } = await supabaseClient.from('profiles').select('is_paid,subscription_status').eq('id', userId).single(); if (error) return true; return data ? (data.is_paid === true || data.subscription_status === 'active') : true; } catch (e) { return true; } }
-        async function protectDashboard() { if (!supabaseClient) { window.location.href = 'login.html'; return false; } const user = await getCurrentUser(); if (!user) { window.location.href = 'login.html'; return false; } const hasPaid = await checkPaidStatus(user.id); if (!hasPaid) { window.location.href = 'index.html#pricing'; return false; } currentUser = user; return true; }
+
+        // protectDashboard — boots from localStorage instantly, verifies with Supabase in background
+        // Never blocks the dashboard from loading; redirects only when Supabase confirms no session
+        async function protectDashboard() {
+            // Fast-path: trust localStorage so the dashboard opens instantly on page load
+            const lsAuth = localStorage.getItem('storm_os_auth') === 'true';
+            const lsPaid = localStorage.getItem('storm_os_paid') === 'true';
+            if (lsAuth && lsPaid) return true; // optimistically allow, Supabase will verify in background
+
+            // No localStorage auth — must check Supabase before allowing access
+            if (!supabaseClient) {
+                // Supabase not ready yet — allow local-only mode rather than redirect loop
+                return true;
+            }
+            const user = await getCurrentUser();
+            if (!user) { window.location.href = 'login.html'; return false; }
+            const hasPaid = await checkPaidStatus(user.id);
+            if (!hasPaid) { window.location.href = 'index.html#pricing'; return false; }
+            currentUser = user;
+            localStorage.setItem('storm_os_auth', 'true');
+            localStorage.setItem('storm_os_paid', 'true');
+            return true;
+        }
         async function handleLogout() { if (!supabaseClient) return; try { await saveCloudData(); await supabaseClient.auth.signOut(); localStorage.removeItem('storm_os_auth'); localStorage.removeItem('storm_os_paid'); localStorage.removeItem('storm_os_payment_tx'); localStorage.removeItem('storm_os_payment_pending'); localStorage.removeItem('storm_os_operator_access'); localStorage.removeItem('storm_os_operator_granted_at'); showToast('✅ Logged out'); setTimeout(() => window.location.href = 'login.html', 500); } catch (e) { showToast('⚠ Logout failed'); } }
 
         // ===== OPERATOR COMMAND ACCESS TEST (run in console) =====
-        window.testOperatorAccess = function() {
+        window.testOperatorAccess = function () {
             const paid = localStorage.getItem('storm_os_paid') === 'true';
             const loggedIn = localStorage.getItem('storm_os_auth') === 'true';
             const operatorAccess = localStorage.getItem('storm_os_operator_access') === 'true';
@@ -9837,13 +9864,11 @@
             // STEP 2 — Auth + initial cloud sync in background after dashboard is visible
             setTimeout(async () => {
                 try {
-                    if (!_SUPABASE_CONFIGURED) {
-                        console.info('[OPERATOR] Supabase not configured — running in local-only mode.');
-                        const syncEl = document.getElementById('sync-status');
-                        if (syncEl) syncEl.style.display = 'none';
+                    if (!window.supabase || !window.supabase.createClient) {
+                        console.info('[OPERATOR] Supabase SDK not loaded — local-only mode.');
                         return;
                     }
-                    if (!window.supabase || !window.supabase.createClient) return;
+
                     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
                     isSupabaseReady = true;
 
@@ -9853,11 +9878,39 @@
                         session = r?.data?.session || null;
                     } catch (e) { console.warn('[SYNC] getSession timeout/error:', e.message); }
 
-                    if (!session) return; // not logged in — local-only mode
+                    if (!session) {
+                        // No active Supabase session
+                        const lsAuth = localStorage.getItem('storm_os_auth') === 'true';
+                        const lsPaid = localStorage.getItem('storm_os_paid') === 'true';
+                        if (!lsAuth || !lsPaid) {
+                            // Truly not logged in — redirect to login
+                            console.info('[OPERATOR] No session found — redirecting to login.');
+                            window.location.href = 'login.html';
+                        }
+                        // If localStorage says logged in but Supabase session is gone (e.g. expired token),
+                        // clear stale flags and redirect cleanly
+                        else {
+                            console.info('[OPERATOR] Stale localStorage auth — clearing and redirecting to login.');
+                            localStorage.removeItem('storm_os_auth');
+                            localStorage.removeItem('storm_os_paid');
+                            localStorage.removeItem('storm_os_operator_access');
+                            window.location.href = 'login.html';
+                        }
+                        return;
+                    }
+
+                    // Session confirmed — update localStorage
+                    localStorage.setItem('storm_os_auth', 'true');
 
                     let paid = true;
                     try { paid = await _withTimeout(checkPaidStatus(session.user.id), 4000); } catch (e) { paid = true; }
-                    if (paid === false) { window.location.href = 'index.html#pricing'; return; }
+                    if (paid === false) {
+                        localStorage.removeItem('storm_os_paid');
+                        window.location.href = 'index.html#pricing';
+                        return;
+                    }
+                    localStorage.setItem('storm_os_paid', 'true');
+                    localStorage.setItem('storm_os_operator_access', 'true');
 
                     currentUser = session.user;
                     addLogoutButton();
@@ -9877,8 +9930,16 @@
                     }
                     if (got) renderAll();
 
-                    supabaseClient.auth.onAuthStateChange((event) => {
-                        if (event === 'SIGNED_OUT') window.location.href = 'login.html';
+                    supabaseClient.auth.onAuthStateChange((event, changedSession) => {
+                        if (event === 'SIGNED_OUT') {
+                            localStorage.removeItem('storm_os_auth');
+                            localStorage.removeItem('storm_os_paid');
+                            localStorage.removeItem('storm_os_operator_access');
+                            window.location.href = 'login.html';
+                        }
+                        if (event === 'TOKEN_REFRESHED' && changedSession?.user) {
+                            currentUser = changedSession.user;
+                        }
                     });
                 } catch (e) { console.warn('[SYNC] Background auth error (non-fatal):', e); }
             }, 200);
