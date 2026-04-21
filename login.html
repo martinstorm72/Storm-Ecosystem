@@ -1297,7 +1297,10 @@
             if (user) {
                 const hasPaid = await checkPaidStatus(user.id);
                 if (hasPaid) {
-                    window.location.href = 'index.html';
+                    localStorage.setItem('storm_os_auth', 'true');
+                    localStorage.setItem('storm_os_paid', 'true');
+                    localStorage.setItem('storm_os_operator_access', 'true');
+                    window.location.href = 'dashboard.html';
                 }
             }
         }
@@ -1368,9 +1371,11 @@
                                 localStorage.removeItem('storm_os_payment_tx');
                                 localStorage.removeItem('storm_os_payment_pending');
                                 localStorage.setItem('storm_os_paid', 'true');
-                                showMsg('// PAYMENT VERIFIED — LOADING HOME...', 'success');
+                                localStorage.setItem('storm_os_operator_access', 'true');
+                                localStorage.setItem('storm_os_operator_granted_at', new Date().toISOString());
+                                showMsg('// PAYMENT VERIFIED — LOADING DASHBOARD...', 'success');
                                 setTimeout(() => {
-                                    window.location.href = 'index.html';
+                                    window.location.href = 'dashboard.html';
                                 }, 900);
                                 return;
                             }
@@ -1379,9 +1384,11 @@
 
                     if (hasPaid) {
                         localStorage.setItem('storm_os_paid', 'true');
-                        showMsg('// ACCESS GRANTED — LOADING HOME...', 'success');
+                        localStorage.setItem('storm_os_operator_access', 'true');
+                        localStorage.setItem('storm_os_operator_granted_at', new Date().toISOString());
+                        showMsg('// ACCESS GRANTED — LOADING DASHBOARD...', 'success');
                         setTimeout(() => {
-                            window.location.href = 'index.html';
+                            window.location.href = 'dashboard.html';
                         }, 900);
                     } else {
                         showMsg('// NO ACTIVE SUBSCRIPTION — REDIRECTING TO PRICING', 'error');
