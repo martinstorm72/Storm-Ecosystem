@@ -1374,9 +1374,7 @@
                                 localStorage.setItem('storm_os_operator_access', 'true');
                                 localStorage.setItem('storm_os_operator_granted_at', new Date().toISOString());
                                 showMsg('// PAYMENT VERIFIED — LOADING DASHBOARD...', 'success');
-                                setTimeout(() => {
-                                    window.location.href = 'dashboard.html';
-                                }, 900);
+                                setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
                                 return;
                             }
                         }
@@ -1387,14 +1385,10 @@
                         localStorage.setItem('storm_os_operator_access', 'true');
                         localStorage.setItem('storm_os_operator_granted_at', new Date().toISOString());
                         showMsg('// ACCESS GRANTED — LOADING DASHBOARD...', 'success');
-                        setTimeout(() => {
-                            window.location.href = 'dashboard.html';
-                        }, 900);
+                        setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
                     } else {
                         showMsg('// NO ACTIVE SUBSCRIPTION — REDIRECTING TO PRICING', 'error');
-                        setTimeout(() => {
-                            window.location.href = 'index.html#pricing';
-                        }, 1500);
+                        setTimeout(() => { window.location.href = 'index.html#pricing'; }, 1500);
                     }
                 }
             } catch (e) {
