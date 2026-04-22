@@ -25,7 +25,7 @@
     <meta name="twitter:image" content="https://storm-os.app/og-image.png">
     <meta property="og:image" content="https://storm-os.app/og-image.png">
     <script
-        type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Storm OS","applicationCategory":"ProductivityApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"9.99","priceCurrency":"USD","availability":"https://schema.org/InStock"},"description":"Storm OS is a productivity operating system for tech professionals.","url":"https://storm-os.app","creator":{"@type":"Person","name":"Martin","email":"martinsamer91@gmail.com"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"2400"}}</script>
+        type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Storm OS","applicationCategory":"ProductivityApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"9.99","priceCurrency":"USD","availability":"https://schema.org/InStock"},"description":"Storm OS is a productivity operating system for tech professionals.","url":"https://storm-os.app","creator":{"@type":"Person","name":"Martin","email":"martinsamer91@gmail.com"}}</script>
     <!-- ===== ENHANCED SEO ===== -->
     <meta name="theme-color" content="#020202">
     <meta name="mobile-web-app-capable" content="yes">
@@ -132,6 +132,12 @@
             font-weight: 600;
             overflow-x: hidden;
             cursor: none
+        }
+
+        @media (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
         }
 
         #cursor {
