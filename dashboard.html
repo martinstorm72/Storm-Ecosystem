@@ -7805,7 +7805,7 @@
     <!-- PERMANENT AI CONFIG — Groq API key baked in -->
     <script>
         window.__APP_CONFIG__ = window.__APP_CONFIG__ || {};
-        window.__APP_CONFIG__.GROQ_API_KEY = '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';
+        // API key is securely stored in Cloudflare Worker env — not exposed here
     </script>
     <!-- CONFIG LOADER: optional — dashboard works without it -->
     <script src="config.js"
@@ -11992,10 +11992,6 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
             if (_isStreaming) return;
 
             _GROQ_API_KEY = _getGroqKey();
-            if (!_GROQ_API_KEY) {
-                document.getElementById('groq-key-setup')?.style && (document.getElementById('groq-key-setup').style.display = 'block');
-                showToast('⚠ Enter your Groq API key first'); return;
-            }
 
             const btn = document.getElementById('gemini-ask-btn');
             const errEl = document.getElementById('gemini-coach-error');
