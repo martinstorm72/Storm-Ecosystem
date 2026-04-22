@@ -1,25 +1,29 @@
-# ============================================================
-#  .gitignore — keeps secrets OUT of GitHub
-# ============================================================
+# ==========================================================
+# .gitignore — Storm Ecosystem
+# ==========================================================
 
-# LOCAL SECRETS — never commit these
+# ── SECRET CONFIG — NEVER commit this ─────────────────────
 config.js
 .env
 .env.local
-.env.*.local
+.env.production
 
-# OS / editor junk
+# ── OS files ───────────────────────────────────────────────
 .DS_Store
 Thumbs.db
-*.swp
-*.swo
+desktop.ini
+
+# ── Editor files ───────────────────────────────────────────
 .vscode/
 .idea/
+*.suo
+*.user
 
-# Logs
+# ── Logs ───────────────────────────────────────────────────
 *.log
 npm-debug.log*
 
-# Node (if you ever add a build step)
+# ── Node (if ever used locally) ────────────────────────────
 node_modules/
 dist/
+.cache/
