@@ -1938,7 +1938,11 @@
             overflow-x: hidden;
         }
 
-        @media (pointer: coarse) { body { cursor: auto; } }
+        @media (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
+        }
 
         #loading-overlay {
             position: fixed;
@@ -6099,16 +6103,26 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
+
         .page-transition-overlay.active {
             opacity: 1;
             pointer-events: all;
         }
+
         body {
             animation: stormFadeIn 0.4s ease both;
         }
+
         @keyframes stormFadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ═══ ONBOARDING CHECKLIST ═══ */
@@ -6117,12 +6131,17 @@
             position: fixed;
             inset: 0;
             z-index: 99990;
-            background: rgba(0,0,0,.8);
+            background: rgba(0, 0, 0, .8);
             backdrop-filter: blur(8px);
             align-items: center;
             justify-content: center;
         }
-        #onboarding-modal.open { display: flex; animation: fadeIn 0.3s ease; }
+
+        #onboarding-modal.open {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
         .onb-box {
             background: var(--card);
             border: 1px solid var(--border2);
@@ -6132,14 +6151,18 @@
             width: 90%;
             position: relative;
         }
+
         .onb-box::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
+            top: 0;
+            left: 0;
+            right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
             border-radius: 14px 14px 0 0;
         }
+
         .onb-title {
             font-family: var(--head);
             font-size: 1.5rem;
@@ -6148,6 +6171,7 @@
             color: var(--accent);
             margin-bottom: 6px;
         }
+
         .onb-sub {
             font-family: var(--mono);
             font-size: 0.72rem;
@@ -6155,6 +6179,7 @@
             letter-spacing: .1em;
             margin-bottom: 24px;
         }
+
         .onb-progress-bar {
             height: 3px;
             background: var(--border2);
@@ -6162,13 +6187,22 @@
             margin-bottom: 24px;
             overflow: hidden;
         }
+
         .onb-progress-fill {
             height: 100%;
             background: var(--accent);
             border-radius: 99px;
             transition: width 0.4s ease;
         }
-        .onb-steps { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+
+        .onb-steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
         .onb-step {
             display: flex;
             align-items: center;
@@ -6180,24 +6214,38 @@
             cursor: pointer;
             transition: border-color .2s, background .2s;
         }
-        .onb-step:hover { border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.03); }
-        .onb-step.done { border-color: rgba(255,255,255,.15); opacity: .65; }
+
+        .onb-step:hover {
+            border-color: rgba(255, 255, 255, .2);
+            background: rgba(255, 255, 255, .03);
+        }
+
+        .onb-step.done {
+            border-color: rgba(255, 255, 255, .15);
+            opacity: .65;
+        }
+
         .onb-check {
-            width: 22px; height: 22px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             border: 1.5px solid var(--border2);
             background: transparent;
             flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 0.75rem;
             color: transparent;
             transition: all .2s;
         }
+
         .onb-step.done .onb-check {
             background: var(--accent);
             border-color: var(--accent);
             color: #000;
         }
+
         .onb-step-text {
             font-family: var(--mono);
             font-size: 0.78rem;
@@ -6205,9 +6253,23 @@
             color: var(--text2);
             line-height: 1.4;
         }
-        .onb-step.done .onb-step-text { color: var(--text3); text-decoration: line-through; }
-        .onb-step-desc { font-size: 0.68rem; color: var(--text3); margin-top: 2px; }
-        .onb-btn-row { display: flex; gap: 10px; }
+
+        .onb-step.done .onb-step-text {
+            color: var(--text3);
+            text-decoration: line-through;
+        }
+
+        .onb-step-desc {
+            font-size: 0.68rem;
+            color: var(--text3);
+            margin-top: 2px;
+        }
+
+        .onb-btn-row {
+            display: flex;
+            gap: 10px;
+        }
+
         .onb-dismiss {
             font-family: var(--mono);
             font-size: 0.7rem;
@@ -6221,7 +6283,10 @@
             text-align: center;
             width: 100%;
         }
-        .onb-dismiss:hover { color: var(--text2); }
+
+        .onb-dismiss:hover {
+            color: var(--text2);
+        }
 
         /* Onboarding trigger button in header */
         #onb-trigger-btn {
@@ -6241,7 +6306,12 @@
             transition: all .2s;
             white-space: nowrap;
         }
-        #onb-trigger-btn:hover { border-color: rgba(255,255,255,.25); color: var(--text); }
+
+        #onb-trigger-btn:hover {
+            border-color: rgba(255, 255, 255, .25);
+            color: var(--text);
+        }
+
         #onb-trigger-btn .onb-badge {
             background: var(--accent);
             color: #000;
@@ -6259,31 +6329,39 @@
             position: fixed;
             inset: 0;
             z-index: 99991;
-            background: rgba(0,0,0,.85);
+            background: rgba(0, 0, 0, .85);
             backdrop-filter: blur(10px);
             align-items: center;
             justify-content: center;
             flex-direction: column;
             gap: 20px;
         }
-        #share-card-modal.open { display: flex; animation: fadeIn 0.3s ease; }
+
+        #share-card-modal.open {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
         .share-card-wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 16px;
         }
+
         #share-card-canvas {
             border-radius: 16px;
-            box-shadow: 0 0 60px rgba(255,255,255,.08);
+            box-shadow: 0 0 60px rgba(255, 255, 255, .08);
             max-width: 90vw;
         }
+
         .share-card-actions {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
         }
+
         .share-card-actions button {
             font-family: var(--mono);
             font-size: 0.73rem;
@@ -6297,8 +6375,18 @@
             cursor: pointer;
             transition: all .2s;
         }
-        .share-card-actions button:hover { border-color: rgba(255,255,255,.3); color: var(--text); }
-        .share-card-actions button.primary { background: var(--accent); color: #000; border-color: var(--accent); }
+
+        .share-card-actions button:hover {
+            border-color: rgba(255, 255, 255, .3);
+            color: var(--text);
+        }
+
+        .share-card-actions button.primary {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+
         .share-card-close {
             font-family: var(--mono);
             font-size: 0.7rem;
@@ -6308,7 +6396,10 @@
             cursor: pointer;
             letter-spacing: .1em;
         }
-        .share-card-close:hover { color: var(--text2); }
+
+        .share-card-close:hover {
+            color: var(--text2);
+        }
     </style>
 </head>
 
@@ -6317,26 +6408,26 @@
     <!-- PAGE TRANSITION OVERLAY -->
     <div class="page-transition-overlay" id="page-transition-overlay"></div>
     <script>
-    (function(){
-        // Smooth out-transition for all internal links
-        function navigateWithTransition(url) {
-            var overlay = document.getElementById('page-transition-overlay');
-            if (!overlay) { window.location.href = url; return; }
-            overlay.classList.add('active');
-            setTimeout(function(){ window.location.href = url; }, 300);
-        }
-        // Override _navTo if it exists
-        window._navTo = navigateWithTransition;
-        // Intercept all same-origin anchor clicks
-        document.addEventListener('click', function(e){
-            var a = e.target.closest('a[href]');
-            if (!a) return;
-            var href = a.getAttribute('href');
-            if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || a.target === '_blank') return;
-            e.preventDefault();
-            navigateWithTransition(href);
-        });
-    })();
+        (function () {
+            // Smooth out-transition for all internal links
+            function navigateWithTransition(url) {
+                var overlay = document.getElementById('page-transition-overlay');
+                if (!overlay) { window.location.href = url; return; }
+                overlay.classList.add('active');
+                setTimeout(function () { window.location.href = url; }, 300);
+            }
+            // Override _navTo if it exists
+            window._navTo = navigateWithTransition;
+            // Intercept all same-origin anchor clicks
+            document.addEventListener('click', function (e) {
+                var a = e.target.closest('a[href]');
+                if (!a) return;
+                var href = a.getAttribute('href');
+                if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || a.target === '_blank') return;
+                e.preventDefault();
+                navigateWithTransition(href);
+            });
+        })();
     </script>
 
     <!-- STREAK AT RISK MODAL -->
@@ -6426,7 +6517,8 @@
                         class="fas fa-download"></i> INSTALL APP</button>
                 <button class="btn btn-ghost btn-sm" title="View Profile" onclick="_navTo('Profile.html')"><i
                         class="fas fa-user-circle"></i> PROFILE</button>
-                <button id="onb-trigger-btn" onclick="openOnboarding()"><i class="fas fa-tasks"></i> SETUP <span class="onb-badge" id="onb-badge-count">5</span></button>
+                <button id="onb-trigger-btn" onclick="openOnboarding()"><i class="fas fa-tasks"></i> SETUP <span
+                        class="onb-badge" id="onb-badge-count">5</span></button>
                 <button class="btn btn-ghost btn-sm" onclick="showShortcuts()"><i class="fas fa-keyboard"></i></button>
                 <button class="btn btn-ghost btn-sm" onclick="exportData()"><i class="fas fa-download"></i>
                     EXPORT</button>
@@ -7710,10 +7802,10 @@
         </div>
     </div>
 
-    <!-- PERMANENT AI CONFIG — Groq API key baked in -->
+    <!-- PERMANENT AI CONFIG — key handled by Cloudflare Worker -->
     <script>
         window.__APP_CONFIG__ = window.__APP_CONFIG__ || {};
-        window.__APP_CONFIG__.GROQ_API_KEY = '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';
+        window.__APP_CONFIG__.GROQ_API_KEY = ''; // Key is now secured in Cloudflare Worker
     </script>
     <!-- CONFIG LOADER: optional — dashboard works without it -->
     <script src="config.js"
@@ -11982,9 +12074,9 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
             try {
                 let res;
                 try {
-                    res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                    res = await fetch('https://late-term-eeff.martinsamer91.workers.dev/', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _GROQ_API_KEY },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ model: _getGroqModel(_aiMode, userText), messages, temperature: 0.68, max_tokens: 900, stream: true })
                     });
                 } catch (netErr) { throw new Error('Network error — check your connection.'); }
