@@ -4713,28 +4713,24 @@
             <div class="hero-content">
                 <div class="hero-eyebrow">
                     <div class="pulse"></div>
-                    STATUS: SYSTEM ACTIVE // v1.0.26
+                    THE PRODUCTIVITY OS FOR DEVELOPERS
                 </div>
-                <div class="star-row" style="opacity:0;animation:heroFadeIn .8s .3s ease both;">
-                    <span class="stars">★★★★★</span>
-                    <span class="star-count">4.9 / 5 from 2,400+ operators</span>
-                </div>
+
 
                 <!-- SPYLT-STYLE CHUNKY HEADLINE SLAM -->
                 <h1 class="spylt-h1">
-                    <span class="spylt-line spylt-line-1">STOP DRIFTING.</span>
+                    <span class="spylt-line spylt-line-1">BUILD THE HABIT.</span>
                     <span class="spylt-line spylt-line-2">
-                        <span class="spylt-block">START</span>
-                        <span class="spylt-block spylt-block-accent">LOCKING IN.</span>
+                        <span class="spylt-block">SHIP</span>
+                        <span class="spylt-block spylt-block-accent">EVERY DAY.</span>
                     </span>
                 </h1>
 
-                <p style="position:relative;z-index:5;">The high-performance productivity operating system for tech
-                    professionals. Build discipline, track
-                    deep work, plan your week and month, and level up your career through structural consistency.</p>
+                <p style="position:relative;z-index:5;">Deep work. Habits. Dev tools. XP. All in one dashboard built for
+                    developers who want to ship more and drift less.</p>
                 <div class="hero-cta">
                     <button onclick="handlePurchase()" class="btn btn-primary btn-lg">
-                        START LOCKING IN
+                        TRY FREE FOR 7 DAYS
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5">
                             <path d="M5 12h14M12 5l7 7-7 7" />
@@ -4745,19 +4741,16 @@
                 <div id="payment-confirm-banner" class="hero-banner" role="status" aria-live="polite"></div>
                 <div class="hero-stats">
                     <div class="hero-stat">
-                        <span class="stat-num count-up" data-target="2400" data-start="2200">2,200</span><span
-                            class="stat-suffix">+</span>
-                        <span class="stat-label">OPERATORS ACTIVE</span>
+                        <span class="stat-num">7</span><span class="stat-suffix"> days</span>
+                        <span class="stat-label">FREE TRIAL</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="stat-num count-up" data-target="91" data-start="85">85</span><span
-                            class="stat-suffix">%</span>
-                        <span class="stat-label">CONSISTENCY RATE</span>
+                        <span class="stat-num">11</span><span class="stat-suffix"> tools</span>
+                        <span class="stat-label">IN ONE DASHBOARD</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="stat-num count-up" data-target="4.5" data-start="4.0"
-                            data-decimal="true">4.0</span><span class="stat-suffix">h</span>
-                        <span class="stat-label">AVG DAILY FOCUS</span>
+                        <span class="stat-num">$0</span><span class="stat-suffix"> today</span>
+                        <span class="stat-label">CANCEL ANYTIME</span>
                     </div>
                 </div>
             </div>
@@ -5350,28 +5343,53 @@
         <div class="container">
             <div style="text-align:center;" class="reveal">
                 <div class="section-tag" style="justify-content:center;margin-bottom:14px;">04 // PRICING</div>
-                <h2 class="section-heading" id="pricing-heading">Commit to Excellence</h2>
-                <p style="color:var(--text2);font-size: 1.06rem;margin-top:12px;">One plan. Everything you need to
-                    operate
-                    at maximum capacity.</p>
+                <h2 class="section-heading" id="pricing-heading">Simple, Honest Pricing</h2>
+                <p style="color:var(--text2);font-size: 1.06rem;margin-top:12px;">Start free for 7 days. No card
+                    required. Cancel anytime.</p>
             </div>
+            <!-- ANNUAL BILLING TOGGLE -->
+            <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:32px;"
+                class="reveal">
+                <span id="billing-label-mo"
+                    style="font-family:var(--mono);font-size:0.8rem;letter-spacing:.1em;color:var(--text);">MONTHLY</span>
+                <button id="billing-toggle" onclick="toggleBilling()" aria-label="Toggle billing period"
+                    style="width:52px;height:28px;border-radius:999px;border:1px solid var(--border2);background:var(--card2);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;">
+                    <span id="billing-knob"
+                        style="position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--accent);transition:transform .25s;display:block;"></span>
+                </button>
+                <span id="billing-label-yr"
+                    style="font-family:var(--mono);font-size:0.8rem;letter-spacing:.1em;color:var(--text2);">ANNUAL
+                    <span
+                        style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:4px;padding:2px 7px;font-size:0.68rem;color:var(--accent);margin-left:6px;">SAVE
+                        20%</span>
+                </span>
+            </div>
+
             <div class="pricing-wrap reveal d2">
                 <div class="pricing-card">
                     <div class="pricing-top-border"></div>
                     <div class="pricing-body">
                         <div class="pricing-badge">FULL OPERATOR ACCESS</div>
-                        <div class="urgency-bar">
-                            <span class="urgency-label">🔥 LIMITED TIME</span>
-                            <span class="urgency-time" id="offer-timer">23:47:12</span>
-                            <span class="urgency-sub">until price review</span>
+
+                        <!-- 7-day free trial banner -->
+                        <div
+                            style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 16px;margin-bottom:20px;text-align:center;">
+                            <span
+                                style="font-family:var(--mono);font-size:0.75rem;letter-spacing:.1em;color:var(--accent);">⚡
+                                7-DAY FREE TRIAL — NO CARD REQUIRED</span>
                         </div>
+
                         <div class="pricing-price">
                             <span class="pricing-dollar">$</span>
-                            <span>9</span><span class="pricing-cents">.99</span>
-                            <span class="pricing-period">/MO</span>
+                            <span id="price-main">9</span><span class="pricing-cents" id="price-cents">.99</span>
+                            <span class="pricing-period" id="price-period">/MO</span>
                         </div>
-                        <p class="pricing-desc">Everything you need to lock in, earn XP, and build the discipline
-                            required to reach the top 1% of tech professionals.</p>
+                        <p id="price-subline"
+                            style="text-align:center;font-family:var(--mono);font-size:0.72rem;color:var(--text3);letter-spacing:.08em;margin-top:-8px;margin-bottom:12px;">
+                            BILLED MONTHLY · CANCEL ANYTIME</p>
+
+                        <p class="pricing-desc">Everything you need to lock in, earn XP, and build discipline. Deep
+                            work, habits, dev tools, and gamification — all in one dashboard.</p>
                         <div class="pricing-divider"></div>
                         <ul class="pricing-features">
                             <li>
@@ -5409,16 +5427,16 @@
                             </li>
                         </ul>
                         <button onclick="handlePurchase()" class="btn btn-primary"
-                            style="width:100%;justify-content:center;padding:15px;border:none;cursor:none;">
-                            GET STARTED NOW
+                            style="width:100%;justify-content:center;padding:15px;border:none;">
+                            START FREE 7-DAY TRIAL
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </button>
                         <p
-                            style="text-align:center;font-family:var(--mono);font-size: 0.71rem;color:var(--text3);margin-top:14px;letter-spacing:.08em;">
-                            NO COMMITMENT // CANCEL ANYTIME</p>
+                            style="text-align:center;font-family:var(--mono);font-size:0.71rem;color:var(--text3);margin-top:14px;letter-spacing:.08em;">
+                            NO CARD NEEDED FOR TRIAL // CANCEL ANYTIME</p>
                         <div class="trust-badges">
                             <div class="trust-badge" data-tip="Secured via PayPal">
                                 <div class="trust-badge-icon">🔒</div>
@@ -5440,6 +5458,39 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                (function () {
+                    var isAnnual = false;
+                    window.toggleBilling = function () {
+                        isAnnual = !isAnnual;
+                        var knob = document.getElementById('billing-knob');
+                        var moLabel = document.getElementById('billing-label-mo');
+                        var yrLabel = document.getElementById('billing-label-yr');
+                        var pMain = document.getElementById('price-main');
+                        var pCents = document.getElementById('price-cents');
+                        var pPeriod = document.getElementById('price-period');
+                        var pSub = document.getElementById('price-subline');
+                        if (isAnnual) {
+                            knob.style.transform = 'translateX(24px)';
+                            moLabel.style.color = 'var(--text2)';
+                            yrLabel.style.color = 'var(--text)';
+                            pMain.textContent = '7';
+                            pCents.textContent = '.99';
+                            pPeriod.textContent = '/MO';
+                            pSub.textContent = 'BILLED $95.88/YEAR · SAVE $24 · CANCEL ANYTIME';
+                        } else {
+                            knob.style.transform = 'translateX(0)';
+                            moLabel.style.color = 'var(--text)';
+                            yrLabel.style.color = 'var(--text2)';
+                            pMain.textContent = '9';
+                            pCents.textContent = '.99';
+                            pPeriod.textContent = '/MO';
+                            pSub.textContent = 'BILLED MONTHLY · CANCEL ANYTIME';
+                        }
+                    };
+                })();
+            </script>
         </div>
     </section>
 
