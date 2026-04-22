@@ -1496,6 +1496,11 @@
             }
         }
 
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
         #ai-coach-insights .ai-insight-item:nth-child(1) {
             animation-delay: 0.04s;
         }
@@ -7473,9 +7478,14 @@
                         <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
                         <div class="chat-bubble-body">
                             <div class="chat-bubble-name">OPERATOR AI</div>
-                            <div class="chat-bubble-text">Hey! I'm your AI Coach — I have full access to your tasks,
-                                habits, focus sessions, streaks, energy levels, and 7-day history. Ask me anything, or
-                                pick a mode above to get a deep analysis. ⚡</div>
+                            <div class="chat-bubble-text">Hey! I'm your AI Coach — I have full access to your tasks, habits, focus sessions, streaks, energy levels, and 7-day history. Ask me anything, or pick a mode above to get a deep analysis. ⚡
+                                <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">
+                                    <span onclick="_quickPrompt('Give me a full analysis of my day')" style="font-family:var(--mono);font-size:0.7rem;padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);cursor:pointer;transition:all 0.2s" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent2)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">Full Analysis</span>
+                                    <span onclick="_quickPrompt('How are my habits going?')" style="font-family:var(--mono);font-size:0.7rem;padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);cursor:pointer;transition:all 0.2s" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent2)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">Habit Check</span>
+                                    <span onclick="_quickPrompt('What should I focus on right now?')" style="font-family:var(--mono);font-size:0.7rem;padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);cursor:pointer;transition:all 0.2s" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent2)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">What's Next?</span>
+                                    <span onclick="_quickPrompt('Review my week and give me a plan')" style="font-family:var(--mono);font-size:0.7rem;padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);cursor:pointer;transition:all 0.2s" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent2)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">Week Review</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -7805,7 +7815,7 @@
     <!-- PERMANENT AI CONFIG — Groq API key baked in -->
     <script>
         window.__APP_CONFIG__ = window.__APP_CONFIG__ || {};
-        // API key is securely stored in Cloudflare Worker env — not exposed here
+        // API key secured in Cloudflare Worker — not exposed here
     </script>
     <!-- CONFIG LOADER: optional — dashboard works without it -->
     <script src="config.js"
@@ -11175,9 +11185,22 @@
         // ── Clear chat ────────────────────────────────────────────────
         function _clearChat() {
             _chatHistory = [];
+            document.getElementById('ai-quick-chips-wrap')?.remove();
             const win = document.getElementById('ai-chat-window');
             if (!win) return;
-            win.innerHTML = `<div class="chat-bubble-ai"><div class="chat-avatar-ai"><i class="fas fa-robot"></i></div><div class="chat-bubble-body"><div class="chat-bubble-name">OPERATOR AI</div><div class="chat-bubble-text">Chat cleared. Fresh start — ask me anything or run an analysis. ⚡</div></div></div>`;
+            win.innerHTML = `<div class="chat-bubble-ai">
+                <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
+                <div class="chat-bubble-body">
+                    <div class="chat-bubble-name">OPERATOR AI</div>
+                    <div class="chat-bubble-text">Fresh start! I still have all your data — what do you want to work on? ⚡
+                        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">
+                            <span onclick="_quickPrompt('Give me a full analysis of my day')" style="font-family:var(--mono);font-size:0.7rem;padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);cursor:pointer;transition:all 0.2s" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent2)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">Full Analysis</span>
+                            <span onclick="_quickPrompt('How are my habits going?')" style="font-family:var(--mono);font-size:0.7rem;padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);cursor:pointer;transition:all 0.2s" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent2)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">Habit Check</span>
+                            <span onclick="_quickPrompt('What should I focus on right now?')" style="font-family:var(--mono);font-size:0.7rem;padding:4px 11px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);cursor:pointer;transition:all 0.2s" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent2)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">What's Next?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
         }
 
         // ── Build rich dashboard context ──────────────────────────────
@@ -11275,6 +11298,7 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
 
         // ── Chat bubble renderers ─────────────────────────────────────
         function _chatAppendUserBubble(text) {
+            document.getElementById('ai-quick-chips-wrap')?.remove();
             const win = document.getElementById('ai-chat-window');
             if (!win) return;
             const el = document.createElement('div');
@@ -11294,9 +11318,14 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
             if (!win) return;
             const el = document.createElement('div');
             el.className = 'chat-typing-indicator'; el.id = 'ai-chat-typing';
+            const hints = ['Analyzing your data…', 'Thinking…', 'Crunching your stats…', 'Reading your history…', 'On it…', 'Checking your patterns…'];
+            const hint = hints[Math.floor(Math.random() * hints.length)];
             el.innerHTML = `
-                <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
-                <div class="chat-typing-dots"><span></span><span></span><span></span></div>`;
+                <div class="chat-avatar-ai" style="animation:aiPulse 1.2s infinite"><i class="fas fa-robot"></i></div>
+                <div style="display:flex;flex-direction:column;gap:5px">
+                    <div class="chat-typing-dots"><span></span><span></span><span></span></div>
+                    <div style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);letter-spacing:.05em;animation:fadeInUp 0.3s ease both">${hint}</div>
+                </div>`;
             win.appendChild(el); win.scrollTop = win.scrollHeight;
         }
 
@@ -11337,7 +11366,12 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
 
             let bodyHTML;
             if (!rawMode && cards.length >= 2) {
-                bodyHTML = cards.map((c, i) => {
+                // Check if last line is a → action line
+                const lastLine = lines[lines.length - 1];
+                const actionLine = lastLine && lastLine.startsWith('→') ? lastLine : null;
+                const insightCards = actionLine ? cards.slice(0, -1) : cards; // remove action from cards if it got parsed in
+
+                bodyHTML = insightCards.map((c, i) => {
                     const cls = classify(c.title, c.detail);
                     const icon = cls === 'good' ? '✦' : cls === 'warn' ? '⚠' : '→';
                     return `<div class="chat-insight-card ${cls}" style="animation-delay:${i * 0.04}s">
@@ -11347,20 +11381,24 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                             <div class="chat-insight-detail">${c.detail.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
                         </div>
                     </div>`;
-                }).join('');
+                }).join('') + (actionLine ? `<div style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,.04);border-left:2px solid var(--accent2);border-radius:0 6px 6px 0;font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">${actionLine.replace(/</g,'&lt;')}</div>` : '');
             } else {
-                // Prose mode — render with markdown-like formatting
+                // Prose mode — render with markdown-like formatting + highlight → action lines
                 const formatted = text
                     .replace(/</g, '&lt;').replace(/>/g, '&gt;')
                     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
                     .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                    .replace(/^→(.+)$/gm, '<div style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,.04);border-left:2px solid var(--accent2);border-radius:0 6px 6px 0;font-family:var(--mono);font-size:0.82rem;color:var(--accent2)">→$1</div>')
                     .replace(/\n/g, '<br>');
                 bodyHTML = `<div style="font-family:var(--body);font-size:0.97rem;color:var(--text2);line-height:1.72">${formatted}</div>`;
             }
 
             const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const modelLabel = `Groq · ${GROQ_MODEL.replace('llama-', '').replace('-versatile', '')}`;
+            const modelUsed = _getGroqModel(_aiMode, '') === GROQ_MODEL_FAST ? '3.1-8b' : '3.3-70b';
+            const modelLabel = `Groq · llama-${modelUsed}`;
+            const bubbleId = 'ai-bubble-' + Date.now();
 
+            el.id = bubbleId;
             el.innerHTML = `
                 <div class="chat-avatar-ai"><i class="fas fa-robot"></i></div>
                 <div class="chat-bubble-body" style="max-width:88%">
@@ -11369,16 +11407,19 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                         ${bodyHTML}
                         <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);flex-wrap:wrap;gap:6px">
                             <span style="font-family:var(--mono);font-size:0.64rem;color:var(--text3)">${now} · ${modelLabel}</span>
-                            <div style="display:flex;gap:6px">
+                            <div style="display:flex;gap:6px;align-items:center">
+                                <button class="chat-action-btn" title="Helpful" onclick="(function(b){b.style.color='#39d353';b.nextElementSibling.style.color='';showToast('👍 Glad that helped!')})(this)" style="font-size:0.8rem">👍</button>
+                                <button class="chat-action-btn" title="Not helpful" onclick="(function(b){b.style.color='#e8c97a';b.previousElementSibling.style.color='';showToast('👎 Got it — I\'ll do better.')})(this)" style="font-size:0.8rem">👎</button>
+                                <div style="width:1px;height:14px;background:var(--border2);margin:0 2px"></div>
                                 <button class="chat-action-btn" title="Copy" onclick="(function(btn){
                                     const p=btn.closest('.chat-bubble-ai');
-                                    const titles=Array.from(p.querySelectorAll('.chat-insight-title')).map(e=>e.textContent.replace(/^[✦⚠→]\s*/,''));
+                                    const titles=Array.from(p.querySelectorAll('.chat-insight-title')).map(e=>e.textContent.replace(/^[✦⚠→\\s]*/,''));
                                     const details=Array.from(p.querySelectorAll('.chat-insight-detail')).map(e=>e.textContent);
                                     const prose=p.querySelector('[style*=font-family:var(--body)]');
-                                    const txt = titles.length>0 ? titles.map((t,i)=>(i+1)+'. '+(t?t+' — ':'')+details[i]).join('\n') : (prose?prose.innerText:'');
+                                    const txt=titles.length>0?titles.map((t,i)=>(i+1)+'. '+(t?t+' — ':'')+details[i]).join('\n'):(prose?prose.innerText:'');
                                     navigator.clipboard?.writeText(txt.trim()).then(()=>showToast('✦ Copied'));
                                 })(this)"><i class="fas fa-copy"></i></button>
-                                <button class="chat-action-btn" title="Re-run this analysis" onclick="setAIMode('${_aiMode}',document.getElementById('ai-mode-${_aiMode}'));askGeminiCoach()"><i class="fas fa-redo"></i></button>
+                                <button class="chat-action-btn" title="Re-run" onclick="setAIMode('${_aiMode}',document.getElementById('ai-mode-${_aiMode}'));askGeminiCoach()"><i class="fas fa-redo"></i></button>
                             </div>
                         </div>
                     </div>
@@ -12037,7 +12078,20 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                 if (streak >= 14) return 'The user has an outstanding streak. Acknowledge it and help them protect it. Focus on consistency over intensity.';
                 return 'Be direct, honest, and data-driven.';
             })();
-            const systemPrompt = `You are OPERATOR AI — a sharp, data-driven productivity coach embedded in a personal dashboard. You have full access to the user's real-time data. ${_dynTone} When delivering analysis, format EVERY insight as: N. TITLE | Detailed sentence with specific numbers from the data. TITLE must be ALL CAPS, 2-5 words. Pipe separator. One per line. No markdown symbols, no asterisks. For conversational replies, respond naturally in 2-4 sentences always referencing their actual data. Remind users they can type "help" to see available commands like timers, task adding, and navigation.`;
+            const systemPrompt = `You are OPERATOR AI — an elite, warm, deeply personal productivity coach built into the user's Storm OS dashboard. You have FULL real-time access to everything: tasks, habits, streaks, sessions, energy, goals, wins, journal entries, and 14-day history.
+
+PERSONALITY: You are direct, encouraging, and genuinely invested in the user's growth. You celebrate wins loudly. When they struggle, you're compassionate but you challenge them to rise. You reference SPECIFIC numbers from their data — never be generic. Make them feel SEEN.
+
+${_dynTone}
+
+RESPONSE FORMAT:
+- For deep analysis modes (Full Analysis, Week Review, Action Plan): Format EVERY insight as exactly: "N. TITLE | One sentence with specific numbers." TITLE = ALL CAPS, 2-5 words. One insight per line. No asterisks or markdown.
+- For focus/habits/tasks modes: Same numbered format but focused on that domain.
+- For conversational messages: Reply naturally in 2-4 warm sentences. Always reference at least ONE real data point.
+- ALWAYS end your response with a motivating action line prefixed with "→" on its own line.
+- If the user's name is known, use it once naturally in the response.
+- Keep responses punchy. Precision beats length.
+- Remind users they can type "help" to see commands like timers, adding tasks, and navigation.`;
 
             const prompt = _buildCoachContext();
 
@@ -12073,7 +12127,7 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                     res = await fetch('https://late-term-eeff.martinsamer91.workers.dev/', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ model: _getGroqModel(_aiMode, userText), messages, temperature: 0.68, max_tokens: 900, stream: false })
+                        body: JSON.stringify({ model: _getGroqModel(_aiMode, userText), messages, temperature: 0.68, max_tokens: 1024, stream: false })
                     });
                 } catch (netErr) { throw new Error('Network error — check your connection.'); }
 
@@ -12097,9 +12151,23 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                 if (data?.error) throw new Error(data.error?.message || JSON.stringify(data.error));
                 const fullText = data?.choices?.[0]?.message?.content || '';
 
-                if (streamContent) streamContent.textContent = fullText;
+                // ── Typewriter reveal ─────────────────────────────────
+                if (streamContent && fullText) {
+                    let i = 0;
+                    const chunkSize = fullText.length > 600 ? 10 : fullText.length > 200 ? 5 : 2;
+                    await new Promise(resolve => {
+                        const tick = () => {
+                            i += chunkSize;
+                            streamContent.textContent = fullText.slice(0, i);
+                            if (win) win.scrollTop = win.scrollHeight;
+                            if (i < fullText.length) requestAnimationFrame(tick);
+                            else resolve();
+                        };
+                        requestAnimationFrame(tick);
+                    });
+                }
 
-                // Remove stream bubble and re-render as proper formatted bubble
+                // Remove stream bubble, re-render as proper formatted bubble
                 if (streamBubble) streamBubble.remove();
 
                 if (!fullText.trim()) throw new Error('AI returned empty response — try again.');
@@ -12110,6 +12178,8 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                 if (_chatHistory.length > 14) _chatHistory = _chatHistory.slice(-14);
 
                 _chatAppendAIBubble(fullText);
+                _chatAppendQuickReplies(fullText, userText);
+                _playAIChime();
 
                 // Legacy compat
                 const legacyOut = document.getElementById('ai-output-content');
@@ -12123,7 +12193,18 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                 _chatRemoveTyping();
                 document.getElementById('ai-stream-bubble')?.remove();
                 _done();
-                const msg = err?.message || 'Unknown error';
+                const rawMsg = err?.message || 'Unknown error';
+                const isRateLimit = /rate.?limit|429|too many/i.test(rawMsg);
+                const isNetwork = /network|fetch|connect/i.test(rawMsg);
+                const isAuth = /401|invalid api|unauthorized/i.test(rawMsg);
+                const friendlyMsg = isRateLimit
+                    ? "Slow down — you're sending messages too fast! Give me a few seconds. 😅"
+                    : isNetwork
+                    ? "Can't reach the server. Check your connection and try again."
+                    : isAuth
+                    ? "API authentication issue. Check your Cloudflare Worker configuration."
+                    : rawMsg;
+
                 const win = document.getElementById('ai-chat-window');
                 if (win) {
                     const errBubble = document.createElement('div');
@@ -12132,12 +12213,84 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
                         <div class="chat-avatar-ai" style="background:rgba(255,71,87,.12);border-color:rgba(255,71,87,.3)"><i class="fas fa-exclamation-triangle" style="color:#f08080"></i></div>
                         <div class="chat-bubble-body">
                             <div class="chat-bubble-name">OPERATOR AI</div>
-                            <div class="chat-bubble-text" style="border-color:rgba(255,71,87,.2);background:rgba(255,71,87,.06);color:var(--red)">⚠ ${msg}</div>
+                            <div class="chat-bubble-text" style="border-color:rgba(255,71,87,.2);background:rgba(255,71,87,.06);color:#f08080">⚠ ${friendlyMsg}</div>
                         </div>`;
                     win.appendChild(errBubble); win.scrollTop = win.scrollHeight;
                 }
-                showToast('⚠ ' + msg);
+
+                // Rate-limit countdown on send button
+                if (isRateLimit) {
+                    const btn = document.getElementById('gemini-ask-btn');
+                    if (btn) {
+                        let secs = 10;
+                        btn.disabled = true;
+                        const origHTML = btn.innerHTML;
+                        const cdInterval = setInterval(() => {
+                            btn.innerHTML = `<i class="fas fa-clock"></i> Ready in ${secs}s`;
+                            secs--;
+                            if (secs < 0) { clearInterval(cdInterval); btn.disabled = false; btn.innerHTML = origHTML; }
+                        }, 1000);
+                    }
+                }
+                showToast('⚠ ' + friendlyMsg);
             }
+        }
+
+        // ── Quick reply chips after AI response ───────────────────────
+        function _chatAppendQuickReplies(responseText, userQuestion) {
+            const win = document.getElementById('ai-chat-window');
+            if (!win) return;
+            document.getElementById('ai-quick-chips-wrap')?.remove();
+
+            // Smart contextual suggestions based on response + question
+            let chips = [];
+            const ctx = (responseText + ' ' + (userQuestion || '')).toLowerCase();
+
+            if (/habit|pray|streak|routine/i.test(ctx))
+                chips = ['How do I fix this habit?', 'Show all my habits', 'What habit should I add?'];
+            else if (/task|pending|backlog|todo/i.test(ctx))
+                chips = ['What should I do first?', 'Help me prioritize tasks', 'Add a task for me'];
+            else if (/focus|session|pomodoro|timer/i.test(ctx))
+                chips = ['Start a 25 min session', 'How is my focus trending?', 'Tips for deeper focus'];
+            else if (/energy|tired|exhausted|low/i.test(ctx))
+                chips = ['How to boost energy today?', 'What can I do with low energy?', 'Best tasks for my energy level'];
+            else if (/week|plan|review/i.test(ctx))
+                chips = ['Give full week breakdown', 'What should I plan for tomorrow?', 'How to improve next week?'];
+            else if (/goal|win|progress/i.test(ctx))
+                chips = ['Show my goals progress', 'Log a win for today', 'Am I on track?'];
+            else
+                chips = ['Give me a full analysis', 'What should I do next?', 'How am I improving?'];
+
+            const wrap = document.createElement('div');
+            wrap.id = 'ai-quick-chips-wrap';
+            wrap.style.cssText = 'padding:4px 0 10px 52px;animation:insightReveal 0.4s ease both';
+            wrap.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:6px">` +
+                chips.map(s => `<button
+                    onclick="document.getElementById('ai-quick-chips-wrap')?.remove();_quickPrompt(${JSON.stringify(s)})"
+                    style="font-family:var(--mono);font-size:0.7rem;padding:5px 13px;border-radius:20px;border:1px solid var(--border2);background:var(--card2);color:var(--text3);cursor:pointer;transition:all 0.2s;white-space:nowrap"
+                    onmouseover="this.style.borderColor='var(--accent2)';this.style.color='var(--accent)';this.style.background='rgba(255,255,255,.04)'"
+                    onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--text3)';this.style.background='var(--card2)'"
+                    >${s}</button>`).join('') + `</div>`;
+            win.appendChild(wrap);
+            win.scrollTop = win.scrollHeight;
+        }
+
+        // ── Subtle chime on AI response ───────────────────────────────
+        function _playAIChime() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                [[880, 0, 0.06], [1100, 0.08, 0.05]].forEach(([freq, delay, vol]) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain); gain.connect(ctx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+                    gain.gain.setValueAtTime(vol, ctx.currentTime + delay);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.22);
+                    osc.start(ctx.currentTime + delay);
+                    osc.stop(ctx.currentTime + delay + 0.22);
+                });
+            } catch (_) { }
         }
 
         // Legacy copy helper
