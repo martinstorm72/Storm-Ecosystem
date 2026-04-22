@@ -7461,6 +7461,11 @@
         </div>
     </div>
 
+    <!-- PERMANENT AI CONFIG — Groq API key baked in -->
+    <script>
+        window.__APP_CONFIG__ = window.__APP_CONFIG__ || {};
+        window.__APP_CONFIG__.GROQ_API_KEY = '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';
+    </script>
     <!-- CONFIG LOADER: optional — dashboard works without it -->
     <script src="config.js"
         onerror="(window.console&&console.warn)?console.warn('[OPERATOR] config.js not found - using built-in config.'):null"></script>
@@ -7495,7 +7500,7 @@
         function setLoadingMsg(msg) { const c = msg.replace(/\.+$/, ''); const t = document.getElementById('loading-msg-text'); if (t) { t.textContent = c; } else { const p = document.getElementById('loading-msg'); if (p) p.textContent = msg; } }
         function hideLoadingOverlay() { let el = document.getElementById('loading-overlay'); if (el) { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => el.remove(), 400); } }
         // FIX 3: Hard failsafe — if boot() crashes silently or overlay is never hidden, force-remove after 5s.
-        setTimeout(() => { let el = document.getElementById('loading-overlay'); if (el) { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => { try { el.remove(); } catch(_){} }, 400); } }, 5000);
+        setTimeout(() => { let el = document.getElementById('loading-overlay'); if (el) { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => { try { el.remove(); } catch (_) { } }, 400); } }, 5000);
 
         async function getCurrentUser() { if (!supabaseClient) return null; try { const { data: { session } } = await supabaseClient.auth.getSession(); return session?.user || null; } catch (e) { return null; } }
         async function checkPaidStatus(userId) { if (!supabaseClient || !userId) return true; try { const { data, error } = await supabaseClient.from('profiles').select('is_paid,subscription_status').eq('id', userId).single(); if (error) return true; return data ? (data.is_paid === true || data.subscription_status === 'active') : true; } catch (e) { return true; } }
@@ -9995,8 +10000,8 @@
                     _applyPostObTabOrder();
                 }
                 // FIX 4: Guard each render call individually so one crash cannot block hideLoadingOverlay()
-                const _sr = (fn, lbl) => { try { fn(); } catch(e) { console.warn('[boot] ' + lbl + ' failed:', e); } };
-                _sr(renderAll,'renderAll'); _sr(_restoreTimerStates,'_restoreTimerStates'); _sr(updateXPBar,'updateXPBar'); _sr(loadTheme,'loadTheme'); _sr(loadQuotes,'loadQuotes'); _sr(renderSnippets,'renderSnippets'); _sr(renderFocusScoreHistory,'renderFocusScoreHistory'); _sr(checkDailyOnLoad,'checkDailyOnLoad'); _sr(_initGeminiUI,'_initGeminiUI');
+                const _sr = (fn, lbl) => { try { fn(); } catch (e) { console.warn('[boot] ' + lbl + ' failed:', e); } };
+                _sr(renderAll, 'renderAll'); _sr(_restoreTimerStates, '_restoreTimerStates'); _sr(updateXPBar, 'updateXPBar'); _sr(loadTheme, 'loadTheme'); _sr(loadQuotes, 'loadQuotes'); _sr(renderSnippets, 'renderSnippets'); _sr(renderFocusScoreHistory, 'renderFocusScoreHistory'); _sr(checkDailyOnLoad, 'checkDailyOnLoad'); _sr(_initGeminiUI, '_initGeminiUI');
                 setInterval(() => { let clock = document.getElementById('live-clock'); if (clock) clock.innerHTML = new Date().toTimeString().slice(0, 8); }, 1000);
                 // Flush any pending save every 30s (catches anything missed)
                 setInterval(() => { if (currentUser && _pendingCloudSave) _flushToCloud(); }, 30 * 1000);
@@ -11533,11 +11538,12 @@ ${history.length > 0 ? history.join(' | ') : 'no data yet — user is just getti
 
             // No session yet today
             if (todaySessions === 0) prompts.push({
-                label: 'Get started', text: "I haven't started yet today — give me a 5-minute kickstart plan." });
+                label: 'Get started', text: "I haven't started yet today — give me a 5-minute kickstart plan."
+            });
             else prompts.push({ label: '2hr plan', text: 'Give me a concrete plan for the next 2 hours.' });
 
-                // Streak risk
-                if(streak === 0) prompts.push({ label: 'Start streak', text: 'How do I build a consistent daily streak?' });
+            // Streak risk
+            if (streak === 0) prompts.push({ label: 'Start streak', text: 'How do I build a consistent daily streak?' });
             else if (streak >= 7) prompts.push({ label: 'Protect streak', text: `I have a ${streak}-day streak — how do I protect it?` });
             else prompts.push({ label: 'Roast my week', text: 'Roast my productivity this week honestly.' });
 
