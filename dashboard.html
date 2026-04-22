@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>OPERATOR COMMAND // EXECUTION OS v5.0</title>
+    <title>Storm OS — Dashboard</title>
     <meta name="theme-color" content="#080a0c">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="OPERATOR">
+    <meta name="apple-mobile-web-app-title" content="Storm OS">
     <link rel="manifest" id="pwa-manifest-link">
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap"
@@ -1936,6 +1936,12 @@
             font-weight: 600;
             min-height: 100vh;
             overflow-x: hidden;
+        }
+
+        @media (pointer: coarse) {
+            body {
+                cursor: auto;
+            }
         }
 
         #loading-overlay {
@@ -6121,7 +6127,7 @@
     <!-- LOADING OVERLAY -->
     <div id="loading-overlay">
         <div class="loading-spinner"></div>
-        <h2><i class="fas fa-bolt"></i> OPERATOR COMMAND</h2>
+        <h2><i class="fas fa-bolt"></i> STORM OS</h2>
         <p id="loading-msg"><span id="loading-msg-text">BOOTING SYSTEMS</span><span class="loading-dots"></span></p>
     </div>
 
@@ -6130,7 +6136,7 @@
     <div class="wrapper">
         <header>
             <div class="brand">
-                <h1><i class="fas fa-bolt"></i> OPERATOR COMMAND</h1>
+                <h1><i class="fas fa-bolt"></i> STORM OS</h1>
                 <div class="sub">
                     <i class="fas fa-user-astronaut"></i> Welcome, <span id="user-name">OPERATOR</span> |
                     <span style="color:var(--green)"><i class="fas fa-check-circle"></i> SYSTEM ACTIVE</span>
