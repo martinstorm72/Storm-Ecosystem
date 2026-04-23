@@ -12,6 +12,19 @@
         rel="stylesheet">
     <meta name="description"
         content="The LOCK IN 90-Day Discipline Challenge is a premium high-performance planner PDF. Daily planners, habit trackers, XP level system, and anti-procrastination protocols.">
+    <meta name="author" content="Martin, Storm OS">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://storm-os.app/productLockIn.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://storm-os.app/productLockIn.html">
+    <meta property="og:title" content="LOCK IN — 90-Day Discipline Planner PDF | Storm OS">
+    <meta property="og:description" content="21-page premium PDF planner system for high performers. Daily planners, habit trackers, XP level system, and anti-procrastination protocols. $14.99 — instant download.">
+    <meta property="og:site_name" content="Storm OS">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LOCK IN — 90-Day Discipline Planner PDF | Storm OS">
+    <meta name="twitter:description" content="21-page premium PDF planner for high performers. $14.99 instant download. Printable & iPad-ready.">
 
 
 
@@ -58,7 +71,21 @@
             background: var(--bg);
             color: var(--text);
             font-family: var(--body);
-            overflow-x: hidden
+            overflow-x: hidden;
+            cursor: none
+        }
+
+        /* ── SCROLL PROGRESS BAR ── */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #222, #ffffff);
+            z-index: 99999;
+            width: 0%;
+            transition: width .1s linear;
+            box-shadow: 0 0 8px rgba(200, 200, 200, 0.36);
         }
 
         .grid-bg {
@@ -1811,6 +1838,7 @@
 </head>
 
 <body>
+    <div id="scroll-progress"></div>
     <div id="cursor"></div>
     <div id="cursor-ring"></div>
     <div class="grid-bg"></div>
@@ -1845,6 +1873,12 @@
         </div>
     </nav>
 
+    <div style="position:relative;z-index:10;max-width:1100px;margin:0 auto;padding:100px 2rem 0;">
+        <a href="products.html" style="font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--text2);text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:5px 0;transition:color .2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text2)'">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            BACK TO ALL PRODUCTS
+        </a>
+    </div>
     <header class="hero">
         <div class="container">
             <div class="hero-content">
@@ -2004,7 +2038,7 @@
                         <div id="paypal-panel" class="paypal-panel">
                             <p>SECURE CHECKOUT VIA PAYPAL<br>You will be redirected to PayPal. After payment you are
                                 automatically returned here and your PDF downloads instantly.</p>
-                            <a href="https://www.paypal.com/ncp/payment/W62YX89UER4LS" class="paypal-link">
+                            <a href="https://www.paypal.com/ncp/payment/W62YX89UER4LS" class="paypal-link" rel="noopener noreferrer">
                                 🔒 PAY SECURELY ON PAYPAL →
                             </a>
                             <p style="margin-top:14px;font-size:.58rem;color:var(--text3);margin-bottom:0">
@@ -2024,10 +2058,16 @@
                         <!-- STATE 4: Success -->
                         <div id="download-success" class="download-success">
                             <h3>🎉 PAYMENT CONFIRMED — DOWNLOADING NOW!</h3>
-                            <p>Your PDF is downloading automatically. If it doesn't start, click the button below.</p>
-                            <button onclick="triggerDownload()" class="dl-btn">⬇ DOWNLOAD AGAIN</button>
+                            <p>Your PDF is downloading automatically. If it doesn't start within a few seconds, use the buttons below.</p>
+                            <button onclick="triggerDownload()" class="dl-btn">⬇ DOWNLOAD PDF</button>
+                            <a href="/downloads/LOCK-IN-90-Day-Discipline-Challenge.pdf"
+                               download="LOCK-IN-90-Day-Discipline-Challenge.pdf"
+                               rel="noopener"
+                               style="display:inline-block;margin-top:10px;font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:var(--text2);text-decoration:underline;text-underline-offset:3px;">
+                                Or click here to open directly →
+                            </a>
                             <p style="margin-top:14px;font-size:.6rem;color:var(--text3);margin-bottom:0">
-                                Check your Downloads folder for "LOCK-IN-90-Day-Discipline-Challenge.pdf"
+                                File: <strong style="color:var(--text2)">LOCK-IN-90-Day-Discipline-Challenge.pdf</strong> · 21 pages · ~1.8 MB
                             </p>
                         </div>
 
@@ -2081,6 +2121,12 @@
                             data-cfemail="076468697366647347747368756a2a626468747e7473626a2971627564626b29667777">[email&#160;protected]</a>
                     </div>
                 </div>
+                <div class="footer-links">
+                    <a href="products.html">ALL PRODUCTS</a>
+                    <a href="index.html#pricing">DASHBOARD</a>
+                    <a href="services.html">DOCS</a>
+                    <a href="index.html">HOME</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -2095,7 +2141,11 @@
             document.documentElement.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; cursorRing.style.opacity = '0'; });
             document.documentElement.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; cursorRing.style.opacity = '1'; });
         }
-        window.addEventListener('scroll', () => { document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40); });
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+            const sp = document.getElementById('scroll-progress');
+            if (sp) sp.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+        });
 
         // ── Reveal on scroll ──
         const revealObs = new IntersectionObserver(entries => {
@@ -2110,7 +2160,10 @@
         const LOCKIN_PAYPAL_URL = 'https://www.paypal.com/ncp/payment/W62YX89UER4LS';
         const LOCKIN_VERIFY_API = '/api/verify-lockin-payment';
 
-        // The actual hosted PDF URL — update this to your real CDN/storage URL
+        // ── PDF CONFIG ─────────────────────────────────────────────────
+        // Primary path: file must exist at /downloads/ on your server root.
+        // On storm-os.app deploy: place LOCK-IN-90-Day-Discipline-Challenge.pdf
+        // inside a /downloads/ folder at the website root.
         const LOCKIN_PDF_URL = '/downloads/LOCK-IN-90-Day-Discipline-Challenge.pdf';
         const LOCKIN_PDF_FILENAME = 'LOCK-IN-90-Day-Discipline-Challenge.pdf';
 
@@ -2130,8 +2183,38 @@
             });
         }
 
-        // ── TRIGGER DOWNLOAD ────────────────────────────────────────────
-        function triggerDownload() {
+        // ── TRIGGER DOWNLOAD — 3-layer fallback ─────────────────────────
+        // Layer 1: fetch → Blob → object URL  (most reliable, forces Save dialog)
+        // Layer 2: anchor with download attr   (works when same-origin)
+        // Layer 3: window.open in new tab      (last resort — shows PDF in browser)
+        async function triggerDownload() {
+            console.log('[Lock In] Triggering PDF download:', LOCKIN_PDF_FILENAME);
+
+            // ── Layer 1: fetch → blob ──────────────────────────────────
+            try {
+                const res = await fetch(LOCKIN_PDF_URL, { cache: 'no-store' });
+                if (res.ok) {
+                    const blob = await res.blob();
+                    const blobUrl = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = LOCKIN_PDF_FILENAME;
+                    a.style.display = 'none';
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(() => {
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(blobUrl);
+                    }, 1000);
+                    console.log('[Lock In] ✅ PDF download via blob URL');
+                    return;
+                }
+                console.warn('[Lock In] Fetch returned', res.status, '— trying anchor fallback');
+            } catch (fetchErr) {
+                console.warn('[Lock In] Fetch failed:', fetchErr.message, '— trying anchor fallback');
+            }
+
+            // ── Layer 2: plain anchor download attr ───────────────────
             try {
                 const a = document.createElement('a');
                 a.href = LOCKIN_PDF_URL;
@@ -2139,13 +2222,16 @@
                 a.style.display = 'none';
                 document.body.appendChild(a);
                 a.click();
-                setTimeout(() => document.body.removeChild(a), 300);
-                console.log('[Lock In] PDF download triggered:', LOCKIN_PDF_FILENAME);
-            } catch (err) {
-                console.error('[Lock In] Download failed:', err);
-                // Fallback: open in new tab
-                window.open(LOCKIN_PDF_URL, '_blank');
+                setTimeout(() => document.body.removeChild(a), 500);
+                console.log('[Lock In] ✅ PDF download via anchor');
+                return;
+            } catch (anchorErr) {
+                console.warn('[Lock In] Anchor download failed:', anchorErr.message);
             }
+
+            // ── Layer 3: open in new tab ───────────────────────────────
+            console.log('[Lock In] Opening PDF in new tab as last resort');
+            window.open(LOCKIN_PDF_URL, '_blank', 'noopener');
         }
 
         // ── VERIFY PAYMENT WITH SERVER ──────────────────────────────────
