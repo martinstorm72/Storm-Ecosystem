@@ -15,6 +15,7 @@
     <meta name="keywords"
         content="productivity PDF, discipline planner, 90 day challenge, digital download planner, habit tracker PDF, high performance system, self improvement PDF, storm os products, lock in planner, 90 day discipline challenge PDF">
     <meta name="robots" content="index, follow">
+    <meta name="author" content="Martin, Storm OS">
     <link rel="canonical" href="https://storm-os.app/products.html">
     <!-- Open Graph -->
     <meta property="og:title" content="Storm OS — Premium 90-Day Discipline Systems | PDF Planners">
@@ -1466,6 +1467,19 @@
             grid-column: 1 / -1
         }
 
+        /* ── SCROLL PROGRESS BAR ── */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #222, #ffffff);
+            z-index: 99999;
+            width: 0%;
+            transition: width .1s linear;
+            box-shadow: 0 0 8px rgba(200, 200, 200, 0.36);
+        }
+
         /* ── FLOATING CTA ── */
         .floating-cta {
             position: fixed;
@@ -1972,6 +1986,7 @@
 </head>
 
 <body>
+    <div id="scroll-progress"></div>
     <div id="cursor"></div>
     <div id="cursor-ring"></div>
     <div class="grid-bg"></div>
@@ -2530,6 +2545,8 @@
             if (n) n.classList.toggle('scrolled', window.scrollY > 40);
             const fc = document.getElementById('floating-cta');
             if (fc) fc.classList.toggle('visible', window.scrollY > 600);
+            const sp = document.getElementById('scroll-progress');
+            if (sp) sp.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
         });
 
         // ── Reveal on scroll ──
