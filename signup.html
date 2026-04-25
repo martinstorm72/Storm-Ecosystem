@@ -1307,9 +1307,9 @@
             <div class="terms-row">
                 <input type="checkbox" id="terms" />
                 <label for="terms">I agree to the <a href="policy.html#terms">Terms of Service</a> and <a
-                        href="policy.html">Privacy Policy</a>. Payment required to unlock the dashboard.</label>
+                        href="policy.html">Privacy Policy</a>. Your 7-day free trial starts immediately after signup.</label>
             </div>
-            <button class="btn-submit" id="signup-btn" onclick="handleSignup()">CREATE ACCOUNT & PAY →</button>
+            <button class="btn-submit" id="signup-btn" onclick="handleSignup()">START FREE 7-DAY TRIAL →</button>
             <div class="auth-footer"><a href="login.html">← BACK TO LOGIN</a> &nbsp;|&nbsp; <a
                     href="index.html">HOME</a></div>
         </div>
@@ -1388,7 +1388,8 @@
                         username: username || fullName.toLowerCase().replace(/\s+/g, '.'),
                         location: location || '',
                         is_paid: false,
-                        subscription_status: 'inactive'
+                        subscription_status: 'inactive',
+                        trial_start: new Date().toISOString()
                     }, { onConflict: 'id' });
 
                 if (error) {
@@ -1651,9 +1652,9 @@
 
                 if (data.user) {
                     localStorage.setItem('storm_os_auth', 'true');
-                    showMsg('// ACCOUNT CREATED — OPENING PAYMENT PORTAL...', 'success');
+                    showMsg('// ACCOUNT CREATED — STARTING YOUR FREE TRIAL...', 'success');
 
-                    // Create profile record
+                    // Create profile record with trial_start = NOW()
                     const profileResult = await updateUserProfile(data.user.id, email, name, username, location);
                     if (profileResult?.usernameConflict) {
                         showMsg('// ERROR: USERNAME @' + username.toUpperCase() + ' IS ALREADY TAKEN — CHOOSE ANOTHER', 'error');
@@ -1664,47 +1665,11 @@
                         return;
                     }
 
-                    // Open Paddle checkout
-                    paddleCheckoutOpened = true;
-
-                    Paddle.Checkout.open({
-                        items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }],
-                        customer: { email },
-                        customData: { supabase_user_id: data.user.id, operator_name: name },
-                        settings: { displayMode: 'overlay', theme: 'dark' },
-                        successCallback: async function (paddleData) {
-                            try {
-                                const paid = await markUserAsPaid(data.user.id);
-                                if (paid) {
-                                    localStorage.setItem('storm_os_paid', 'true');
-                                    showMsg('// PAYMENT CONFIRMED — REDIRECTING TO DASHBOARD...', 'success');
-                                    setTimeout(() => {
-                                        window.location.href = 'dashboard.html';
-                                    }, 1200);
-                                } else {
-                                    showMsg('// PAYMENT CONFIRMED BUT DATABASE ERROR — CONTACT SUPPORT', 'error');
-                                }
-                            } catch (e) {
-                                console.error('Payment success error:', e);
-                                showMsg('// ERROR: COULD NOT COMPLETE REGISTRATION', 'error');
-                            }
-                        },
-                        closeCallback: function () {
-                            if (!paddleCheckoutOpened) return;
-                            showMsg('// PAYMENT REQUIRED TO ACCESS DASHBOARD', 'error');
-                            btn.classList.remove('loading');
-                            btn.disabled = false;
-                            paddleCheckoutOpened = false;
-                        }
-                    });
-
-                    // Re-enable button if checkout fails to open
+                    // Trial started — go directly to dashboard, no payment needed
+                    showMsg('// ✅ 7-DAY FREE TRIAL ACTIVATED — REDIRECTING TO DASHBOARD...', 'success');
                     setTimeout(() => {
-                        if (!paddleCheckoutOpened) {
-                            btn.classList.remove('loading');
-                            btn.disabled = false;
-                        }
-                    }, 3000);
+                        window.location.href = 'dashboard.html';
+                    }, 1200);
                 }
             } catch (e) {
                 console.error('Signup error:', e);
