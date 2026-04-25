@@ -3910,33 +3910,198 @@
             transform: translateY(-2px);
         }
 
+        /* ═══ SHORTCUTS MODAL — full redesign ═══ */
         .shortcuts-box {
             background: var(--card);
             border: 1px solid var(--border2);
-            border-radius: 10px;
-            padding: 25px;
-            max-width: 700px;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s ease;
+            border-radius: 14px;
+            padding: 0;
+            width: min(780px, 94vw);
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            animation: shortcutsIn 0.22s cubic-bezier(.4,0,.2,1) both;
+            box-shadow: 0 24px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.04);
         }
-
+        @keyframes shortcutsIn {
+            from { opacity:0; transform: translateY(14px) scale(.97); }
+            to   { opacity:1; transform: translateY(0) scale(1); }
+        }
+        .sc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px 14px;
+            border-bottom: 1px solid var(--border2);
+            flex-shrink: 0;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .sc-title-group { display: flex; align-items: center; gap: 10px; }
+        .sc-title {
+            font-family: var(--head);
+            font-size: 1.18rem;
+            font-weight: 900;
+            letter-spacing: .06em;
+            color: var(--text);
+        }
+        .sc-title-badge {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: rgba(var(--accent-rgb, 108,99,255),.14);
+            color: var(--accent2);
+            border: 1px solid rgba(var(--accent-rgb, 108,99,255),.25);
+        }
+        .sc-search-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg);
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            padding: 5px 12px;
+            flex: 1;
+            max-width: 240px;
+            transition: border-color .15s;
+        }
+        .sc-search-wrap:focus-within { border-color: rgba(255,255,255,.2); }
+        .sc-search-wrap i { color: var(--text3); font-size: 0.8rem; flex-shrink: 0; }
+        #sc-search-input {
+            background: none;
+            border: none;
+            outline: none;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--text2);
+            width: 100%;
+        }
+        #sc-search-input::placeholder { color: var(--text3); }
+        .sc-close-btn {
+            background: none;
+            border: 1px solid var(--border2);
+            color: var(--text3);
+            border-radius: 6px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            transition: all .15s;
+            flex-shrink: 0;
+        }
+        .sc-close-btn:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
+        .sc-body {
+            overflow-y: auto;
+            padding: 16px 22px 22px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            flex: 1;
+        }
+        @media (max-width: 600px) { .sc-body { grid-template-columns: 1fr; } }
+        .sc-section {
+            background: var(--bg);
+            border: 1px solid var(--border2);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: opacity .15s;
+        }
+        .sc-section.sc-hidden { display: none; }
+        .sc-section-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            background: rgba(255,255,255,.025);
+            border-bottom: 1px solid var(--border2);
+        }
+        .sc-section-icon {
+            font-size: 0.9rem;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .sc-section-label {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: .14em;
+            color: var(--text3);
+        }
+        .sc-section-count {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--text3);
+            margin-left: auto;
+            background: var(--border2);
+            padding: 1px 6px;
+            border-radius: 8px;
+        }
+        .sc-rows { padding: 4px 0; }
         .shortcut-row {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid var(--border);
+            align-items: center;
+            padding: 6px 14px;
             font-family: var(--mono);
-            font-size: 0.92rem;
-            font-weight: 600;
+            font-size: 0.84rem;
+            color: var(--text2);
+            gap: 10px;
+            transition: background .12s;
+            border-bottom: 1px solid rgba(255,255,255,.03);
         }
-
+        .shortcut-row:last-child { border-bottom: none; }
+        .shortcut-row:hover { background: rgba(255,255,255,.03); }
+        .shortcut-row.sc-match { background: rgba(var(--accent-rgb,108,99,255),.06); }
+        .sc-row-label { flex: 1; min-width: 0; }
+        .sc-row-keys { display: flex; gap: 4px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
         .kbd {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: var(--card2);
             border: 1px solid var(--border2);
-            border-radius: 4px;
-            padding: 2px 8px;
+            border-bottom-width: 2px;
+            border-radius: 5px;
+            padding: 2px 7px;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 700;
             color: var(--accent2);
+            white-space: nowrap;
+            min-width: 22px;
+        }
+        .sc-footer {
+            padding: 10px 22px;
+            border-top: 1px solid var(--border2);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        .sc-footer-tip {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text3);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .sc-no-results {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 40px 20px;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--text3);
+            display: none;
         }
 
         .sync-indicator {
@@ -4006,17 +4171,16 @@
         #shortcuts-modal {
             position: fixed;
             inset: 0;
-            background: rgba(8, 10, 12, .92);
+            background: rgba(0,0,0,.82);
             display: none;
             align-items: center;
             justify-content: center;
-            z-index: 5000;
-            backdrop-filter: blur(4px);
+            z-index: 99990;
+            backdrop-filter: blur(8px);
+            padding: 20px;
         }
-
         #shortcuts-modal.open {
             display: flex;
-            animation: fadeIn 0.25s ease;
         }
 
         ::-webkit-scrollbar {
@@ -6099,6 +6263,158 @@
         }
 
         /* ═══ PAGE TRANSITIONS ═══ */
+        /* ═══════════════════════════════════════════════════════════════
+           ANALYTICS SESSION FEED
+        ═══════════════════════════════════════════════════════════════ */
+        .asf-session-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            background: var(--bg);
+            animation: insightReveal 0.25s ease both;
+            transition: border-color 0.2s;
+        }
+        .asf-session-row:hover { border-color: rgba(255,255,255,.1); }
+        .asf-tod-chip {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: .08em;
+            padding: 2px 7px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .asf-tod-morning  { background: rgba(255,201,71,.12); color: #ffc947; border: 1px solid rgba(255,201,71,.2); }
+        .asf-tod-afternoon{ background: rgba(0,210,255,.10);  color: var(--cyan); border: 1px solid rgba(0,210,255,.2); }
+        .asf-tod-evening  { background: rgba(108,99,255,.12); color: #a59fff; border: 1px solid rgba(108,99,255,.2); }
+        .asf-tod-night    { background: rgba(137,180,216,.10);color: #89b4d8; border: 1px solid rgba(137,180,216,.2); }
+        .asf-task-name {
+            font-family: var(--mono);
+            font-size: 0.84rem;
+            color: var(--text2);
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .asf-duration-pill {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: var(--text3);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .asf-time-stamp {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text3);
+            flex-shrink: 0;
+        }
+        .asf-summary-mini {
+            background: var(--card);
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+        .asf-summary-mini .asf-s-val {
+            font-family: var(--mono);
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--text);
+        }
+        .asf-summary-mini .asf-s-lbl {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: .1em;
+            color: var(--text3);
+            margin-top: 2px;
+        }
+        .asf-tod-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .asf-tod-bar-fill {
+            width: 100%;
+            border-radius: 3px 3px 0 0;
+            min-height: 3px;
+            transition: height 0.7s cubic-bezier(.4,0,.2,1);
+        }
+        .asf-tod-bar-lbl {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text3);
+            font-weight: 700;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           SNIPPET VAULT TAGS
+        ═══════════════════════════════════════════════════════════════ */
+        .sv-tag {
+            display: inline-flex;
+            align-items: center;
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            padding: 2px 7px;
+            border-radius: 10px;
+            background: rgba(255,255,255,.06);
+            color: var(--text3);
+            border: 1px solid rgba(255,255,255,.08);
+            cursor: pointer;
+            transition: all 0.15s;
+            white-space: nowrap;
+            text-transform: lowercase;
+        }
+        .sv-tag:hover, .sv-tag.active {
+            background: rgba(108,99,255,.18);
+            color: #a59fff;
+            border-color: rgba(108,99,255,.35);
+        }
+        .sv-tag-dp      { background: rgba(0,210,255,.08); color: var(--cyan); border-color: rgba(0,210,255,.2); }
+        .sv-tag-graph   { background: rgba(57,211,83,.08);  color: #39d353; border-color: rgba(57,211,83,.2); }
+        .sv-tag-hooks   { background: rgba(255,201,71,.08); color: #ffc947; border-color: rgba(255,201,71,.2); }
+        .sv-tag-bash    { background: rgba(126,200,164,.08);color: #7ec8a4; border-color: rgba(126,200,164,.2); }
+        .sv-tag-tree    { background: rgba(137,180,216,.08);color: #89b4d8; border-color: rgba(137,180,216,.2); }
+        .sv-tag-sort    { background: rgba(240,128,128,.08);color: #f08080; border-color: rgba(240,128,128,.2); }
+        .sv-tag-twoptr  { background: rgba(232,201,122,.08);color: #e8c97a; border-color: rgba(232,201,122,.2); }
+        .sv-tag-bfs     { background: rgba(180,180,255,.08);color: #b4b4ff; border-color: rgba(180,180,255,.2); }
+        .sv-tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 6px;
+        }
+        .sv-filter-bar {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            padding: 8px 10px;
+            background: var(--bg);
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+        }
+        .sv-filter-label {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            font-weight: 900;
+            letter-spacing: .1em;
+            color: var(--text3);
+            align-self: center;
+            padding-right: 4px;
+            white-space: nowrap;
+        }
+
         .page-transition-overlay {
             position: fixed;
             inset: 0;
@@ -6328,6 +6644,129 @@
             text-align: center;
         }
 
+        /* ═══ ACCENT COLOR PICKER ═══ */
+        #accent-picker-popover {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            z-index: 99995;
+            background: var(--card);
+            border: 1px solid var(--border2);
+            border-radius: 12px;
+            padding: 14px 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+            min-width: 220px;
+            animation: accentPopIn 0.18s cubic-bezier(.4,0,.2,1) both;
+        }
+        #accent-picker-popover.open { display: block; }
+        @keyframes accentPopIn {
+            from { opacity: 0; transform: translateY(-6px) scale(.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        #accent-picker-wrap {
+            position: relative;
+        }
+        .accent-picker-title {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            font-weight: 900;
+            letter-spacing: .14em;
+            color: var(--text3);
+            margin-bottom: 10px;
+        }
+        .accent-presets-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .accent-swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform .2s cubic-bezier(.34,1.56,.64,1), border-color .15s, box-shadow .15s;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .accent-swatch:hover { transform: scale(1.22); }
+        .accent-swatch.active {
+            border-color: #fff;
+            box-shadow: 0 0 0 3px rgba(255,255,255,.18);
+        }
+        .accent-swatch .swatch-check {
+            position: absolute;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            color: #000;
+            font-weight: 900;
+        }
+        .accent-swatch.active .swatch-check { display: flex; }
+        .accent-divider {
+            height: 1px;
+            background: var(--border2);
+            margin: 10px 0;
+        }
+        .accent-custom-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .accent-custom-label {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--text3);
+            white-space: nowrap;
+        }
+        #accent-custom-hex {
+            flex: 1;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            background: var(--bg);
+            border: 1px solid var(--border2);
+            border-radius: 5px;
+            color: var(--text2);
+            padding: 4px 8px;
+            outline: none;
+            min-width: 0;
+        }
+        #accent-custom-hex:focus { border-color: rgba(255,255,255,.2); }
+        #accent-custom-apply {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border2);
+            background: rgba(255,255,255,.06);
+            color: var(--text2);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all .15s;
+        }
+        #accent-custom-apply:hover { border-color: rgba(255,255,255,.2); color: var(--text); }
+        #accent-picker-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        #accent-picker-btn .accent-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            transition: background .3s;
+            border: 1px solid rgba(255,255,255,.2);
+        }
+
         /* ═══ SHAREABLE PROGRESS CARD ═══ */
         #share-card-modal {
             display: none;
@@ -6404,6 +6843,361 @@
 
         .share-card-close:hover {
             color: var(--text2);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           EXPORT EVERYTHING MODAL
+        ═══════════════════════════════════════════════════════════════ */
+
+        #export-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 99995;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+        }
+        #export-modal.open {
+            display: flex;
+            animation: exportModalIn 0.28s cubic-bezier(.16,1,.3,1) both;
+        }
+        @keyframes exportModalIn {
+            from { opacity: 0; transform: scale(0.96) translateY(12px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .export-box {
+            background: var(--card);
+            border: 1px solid var(--border2);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 32px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.04);
+            scrollbar-width: thin;
+            scrollbar-color: var(--border2) transparent;
+        }
+
+        .export-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 22px 24px 16px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--card);
+            z-index: 2;
+        }
+
+        .export-header-left {}
+
+        .export-title {
+            font-family: var(--head);
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 3px;
+        }
+
+        .export-title-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(108,99,255,.18), rgba(0,210,255,.1));
+            border: 1px solid rgba(108,99,255,.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.88rem;
+            color: var(--accent2);
+        }
+
+        .export-subtitle {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--text3);
+            letter-spacing: .06em;
+        }
+
+        .export-close-btn {
+            background: none;
+            border: 1px solid var(--border2);
+            color: var(--text3);
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            letter-spacing: .08em;
+            transition: all .15s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .export-close-btn:hover {
+            color: var(--text);
+            border-color: rgba(255,255,255,.2);
+        }
+
+        /* Summary bar */
+        .export-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 8px;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .export-stat {
+            background: var(--bg);
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            padding: 10px 12px;
+            text-align: center;
+        }
+
+        .export-stat-val {
+            font-family: var(--head);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent2);
+            letter-spacing: .02em;
+        }
+
+        .export-stat-lbl {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--text3);
+            letter-spacing: .1em;
+            margin-top: 2px;
+        }
+
+        /* Format selector */
+        .export-format-row {
+            display: flex;
+            gap: 8px;
+            padding: 16px 24px 0;
+            align-items: center;
+        }
+
+        .export-format-label {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            color: var(--text3);
+            white-space: nowrap;
+        }
+
+        .export-fmt-btn {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border2);
+            background: var(--bg);
+            color: var(--text3);
+            cursor: pointer;
+            transition: all .15s;
+        }
+        .export-fmt-btn:hover {
+            border-color: rgba(255,255,255,.15);
+            color: var(--text2);
+        }
+        .export-fmt-btn.active {
+            background: rgba(108,99,255,.14);
+            border-color: rgba(108,99,255,.4);
+            color: #a59fff;
+        }
+
+        /* Section grid */
+        .export-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 14px 24px;
+        }
+
+        .export-section-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border2);
+            background: var(--bg);
+            cursor: pointer;
+            transition: all .18s;
+            position: relative;
+            overflow: hidden;
+        }
+        .export-section-row:hover {
+            border-color: rgba(255,255,255,.1);
+            background: rgba(255,255,255,.02);
+        }
+        .export-section-row.selected {
+            border-color: rgba(108,99,255,.35);
+            background: rgba(108,99,255,.07);
+        }
+        .export-section-row.selected .esr-check {
+            background: rgba(108,99,255,.8);
+            border-color: rgba(108,99,255,.8);
+            color: #fff;
+        }
+
+        .esr-check {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 1.5px solid var(--border2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            color: transparent;
+            flex-shrink: 0;
+            transition: all .15s;
+        }
+
+        .esr-icon {
+            font-size: 1.0rem;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .esr-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .esr-name {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            color: var(--text2);
+        }
+
+        .esr-desc {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--text3);
+            margin-top: 1px;
+        }
+
+        .esr-count {
+            font-family: var(--head);
+            font-size: 1.0rem;
+            font-weight: 700;
+            color: var(--text3);
+            flex-shrink: 0;
+            letter-spacing: .02em;
+        }
+
+        .esr-formats {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .esr-format-tag {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255,255,255,.05);
+            border: 1px solid var(--border2);
+            color: var(--text3);
+        }
+
+        .esr-format-tag.json { border-color: rgba(108,99,255,.25); color: #a59fff; background: rgba(108,99,255,.08); }
+        .esr-format-tag.csv  { border-color: rgba(57,211,83,.25);  color: #7dde98; background: rgba(57,211,83,.08); }
+
+        /* Actions footer */
+        .export-actions {
+            padding: 14px 24px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .export-select-all-btn {
+            background: none;
+            border: 1px solid var(--border2);
+            color: var(--text3);
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 7px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            letter-spacing: .07em;
+            transition: all .15s;
+        }
+        .export-select-all-btn:hover {
+            color: var(--text2);
+            border-color: rgba(255,255,255,.15);
+        }
+
+        .export-go-btn {
+            flex: 1;
+            min-width: 160px;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            font-weight: 900;
+            letter-spacing: .1em;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, rgba(108,99,255,.9), rgba(0,210,255,.8));
+            color: #fff;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(108,99,255,.3);
+        }
+        .export-go-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 28px rgba(108,99,255,.45);
+        }
+        .export-go-btn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .export-last-stamp {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--text3);
+            margin-left: auto;
+            text-align: right;
+            line-height: 1.5;
+        }
+
+        /* Progress bar inside go button */
+        .export-go-btn.exporting {
+            background: linear-gradient(135deg, rgba(57,211,83,.7), rgba(0,210,255,.6));
         }
     </style>
 </head>
@@ -6522,11 +7316,26 @@
                         class="fas fa-download"></i> INSTALL APP</button>
                 <button class="btn btn-ghost btn-sm" title="View Profile" onclick="_navTo('Profile.html')"><i
                         class="fas fa-user-circle"></i> PROFILE</button>
+                <!-- ACCENT COLOR PICKER -->
+                <div id="accent-picker-wrap" style="position:relative">
+                    <button class="btn btn-ghost btn-sm" id="accent-picker-btn" onclick="toggleAccentPicker(event)" title="Accent Color">
+                        <span class="accent-dot"></span> ACCENT
+                    </button>
+                    <div id="accent-picker-popover">
+                        <div class="accent-picker-title">ACCENT COLOR</div>
+                        <div class="accent-presets-row" id="accent-swatches-row"></div>
+                        <div class="accent-divider"></div>
+                        <div class="accent-custom-row">
+                            <span class="accent-custom-label">HEX</span>
+                            <input id="accent-custom-hex" type="text" placeholder="#6c63ff" maxlength="7" />
+                            <button id="accent-custom-apply" onclick="applyCustomAccent()">APPLY</button>
+                        </div>
+                    </div>
+                </div>
                 <button id="onb-trigger-btn" onclick="openOnboarding()"><i class="fas fa-tasks"></i> SETUP <span
                         class="onb-badge" id="onb-badge-count">5</span></button>
                 <button class="btn btn-ghost btn-sm" onclick="showShortcuts()"><i class="fas fa-keyboard"></i></button>
-                <button class="btn btn-ghost btn-sm" onclick="exportData()"><i class="fas fa-download"></i>
-                    EXPORT</button>
+                <button class="btn btn-ghost btn-sm" id="export-everything-btn" onclick="openExportModal()"><i class="fas fa-box-open"></i> EXPORT</button>
                 <button class="btn btn-ghost btn-sm" onclick="clearData()"><i class="fas fa-trash-alt"></i>
                     RESET</button>
             </div>
@@ -6587,6 +7396,7 @@
                 MONTHLY PLANNER</button>
             <button class="nav-tab" onclick="switchTab('devtools',this)"><i class="fas fa-code"></i> DEV TOOLS</button>
             <button class="nav-tab" onclick="switchTab('journal',this)"><i class="fas fa-book"></i> FIELD NOTES</button>
+            <button class="nav-tab" onclick="switchTab('flashcards',this)"><i class="fas fa-clone"></i> FLASHCARDS</button>
             <button class="nav-tab" onclick="switchTab('help',this)"><i class="fas fa-question-circle"></i>
                 HELP</button>
         </div>
@@ -7030,6 +7840,39 @@
                 <div class="card-title"><i class="fas fa-lightbulb"></i> INSIGHTS</div>
                 <div id="insights"></div>
             </div>
+
+            <!-- ── TIMER SESSION FEED ── -->
+            <div class="card" style="margin-top:16px" id="analytics-session-feed-card">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+                    <div class="card-title" style="margin:0"><i class="fas fa-history"></i> FOCUS SESSION FEED <span class="card-badge" id="asf-total-badge">0 SESSIONS</span></div>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+                        <select id="asf-filter-period" style="font-family:var(--mono);font-size:0.75rem;background:var(--card2);border:1px solid var(--border2);border-radius:5px;color:var(--text2);padding:3px 8px" onchange="renderAnalyticsSessionFeed()">
+                            <option value="today">Today</option>
+                            <option value="week">Last 7 days</option>
+                            <option value="all">All time</option>
+                        </select>
+                        <select id="asf-filter-tod" style="font-family:var(--mono);font-size:0.75rem;background:var(--card2);border:1px solid var(--border2);border-radius:5px;color:var(--text2);padding:3px 8px" onchange="renderAnalyticsSessionFeed()">
+                            <option value="all">All times</option>
+                            <option value="morning">🌅 Morning (5–11)</option>
+                            <option value="afternoon">☀️ Afternoon (12–17)</option>
+                            <option value="evening">🌆 Evening (18–22)</option>
+                            <option value="night">🌙 Night (23–4)</option>
+                        </select>
+                        <button class="btn btn-ghost btn-sm" onclick="exportSessionFeedCSV()" style="font-size:0.72rem"><i class="fas fa-download"></i> CSV</button>
+                    </div>
+                </div>
+                <!-- Summary row -->
+                <div id="asf-summary-row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:14px"></div>
+                <!-- Time-of-day distribution bar -->
+                <div style="margin-bottom:14px">
+                    <div style="font-family:var(--mono);font-size:0.65rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:8px">TIME-OF-DAY DISTRIBUTION</div>
+                    <div id="asf-tod-bar" style="display:flex;gap:4px;align-items:flex-end;height:52px"></div>
+                    <div id="asf-tod-labels" style="display:flex;gap:4px;margin-top:4px"></div>
+                </div>
+                <!-- Session feed list -->
+                <div style="font-family:var(--mono);font-size:0.65rem;font-weight:900;letter-spacing:.12em;color:var(--text3);margin-bottom:8px">LOGGED SESSIONS</div>
+                <div id="asf-feed-list" style="display:flex;flex-direction:column;gap:5px;max-height:340px;overflow-y:auto"></div>
+            </div>
         </div>
 
         <!-- FIELD NOTES PANEL -->
@@ -7067,6 +7910,7 @@
                 <button class="tool-tab" onclick="switchToolTab('complexity',this)">📊 Complexity</button>
                 <button class="tool-tab" onclick="switchToolTab('markdown',this)">📝 Markdown</button>
                 <button class="tool-tab" onclick="switchToolTab('utils',this)">🔧 Utilities</button>
+                <button class="tool-tab" onclick="switchToolTab('leetcode',this)">⚡ LeetCode</button>
             </div>
 
             <!-- ── PLAYGROUND ── -->
@@ -7158,33 +8002,53 @@
                 </div>
             </div>
 
-            <!-- ── SNIPPETS ── -->
+            <!-- ── SNIPPETS (VAULT) ── -->
             <div class="tool-panel" id="snippets-panel">
                 <div class="card">
                     <div class="card-title">
-                        <span><i class="fas fa-bookmark"></i> CODE SNIPPETS</span>
+                        <span><i class="fas fa-vault"></i> SNIPPET VAULT</span>
                         <span class="card-badge" id="snip-count-badge">0 SAVED</span>
                     </div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+                    <!-- Add form -->
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px">
                         <input type="text" id="snip-title" placeholder="Snippet title..." />
                         <select id="snip-lang" style="max-width:160px">
                             <option value="javascript">JavaScript</option>
                             <option value="python">Python</option>
+                            <option value="typescript">TypeScript</option>
                             <option value="html">HTML</option>
                             <option value="css">CSS</option>
                             <option value="sql">SQL</option>
                             <option value="bash">Bash</option>
+                            <option value="go">Go</option>
+                            <option value="rust">Rust</option>
+                            <option value="cpp">C++</option>
+                            <option value="java">Java</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
+                    <!-- Tags input -->
+                    <div style="margin-bottom:8px">
+                        <input type="text" id="snip-tags" placeholder="Tags: dp, graph, hooks, bash, twoptr, sort, bfs, tree …  (comma-separated)"
+                            style="font-size:0.82rem" />
+                        <div style="margin-top:5px;display:flex;flex-wrap:wrap;gap:4px" id="snip-quick-tags">
+                            <!-- quick-add tag chips rendered by JS -->
+                        </div>
+                    </div>
                     <textarea id="snip-code" rows="5" placeholder="// Paste your code..."
                         style="margin-bottom:8px;font-family:var(--mono);font-size:0.92rem"></textarea>
-                    <div style="display:flex;gap:8px;margin-bottom:14px">
-                        <button class="btn btn-primary btn-sm" onclick="addSnippet()"><i class="fas fa-plus"></i> SAVE
-                            SNIPPET</button>
+                    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
+                        <button class="btn btn-primary btn-sm" onclick="addSnippet()"><i class="fas fa-plus"></i> SAVE SNIPPET</button>
+                        <span style="font-family:var(--mono);font-size:0.7rem;color:var(--text3)">// Ctrl+S to save quickly</span>
                     </div>
-                    <input type="text" class="dt-snip-search" id="snip-search" placeholder="🔍  Search snippets..."
-                        oninput="renderSnippets()" />
+                    <!-- Search + tag filter -->
+                    <input type="text" class="dt-snip-search" id="snip-search" placeholder="🔍  Search by title, code, or tag..."
+                        oninput="renderSnippets()" style="margin-bottom:8px" />
+                    <!-- Tag filter bar -->
+                    <div class="sv-filter-bar" id="sv-tag-filter-bar">
+                        <span class="sv-filter-label">FILTER:</span>
+                        <span class="sv-tag active" onclick="svToggleTagFilter('__all__',this)">ALL</span>
+                    </div>
                     <div id="snippet-list"></div>
                 </div>
             </div>
@@ -7368,6 +8232,171 @@
                 </div>
             </div>
 
+            <!-- ── LEETCODE TRACKER ── -->
+            <div class="tool-panel" id="leetcode-panel">
+                <!-- Stats row -->
+                <div class="lc-stats-grid" id="lc-stats-grid">
+                    <div class="lc-stat-card"><div class="lc-stat-val" id="lc-total">0</div><div class="lc-stat-lbl">SOLVED</div></div>
+                    <div class="lc-stat-card"><div class="lc-stat-val" style="color:#39d353" id="lc-easy">0</div><div class="lc-stat-lbl">EASY</div></div>
+                    <div class="lc-stat-card"><div class="lc-stat-val" style="color:var(--amber)" id="lc-medium">0</div><div class="lc-stat-lbl">MEDIUM</div></div>
+                    <div class="lc-stat-card"><div class="lc-stat-val" style="color:var(--red)" id="lc-hard">0</div><div class="lc-stat-lbl">HARD</div></div>
+                    <div class="lc-stat-card"><div class="lc-stat-val" id="lc-streak">0🔥</div><div class="lc-stat-lbl">STREAK</div></div>
+                    <div class="lc-stat-card"><div class="lc-stat-val" style="color:var(--cyan)" id="lc-review">0</div><div class="lc-stat-lbl">REVIEW</div></div>
+                </div>
+
+                <div class="lc-main-grid">
+                    <!-- Left column: log form + weekly stats -->
+                    <div>
+                        <div class="card" style="margin-bottom:14px">
+                            <div class="card-title"><i class="fas fa-plus-circle"></i> LOG PROBLEM</div>
+                            <input type="text" id="lc-name" placeholder="Problem name / number..." style="margin-bottom:8px" />
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+                                <select id="lc-diff" style="font-family:var(--mono);font-size:0.85rem;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:7px 10px;color:var(--text);outline:none">
+                                    <option value="easy">🟢 Easy</option>
+                                    <option value="medium" selected>🟡 Medium</option>
+                                    <option value="hard">🔴 Hard</option>
+                                </select>
+                                <input type="text" id="lc-tags" placeholder="Tags: array, dp, graph..." />
+                            </div>
+                            <textarea id="lc-notes" rows="2" placeholder="Notes, approach, time complexity..." style="margin-bottom:8px;font-family:var(--mono);font-size:0.85rem;width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 11px;color:var(--text);outline:none;resize:vertical"></textarea>
+                            <div style="display:flex;gap:8px;align-items:center">
+                                <label style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:0.8rem;cursor:pointer;color:var(--text2)"><input type="checkbox" id="lc-flag-review" style="width:auto" /> Flag for review</label>
+                                <button class="btn btn-primary btn-sm" style="margin-left:auto" onclick="lcLog()"><i class="fas fa-plus"></i> LOG</button>
+                            </div>
+                        </div>
+
+                        <!-- Weekly stats -->
+                        <div class="card">
+                            <div class="card-title"><i class="fas fa-chart-bar"></i> WEEKLY STATS</div>
+                            <div class="lc-weekly-chart" id="lc-weekly-chart"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right column: heatmap + problem list -->
+                    <div>
+                        <div class="card" style="margin-bottom:14px">
+                            <div class="card-title"><i class="fas fa-fire"></i> ACTIVITY HEATMAP <span class="card-badge" id="lc-heatmap-year">2025</span></div>
+                            <div id="lc-heatmap" class="lc-heatmap"></div>
+                            <div class="lc-heatmap-legend"><span style="color:var(--text3)">Less</span><div class="lc-hm-cell" style="background:var(--border2)"></div><div class="lc-hm-cell" style="background:rgba(57,211,83,.25)"></div><div class="lc-hm-cell" style="background:rgba(57,211,83,.5)"></div><div class="lc-hm-cell" style="background:rgba(57,211,83,.75)"></div><div class="lc-hm-cell" style="background:#39d353"></div><span style="color:var(--text3)">More</span></div>
+                        </div>
+
+                        <div class="card">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+                                <div class="card-title" style="margin:0"><i class="fas fa-list"></i> PROBLEMS <span class="card-badge" id="lc-list-count">0</span></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                                    <select id="lc-filter-diff" style="font-family:var(--mono);font-size:0.75rem;background:var(--card2);border:1px solid var(--border2);border-radius:5px;color:var(--text2);padding:3px 8px" onchange="lcRender()">
+                                        <option value="all">All difficulties</option>
+                                        <option value="easy">Easy</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="hard">Hard</option>
+                                    </select>
+                                    <select id="lc-filter-flag" style="font-family:var(--mono);font-size:0.75rem;background:var(--card2);border:1px solid var(--border2);border-radius:5px;color:var(--text2);padding:3px 8px" onchange="lcRender()">
+                                        <option value="all">All</option>
+                                        <option value="review">Review flagged</option>
+                                    </select>
+                                    <input type="text" id="lc-search" placeholder="🔍 Search..." style="font-size:0.78rem;padding:3px 9px;max-width:130px" oninput="lcRender()" />
+                                </div>
+                            </div>
+                            <div id="lc-problem-list" style="display:flex;flex-direction:column;gap:5px;max-height:360px;overflow-y:auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FLASHCARDS PANEL -->
+        <div class="panel" id="panel-flashcards">
+            <div class="fc-layout">
+                <!-- LEFT: Deck Manager -->
+                <div class="fc-sidebar">
+                    <div class="card" style="height:100%">
+                        <div class="card-title"><i class="fas fa-layer-group"></i> DECKS <button class="btn btn-primary btn-sm" style="margin-left:auto" onclick="fcNewDeck()"><i class="fas fa-plus"></i> NEW</button></div>
+                        <div id="fc-deck-list" style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px"></div>
+                        <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:4px">
+                            <div class="card-title" style="margin-bottom:10px"><i class="fas fa-plus-circle"></i> ADD CARD</div>
+                            <select id="fc-add-deck" style="width:100%;margin-bottom:8px;font-family:var(--mono);font-size:0.82rem"><option value="">— Select deck —</option></select>
+                            <input type="text" id="fc-add-front" placeholder="Front (question / term)..." style="margin-bottom:6px;font-size:0.88rem" />
+                            <textarea id="fc-add-back" rows="3" placeholder="Back (answer / definition)..." style="margin-bottom:8px;font-family:var(--mono);font-size:0.88rem;width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:9px 11px;color:var(--text);outline:none;resize:vertical"></textarea>
+                            <button class="btn btn-primary btn-sm" style="width:100%" onclick="fcAddCard()"><i class="fas fa-plus"></i> ADD CARD</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- RIGHT: Review / Overview -->
+                <div class="fc-main">
+                    <!-- Stats bar -->
+                    <div class="fc-stats-bar" id="fc-stats-bar">
+                        <div class="fc-stat"><div class="fc-stat-val" id="fc-stat-total">0</div><div class="fc-stat-lbl">TOTAL</div></div>
+                        <div class="fc-stat"><div class="fc-stat-val" style="color:#39d353" id="fc-stat-due">0</div><div class="fc-stat-lbl">DUE NOW</div></div>
+                        <div class="fc-stat"><div class="fc-stat-val" style="color:var(--amber)" id="fc-stat-learning">0</div><div class="fc-stat-lbl">LEARNING</div></div>
+                        <div class="fc-stat"><div class="fc-stat-val" style="color:var(--cyan)" id="fc-stat-mastered">0</div><div class="fc-stat-lbl">MASTERED</div></div>
+                        <div class="fc-stat"><div class="fc-stat-val" id="fc-stat-streak">0🔥</div><div class="fc-stat-lbl">DAY STREAK</div></div>
+                    </div>
+
+                    <!-- Review session -->
+                    <div class="card fc-review-card" id="fc-review-section">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+                            <div class="card-title" style="margin:0"><i class="fas fa-bolt"></i> REVIEW SESSION <span class="card-badge" id="fc-queue-badge">0 cards</span></div>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap">
+                                <select id="fc-review-deck" style="font-family:var(--mono);font-size:0.78rem;background:var(--card2);border:1px solid var(--border2);color:var(--text2);border-radius:6px;padding:4px 10px" onchange="fcBuildQueue()"><option value="all">All Decks — Due</option></select>
+                                <button class="btn btn-primary btn-sm" onclick="fcStartReview()"><i class="fas fa-play"></i> START REVIEW</button>
+                            </div>
+                        </div>
+                        <!-- Idle state -->
+                        <div id="fc-idle-state" style="text-align:center;padding:40px 20px">
+                            <div style="font-size:3rem;margin-bottom:12px">🃏</div>
+                            <div style="font-family:var(--head);font-size:1.4rem;font-weight:700;letter-spacing:.04em;margin-bottom:8px">Ready to Review</div>
+                            <div style="font-family:var(--mono);font-size:0.85rem;color:var(--text3);margin-bottom:20px">Select a deck and press Start Review to begin a spaced-repetition session</div>
+                            <div id="fc-due-preview" style="font-family:var(--mono);font-size:0.8rem;color:var(--text3)"></div>
+                        </div>
+                        <!-- Active review -->
+                        <div id="fc-active-state" style="display:none">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                                <div style="font-family:var(--mono);font-size:0.75rem;color:var(--text3)" id="fc-progress-txt">Card 1 of 1</div>
+                                <button class="btn btn-ghost btn-sm" onclick="fcEndSession()" style="font-size:0.72rem">✕ END SESSION</button>
+                            </div>
+                            <div class="fc-progress-bar-wrap"><div class="fc-progress-bar-fill" id="fc-progress-bar" style="width:0%"></div></div>
+                            <!-- The card -->
+                            <div class="fc-card-flip" id="fc-card-flip" onclick="fcFlip()">
+                                <div class="fc-card-inner" id="fc-card-inner">
+                                    <div class="fc-card-face fc-card-front">
+                                        <div class="fc-card-label">QUESTION</div>
+                                        <div class="fc-card-content" id="fc-front-text"></div>
+                                        <div class="fc-flip-hint"><i class="fas fa-hand-pointer"></i> tap to reveal</div>
+                                    </div>
+                                    <div class="fc-card-face fc-card-back">
+                                        <div class="fc-card-label">ANSWER</div>
+                                        <div class="fc-card-content" id="fc-back-text"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Rating buttons (hidden until flipped) -->
+                            <div id="fc-rating-row" style="display:none;gap:10px;margin-top:18px;justify-content:center">
+                                <button class="fc-rate-btn fc-rate-again" onclick="fcRate(1)"><i class="fas fa-redo"></i><br>AGAIN<br><span class="fc-rate-interval">&lt;1m</span></button>
+                                <button class="fc-rate-btn fc-rate-hard" onclick="fcRate(2)"><i class="fas fa-thumbs-down"></i><br>HARD<br><span class="fc-rate-interval" id="fc-int-hard"></span></button>
+                                <button class="fc-rate-btn fc-rate-good" onclick="fcRate(3)"><i class="fas fa-check"></i><br>GOOD<br><span class="fc-rate-interval" id="fc-int-good"></span></button>
+                                <button class="fc-rate-btn fc-rate-easy" onclick="fcRate(4)"><i class="fas fa-star"></i><br>EASY<br><span class="fc-rate-interval" id="fc-int-easy"></span></button>
+                            </div>
+                        </div>
+                        <!-- Done state -->
+                        <div id="fc-done-state" style="display:none;text-align:center;padding:40px 20px">
+                            <div style="font-size:3rem;margin-bottom:12px">🎉</div>
+                            <div style="font-family:var(--head);font-size:1.5rem;font-weight:900;letter-spacing:.04em;margin-bottom:8px">Session Complete!</div>
+                            <div id="fc-done-summary" style="font-family:var(--mono);font-size:0.9rem;color:var(--text2);margin-bottom:20px"></div>
+                            <button class="btn btn-primary" onclick="fcStartReview()"><i class="fas fa-redo"></i> REVIEW AGAIN</button>
+                        </div>
+                    </div>
+
+                    <!-- Card browser -->
+                    <div class="card" id="fc-browser-card" style="margin-top:14px">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+                            <div class="card-title" style="margin:0"><i class="fas fa-table"></i> CARD BROWSER <span class="card-badge" id="fc-browser-count">0 cards</span></div>
+                            <input type="text" placeholder="🔍 Search cards..." id="fc-search" oninput="fcRenderBrowser()" style="max-width:220px;font-size:0.83rem;padding:5px 10px" />
+                        </div>
+                        <div id="fc-browser-list" style="display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- HELP PANEL -->
@@ -7742,34 +8771,124 @@
     </div>
 
     <div id="shortcuts-modal" onclick="if(event.target===this)closeShortcuts()">
-        <div class="shortcuts-box">
-            <h2 style="margin-bottom:16px;">⌨ Keyboard Shortcuts</h2>
-            <div class="shortcut-row"><span>Toggle timer</span><span class="kbd">Space</span></div>
-            <div class="shortcut-row"><span>Show shortcuts</span><span class="kbd">?</span></div>
-            <div class="shortcut-row" style="margin-top:8px"><span
-                    style="color:var(--text3);font-size:0.75em;letter-spacing:.08em;font-weight:900">TAB
-                    SHORTCUTS</span><span></span></div>
-            <div class="shortcut-row"><span>1 · Deep Work</span><span class="kbd">1</span></div>
-            <div class="shortcut-row"><span>2 · Focus Pulse</span><span class="kbd">2</span></div>
-            <div class="shortcut-row"><span>3 · AI Coach</span><span class="kbd">3</span></div>
-            <div class="shortcut-row"><span>4 · Habits</span><span class="kbd">4</span></div>
-            <div class="shortcut-row"><span>5 · Weekly Planner</span><span class="kbd">5</span></div>
-            <div class="shortcut-row"><span>6 · Monthly Planner</span><span class="kbd">6</span></div>
-            <div class="shortcut-row"><span>7 · Dev Tools</span><span class="kbd">7</span></div>
-            <div class="shortcut-row"><span>8 · Field Notes</span><span class="kbd">8</span></div>
-            <div class="shortcut-row"><span>9 · Help</span><span class="kbd">9</span></div>
-            <div class="shortcut-row" style="margin-top:8px"><span
-                    style="color:var(--text3);font-size:0.75em;letter-spacing:.08em;font-weight:900">ACTIONS</span><span></span>
+        <div class="shortcuts-box" role="dialog" aria-modal="true" aria-label="Keyboard Shortcuts">
+            <!-- Header -->
+            <div class="sc-header">
+                <div class="sc-title-group">
+                    <span class="sc-title"><i class="fas fa-keyboard" style="font-size:.9em;opacity:.7"></i> Keyboard Shortcuts</span>
+                    <span class="sc-title-badge" id="sc-total-count">26 shortcuts</span>
+                </div>
+                <div class="sc-search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input id="sc-search-input" type="text" placeholder="Search shortcuts…" oninput="scFilter(this.value)" autocomplete="off" />
+                </div>
+                <button class="sc-close-btn" onclick="closeShortcuts()"><i class="fas fa-times"></i> ESC</button>
             </div>
-            <div class="shortcut-row"><span>Focus task input</span><span class="kbd">Ctrl+N</span></div>
-            <div class="shortcut-row"><span>Run code</span><span class="kbd">Ctrl+Enter</span></div>
-            <div class="shortcut-row"><span>Log distraction</span><span class="kbd">Alt+D</span></div>
-            <div class="shortcut-row"><span>Export</span><span class="kbd">Alt+E</span></div>
-            <div class="shortcut-row"><span>Force cloud sync</span><span class="kbd">Alt+S</span></div>
-            <div class="shortcut-row"><span>Add weekly event</span><span class="kbd">Alt+W</span></div>
-            <div class="shortcut-row"><span>Add monthly event</span><span class="kbd">Alt+M</span></div>
-            <div class="shortcut-row"><span>Go Home</span><span class="kbd">Alt+H</span></div>
-            <button class="btn btn-ghost btn-sm mt-16" onclick="closeShortcuts()">Close</button>
+
+            <!-- Body grid -->
+            <div class="sc-body" id="sc-body">
+
+                <!-- SECTION: Navigation -->
+                <div class="sc-section" data-sc-section="navigation">
+                    <div class="sc-section-head">
+                        <span class="sc-section-icon">🗂</span>
+                        <span class="sc-section-label">NAVIGATION</span>
+                        <span class="sc-section-count">9</span>
+                    </div>
+                    <div class="sc-rows">
+                        <div class="shortcut-row" data-sc="deep work planner tab 1"><span class="sc-row-label">Deep Work / Planner</span><div class="sc-row-keys"><span class="kbd">1</span></div></div>
+                        <div class="shortcut-row" data-sc="focus pulse timer tab 2"><span class="sc-row-label">Focus Pulse Timer</span><div class="sc-row-keys"><span class="kbd">2</span></div></div>
+                        <div class="shortcut-row" data-sc="ai coach tab 3"><span class="sc-row-label">AI Coach</span><div class="sc-row-keys"><span class="kbd">3</span></div></div>
+                        <div class="shortcut-row" data-sc="habits matrix tab 4"><span class="sc-row-label">Habit Matrix</span><div class="sc-row-keys"><span class="kbd">4</span></div></div>
+                        <div class="shortcut-row" data-sc="weekly planner tab 5"><span class="sc-row-label">Weekly Planner</span><div class="sc-row-keys"><span class="kbd">5</span></div></div>
+                        <div class="shortcut-row" data-sc="monthly planner tab 6"><span class="sc-row-label">Monthly Planner</span><div class="sc-row-keys"><span class="kbd">6</span></div></div>
+                        <div class="shortcut-row" data-sc="dev tools tab 7"><span class="sc-row-label">Dev Tools</span><div class="sc-row-keys"><span class="kbd">7</span></div></div>
+                        <div class="shortcut-row" data-sc="field notes journal tab 8"><span class="sc-row-label">Field Notes</span><div class="sc-row-keys"><span class="kbd">8</span></div></div>
+                        <div class="shortcut-row" data-sc="help tab 9"><span class="sc-row-label">Help</span><div class="sc-row-keys"><span class="kbd">9</span></div></div>
+                    </div>
+                </div>
+
+                <!-- SECTION: Timer -->
+                <div class="sc-section" data-sc-section="timer">
+                    <div class="sc-section-head">
+                        <span class="sc-section-icon">⏱</span>
+                        <span class="sc-section-label">TIMER</span>
+                        <span class="sc-section-count">2</span>
+                    </div>
+                    <div class="sc-rows">
+                        <div class="shortcut-row" data-sc="toggle start pause timer space"><span class="sc-row-label">Toggle Start / Pause timer</span><div class="sc-row-keys"><span class="kbd">Space</span></div></div>
+                        <div class="shortcut-row" data-sc="run execute code playground ctrl enter"><span class="sc-row-label">Run code (Playground)</span><div class="sc-row-keys"><span class="kbd">Ctrl</span><span class="kbd">↵</span></div></div>
+                    </div>
+                </div>
+
+                <!-- SECTION: Tasks & Focus -->
+                <div class="sc-section" data-sc-section="tasks">
+                    <div class="sc-section-head">
+                        <span class="sc-section-icon">✅</span>
+                        <span class="sc-section-label">TASKS &amp; FOCUS</span>
+                        <span class="sc-section-count">3</span>
+                    </div>
+                    <div class="sc-rows">
+                        <div class="shortcut-row" data-sc="add new task focus input ctrl n"><span class="sc-row-label">Focus task input (add new)</span><div class="sc-row-keys"><span class="kbd">Ctrl</span><span class="kbd">N</span></div></div>
+                        <div class="shortcut-row" data-sc="log distraction bump counter alt d"><span class="sc-row-label">Log distraction</span><div class="sc-row-keys"><span class="kbd">Alt</span><span class="kbd">D</span></div></div>
+                        <div class="shortcut-row" data-sc="add weekly planner event alt w"><span class="sc-row-label">Focus weekly event input</span><div class="sc-row-keys"><span class="kbd">Alt</span><span class="kbd">W</span></div></div>
+                    </div>
+                </div>
+
+                <!-- SECTION: Data & Sync -->
+                <div class="sc-section" data-sc-section="data">
+                    <div class="sc-section-head">
+                        <span class="sc-section-icon">☁️</span>
+                        <span class="sc-section-label">DATA &amp; SYNC</span>
+                        <span class="sc-section-count">3</span>
+                    </div>
+                    <div class="sc-rows">
+                        <div class="shortcut-row" data-sc="export data download alt e"><span class="sc-row-label">Export data</span><div class="sc-row-keys"><span class="kbd">Alt</span><span class="kbd">E</span></div></div>
+                        <div class="shortcut-row" data-sc="force cloud sync alt s"><span class="sc-row-label">Force cloud sync</span><div class="sc-row-keys"><span class="kbd">Alt</span><span class="kbd">S</span></div></div>
+                        <div class="shortcut-row" data-sc="add monthly planner event alt m"><span class="sc-row-label">Focus monthly event input</span><div class="sc-row-keys"><span class="kbd">Alt</span><span class="kbd">M</span></div></div>
+                    </div>
+                </div>
+
+                <!-- SECTION: UI & General -->
+                <div class="sc-section" data-sc-section="ui">
+                    <div class="sc-section-head">
+                        <span class="sc-section-icon">🎛</span>
+                        <span class="sc-section-label">UI &amp; GENERAL</span>
+                        <span class="sc-section-count">4</span>
+                    </div>
+                    <div class="sc-rows">
+                        <div class="shortcut-row" data-sc="show open keyboard shortcuts panel ? question mark"><span class="sc-row-label">Open this shortcuts panel</span><div class="sc-row-keys"><span class="kbd">?</span></div></div>
+                        <div class="shortcut-row" data-sc="close modal dismiss escape esc"><span class="sc-row-label">Close modal / dismiss</span><div class="sc-row-keys"><span class="kbd">Esc</span></div></div>
+                        <div class="shortcut-row" data-sc="go home page navigation alt h"><span class="sc-row-label">Go to Home page</span><div class="sc-row-keys"><span class="kbd">Alt</span><span class="kbd">H</span></div></div>
+                        <div class="shortcut-row" data-sc="flip flashcard review space reveal answer"><span class="sc-row-label">Flip flashcard (review mode)</span><div class="sc-row-keys"><span class="kbd">F</span></div></div>
+                    </div>
+                </div>
+
+                <!-- SECTION: Dev Tools -->
+                <div class="sc-section" data-sc-section="devtools">
+                    <div class="sc-section-head">
+                        <span class="sc-section-icon">💻</span>
+                        <span class="sc-section-label">DEV TOOLS</span>
+                        <span class="sc-section-count">5</span>
+                    </div>
+                    <div class="sc-rows">
+                        <div class="shortcut-row" data-sc="run execute code playground ctrl enter"><span class="sc-row-label">Run code</span><div class="sc-row-keys"><span class="kbd">Ctrl</span><span class="kbd">↵</span></div></div>
+                        <div class="shortcut-row" data-sc="tab indent code editor playground"><span class="sc-row-label">Indent in editor</span><div class="sc-row-keys"><span class="kbd">Tab</span></div></div>
+                        <div class="shortcut-row" data-sc="save snippet vault ctrl s"><span class="sc-row-label">Save snippet (Vault)</span><div class="sc-row-keys"><span class="kbd">Ctrl</span><span class="kbd">S</span></div></div>
+                        <div class="shortcut-row" data-sc="copy code ctrl c clipboard"><span class="sc-row-label">Copy code to clipboard</span><div class="sc-row-keys"><span class="kbd">Ctrl</span><span class="kbd">C</span></div></div>
+                        <div class="shortcut-row" data-sc="switch programming language dropdown"><span class="sc-row-label">Switch language (toolbar)</span><div class="sc-row-keys"><span class="kbd">Click</span></div></div>
+                    </div>
+                </div>
+
+                <!-- no-results message -->
+                <div class="sc-no-results" id="sc-no-results">// No shortcuts match "<span id="sc-query-echo"></span>"</div>
+            </div>
+
+            <!-- Footer -->
+            <div class="sc-footer">
+                <span class="sc-footer-tip"><span class="kbd" style="font-size:0.6rem">?</span> to open · <span class="kbd" style="font-size:0.6rem">Esc</span> to close</span>
+                <span class="sc-footer-tip" style="margin-left:auto;opacity:.55"><i class="fas fa-circle" style="font-size:.45rem;margin-right:4px"></i> Storm OS — <span id="sc-version-stamp"></span></span>
+            </div>
         </div>
     </div>
 
@@ -7809,6 +8928,177 @@
                     onmouseover="this.style.borderColor='var(--accent)'"
                     onmouseout="this.style.borderColor='var(--border2)'">CANCEL</button>
             </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         EXPORT EVERYTHING MODAL
+    ═══════════════════════════════════════════════════════════════ -->
+    <div id="export-modal" onclick="if(event.target===this)closeExportModal()">
+        <div class="export-box" role="dialog" aria-modal="true" aria-label="Export Everything">
+
+            <!-- Header -->
+            <div class="export-header">
+                <div class="export-header-left">
+                    <div class="export-title">
+                        <div class="export-title-icon"><i class="fas fa-box-open"></i></div>
+                        EXPORT EVERYTHING
+                    </div>
+                    <div class="export-subtitle">Choose collections · pick format · download instantly</div>
+                </div>
+                <button class="export-close-btn" onclick="closeExportModal()"><i class="fas fa-times"></i> ESC</button>
+            </div>
+
+            <!-- Live data summary -->
+            <div class="export-summary" id="export-summary-row">
+                <!-- filled by JS -->
+            </div>
+
+            <!-- Format selector -->
+            <div class="export-format-row">
+                <span class="export-format-label">FORMAT →</span>
+                <button class="export-fmt-btn active" id="efmt-json" onclick="setExportFormat('json')">
+                    <i class="fas fa-code"></i> JSON
+                </button>
+                <button class="export-fmt-btn" id="efmt-csv" onclick="setExportFormat('csv')">
+                    <i class="fas fa-table"></i> CSV
+                </button>
+                <button class="export-fmt-btn" id="efmt-both" onclick="setExportFormat('both')">
+                    <i class="fas fa-layer-group"></i> BOTH
+                </button>
+                <span style="font-family:var(--mono);font-size:0.67rem;color:var(--text3);margin-left:8px" id="export-fmt-hint">Full fidelity — all fields preserved</span>
+            </div>
+
+            <!-- Collection rows -->
+            <div class="export-sections" id="export-sections">
+
+                <div class="export-section-row selected" data-key="tasks" onclick="toggleExportSection(this)">
+                    <div class="esr-check"><i class="fas fa-check"></i></div>
+                    <div class="esr-icon">✅</div>
+                    <div class="esr-info">
+                        <div class="esr-name">TASKS</div>
+                        <div class="esr-desc">All deep work tasks — text, priority, date, completion</div>
+                    </div>
+                    <div class="esr-count" id="ecnt-tasks">—</div>
+                    <div class="esr-formats"><span class="esr-format-tag json">JSON</span><span class="esr-format-tag csv">CSV</span></div>
+                </div>
+
+                <div class="export-section-row selected" data-key="sessions" onclick="toggleExportSection(this)">
+                    <div class="esr-check"><i class="fas fa-check"></i></div>
+                    <div class="esr-icon">⏱</div>
+                    <div class="esr-info">
+                        <div class="esr-name">FOCUS SESSIONS</div>
+                        <div class="esr-desc">Every logged session — task, duration, date, time-of-day</div>
+                    </div>
+                    <div class="esr-count" id="ecnt-sessions">—</div>
+                    <div class="esr-formats"><span class="esr-format-tag json">JSON</span><span class="esr-format-tag csv">CSV</span></div>
+                </div>
+
+                <div class="export-section-row selected" data-key="habits" onclick="toggleExportSection(this)">
+                    <div class="esr-check"><i class="fas fa-check"></i></div>
+                    <div class="esr-icon">📈</div>
+                    <div class="esr-info">
+                        <div class="esr-name">HABITS</div>
+                        <div class="esr-desc">Habit definitions, streaks, and full daily completion map</div>
+                    </div>
+                    <div class="esr-count" id="ecnt-habits">—</div>
+                    <div class="esr-formats"><span class="esr-format-tag json">JSON</span><span class="esr-format-tag csv">CSV</span></div>
+                </div>
+
+                <div class="export-section-row selected" data-key="journal" onclick="toggleExportSection(this)">
+                    <div class="esr-check"><i class="fas fa-check"></i></div>
+                    <div class="esr-icon">📓</div>
+                    <div class="esr-info">
+                        <div class="esr-name">FIELD NOTES / JOURNAL</div>
+                        <div class="esr-desc">All journal entries with timestamps and mood tags</div>
+                    </div>
+                    <div class="esr-count" id="ecnt-journal">—</div>
+                    <div class="esr-formats"><span class="esr-format-tag json">JSON</span><span class="esr-format-tag csv">CSV</span></div>
+                </div>
+
+                <div class="export-section-row selected" data-key="analytics" onclick="toggleExportSection(this)">
+                    <div class="esr-check"><i class="fas fa-check"></i></div>
+                    <div class="esr-icon">📊</div>
+                    <div class="esr-info">
+                        <div class="esr-name">ANALYTICS &amp; STREAKS</div>
+                        <div class="esr-desc">Daily history, totals, streaks, focus scores</div>
+                    </div>
+                    <div class="esr-count" id="ecnt-analytics">—</div>
+                    <div class="esr-formats"><span class="esr-format-tag json">JSON</span><span class="esr-format-tag csv">CSV</span></div>
+                </div>
+
+                <div class="export-section-row selected" data-key="wins" onclick="toggleExportSection(this)">
+                    <div class="esr-check"><i class="fas fa-check"></i></div>
+                    <div class="esr-icon">🏆</div>
+                    <div class="esr-info">
+                        <div class="esr-name">WINS &amp; GOALS</div>
+                        <div class="esr-desc">Logged wins and active goals</div>
+                    </div>
+                    <div class="esr-count" id="ecnt-wins">—</div>
+                    <div class="esr-formats"><span class="esr-format-tag json">JSON</span><span class="esr-format-tag csv">CSV</span></div>
+                </div>
+
+                <div class="export-section-row selected" data-key="weeklyEvents" onclick="toggleExportSection(this)">
+                    <div class="esr-check"><i class="fas fa-check"></i></div>
+                    <div class="esr-icon">📅</div>
+                    <div class="esr-info">
+                        <div class="esr-name">PLANNER EVENTS</div>
+                        <div class="esr-desc">Weekly and monthly scheduled events</div>
+                    </div>
+                    <div class="esr-count" id="ecnt-weeklyEvents">—</div>
+                    <div class="esr-formats"><span class="esr-format-tag json">JSON</span><span class="esr-format-tag csv">CSV</span></div>
+                </div>
+
+                <div class="export-section-row selected" data-key="snippets" onclick="toggleExportSection(this)">
+                    <div class="esr-check"><i class="fas fa-check"></i></div>
+                    <div class="esr-icon">💻</div>
+                    <div class="esr-info">
+                        <div class="esr-name">CODE SNIPPETS</div>
+                        <div class="esr-desc">Snippet Vault — title, language, tags, code body</div>
+                    </div>
+                    <div class="esr-count" id="ecnt-snippets">—</div>
+                    <div class="esr-formats"><span class="esr-format-tag json">JSON</span><span class="esr-format-tag csv">CSV</span></div>
+                </div>
+
+                <div class="export-section-row selected" data-key="flashcards" onclick="toggleExportSection(this)">
+                    <div class="esr-check"><i class="fas fa-check"></i></div>
+                    <div class="esr-icon">🃏</div>
+                    <div class="esr-info">
+                        <div class="esr-name">FLASHCARDS</div>
+                        <div class="esr-desc">All decks and cards with SRS intervals and review history</div>
+                    </div>
+                    <div class="esr-count" id="ecnt-flashcards">—</div>
+                    <div class="esr-formats"><span class="esr-format-tag json">JSON</span><span class="esr-format-tag csv">CSV</span></div>
+                </div>
+
+                <div class="export-section-row selected" data-key="leetcode" onclick="toggleExportSection(this)">
+                    <div class="esr-check"><i class="fas fa-check"></i></div>
+                    <div class="esr-icon">⚙️</div>
+                    <div class="esr-info">
+                        <div class="esr-name">LEETCODE TRACKER</div>
+                        <div class="esr-desc">All logged problems — difficulty, tags, notes, date</div>
+                    </div>
+                    <div class="esr-count" id="ecnt-leetcode">—</div>
+                    <div class="esr-formats"><span class="esr-format-tag json">JSON</span><span class="esr-format-tag csv">CSV</span></div>
+                </div>
+
+            </div>
+
+            <!-- Footer actions -->
+            <div class="export-actions">
+                <button class="export-select-all-btn" id="export-toggle-all-btn" onclick="exportToggleAll()">
+                    DESELECT ALL
+                </button>
+                <button class="export-go-btn" id="export-go-btn" onclick="runExportEverything()">
+                    <i class="fas fa-box-open"></i>
+                    <span id="export-go-label">EXPORT SELECTED</span>
+                </button>
+                <div class="export-last-stamp" id="export-last-stamp" style="display:none">
+                    <div style="color:var(--green-dim)">✓ Last exported</div>
+                    <div id="export-last-time">—</div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -7854,109 +9144,7 @@
         setTimeout(() => { let el = document.getElementById('loading-overlay'); if (el) { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => { try { el.remove(); } catch (_) { } }, 400); } }, 5000);
 
         async function getCurrentUser() { if (!supabaseClient) return null; try { const { data: { session } } = await supabaseClient.auth.getSession(); return session?.user || null; } catch (e) { return null; } }
-        async function checkPaidStatus(userId) {
-            if (!supabaseClient || !userId) return true;
-            try {
-                const { data, error } = await supabaseClient
-                    .from('profiles')
-                    .select('is_paid, subscription_status, trial_start')
-                    .eq('id', userId)
-                    .single();
-
-                if (error) return true; // Fail open on error
-
-                // ✅ Paid subscriber — always allow
-                if (data && (data.is_paid === true || data.subscription_status === 'active')) return true;
-
-                // 🟡 Check 7-day trial window
-                if (data && data.trial_start) {
-                    const trialStart = new Date(data.trial_start);
-                    const now = new Date();
-                    const daysUsed = (now - trialStart) / (1000 * 60 * 60 * 24);
-                    const daysLeft = Math.ceil(7 - daysUsed);
-                    if (daysUsed <= 7) {
-                        window._trialDaysLeft = daysLeft;
-                        // Show trial banner after dashboard loads
-                        setTimeout(() => showTrialBanner(daysLeft), 2000);
-                        return true;
-                    }
-                }
-
-                return false; // Trial expired and not paid → redirect to pricing
-
-            } catch (e) {
-                return true; // Network error → fail open
-            }
-        }
-
-        function showTrialBanner(daysLeft) {
-            if (document.getElementById('trial-banner')) return; // already shown
-            const banner = document.createElement('div');
-            banner.id = 'trial-banner';
-            banner.style.cssText = `
-                position: fixed;
-                bottom: 18px;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 99999;
-                background: linear-gradient(135deg, #1a1a2e, #16213e);
-                border: 1px solid rgba(255,255,255,0.15);
-                border-radius: 12px;
-                padding: 12px 20px;
-                display: flex;
-                align-items: center;
-                gap: 14px;
-                font-family: 'JetBrains Mono', monospace;
-                font-size: 0.82rem;
-                color: #f8f8f8;
-                box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-                min-width: 320px;
-                max-width: 90vw;
-                animation: trialBannerIn 0.4s cubic-bezier(.4,0,.2,1) both;
-            `;
-            const urgencyColor = daysLeft <= 2 ? '#ff6b6b' : daysLeft <= 4 ? '#ffd93d' : '#6bcb77';
-            banner.innerHTML = `
-                <style>
-                    @keyframes trialBannerIn {
-                        from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-                        to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-                    }
-                </style>
-                <span style="font-size:1.2rem">⏳</span>
-                <div style="flex:1">
-                    <div style="font-weight:700;letter-spacing:.06em;color:${urgencyColor}">
-                        ${daysLeft <= 1 ? 'LAST DAY OF TRIAL' : `${daysLeft} DAYS LEFT IN TRIAL`}
-                    </div>
-                    <div style="color:#aaaaaa;font-size:0.75rem;margin-top:2px">
-                        Upgrade to keep full access to Storm OS
-                    </div>
-                </div>
-                <a href="index.html#pricing" style="
-                    background: #ffffff;
-                    color: #000000;
-                    border: none;
-                    border-radius: 7px;
-                    padding: 7px 14px;
-                    font-family: 'JetBrains Mono', monospace;
-                    font-size: 0.78rem;
-                    font-weight: 700;
-                    letter-spacing: .06em;
-                    cursor: pointer;
-                    text-decoration: none;
-                    white-space: nowrap;
-                ">UPGRADE →</a>
-                <button onclick="document.getElementById('trial-banner').remove()" style="
-                    background: none;
-                    border: none;
-                    color: #666;
-                    cursor: pointer;
-                    font-size: 1rem;
-                    padding: 0 0 0 4px;
-                    line-height: 1;
-                ">✕</button>
-            `;
-            document.body.appendChild(banner);
-        }
+        async function checkPaidStatus(userId) { if (!supabaseClient || !userId) return true; try { const { data, error } = await supabaseClient.from('profiles').select('is_paid,subscription_status').eq('id', userId).single(); if (error) return true; return data ? (data.is_paid === true || data.subscription_status === 'active') : true; } catch (e) { return true; } }
         // Auth is now handled inside initSupabase() after the dashboard is already visible
         async function protectDashboard() { return true; }
         async function handleLogout() { if (!supabaseClient) return; try { await saveCloudData(); await supabaseClient.auth.signOut(); localStorage.removeItem('storm_os_auth'); localStorage.removeItem('storm_os_paid'); localStorage.removeItem('storm_os_payment_tx'); localStorage.removeItem('storm_os_payment_pending'); localStorage.removeItem('storm_os_operator_access'); localStorage.removeItem('storm_os_operator_granted_at'); showToast('✅ Logged out'); setTimeout(() => window.location.href = 'login.html', 500); } catch (e) { showToast('⚠ Logout failed'); } }
@@ -9610,18 +10798,59 @@
         }
 
         // ── Snippets — with language tag + search ──
+        // ── SNIPPET VAULT — full tag system ──────────────────────────
+        const SV_PRESET_TAGS = ['dp','graph','hooks','bash','twoptr','sort','bfs','tree','greedy','backtrack','binary','sliding','heap','regex','api'];
+        let _svActiveTag = '__all__'; // current tag filter
+
+        function svInitQuickTags() {
+            const wrap = document.getElementById('snip-quick-tags');
+            if (!wrap) return;
+            wrap.innerHTML = SV_PRESET_TAGS.map(t =>
+                `<span class="sv-tag" onclick="svQuickAddTag('${t}')">#${t}</span>`
+            ).join('');
+        }
+
+        function svQuickAddTag(tag) {
+            const inp = document.getElementById('snip-tags');
+            if (!inp) return;
+            const cur = inp.value.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
+            if (!cur.includes(tag)) { inp.value = [...cur, tag].join(', '); }
+            else { inp.value = cur.filter(t => t !== tag).join(', '); }
+        }
+
+        function svToggleTagFilter(tag, el) {
+            _svActiveTag = tag;
+            document.querySelectorAll('#sv-tag-filter-bar .sv-tag').forEach(c => c.classList.remove('active'));
+            if (el) el.classList.add('active');
+            renderSnippets();
+        }
+
+        function svRebuildFilterBar() {
+            const bar = document.getElementById('sv-tag-filter-bar');
+            if (!bar) return;
+            const allTags = new Set();
+            (S.snippets || []).forEach(s => (s.tags || []).forEach(t => allTags.add(t)));
+            const tagArr = [...allTags].sort();
+            bar.innerHTML = `<span class="sv-filter-label">FILTER:</span>
+                <span class="sv-tag ${_svActiveTag === '__all__' ? 'active' : ''}" onclick="svToggleTagFilter('__all__',this)">ALL</span>
+                ${tagArr.map(t => `<span class="sv-tag sv-tag-${t.replace(/[^a-z]/g,'')}" onclick="svToggleTagFilter('${t}',this)">#${t}</span>`).join('')}`;
+        }
+
         function addSnippet() {
             const t = (document.getElementById('snip-title')?.value || '').trim();
             const c = (document.getElementById('snip-code')?.value || '').trim();
             const lang = document.getElementById('snip-lang')?.value || 'other';
+            const tagsRaw = (document.getElementById('snip-tags')?.value || '');
+            const tags = tagsRaw.split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
             if (!t || !c) { showToast('Add a title and code first'); return; }
             if (!S.snippets) S.snippets = [];
-            S.snippets.unshift({ id: Date.now(), title: t, code: c, lang });
+            S.snippets.unshift({ id: Date.now(), title: t, code: c, lang, tags });
             save();
             renderSnippets();
             document.getElementById('snip-title').value = '';
             document.getElementById('snip-code').value = '';
-            showToast('✦ Snippet saved');
+            document.getElementById('snip-tags').value = '';
+            showToast('✦ Snippet saved to vault');
             addXP(5);
         }
 
@@ -9641,13 +10870,9 @@
             if (!snip) return;
             document.getElementById('playground-code').value = snip.code;
             dtUpdateLineNums();
-            // set language if we have it
             const sel = document.getElementById('playground-language');
-            if (sel && snip.lang && [...sel.options].some(o => o.value === snip.lang)) {
-                sel.value = snip.lang;
-            }
+            if (sel && snip.lang && [...sel.options].some(o => o.value === snip.lang)) sel.value = snip.lang;
             switchToolTab('playground', document.querySelector('.tool-tab'));
-            // highlight playground tab
             document.querySelectorAll('.tool-tab').forEach((t, i) => { if (i === 0) t.classList.add('active'); else t.classList.remove('active'); });
             showToast('✓ Loaded into playground');
         }
@@ -9656,27 +10881,46 @@
             const cont = document.getElementById('snippet-list');
             if (!cont) return;
             const q = (document.getElementById('snip-search')?.value || '').toLowerCase();
-            const snippets = (S.snippets || []).filter(s =>
-                !q || s.title.toLowerCase().includes(q) || s.code.toLowerCase().includes(q)
-            );
+            let snippets = (S.snippets || []);
+
+            // tag filter
+            if (_svActiveTag && _svActiveTag !== '__all__') {
+                snippets = snippets.filter(s => (s.tags || []).includes(_svActiveTag));
+            }
+            // text search (title, code, tags)
+            if (q) {
+                snippets = snippets.filter(s =>
+                    s.title.toLowerCase().includes(q) ||
+                    s.code.toLowerCase().includes(q) ||
+                    (s.tags || []).some(t => t.includes(q))
+                );
+            }
 
             const badge = document.getElementById('snip-count-badge');
             if (badge) badge.textContent = `${(S.snippets || []).length} SAVED`;
 
+            svRebuildFilterBar();
+
             if (!snippets.length) {
-                cont.innerHTML = `<div style="font-family:var(--mono);font-size:0.85rem;color:var(--text3);padding:20px 0;text-align:center">${q ? '// No snippets match your search' : '// No snippets saved yet'}</div>`;
+                cont.innerHTML = `<div style="font-family:var(--mono);font-size:0.85rem;color:var(--text3);padding:20px 0;text-align:center">${q || _svActiveTag !== '__all__' ? '// No snippets match filters' : '// Vault empty — save your first snippet'}</div>`;
                 return;
             }
 
-            const langColors = { javascript: '#f1e05a', python: '#3572A5', html: '#e34c26', css: '#563d7c', sql: '#336791', bash: '#4EAA25', typescript: '#3178c6', other: 'var(--text3)' };
+            const langColors = { javascript: '#f1e05a', python: '#3572A5', html: '#e34c26', css: '#563d7c', sql: '#336791', bash: '#4EAA25', typescript: '#3178c6', go: '#00add8', rust: '#ce422b', cpp: '#f34b7d', java: '#b07219', other: 'var(--text3)' };
+            const tagClass = t => `sv-tag-${t.replace(/[^a-z]/g,'')}`;
 
             cont.innerHTML = snippets.map((s, idx) => `
                 <div class="snip-card" style="animation-delay:${idx * 0.04}s">
-                    <div class="snip-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display==='none'?'':'none'">
-                        <div style="display:flex;align-items:center;gap:8px">
+                    <div class="snip-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display==='none'?'block':'none'">
+                        <div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1">
                             <span style="width:8px;height:8px;border-radius:50%;background:${langColors[s.lang] || 'var(--text3)'};display:inline-block;flex-shrink:0"></span>
-                            <span class="snip-title-text">${escHtml(s.title)}</span>
-                            <span class="snip-lang-badge">${escHtml(s.lang || 'code')}</span>
+                            <div style="min-width:0;flex:1">
+                                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                                    <span class="snip-title-text">${escHtml(s.title)}</span>
+                                    <span class="snip-lang-badge">${escHtml(s.lang || 'code')}</span>
+                                </div>
+                                ${(s.tags && s.tags.length) ? `<div class="sv-tags-row">${s.tags.map(t => `<span class="sv-tag ${tagClass(t)}" onclick="event.stopPropagation();svToggleTagFilter('${t}',null);svHighlightFilterBar('${t}')">#${escHtml(t)}</span>`).join('')}</div>` : ''}
+                            </div>
                         </div>
                         <div class="snip-actions">
                             <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();dtLoadSnippet(${s.id})" title="Load into Playground"><i class="fas fa-external-link-alt"></i></button>
@@ -9684,10 +10928,16 @@
                             <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();deleteSnippet(${s.id})" title="Delete"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
-                    <div class="snip-body">
-                        <div class="snip-code-preview">${escHtml(s.code.substring(0, 200))}${s.code.length > 200 ? '...' : ''}</div>
+                    <div class="snip-body" style="display:none">
+                        <div class="snip-code-preview">${escHtml(s.code.substring(0, 300))}${s.code.length > 300 ? '\n...' : ''}</div>
                     </div>
                 </div>`).join('');
+        }
+
+        function svHighlightFilterBar(tag) {
+            document.querySelectorAll('#sv-tag-filter-bar .sv-tag').forEach(el => {
+                el.classList.toggle('active', el.textContent === '#' + tag || (tag === '__all__' && el.textContent === 'ALL'));
+            });
         }
 
         // ── Data Structures Visualizer ──
@@ -10196,7 +11446,7 @@
             // Guard AI coach — references GEMINI_DAILY_LIMIT declared later
             if (id === 'ai-coach') { try { if (typeof _renderAIStats === 'function') _renderAIStats(); if (typeof _updateGeminiCounter === 'function') _updateGeminiCounter(); } catch (e) { console.warn('[switchTab] ai-coach not ready yet:', e.message); } }
         }
-        function switchToolTab(id, el) { document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active')); document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active')); let panel = document.getElementById(id + '-panel'); if (panel) panel.classList.add('active'); if (el) el.classList.add('active'); }
+        function switchToolTab(id, el) { document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active')); document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active')); let panel = document.getElementById(id + '-panel'); if (panel) panel.classList.add('active'); if (el) el.classList.add('active'); if (id === 'snippets') { setTimeout(() => { if (typeof svInitQuickTags === 'function') svInitQuickTags(); if (typeof renderSnippets === 'function') renderSnippets(); }, 50); } }
         function showShortcuts() { document.getElementById('shortcuts-modal').classList.add('open'); }
         function closeShortcuts() { document.getElementById('shortcuts-modal').classList.remove('open'); }
         // Change 3: Escape key closes all modals
@@ -10209,7 +11459,110 @@
             }
         });
         function changeTheme(theme) { let c = { default: { accent: '#6c63ff', accent2: '#8b84ff' }, cyan: { accent: '#00d2ff', accent2: '#33dbff' }, green: { accent: '#39d353', accent2: '#5fe077' }, red: { accent: '#ff4757', accent2: '#ff6b78' }, orange: { accent: '#ffb347', accent2: '#ffc46a' } }[theme]; document.documentElement.style.setProperty('--accent', c.accent); document.documentElement.style.setProperty('--accent2', c.accent2); localStorage.setItem('theme', theme); showToast(`Theme: ${theme}`); }
-        function loadTheme() { let s = localStorage.getItem('theme'); if (s) changeTheme(s); }
+        function loadTheme() { let s = localStorage.getItem('theme'); if (s) changeTheme(s); accentPickerInit(); }
+
+        // ── ACCENT COLOR PICKER ──────────────────────────────────────────
+        const ACCENT_PRESETS = [
+            { key: 'purple',  label: 'Purple',  accent: '#6c63ff', accent2: '#8b84ff', glow: '108,99,255' },
+            { key: 'cyan',    label: 'Cyan',    accent: '#00d2ff', accent2: '#33dbff', glow: '0,210,255' },
+            { key: 'amber',   label: 'Amber',   accent: '#f59e0b', accent2: '#fbbf24', glow: '245,158,11' },
+            { key: 'green',   label: 'Green',   accent: '#10d97a', accent2: '#34ef98', glow: '16,217,122' },
+            { key: 'rose',    label: 'Rose',    accent: '#f43f5e', accent2: '#fb7185', glow: '244,63,94' },
+            { key: 'indigo',  label: 'Indigo',  accent: '#6366f1', accent2: '#818cf8', glow: '99,102,241' },
+            { key: 'orange',  label: 'Orange',  accent: '#f97316', accent2: '#fb923c', glow: '249,115,22' },
+            { key: 'white',   label: 'Mono',    accent: '#e8e8e8', accent2: '#ffffff', glow: '232,232,232' },
+        ];
+
+        function accentPickerInit() {
+            const row = document.getElementById('accent-swatches-row');
+            if (!row) return;
+            const saved = localStorage.getItem('accentKey') || 'purple';
+            row.innerHTML = ACCENT_PRESETS.map(p => `
+                <div class="accent-swatch ${p.key === saved ? 'active' : ''}"
+                     style="background:${p.accent}"
+                     title="${p.label}"
+                     onclick="applyAccentPreset('${p.key}',this)">
+                    <span class="swatch-check">\u2713</span>
+                </div>`).join('');
+            const cur = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+            const hexEl = document.getElementById('accent-custom-hex');
+            if (hexEl) hexEl.value = cur || '#6c63ff';
+        }
+
+        function applyAccentPreset(key, el) {
+            const preset = ACCENT_PRESETS.find(p => p.key === key);
+            if (!preset) return;
+            _applyAccentVars(preset.accent, preset.accent2, preset.glow);
+            localStorage.setItem('accentKey', key);
+            localStorage.setItem('accentCustom', '');
+            document.querySelectorAll('#accent-swatches-row .accent-swatch').forEach(s => s.classList.remove('active'));
+            if (el) el.classList.add('active');
+            const hexEl = document.getElementById('accent-custom-hex');
+            if (hexEl) hexEl.value = preset.accent;
+            _refreshAccentDot();
+            showToast('\u2726 ' + preset.label + ' accent applied');
+        }
+
+        function applyCustomAccent() {
+            const hexEl = document.getElementById('accent-custom-hex');
+            let hex = (hexEl?.value || '').trim();
+            if (!/^#[0-9a-fA-F]{6}$/.test(hex)) { showToast('\u26a0 Enter a valid hex like #ff6b35'); return; }
+            const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+            const lighten = v => Math.min(255, Math.round(v + (255 - v) * 0.22));
+            const accent2 = '#' + [lighten(r),lighten(g),lighten(b)].map(v=>v.toString(16).padStart(2,'0')).join('');
+            const glow = r+','+g+','+b;
+            _applyAccentVars(hex, accent2, glow);
+            localStorage.setItem('accentCustom', hex);
+            localStorage.setItem('accentKey', 'custom');
+            document.querySelectorAll('#accent-swatches-row .accent-swatch').forEach(s => s.classList.remove('active'));
+            _refreshAccentDot();
+            showToast('\u2726 Custom accent applied');
+        }
+
+        function _applyAccentVars(accent, accent2, glow) {
+            const root = document.documentElement;
+            root.style.setProperty('--accent', accent);
+            root.style.setProperty('--accent2', accent2);
+            root.style.setProperty('--accent-glow', 'rgba('+glow+', 0.10)');
+        }
+
+        function _refreshAccentDot() {
+            const dot = document.querySelector('#accent-picker-btn .accent-dot');
+            if (dot) dot.style.background = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+        }
+
+        function toggleAccentPicker(e) {
+            e.stopPropagation();
+            const pop = document.getElementById('accent-picker-popover');
+            if (!pop) return;
+            const isOpen = pop.classList.contains('open');
+            if (!isOpen) { pop.classList.add('open'); accentPickerInit(); }
+            else { pop.classList.remove('open'); }
+        }
+
+        document.addEventListener('click', function(e) {
+            const wrap = document.getElementById('accent-picker-wrap');
+            const pop  = document.getElementById('accent-picker-popover');
+            if (pop && pop.classList.contains('open') && wrap && !wrap.contains(e.target)) {
+                pop.classList.remove('open');
+            }
+        });
+
+        (function restoreAccent() {
+            const customHex = localStorage.getItem('accentCustom');
+            const key = localStorage.getItem('accentKey') || 'purple';
+            if (customHex && /^#[0-9a-fA-F]{6}$/.test(customHex)) {
+                const r = parseInt(customHex.slice(1,3),16), g = parseInt(customHex.slice(3,5),16), b = parseInt(customHex.slice(5,7),16);
+                const lighten = v => Math.min(255, Math.round(v + (255 - v) * 0.22));
+                const accent2 = '#' + [lighten(r),lighten(g),lighten(b)].map(v=>v.toString(16).padStart(2,'0')).join('');
+                _applyAccentVars(customHex, accent2, r+','+g+','+b);
+            } else {
+                const preset = ACCENT_PRESETS.find(p => p.key === key) || ACCENT_PRESETS[0];
+                _applyAccentVars(preset.accent, preset.accent2, preset.glow);
+            }
+            setTimeout(_refreshAccentDot, 120);
+        })();
+
         function spawnDailyTasks() {
             let nd = getTodayKey(); let spawned = 0;
             // Roots permanently stopped by the user via ✕ badge — never re-spawn
@@ -10454,7 +11807,7 @@
                 }
                 // FIX 4: Guard each render call individually so one crash cannot block hideLoadingOverlay()
                 const _sr = (fn, lbl) => { try { fn(); } catch (e) { console.warn('[boot] ' + lbl + ' failed:', e); } };
-                _sr(renderAll, 'renderAll'); _sr(_restoreTimerStates, '_restoreTimerStates'); _sr(updateXPBar, 'updateXPBar'); _sr(loadTheme, 'loadTheme'); _sr(loadQuotes, 'loadQuotes'); _sr(renderSnippets, 'renderSnippets'); _sr(renderFocusScoreHistory, 'renderFocusScoreHistory'); _sr(checkDailyOnLoad, 'checkDailyOnLoad'); _sr(_initGeminiUI, '_initGeminiUI');
+                _sr(renderAll, 'renderAll'); _sr(_restoreTimerStates, '_restoreTimerStates'); _sr(updateXPBar, 'updateXPBar'); _sr(loadTheme, 'loadTheme'); _sr(loadQuotes, 'loadQuotes'); _sr(renderSnippets, 'renderSnippets'); _sr(renderFocusScoreHistory, 'renderFocusScoreHistory'); _sr(checkDailyOnLoad, 'checkDailyOnLoad'); _sr(_initGeminiUI, '_initGeminiUI'); _sr(svInitQuickTags, 'svInitQuickTags'); _sr(renderAnalyticsSessionFeed, 'renderAnalyticsSessionFeed');
                 setInterval(() => { let clock = document.getElementById('live-clock'); if (clock) clock.innerHTML = new Date().toTimeString().slice(0, 8); }, 1000);
                 // Flush any pending save every 30s (catches anything missed)
                 setInterval(() => { if (currentUser && _pendingCloudSave) _flushToCloud(); }, 30 * 1000);
@@ -13364,9 +14717,1127 @@ RESPONSE FORMAT:
                         }
                     }
                 } catch (e) { /* sandboxed context — badge suppressed */ }
+                // Init new features
+                fcInit();
+                lcInit();
             }, 1500);
         });
 
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         FLASHCARD SYSTEM — CSS
+    ═══════════════════════════════════════════════════════════════ -->
+    <style>
+        /* ── Layout ── */
+        .fc-layout { display:grid; grid-template-columns:280px 1fr; gap:14px; align-items:start; }
+        @media(max-width:860px){ .fc-layout{grid-template-columns:1fr;} }
+        .fc-sidebar { position:sticky; top:0; }
+
+        /* ── Deck list ── */
+        .fc-deck-item {
+            display:flex; align-items:center; gap:8px; padding:9px 12px;
+            background:var(--card2); border:1px solid var(--border2); border-radius:8px;
+            cursor:pointer; transition:all .18s; font-family:var(--mono); font-size:0.82rem;
+        }
+        .fc-deck-item:hover { border-color:rgba(255,255,255,.12); background:var(--card); }
+        .fc-deck-item.active { border-color:rgba(255,255,255,.22); background:rgba(255,255,255,.06); }
+        .fc-deck-name { flex:1; font-weight:700; color:var(--text); }
+        .fc-deck-count { color:var(--text3); font-size:0.72rem; }
+        .fc-deck-del { color:var(--text3); cursor:pointer; padding:0 3px; transition:color .15s; border:none; background:none; font-size:0.85rem; }
+        .fc-deck-del:hover { color:var(--red); }
+
+        /* ── Stats bar ── */
+        .fc-stats-bar {
+            display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:14px;
+        }
+        .fc-stat { background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:10px; text-align:center; }
+        .fc-stat-val { font-family:var(--head); font-size:1.4rem; font-weight:900; }
+        .fc-stat-lbl { font-family:var(--mono); font-size:0.66rem; font-weight:700; color:var(--text3); margin-top:2px; letter-spacing:.06em; }
+
+        /* ── Flip card ── */
+        .fc-review-card { padding:20px; }
+        .fc-card-flip {
+            perspective:1200px; cursor:pointer; margin:0 auto; max-width:640px;
+            user-select:none;
+        }
+        .fc-card-inner {
+            position:relative; width:100%; min-height:220px; transform-style:preserve-3d;
+            transition:transform .6s cubic-bezier(.4,0,.2,1);
+        }
+        .fc-card-inner.flipped { transform:rotateY(180deg); }
+        .fc-card-face {
+            position:absolute; width:100%; min-height:220px; backface-visibility:hidden;
+            background:var(--card2); border:1px solid var(--border2); border-radius:14px;
+            display:flex; flex-direction:column; align-items:center; justify-content:center;
+            padding:28px 32px; text-align:center;
+        }
+        .fc-card-back { transform:rotateY(180deg); background:rgba(255,255,255,.04); border-color:rgba(255,255,255,.1); }
+        .fc-card-label { font-family:var(--mono); font-size:0.65rem; font-weight:900; letter-spacing:.14em; color:var(--text3); margin-bottom:14px; }
+        .fc-card-content { font-family:var(--body); font-size:1.15rem; color:var(--text); line-height:1.7; max-width:500px; }
+        .fc-flip-hint { font-family:var(--mono); font-size:0.72rem; color:var(--text3); margin-top:18px; }
+
+        /* ── Rating buttons ── */
+        #fc-rating-row { display:flex; }
+        .fc-rate-btn {
+            flex:1; border:1px solid var(--border2); background:var(--card2); color:var(--text2);
+            border-radius:10px; padding:12px 8px; cursor:pointer; font-family:var(--mono);
+            font-size:0.72rem; font-weight:700; letter-spacing:.05em; line-height:1.8;
+            transition:all .18s; text-align:center;
+        }
+        .fc-rate-btn:hover { transform:translateY(-2px); }
+        .fc-rate-again  { border-color:rgba(255,71,87,.35); color:#ff4757; }
+        .fc-rate-again:hover { background:rgba(255,71,87,.12); }
+        .fc-rate-hard   { border-color:rgba(232,201,122,.35); color:var(--amber); }
+        .fc-rate-hard:hover { background:rgba(232,201,122,.1); }
+        .fc-rate-good   { border-color:rgba(57,211,83,.35); color:#39d353; }
+        .fc-rate-good:hover { background:rgba(57,211,83,.1); }
+        .fc-rate-easy   { border-color:rgba(0,210,255,.35); color:var(--cyan); }
+        .fc-rate-easy:hover { background:rgba(0,210,255,.1); }
+        .fc-rate-interval { font-size:0.62rem; color:var(--text3); font-weight:400; }
+
+        /* ── Progress bar ── */
+        .fc-progress-bar-wrap { height:4px; background:var(--border2); border-radius:2px; margin-bottom:20px; overflow:hidden; }
+        .fc-progress-bar-fill { height:100%; background:linear-gradient(90deg,#6c63ff,#00d2ff); border-radius:2px; transition:width .4s; }
+
+        /* ── Browser ── */
+        .fc-browser-row {
+            display:flex; align-items:center; gap:10px; padding:8px 12px;
+            background:var(--bg); border:1px solid var(--border2); border-radius:7px;
+            font-family:var(--mono); font-size:0.78rem;
+        }
+        .fc-browser-row:hover { border-color:rgba(255,255,255,.1); }
+        .fc-browser-front { flex:1; color:var(--text); font-weight:600; }
+        .fc-browser-back { flex:1; color:var(--text3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .fc-browser-deck { color:var(--text3); font-size:0.67rem; padding:2px 6px; border:1px solid var(--border2); border-radius:4px; }
+        .fc-browser-del { color:var(--text3); cursor:pointer; background:none; border:none; transition:color .15s; }
+        .fc-browser-del:hover { color:var(--red); }
+        .fc-int-badge { font-size:0.62rem; padding:2px 6px; border-radius:4px; background:rgba(255,255,255,.06); color:var(--text3); white-space:nowrap; }
+
+        /* ══════════════════════════════════════════════════════════════
+           LEETCODE TRACKER — CSS
+        ══════════════════════════════════════════════════════════════ */
+        .lc-stats-grid {
+            display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-bottom:14px;
+        }
+        @media(max-width:900px){ .lc-stats-grid{grid-template-columns:repeat(3,1fr);} }
+        .lc-stat-card { background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:10px; text-align:center; }
+        .lc-stat-val { font-family:var(--head); font-size:1.5rem; font-weight:900; }
+        .lc-stat-lbl { font-family:var(--mono); font-size:0.65rem; font-weight:700; color:var(--text3); margin-top:2px; letter-spacing:.06em; }
+
+        .lc-main-grid { display:grid; grid-template-columns:1fr 1.5fr; gap:14px; }
+        @media(max-width:900px){ .lc-main-grid{grid-template-columns:1fr;} }
+
+        /* Heatmap */
+        .lc-heatmap { display:flex; flex-direction:column; gap:3px; overflow-x:auto; padding-bottom:4px; }
+        .lc-hm-row { display:flex; gap:3px; }
+        .lc-hm-cell {
+            width:13px; height:13px; border-radius:2px; background:var(--border2);
+            cursor:pointer; flex-shrink:0; transition:transform .12s;
+        }
+        .lc-hm-cell:hover { transform:scale(1.4); }
+        .lc-heatmap-legend { display:flex; align-items:center; gap:4px; margin-top:8px; font-family:var(--mono); font-size:0.67rem; color:var(--text3); }
+
+        /* Weekly chart */
+        .lc-weekly-chart { display:flex; gap:6px; align-items:flex-end; height:80px; padding:0 2px; }
+        .lc-wk-col { display:flex; flex-direction:column; align-items:center; flex:1; gap:2px; }
+        .lc-wk-bar-wrap { flex:1; display:flex; align-items:flex-end; width:100%; }
+        .lc-wk-bar { width:100%; border-radius:3px 3px 0 0; min-height:3px; transition:height .6s cubic-bezier(.4,0,.2,1); }
+        .lc-wk-lbl { font-family:var(--mono); font-size:0.65rem; color:var(--text3); font-weight:700; }
+        .lc-wk-val { font-family:var(--mono); font-size:0.6rem; color:var(--text3); }
+
+        /* Problem rows */
+        .lc-problem-row {
+            display:flex; align-items:center; gap:8px; padding:8px 12px;
+            background:var(--bg); border:1px solid var(--border2); border-radius:8px;
+            font-family:var(--mono); font-size:0.78rem; transition:border-color .15s;
+        }
+        .lc-problem-row:hover { border-color:rgba(255,255,255,.1); }
+        .lc-diff-badge { padding:2px 8px; border-radius:4px; font-size:0.68rem; font-weight:700; flex-shrink:0; }
+        .lc-diff-easy   { background:rgba(57,211,83,.15); color:#39d353; }
+        .lc-diff-medium { background:rgba(232,201,122,.15); color:var(--amber); }
+        .lc-diff-hard   { background:rgba(255,71,87,.15); color:#ff4757; }
+        .lc-prob-name { flex:1; color:var(--text); font-weight:600; }
+        .lc-prob-tags { color:var(--text3); font-size:0.67rem; }
+        .lc-prob-date { color:var(--text3); font-size:0.67rem; flex-shrink:0; }
+        .lc-flag-btn { background:none; border:none; cursor:pointer; font-size:0.9rem; transition:transform .15s; padding:0 2px; }
+        .lc-flag-btn:hover { transform:scale(1.25); }
+        .lc-del-btn { background:none; border:none; cursor:pointer; color:var(--text3); font-size:0.8rem; transition:color .15s; padding:0 2px; }
+        .lc-del-btn:hover { color:var(--red); }
+    </style>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         FLASHCARD SYSTEM — JAVASCRIPT (SM-2 Algorithm)
+    ═══════════════════════════════════════════════════════════════ -->
+    <script>
+    /* ─────────────────── FLASHCARD STORE ─────────────────── */
+    const FC = {
+        get data() {
+            try { return JSON.parse(localStorage.getItem('fc_data') || '{"decks":[],"cards":[]}'); } catch { return {decks:[],cards:[]}; }
+        },
+        save(d) { try { localStorage.setItem('fc_data',JSON.stringify(d)); } catch{} },
+        // SM-2 algorithm
+        sm2(card, quality) { // quality 1-4
+            let {interval=1, repetitions=0, easeFactor=2.5, dueDate} = card;
+            const q = quality === 1 ? 0 : quality === 2 ? 2 : quality === 3 ? 3 : 5;
+            if (q < 3) { repetitions = 0; interval = 1; }
+            else {
+                if (repetitions === 0) interval = 1;
+                else if (repetitions === 1) interval = 6;
+                else interval = Math.round(interval * easeFactor);
+                repetitions++;
+                easeFactor = Math.max(1.3, easeFactor + 0.1 - (5-q)*(0.08+(5-q)*0.02));
+            }
+            const due = new Date(); due.setDate(due.getDate() + (quality === 1 ? 0 : interval));
+            return {...card, interval, repetitions, easeFactor, dueDate: due.toISOString().slice(0,10)};
+        },
+        intervalLabel(card, q) {
+            const {interval=1, easeFactor=2.5, repetitions=0} = card;
+            if (q === 1) return '<1m';
+            const rep = q >= 3 ? repetitions : 0;
+            let iv;
+            if (rep===0) iv=1; else if(rep===1) iv=6; else iv=Math.round(interval*easeFactor);
+            return iv===1 ? '1d' : iv < 7 ? iv+'d' : iv < 30 ? Math.round(iv/7)+'w' : Math.round(iv/30)+'mo';
+        }
+    };
+
+    let fcQueue = [], fcIdx = 0, fcFlipped = false, fcSession = {again:0,hard:0,good:0,easy:0};
+
+    function fcInit() {
+        fcRenderDecks(); fcRenderBrowser(); fcUpdateStats(); fcBuildQueue(); fcUpdateDuePreview();
+    }
+
+    function fcSafeData() { const d = FC.data; if(!d.decks) d.decks=[]; if(!d.cards) d.cards=[]; return d; }
+
+    function fcNewDeck() {
+        const name = prompt('Deck name:'); if(!name) return;
+        const d = fcSafeData();
+        d.decks.push({id:'dk'+Date.now(), name});
+        FC.save(d); fcRenderDecks(); fcPopulateSelects();
+    }
+
+    function fcRenderDecks() {
+        const d = fcSafeData();
+        const el = document.getElementById('fc-deck-list'); if(!el) return;
+        const rdEl = document.getElementById('fc-review-deck');
+        if(rdEl) { rdEl.innerHTML='<option value="all">All Decks — Due</option>'+d.decks.map(dk=>`<option value="${dk.id}">${dk.name}</option>`).join(''); }
+        if(!d.decks.length) { el.innerHTML='<div style="font-family:var(--mono);font-size:0.78rem;color:var(--text3)">// No decks yet. Create one above.</div>'; fcPopulateSelects(); return; }
+        el.innerHTML = d.decks.map(dk => {
+            const cnt = d.cards.filter(c=>c.deckId===dk.id).length;
+            return `<div class="fc-deck-item" onclick="fcSelectDeck('${dk.id}')">
+                <span class="fc-deck-name">${dk.name}</span>
+                <span class="fc-deck-count">${cnt}</span>
+                <button class="fc-deck-del" onclick="event.stopPropagation();fcDelDeck('${dk.id}')" title="Delete deck">✕</button>
+            </div>`;
+        }).join('');
+        fcPopulateSelects();
+    }
+
+    function fcPopulateSelects() {
+        const d = fcSafeData();
+        const sel = document.getElementById('fc-add-deck'); if(!sel) return;
+        sel.innerHTML = '<option value="">— Select deck —</option>'+d.decks.map(dk=>`<option value="${dk.id}">${dk.name}</option>`).join('');
+    }
+
+    function fcDelDeck(id) {
+        if(!confirm('Delete this deck and all its cards?')) return;
+        const d = fcSafeData();
+        d.decks = d.decks.filter(dk=>dk.id!==id);
+        d.cards = d.cards.filter(c=>c.deckId!==id);
+        FC.save(d); fcRenderDecks(); fcRenderBrowser(); fcUpdateStats(); fcBuildQueue();
+    }
+
+    function fcSelectDeck(id) {
+        const rdEl = document.getElementById('fc-review-deck'); if(!rdEl) return;
+        rdEl.value = id; fcBuildQueue(); fcUpdateDuePreview();
+    }
+
+    function fcAddCard() {
+        const deckId = document.getElementById('fc-add-deck').value;
+        const front = document.getElementById('fc-add-front').value.trim();
+        const back = document.getElementById('fc-add-back').value.trim();
+        if(!deckId) { alert('Select a deck first.'); return; }
+        if(!front || !back) { alert('Front and back are required.'); return; }
+        const d = fcSafeData();
+        d.cards.push({id:'cd'+Date.now(), deckId, front, back, interval:1, repetitions:0, easeFactor:2.5, dueDate: new Date().toISOString().slice(0,10)});
+        FC.save(d);
+        document.getElementById('fc-add-front').value='';
+        document.getElementById('fc-add-back').value='';
+        fcRenderDecks(); fcRenderBrowser(); fcUpdateStats(); fcBuildQueue(); fcUpdateDuePreview();
+    }
+
+    function fcUpdateStats() {
+        const d = fcSafeData();
+        const today = new Date().toISOString().slice(0,10);
+        const due = d.cards.filter(c => c.dueDate <= today).length;
+        const mastered = d.cards.filter(c => c.repetitions >= 5).length;
+        const learning = d.cards.filter(c => c.repetitions > 0 && c.repetitions < 5).length;
+        // streak
+        let streak = 0;
+        try {
+            const hist = JSON.parse(localStorage.getItem('fc_review_hist') || '[]');
+            const dt = new Date(); let ds = dt.toISOString().slice(0,10);
+            while(hist.includes(ds)) { streak++; dt.setDate(dt.getDate()-1); ds=dt.toISOString().slice(0,10); }
+        } catch {}
+        document.getElementById('fc-stat-total').textContent = d.cards.length;
+        document.getElementById('fc-stat-due').textContent = due;
+        document.getElementById('fc-stat-learning').textContent = learning;
+        document.getElementById('fc-stat-mastered').textContent = mastered;
+        document.getElementById('fc-stat-streak').textContent = streak+'🔥';
+    }
+
+    function fcBuildQueue() {
+        const rdEl = document.getElementById('fc-review-deck');
+        const deckId = rdEl ? rdEl.value : 'all';
+        const d = fcSafeData();
+        const today = new Date().toISOString().slice(0,10);
+        fcQueue = d.cards.filter(c => (deckId==='all' || c.deckId===deckId) && c.dueDate <= today);
+        // shuffle
+        for(let i=fcQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[fcQueue[i],fcQueue[j]]=[fcQueue[j],fcQueue[i]];}
+        document.getElementById('fc-queue-badge').textContent = fcQueue.length+' cards';
+        fcUpdateDuePreview();
+    }
+
+    function fcUpdateDuePreview() {
+        const el = document.getElementById('fc-due-preview'); if(!el) return;
+        el.textContent = fcQueue.length > 0 ? `${fcQueue.length} card${fcQueue.length===1?'':'s'} due for review` : '✓ All caught up!';
+    }
+
+    function fcStartReview() {
+        fcBuildQueue();
+        if(!fcQueue.length) { alert('No cards due for review right now. Add more cards or wait until tomorrow.'); return; }
+        fcIdx = 0; fcFlipped = false; fcSession = {again:0,hard:0,good:0,easy:0};
+        document.getElementById('fc-idle-state').style.display='none';
+        document.getElementById('fc-done-state').style.display='none';
+        document.getElementById('fc-active-state').style.display='block';
+        fcShowCard();
+    }
+
+    function fcShowCard() {
+        if(fcIdx >= fcQueue.length) { fcFinish(); return; }
+        const card = fcQueue[fcIdx];
+        document.getElementById('fc-front-text').textContent = card.front;
+        document.getElementById('fc-back-text').textContent = card.back;
+        document.getElementById('fc-progress-txt').textContent = `Card ${fcIdx+1} of ${fcQueue.length}`;
+        document.getElementById('fc-progress-bar').style.width = (fcIdx/fcQueue.length*100)+'%';
+        // interval hints
+        document.getElementById('fc-int-hard').textContent = FC.intervalLabel(card,2);
+        document.getElementById('fc-int-good').textContent = FC.intervalLabel(card,3);
+        document.getElementById('fc-int-easy').textContent = FC.intervalLabel(card,4);
+        // reset flip
+        fcFlipped = false;
+        const inner = document.getElementById('fc-card-inner');
+        inner.classList.remove('flipped');
+        document.getElementById('fc-rating-row').style.display='none';
+    }
+
+    function fcFlip() {
+        if(fcFlipped) return;
+        fcFlipped = true;
+        document.getElementById('fc-card-inner').classList.add('flipped');
+        document.getElementById('fc-rating-row').style.display='flex';
+    }
+
+    function fcRate(quality) {
+        if(!fcFlipped) return;
+        const d = fcSafeData();
+        const card = fcQueue[fcIdx];
+        const updated = FC.sm2(card, quality);
+        const idx = d.cards.findIndex(c=>c.id===card.id);
+        if(idx>=0) d.cards[idx] = updated;
+        FC.save(d);
+        // session tracking
+        if(quality===1) fcSession.again++; else if(quality===2) fcSession.hard++; else if(quality===3) fcSession.good++; else fcSession.easy++;
+        fcIdx++;
+        fcShowCard();
+    }
+
+    function fcEndSession() {
+        document.getElementById('fc-active-state').style.display='none';
+        document.getElementById('fc-idle-state').style.display='block';
+        fcUpdateStats(); fcRenderBrowser();
+    }
+
+    function fcFinish() {
+        // record review date for streak
+        try {
+            const hist = JSON.parse(localStorage.getItem('fc_review_hist') || '[]');
+            const today = new Date().toISOString().slice(0,10);
+            if(!hist.includes(today)) { hist.push(today); localStorage.setItem('fc_review_hist', JSON.stringify(hist.slice(-365))); }
+        } catch {}
+        document.getElementById('fc-active-state').style.display='none';
+        document.getElementById('fc-done-state').style.display='block';
+        document.getElementById('fc-done-summary').innerHTML =
+            `Reviewed <strong>${fcQueue.length}</strong> cards &nbsp;·&nbsp; ` +
+            `<span style="color:#ff4757">${fcSession.again} again</span> &nbsp;` +
+            `<span style="color:var(--amber)">${fcSession.hard} hard</span> &nbsp;` +
+            `<span style="color:#39d353">${fcSession.good} good</span> &nbsp;` +
+            `<span style="color:var(--cyan)">${fcSession.easy} easy</span>`;
+        fcUpdateStats(); fcRenderDecks(); fcRenderBrowser(); fcBuildQueue();
+    }
+
+    function fcRenderBrowser() {
+        const d = fcSafeData();
+        const q = document.getElementById('fc-search')?.value.toLowerCase() || '';
+        const filtered = d.cards.filter(c => !q || c.front.toLowerCase().includes(q) || c.back.toLowerCase().includes(q));
+        document.getElementById('fc-browser-count').textContent = filtered.length+' cards';
+        const el = document.getElementById('fc-browser-list'); if(!el) return;
+        if(!filtered.length) { el.innerHTML='<div style="font-family:var(--mono);font-size:0.78rem;color:var(--text3);padding:10px 0">// No cards found.</div>'; return; }
+        const deckMap = Object.fromEntries(d.decks.map(dk=>[dk.id,dk.name]));
+        el.innerHTML = filtered.map(c => {
+            const reps = c.repetitions || 0;
+            const state = reps===0 ? 'New' : reps<5 ? 'Learning' : 'Mastered';
+            return `<div class="fc-browser-row">
+                <span class="fc-browser-front">${c.front}</span>
+                <span class="fc-browser-back">${c.back}</span>
+                <span class="fc-browser-deck">${deckMap[c.deckId]||'?'}</span>
+                <span class="fc-int-badge">${state}</span>
+                <button class="fc-browser-del" onclick="fcDelCard('${c.id}')" title="Delete card"><i class="fas fa-trash"></i></button>
+            </div>`;
+        }).join('');
+    }
+
+    function fcDelCard(id) {
+        const d = fcSafeData(); d.cards = d.cards.filter(c=>c.id!==id);
+        FC.save(d); fcRenderDecks(); fcRenderBrowser(); fcUpdateStats(); fcBuildQueue();
+    }
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         ANALYTICS SESSION FEED — JAVASCRIPT
+    ═══════════════════════════════════════════════════════════════ -->
+    <script>
+    // ── renderAnalyticsSessionFeed ─────────────────────────────────
+    // Reads S.sessions, applies period + time-of-day filter, renders
+    // the summary row, TOD distribution bar, and session list feed.
+    function renderAnalyticsSessionFeed() {
+        const period = document.getElementById('asf-filter-period')?.value || 'today';
+        const tod    = document.getElementById('asf-filter-tod')?.value || 'all';
+
+        const today = new Date(); today.setHours(0,0,0,0);
+        const todayKey = today.toISOString().slice(0,10);
+
+        // Build date set for the period
+        function matchesPeriod(s) {
+            if (period === 'today') return s.date === todayKey;
+            if (period === 'week') {
+                const d = new Date(today); d.setDate(d.getDate() - 6);
+                return s.date >= d.toISOString().slice(0,10);
+            }
+            return true; // all
+        }
+
+        // Time-of-day helper
+        function getTodClass(hour) {
+            if (hour >= 5  && hour <= 11) return 'morning';
+            if (hour >= 12 && hour <= 17) return 'afternoon';
+            if (hour >= 18 && hour <= 22) return 'evening';
+            return 'night';
+        }
+        function todLabel(cls) {
+            return { morning:'🌅 Morning', afternoon:'☀️ Afternoon', evening:'🌆 Evening', night:'🌙 Night' }[cls] || cls;
+        }
+        function matchesTod(s) {
+            if (tod === 'all') return true;
+            const cls = getTodClass(s.hour ?? s.startHour ?? 9);
+            return cls === tod;
+        }
+
+        const allSessions = (typeof S !== 'undefined' && S.sessions) ? S.sessions : [];
+        const filtered = allSessions.filter(s => matchesPeriod(s) && matchesTod(s));
+
+        // ── Summary row ───────────────────────────────────────────
+        const totalMins = filtered.reduce((a, s) => a + (s.mins || 0), 0);
+        const totalSess = filtered.length;
+        const avgMins   = totalSess ? Math.round(totalMins / totalSess) : 0;
+        const uniqDays  = new Set(filtered.map(s => s.date)).size;
+        const badge = document.getElementById('asf-total-badge');
+        if (badge) badge.textContent = `${totalSess} SESSION${totalSess !== 1 ? 'S' : ''}`;
+
+        const summaryRow = document.getElementById('asf-summary-row');
+        if (summaryRow) {
+            summaryRow.innerHTML = [
+                { val: totalSess, lbl: 'SESSIONS' },
+                { val: totalMins >= 60 ? (totalMins/60).toFixed(1)+'h' : totalMins+'m', lbl: 'FOCUS TIME' },
+                { val: avgMins+'m', lbl: 'AVG LENGTH' },
+                { val: uniqDays+'d', lbl: 'ACTIVE DAYS' }
+            ].map(x => `<div class="asf-summary-mini"><div class="asf-s-val">${x.val}</div><div class="asf-s-lbl">${x.lbl}</div></div>`).join('');
+        }
+
+        // ── TOD distribution bar ──────────────────────────────────
+        const todBuckets = { morning:0, afternoon:0, evening:0, night:0 };
+        filtered.forEach(s => { const cls = getTodClass(s.hour ?? s.startHour ?? 9); todBuckets[cls] += s.mins || 0; });
+        const maxTod = Math.max(...Object.values(todBuckets), 1);
+        const todColors = { morning:'#ffc947', afternoon:'var(--cyan)', evening:'#a59fff', night:'#89b4d8' };
+        const todBar = document.getElementById('asf-tod-bar');
+        const todLbls = document.getElementById('asf-tod-labels');
+        if (todBar) {
+            todBar.innerHTML = Object.entries(todBuckets).map(([k, v]) => {
+                const pct = Math.max(4, (v / maxTod) * 100);
+                return `<div class="asf-tod-col">
+                    <div class="asf-tod-bar-wrap" style="flex:1;display:flex;align-items:flex-end;width:100%">
+                        <div class="asf-tod-bar-fill" style="height:${pct}%;background:${todColors[k]};opacity:${v>0?1:0.18}"></div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+        if (todLbls) {
+            todLbls.innerHTML = Object.entries(todBuckets).map(([k, v]) =>
+                `<div class="asf-tod-col"><div class="asf-tod-bar-lbl" title="${todLabel(k)}">${k.slice(0,3).toUpperCase()}</div><div class="asf-tod-bar-lbl" style="color:var(--text3);font-weight:400">${v ? (v+'m') : ''}</div></div>`
+            ).join('');
+        }
+
+        // ── Session list feed ─────────────────────────────────────
+        const feed = document.getElementById('asf-feed-list');
+        if (!feed) return;
+        if (!filtered.length) {
+            feed.innerHTML = `<div style="font-family:var(--mono);font-size:0.85rem;color:var(--text3);text-align:center;padding:20px 0">// No sessions match the selected filters</div>`;
+            return;
+        }
+        // Sort newest first
+        const sorted = [...filtered].sort((a, b) => {
+            if (a.date !== b.date) return b.date.localeCompare(a.date);
+            return b.time.localeCompare(a.time);
+        });
+        feed.innerHTML = sorted.slice(0, 60).map((s, idx) => {
+            const hour = s.hour ?? s.startHour ?? 9;
+            const todCls = getTodClass(hour);
+            const todLbl = todLabel(todCls);
+            const taskClean = (s.task || 'Focus').replace(/\s*\[FINISHED @ .*?\]/g, '');
+            const dateLabel = s.date === todayKey ? 'Today' : s.date;
+            return `<div class="asf-session-row" style="animation-delay:${Math.min(idx * 0.03, 0.4)}s">
+                <span class="asf-tod-chip asf-tod-${todCls}" title="${todLbl}">${todCls.slice(0,3).toUpperCase()}</span>
+                <span class="asf-task-name" title="${escHtml(taskClean)}">${escHtml(taskClean)}</span>
+                <span class="asf-duration-pill">${s.mins || 0}m</span>
+                <span class="asf-time-stamp">${s.time || ''}</span>
+                <span class="asf-time-stamp" style="color:var(--text3);min-width:52px;text-align:right">${dateLabel}</span>
+            </div>`;
+        }).join('');
+    }
+
+    function exportSessionFeedCSV() {
+        const sessions = (typeof S !== 'undefined' && S.sessions) ? S.sessions : [];
+        if (!sessions.length) { showToast('No sessions to export'); return; }
+        const header = 'Date,Time,Task,Duration(min),Hour,TOD';
+        function getTOD(h) {
+            if (h >= 5 && h <= 11) return 'Morning';
+            if (h >= 12 && h <= 17) return 'Afternoon';
+            if (h >= 18 && h <= 22) return 'Evening';
+            return 'Night';
+        }
+        const rows = sessions.map(s => {
+            const h = s.hour ?? s.startHour ?? 0;
+            const task = (s.task || 'Focus').replace(/\s*\[FINISHED @ .*?\]/g, '').replace(/,/g,' ');
+            return [s.date, s.time || '', task, s.mins || 0, h, getTOD(h)].join(',');
+        });
+        const csv = [header, ...rows].join('\n');
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'focus_sessions.csv';
+        a.click(); URL.revokeObjectURL(url);
+        showToast('✓ Sessions exported as CSV');
+    }
+
+    // Patch logSess, finishMainTimer, finishMiniTimer to also refresh the feed
+    (function patchTimerAnalytics() {
+        const origLogSess = window.logSess;
+        if (typeof origLogSess === 'function') {
+            window.logSess = function(...args) {
+                origLogSess.apply(this, args);
+                renderAnalyticsSessionFeed();
+            };
+        }
+        // Also hook after finishMainTimer / finishMiniTimer complete
+        ['finishMainTimer','finishMiniTimer'].forEach(fn => {
+            const orig = window[fn];
+            if (typeof orig === 'function') {
+                window[fn] = function(...args) {
+                    orig.apply(this, args);
+                    renderAnalyticsSessionFeed();
+                };
+            }
+        });
+    })();
+
+    // Auto-refresh feed when analytics panel becomes active
+    (function hookAnalyticsTabRefresh() {
+        const origSwitchPanel = window.switchPanel;
+        if (typeof origSwitchPanel === 'function') {
+            window.switchPanel = function(name, ...rest) {
+                origSwitchPanel.call(this, name, ...rest);
+                if (name === 'analytics') setTimeout(renderAnalyticsSessionFeed, 80);
+            };
+        }
+        // Also refresh on DOMContentLoaded so it's populated on first visit
+        document.addEventListener('DOMContentLoaded', () => setTimeout(renderAnalyticsSessionFeed, 300));
+    })();
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         LEETCODE TRACKER — JAVASCRIPT
+    ═══════════════════════════════════════════════════════════════ -->
+    <script>
+    const LC = {
+        get data() { try { return JSON.parse(localStorage.getItem('lc_data') || '{"problems":[]}'); } catch { return {problems:[]}; } },
+        save(d) { try { localStorage.setItem('lc_data',JSON.stringify(d)); } catch{} }
+    };
+
+    function lcInit() { lcRender(); lcRenderHeatmap(); lcRenderWeekly(); lcUpdateStats(); }
+
+    function lcLog() {
+        const name = document.getElementById('lc-name').value.trim();
+        const diff = document.getElementById('lc-diff').value;
+        const tags = document.getElementById('lc-tags').value.trim();
+        const notes = document.getElementById('lc-notes').value.trim();
+        const flagReview = document.getElementById('lc-flag-review').checked;
+        if(!name) { alert('Problem name is required.'); return; }
+        const d = LC.data;
+        d.problems.unshift({id:'lc'+Date.now(), name, diff, tags, notes, flagReview, date: new Date().toISOString().slice(0,10)});
+        LC.save(d);
+        document.getElementById('lc-name').value='';
+        document.getElementById('lc-tags').value='';
+        document.getElementById('lc-notes').value='';
+        document.getElementById('lc-flag-review').checked=false;
+        lcRender(); lcRenderHeatmap(); lcRenderWeekly(); lcUpdateStats();
+    }
+
+    function lcUpdateStats() {
+        const d = LC.data;
+        const ps = d.problems;
+        document.getElementById('lc-total').textContent = ps.length;
+        document.getElementById('lc-easy').textContent = ps.filter(p=>p.diff==='easy').length;
+        document.getElementById('lc-medium').textContent = ps.filter(p=>p.diff==='medium').length;
+        document.getElementById('lc-hard').textContent = ps.filter(p=>p.diff==='hard').length;
+        document.getElementById('lc-review').textContent = ps.filter(p=>p.flagReview).length;
+        // streak
+        const dateSet = new Set(ps.map(p=>p.date));
+        let streak = 0; const dt = new Date();
+        while(dateSet.has(dt.toISOString().slice(0,10))) { streak++; dt.setDate(dt.getDate()-1); }
+        document.getElementById('lc-streak').textContent = streak+'🔥';
+    }
+
+    function lcRender() {
+        const d = LC.data;
+        const diffF = document.getElementById('lc-filter-diff')?.value || 'all';
+        const flagF = document.getElementById('lc-filter-flag')?.value || 'all';
+        const q = document.getElementById('lc-search')?.value.toLowerCase() || '';
+        let ps = d.problems;
+        if(diffF!=='all') ps = ps.filter(p=>p.diff===diffF);
+        if(flagF==='review') ps = ps.filter(p=>p.flagReview);
+        if(q) ps = ps.filter(p=>p.name.toLowerCase().includes(q)||(p.tags||'').toLowerCase().includes(q));
+        document.getElementById('lc-list-count').textContent = ps.length;
+        const el = document.getElementById('lc-problem-list'); if(!el) return;
+        if(!ps.length) { el.innerHTML='<div style="font-family:var(--mono);font-size:0.78rem;color:var(--text3);padding:10px 0">// No problems match the filter.</div>'; return; }
+        const diffColors = {easy:'lc-diff-easy', medium:'lc-diff-medium', hard:'lc-diff-hard'};
+        el.innerHTML = ps.map(p => `
+            <div class="lc-problem-row">
+                <span class="lc-diff-badge ${diffColors[p.diff]||''}">${p.diff.toUpperCase()}</span>
+                <span class="lc-prob-name">${p.name}</span>
+                <span class="lc-prob-tags">${(p.tags||'').split(',').filter(Boolean).map(t=>`<span style="background:rgba(255,255,255,.06);padding:1px 5px;border-radius:3px;margin-right:3px">${t.trim()}</span>`).join('')}</span>
+                <span class="lc-prob-date">${p.date}</span>
+                <button class="lc-flag-btn" onclick="lcToggleFlag('${p.id}')" title="${p.flagReview?'Remove review flag':'Flag for review'}">${p.flagReview?'🚩':'⚑'}</button>
+                <button class="lc-del-btn" onclick="lcDel('${p.id}')"><i class="fas fa-times"></i></button>
+            </div>`).join('');
+    }
+
+    function lcToggleFlag(id) {
+        const d = LC.data; const p = d.problems.find(x=>x.id===id);
+        if(p) p.flagReview = !p.flagReview;
+        LC.save(d); lcRender(); lcUpdateStats();
+    }
+
+    function lcDel(id) {
+        if(!confirm('Remove this problem?')) return;
+        const d = LC.data; d.problems = d.problems.filter(p=>p.id!==id);
+        LC.save(d); lcRender(); lcRenderHeatmap(); lcRenderWeekly(); lcUpdateStats();
+    }
+
+    function lcRenderHeatmap() {
+        const el = document.getElementById('lc-heatmap'); if(!el) return;
+        const d = LC.data;
+        // Build count map
+        const countMap = {};
+        d.problems.forEach(p => { countMap[p.date] = (countMap[p.date]||0)+1; });
+        const maxCount = Math.max(...Object.values(countMap), 1);
+        // 52 weeks × 7 days
+        const today = new Date(); today.setHours(0,0,0,0);
+        const start = new Date(today); start.setDate(start.getDate() - 7*52);
+        // Align to Sunday
+        start.setDate(start.getDate() - start.getDay());
+        // Update year badge
+        const ybEl = document.getElementById('lc-heatmap-year');
+        if(ybEl) ybEl.textContent = today.getFullYear();
+        // Build grid: 7 rows (days), 53 cols (weeks)
+        const weeks = [];
+        let cur = new Date(start);
+        for(let w=0; w<53; w++) {
+            const week = [];
+            for(let dy=0; dy<7; dy++) {
+                const ds = cur.toISOString().slice(0,10);
+                const cnt = countMap[ds]||0;
+                const isFuture = cur > today;
+                week.push({ds, cnt, isFuture});
+                cur.setDate(cur.getDate()+1);
+            }
+            weeks.push(week);
+        }
+        // Render rows (top=Sun, bottom=Sat)
+        el.innerHTML = '';
+        for(let dy=0; dy<7; dy++) {
+            const row = document.createElement('div'); row.className='lc-hm-row';
+            for(let w=0; w<53; w++) {
+                const {ds,cnt,isFuture} = weeks[w][dy];
+                const cell = document.createElement('div'); cell.className='lc-hm-cell';
+                if(!isFuture && cnt>0) {
+                    const intensity = cnt/maxCount;
+                    const alpha = 0.2 + intensity*0.8;
+                    cell.style.background = `rgba(57,211,83,${alpha.toFixed(2)})`;
+                }
+                cell.title = `${ds}: ${cnt} problem${cnt===1?'':'s'}`;
+                row.appendChild(cell);
+            }
+            el.appendChild(row);
+        }
+    }
+
+    function lcRenderWeekly() {
+        const el = document.getElementById('lc-weekly-chart'); if(!el) return;
+        const d = LC.data;
+        const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+        const counts = Array(7).fill(0);
+        const today = new Date(); today.setHours(0,0,0,0);
+        // Last 7 days
+        for(let i=0;i<7;i++) { const dt=new Date(today); dt.setDate(dt.getDate()-i); const ds=dt.toISOString().slice(0,10); counts[6-i]=d.problems.filter(p=>p.date===ds).length; }
+        const labels = [];
+        for(let i=6;i>=0;i--) { const dt=new Date(today); dt.setDate(dt.getDate()-i); labels.push(days[dt.getDay()]); }
+        const maxC = Math.max(...counts,1);
+        el.innerHTML = counts.map((c,i) => {
+            const pct = Math.max(5, (c/maxC)*100);
+            const col = c===0 ? 'var(--border2)' : c>=3 ? '#39d353' : 'rgba(57,211,83,.55)';
+            return `<div class="lc-wk-col">
+                <div class="lc-wk-bar-wrap"><div class="lc-wk-bar" style="height:${pct}%;background:${col}"></div></div>
+                <div class="lc-wk-lbl">${labels[i]}</div>
+                <div class="lc-wk-val">${c||''}</div>
+            </div>`;
+        }).join('');
+    }
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         EXPORT EVERYTHING — ENGINE
+    ═══════════════════════════════════════════════════════════════ -->
+    <script>
+    (function() {
+
+        // ── State ────────────────────────────────────────────────────
+        let _exportFormat = 'json';   // 'json' | 'csv' | 'both'
+        let _allSelected  = true;
+
+        // ── Helpers ──────────────────────────────────────────────────
+        function _esc(v) {
+            if (v === null || v === undefined) return '';
+            const s = String(v);
+            if (s.includes(',') || s.includes('"') || s.includes('\n'))
+                return '"' + s.replace(/"/g, '""') + '"';
+            return s;
+        }
+        function _rows(headers, data) {
+            return [headers.join(','),
+                    ...data.map(r => headers.map(h => _esc(r[h])).join(','))
+                   ].join('\n');
+        }
+        function _dl(filename, content, mime) {
+            const blob = new Blob([content], { type: mime });
+            const url  = URL.createObjectURL(blob);
+            const a    = document.createElement('a');
+            a.href = url; a.download = filename; a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 2000);
+        }
+        function _todayStamp() {
+            return new Date().toISOString().split('T')[0];
+        }
+        function _nowStamp() {
+            return new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
+        }
+        function _getSafeS() {
+            return (typeof S !== 'undefined' && S) ? S : {};
+        }
+        function _getLCData() {
+            try { return JSON.parse(localStorage.getItem('lc_data') || '{"problems":[]}'); }
+            catch { return {problems:[]}; }
+        }
+        function _getFCData() {
+            try { return JSON.parse(localStorage.getItem('fc_data') || '{"decks":[],"cards":[]}'); }
+            catch { return {decks:[],cards:[]}; }
+        }
+
+        // ── Per-collection CSV builders ───────────────────────────────
+        function _csvTasks(data) {
+            const tasks = data.tasks || [];
+            return _rows(['id','text','priority','date','done','doneDate','recurring','mins'],
+                tasks.map(t => ({
+                    id: t.id||'', text: t.text||'', priority: t.priority||'med',
+                    date: t.date||'', done: t.done ? 'true' : 'false',
+                    doneDate: t.doneDate||'', recurring: t.recurring ? 'true' : 'false',
+                    mins: t.mins||''
+                })));
+        }
+        function _csvSessions(data) {
+            const sessions = data.sessions || [];
+            function tod(h) {
+                if (h>=5&&h<=11) return 'Morning';
+                if (h>=12&&h<=17) return 'Afternoon';
+                if (h>=18&&h<=22) return 'Evening';
+                return 'Night';
+            }
+            return _rows(['id','date','time','task','mins','hour','timeOfDay'],
+                sessions.map(s => {
+                    const h = s.hour ?? s.startHour ?? 0;
+                    return {
+                        id: s.id||'', date: s.date||'', time: s.time||'',
+                        task: (s.task||'Focus').replace(/\s*\[FINISHED @ .*?\]/g,''),
+                        mins: s.mins||0, hour: h, timeOfDay: tod(h)
+                    };
+                }));
+        }
+        function _csvHabits(data) {
+            const habits = data.habits || [];
+            const allDays = new Set();
+            habits.forEach(h => { if (h.days) Object.keys(h.days).forEach(d => allDays.add(d)); });
+            const days = [...allDays].sort();
+            const headers = ['id','name','streak','totalDone', ...days];
+            const rows = habits.map(h => {
+                const row = { id: h.id||'', name: h.name||'', streak: h.streak||0,
+                    totalDone: h.days ? Object.values(h.days).filter(Boolean).length : 0 };
+                days.forEach(d => { row[d] = (h.days && h.days[d]) ? '1' : '0'; });
+                return row;
+            });
+            return _rows(headers, rows);
+        }
+        function _csvJournal(data) {
+            const journal = data.journal || [];
+            return _rows(['id','date','time','text','mood','tags'],
+                journal.map(j => ({
+                    id: j.id||'', date: j.date||'', time: j.time||'',
+                    text: j.text||j.content||'', mood: j.mood||'', tags: (j.tags||[]).join(';')
+                })));
+        }
+        function _csvAnalytics(data) {
+            const daily = (data.analytics && data.analytics.daily) || {};
+            const rows  = Object.entries(daily).sort(([a],[b])=>a.localeCompare(b))
+                .map(([date, d]) => ({
+                    date, sessions: d.sess||0, tasks: d.tasks||0,
+                    focusMins: d.min||0, score: d.score||0
+                }));
+            return _rows(['date','sessions','tasks','focusMins','score'], rows);
+        }
+        function _csvWins(data) {
+            const wins  = data.wins  || [];
+            const goals = data.goals || [];
+            const wRows = wins.map(w => ({ type:'win',  id: w.id||'', date: w.date||'', text: w.text||w }));
+            const gRows = goals.map(g => ({ type:'goal', id: g.id||'', date: g.date||'', text: g.text||g.title||'' }));
+            return _rows(['type','id','date','text'], [...wRows, ...gRows]);
+        }
+        function _csvEvents(data) {
+            const events = data.weeklyEvents || [];
+            return _rows(['id','title','date','time','category','repeat'],
+                events.map(e => ({
+                    id: e.id||'', title: e.title||e.text||'',
+                    date: e.date||'', time: e.time||'',
+                    category: e.category||e.cat||'', repeat: e.repeat||e.weekly ? 'true' : 'false'
+                })));
+        }
+        function _csvSnippets(data) {
+            const snippets = data.snippets || [];
+            return _rows(['id','title','language','tags','code'],
+                snippets.map(s => ({
+                    id: s.id||'', title: s.title||'', language: s.lang||s.language||'',
+                    tags: (s.tags||''), code: s.code||''
+                })));
+        }
+        function _csvFlashcards() {
+            const fc = _getFCData();
+            const cards = fc.cards || [];
+            const deckMap = {};
+            (fc.decks||[]).forEach(d => { deckMap[d.id] = d.name||d.title||d.id; });
+            return _rows(['id','deck','front','back','interval','easeFactor','dueDate','reps'],
+                cards.map(c => ({
+                    id: c.id||'', deck: deckMap[c.deckId]||c.deckId||'',
+                    front: c.front||'', back: c.back||'',
+                    interval: c.interval||0, easeFactor: c.efactor||c.easeFactor||2.5,
+                    dueDate: c.due||c.dueDate||'', reps: c.reps||0
+                })));
+        }
+        function _csvLeetCode() {
+            const lc = _getLCData();
+            return _rows(['id','name','difficulty','tags','notes','flagReview','date'],
+                (lc.problems||[]).map(p => ({
+                    id: p.id||'', name: p.name||'', difficulty: p.diff||'',
+                    tags: p.tags||'', notes: p.notes||'',
+                    flagReview: p.flagReview ? 'true' : 'false', date: p.date||''
+                })));
+        }
+
+        // ── JSON builders ─────────────────────────────────────────────
+        function _jsonForKey(key, data) {
+            switch(key) {
+                case 'tasks':        return { tasks: data.tasks||[] };
+                case 'sessions':     return { sessions: data.sessions||[] };
+                case 'habits':       return { habits: data.habits||[] };
+                case 'journal':      return { journal: data.journal||[] };
+                case 'analytics':    return { analytics: data.analytics||{}, energy: data.energy||{} };
+                case 'wins':         return { wins: data.wins||[], goals: data.goals||[] };
+                case 'weeklyEvents': return { weeklyEvents: data.weeklyEvents||[] };
+                case 'snippets':     return { snippets: data.snippets||[] };
+                case 'flashcards':   return _getFCData();
+                case 'leetcode':     return _getLCData();
+                default:             return {};
+            }
+        }
+        function _csvForKey(key, data) {
+            switch(key) {
+                case 'tasks':        return _csvTasks(data);
+                case 'sessions':     return _csvSessions(data);
+                case 'habits':       return _csvHabits(data);
+                case 'journal':      return _csvJournal(data);
+                case 'analytics':    return _csvAnalytics(data);
+                case 'wins':         return _csvWins(data);
+                case 'weeklyEvents': return _csvEvents(data);
+                case 'snippets':     return _csvSnippets(data);
+                case 'flashcards':   return _csvFlashcards();
+                case 'leetcode':     return _csvLeetCode();
+                default:             return '';
+            }
+        }
+        function _labelForKey(key) {
+            return { tasks:'tasks', sessions:'focus-sessions', habits:'habits',
+                     journal:'journal', analytics:'analytics', wins:'wins-goals',
+                     weeklyEvents:'planner-events', snippets:'snippets',
+                     flashcards:'flashcards', leetcode:'leetcode' }[key] || key;
+        }
+
+        // ── Count helpers ─────────────────────────────────────────────
+        function _countForKey(key, data) {
+            switch(key) {
+                case 'tasks':        return (data.tasks||[]).length;
+                case 'sessions':     return (data.sessions||[]).length;
+                case 'habits':       return (data.habits||[]).length;
+                case 'journal':      return (data.journal||[]).length;
+                case 'analytics':    return Object.keys((data.analytics&&data.analytics.daily)||{}).length + ' days';
+                case 'wins':         return (data.wins||[]).length + (data.goals||[]).length;
+                case 'weeklyEvents': return (data.weeklyEvents||[]).length;
+                case 'snippets':     return (data.snippets||[]).length;
+                case 'flashcards':   { const fc=_getFCData(); return (fc.cards||[]).length; }
+                case 'leetcode':     { const lc=_getLCData(); return (lc.problems||[]).length; }
+                default:             return '—';
+            }
+        }
+
+        // ── UI helpers ────────────────────────────────────────────────
+        function _selectedKeys() {
+            return [...document.querySelectorAll('#export-sections .export-section-row.selected')]
+                   .map(el => el.dataset.key);
+        }
+        function _updateGoBtn() {
+            const keys  = _selectedKeys();
+            const label = document.getElementById('export-go-label');
+            const btn   = document.getElementById('export-go-btn');
+            if (!keys.length) {
+                if (label) label.textContent = 'SELECT AT LEAST ONE';
+                if (btn)   btn.disabled = true;
+            } else {
+                const fmtLabel = _exportFormat === 'both' ? 'JSON + CSV' : _exportFormat.toUpperCase();
+                if (label) label.textContent = `EXPORT ${keys.length} COLLECTION${keys.length>1?'S':''} · ${fmtLabel}`;
+                if (btn)   btn.disabled = false;
+            }
+        }
+
+        // ── Public API ────────────────────────────────────────────────
+        window.openExportModal = function() {
+            const modal = document.getElementById('export-modal');
+            if (!modal) return;
+            _refreshExportUI();
+            modal.classList.add('open');
+            // Check last export stamp
+            try {
+                const last = localStorage.getItem('export_last_stamp');
+                const stampEl = document.getElementById('export-last-stamp');
+                const timeEl  = document.getElementById('export-last-time');
+                if (last && stampEl && timeEl) {
+                    stampEl.style.display = '';
+                    timeEl.textContent = new Date(last).toLocaleString();
+                }
+            } catch(e){}
+        };
+
+        window.closeExportModal = function() {
+            const modal = document.getElementById('export-modal');
+            if (modal) modal.classList.remove('open');
+        };
+
+        window.setExportFormat = function(fmt) {
+            _exportFormat = fmt;
+            ['json','csv','both'].forEach(f => {
+                const btn = document.getElementById('efmt-' + f);
+                if (btn) btn.classList.toggle('active', f === fmt);
+            });
+            const hint = document.getElementById('export-fmt-hint');
+            if (hint) {
+                hint.textContent = fmt === 'json' ? 'Full fidelity — all fields preserved'
+                    : fmt === 'csv'  ? 'Spreadsheet-ready — open in Excel or Google Sheets'
+                    : 'Downloads one JSON + one CSV file per collection';
+            }
+            _updateGoBtn();
+        };
+
+        window.toggleExportSection = function(el) {
+            el.classList.toggle('selected');
+            // Update select-all button label
+            const all  = document.querySelectorAll('#export-sections .export-section-row');
+            const sel  = document.querySelectorAll('#export-sections .export-section-row.selected');
+            const btn  = document.getElementById('export-toggle-all-btn');
+            _allSelected = sel.length === all.length;
+            if (btn) btn.textContent = _allSelected ? 'DESELECT ALL' : 'SELECT ALL';
+            _updateGoBtn();
+        };
+
+        window.exportToggleAll = function() {
+            const rows = document.querySelectorAll('#export-sections .export-section-row');
+            _allSelected = !_allSelected;
+            rows.forEach(r => r.classList.toggle('selected', _allSelected));
+            const btn = document.getElementById('export-toggle-all-btn');
+            if (btn) btn.textContent = _allSelected ? 'DESELECT ALL' : 'SELECT ALL';
+            _updateGoBtn();
+        };
+
+        window.runExportEverything = function() {
+            const keys = _selectedKeys();
+            if (!keys.length) return;
+
+            const btn    = document.getElementById('export-go-btn');
+            const label  = document.getElementById('export-go-label');
+            const data   = _getSafeS();
+            const stamp  = _nowStamp();
+
+            // Animate button
+            if (btn)   { btn.classList.add('exporting'); btn.disabled = true; }
+            if (label) label.textContent = 'EXPORTING…';
+
+            setTimeout(() => {
+                try {
+                    if (_exportFormat === 'json' || _exportFormat === 'both') {
+                        if (keys.length === 1) {
+                            // Single collection → individual file
+                            const payload = _jsonForKey(keys[0], data);
+                            _dl(`storm-os_${_labelForKey(keys[0])}_${stamp}.json`,
+                                JSON.stringify(payload, null, 2), 'application/json');
+                        } else {
+                            // Multi → combined bundle
+                            const bundle = { exported_at: new Date().toISOString(), collections: {} };
+                            keys.forEach(k => { bundle.collections[k] = _jsonForKey(k, data)[k] || _jsonForKey(k, data); });
+                            _dl(`storm-os_export-bundle_${stamp}.json`,
+                                JSON.stringify(bundle, null, 2), 'application/json');
+                        }
+                    }
+
+                    if (_exportFormat === 'csv' || _exportFormat === 'both') {
+                        // Each collection gets its own CSV (browsers allow multiple sequential downloads)
+                        keys.forEach((k, i) => {
+                            setTimeout(() => {
+                                const csv = _csvForKey(k, data);
+                                if (csv) _dl(`storm-os_${_labelForKey(k)}_${stamp}.csv`, csv, 'text/csv');
+                            }, i * 120);   // stagger to avoid browser blocking
+                        });
+                    }
+
+                    // Record last export
+                    try { localStorage.setItem('export_last_stamp', new Date().toISOString()); } catch(e){}
+
+                    // Update stamp in modal
+                    const stampEl = document.getElementById('export-last-stamp');
+                    const timeEl  = document.getElementById('export-last-time');
+                    if (stampEl) stampEl.style.display = '';
+                    if (timeEl)  timeEl.textContent = new Date().toLocaleString();
+
+                    if (typeof showToast === 'function') {
+                        const fmtStr = _exportFormat === 'both' ? 'JSON + CSV' : _exportFormat.toUpperCase();
+                        showToast(`✦ Exported ${keys.length} collection${keys.length>1?'s':''} · ${fmtStr}`);
+                    }
+
+                } catch(err) {
+                    console.error('[Export] failed:', err);
+                    if (typeof showToast === 'function') showToast('⚠ Export failed — check console');
+                }
+
+                // Restore button
+                setTimeout(() => {
+                    if (btn)  { btn.classList.remove('exporting'); btn.disabled = false; }
+                    _updateGoBtn();
+                }, 600);
+
+            }, 80);
+        };
+
+        // ── Refresh counts and summary bar ────────────────────────────
+        function _refreshExportUI() {
+            const data = _getSafeS();
+
+            // Update counts on each row
+            ['tasks','sessions','habits','journal','analytics','wins','weeklyEvents','snippets','flashcards','leetcode']
+            .forEach(k => {
+                const el = document.getElementById('ecnt-' + k);
+                if (el) el.textContent = _countForKey(k, data);
+            });
+
+            // Summary bar
+            const summary = document.getElementById('export-summary-row');
+            if (summary) {
+                const totalSess  = (data.analytics && data.analytics.totalSess) || 0;
+                const totalHours = (((data.analytics && data.analytics.totalMin) || 0) / 60).toFixed(1);
+                const tasksDone  = (data.tasks||[]).filter(t=>t.done).length;
+                const habitsN    = (data.habits||[]).length;
+                const daysCov    = Object.keys((data.analytics&&data.analytics.daily)||{}).length;
+                const lcCount    = (_getLCData().problems||[]).length;
+                const fcCount    = (_getFCData().cards||[]).length;
+
+                const chips = [
+                    { val: tasksDone,    lbl: 'TASKS DONE'    },
+                    { val: totalSess,    lbl: 'SESSIONS'      },
+                    { val: totalHours+'h', lbl: 'FOCUS TIME'  },
+                    { val: habitsN,      lbl: 'HABITS'        },
+                    { val: daysCov,      lbl: 'DAYS TRACKED'  },
+                    { val: lcCount,      lbl: 'LC PROBLEMS'   },
+                    { val: fcCount,      lbl: 'FLASHCARDS'    },
+                ];
+                summary.innerHTML = chips.map(c => `
+                    <div class="export-stat">
+                        <div class="export-stat-val">${c.val}</div>
+                        <div class="export-stat-lbl">${c.lbl}</div>
+                    </div>`).join('');
+            }
+
+            _updateGoBtn();
+        }
+
+        // ── Wire Alt+E to open modal instead of old exportData ────────
+        // (patch after DOMContentLoaded so the original keydown listener is already set)
+        document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('keydown', function(e) {
+                if (e.altKey && e.key === 'e') {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    window.openExportModal();
+                }
+                if (e.key === 'Escape') {
+                    const modal = document.getElementById('export-modal');
+                    if (modal && modal.classList.contains('open')) {
+                        closeExportModal();
+                    }
+                }
+            }, true);  // capture phase so it fires before the old Alt+E handler
+        });
+
+    })();
     </script>
 </body>
 
