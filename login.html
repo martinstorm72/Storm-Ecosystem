@@ -1238,18 +1238,28 @@
             try {
                 const { data, error } = await sb
                     .from('profiles')
-                    .select('is_paid, subscription_status')
+                    .select('is_paid, subscription_status, trial_start')
                     .eq('id', userId)
                     .single();
 
                 if (error) {
                     console.warn('Profile fetch error:', error);
-                    return false;
+                    return true; // fail open
                 }
-                return data && (data.is_paid === true || data.subscription_status === 'active');
+
+                // Paid subscriber
+                if (data && (data.is_paid === true || data.subscription_status === 'active')) return true;
+
+                // Within 7-day trial
+                if (data && data.trial_start) {
+                    const daysUsed = (new Date() - new Date(data.trial_start)) / (1000 * 60 * 60 * 24);
+                    if (daysUsed <= 7) return true;
+                }
+
+                return false; // Trial expired, not paid
             } catch (e) {
                 console.warn('checkPaidStatus failed:', e);
-                return false;
+                return true; // fail open on network error
             }
         }
 
@@ -1354,10 +1364,11 @@
                     localStorage.setItem('storm_os_auth', 'true');
                     showMsg('// CREDENTIALS VERIFIED — CHECKING SUBSCRIPTION...', 'success');
 
-                    const hasPaid = await checkPaidStatus(data.user.id);
+                    const hasAccess = await checkPaidStatus(data.user.id);
                     const pendingTx = localStorage.getItem('storm_os_payment_tx');
 
-                    if (pendingTx && !hasPaid) {
+                    // Handle PayPal payment return
+                    if (pendingTx && !hasAccess) {
                         showMsg('// PAYMENT RETURN DETECTED — VERIFYING...', 'success');
                         const result = await verifyTransaction(pendingTx);
                         if (result.valid) {
@@ -1369,21 +1380,23 @@
                                 localStorage.setItem('storm_os_operator_access', 'true');
                                 localStorage.setItem('storm_os_operator_granted_at', new Date().toISOString());
                                 showMsg('// PAYMENT VERIFIED — LOADING DASHBOARD...', 'success');
-                                setTimeout(() => { window.location.href = 'index.html'; }, 900);
+                                setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
                                 return;
                             }
                         }
                     }
 
-                    if (hasPaid) {
+                    if (hasAccess) {
+                        // Paid or within 7-day trial
                         localStorage.setItem('storm_os_paid', 'true');
                         localStorage.setItem('storm_os_operator_access', 'true');
                         localStorage.setItem('storm_os_operator_granted_at', new Date().toISOString());
                         showMsg('// ACCESS GRANTED — LOADING DASHBOARD...', 'success');
-                        setTimeout(() => { window.location.href = 'index.html'; }, 900);
+                        setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
                     } else {
-                        showMsg('// NO ACTIVE SUBSCRIPTION — REDIRECTING TO PRICING', 'error');
-                        setTimeout(() => { window.location.href = 'index.html#pricing'; }, 1500);
+                        // Trial expired and not paid
+                        showMsg('// TRIAL EXPIRED — UPGRADE TO RESTORE ACCESS', 'error');
+                        setTimeout(() => { window.location.href = 'index.html#pricing'; }, 1800);
                     }
                 }
             } catch (e) {
