@@ -12,7 +12,6 @@
     <meta name="author" content="Martin, Storm OS">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://storm-os.app/">
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://storm-os.app/">
     <meta property="og:title" content="Storm OS — Productivity Dashboard for Tech Professionals">
@@ -5427,7 +5426,7 @@
                                 <div class="check">✓</div> Cloud Sync Across All Browsers
                             </li>
                         </ul>
-                        <button onclick="handlePurchase()" class="btn btn-primary"
+                        <button id="pricing-cta-btn" onclick="handlePurchase()" class="btn btn-primary"
                             style="width:100%;justify-content:center;padding:15px;border:none;">
                             START FREE 7-DAY TRIAL
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -5435,7 +5434,7 @@
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </button>
-                        <p
+                        <p id="pricing-cta-sub"
                             style="text-align:center;font-family:var(--mono);font-size:0.71rem;color:var(--text3);margin-top:14px;letter-spacing:.08em;">
                             NO CARD NEEDED FOR TRIAL // CANCEL ANYTIME</p>
                         <div class="trust-badges">
@@ -5804,9 +5803,23 @@
         }
 
         function handlePurchase() {
-            // If already paid, go straight to dashboard
-            if (isLoggedIn() && hasPaid()) { window.location.href = 'dashboard.html'; return; }
-            // All other cases: go directly to PayPal
+            // If already paid → go straight to dashboard
+            if (isLoggedIn() && hasPaid()) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+            // If logged in but not paid → they are on trial or trial expired → send to PayPal to upgrade
+            if (isLoggedIn() && !hasPaid()) {
+                localStorage.setItem('pending_payment_intent', 'true');
+                window.location.href = PAYPAL_PAYMENT_URL;
+                return;
+            }
+            // Not logged in → start free 7-day trial → send to signup
+            window.location.href = 'signup.html';
+        }
+
+        function handleUpgrade() {
+            // Explicit upgrade flow — always goes to PayPal
             localStorage.setItem('pending_payment_intent', 'true');
             window.location.href = PAYPAL_PAYMENT_URL;
         }
@@ -5943,6 +5956,26 @@
 
         // Auto-run on page load if tx param present (payment return)
         processPaymentReturn();
+
+        // Update pricing CTA button based on login/paid state
+        function updatePricingCTA() {
+            const btn = document.getElementById('pricing-cta-btn');
+            const sub = document.getElementById('pricing-cta-sub');
+            if (!btn) return;
+            if (isLoggedIn() && hasPaid()) {
+                btn.textContent = 'GO TO DASHBOARD \u2192';
+                btn.onclick = function() { window.location.href = 'dashboard.html'; };
+                if (sub) sub.textContent = 'YOU HAVE FULL OPERATOR ACCESS';
+            } else if (isLoggedIn() && !hasPaid()) {
+                btn.innerHTML = 'UPGRADE NOW \u2014 $9.99/MO <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+                btn.onclick = function() { handleUpgrade(); };
+                if (sub) sub.textContent = 'YOUR TRIAL HAS ENDED \u2014 UPGRADE TO RESTORE ACCESS';
+            } else {
+                // Not logged in \u2014 default: free trial
+                if (sub) sub.textContent = 'NO CARD NEEDED FOR TRIAL // CANCEL ANYTIME';
+            }
+        }
+        updatePricingCTA();
 
         // Always run on page load — shows the OPERATOR COMMAND button for paid logged-in users
         // This fires after login redirect so the nav state is always correct
