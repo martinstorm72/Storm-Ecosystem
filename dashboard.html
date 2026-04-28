@@ -6316,43 +6316,6 @@
         .pf-field-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
         .pf-modal-footer { display:flex; gap:10px; justify-content:flex-end; padding:14px 20px 18px; border-top:1px solid var(--border); }
 
-        /* ═══════════════════════════════════════════════════════════════
-           WEEKLY GOALS
-        ═══════════════════════════════════════════════════════════════ */
-        .wg-header-bar { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
-        .wg-title { font-family:var(--head); font-size:1.6rem; font-weight:900; letter-spacing:.06em; color:var(--text); margin-bottom:3px; }
-        .wg-subtitle { font-family:var(--mono); font-size:0.72rem; color:var(--text3); letter-spacing:.08em; }
-        .wg-streak-badge { font-family:var(--mono); font-size:0.78rem; font-weight:900; letter-spacing:.08em; padding:6px 14px; border-radius:20px; background:rgba(232,201,122,.12); color:#e8c97a; border:1px solid rgba(232,201,122,.25); }
-        .wg-overall-card { background:var(--card); border:1px solid var(--border2); border-radius:10px; padding:16px 20px; margin-bottom:20px; }
-        .wg-overall-label { font-family:var(--mono); font-size:0.7rem; font-weight:700; letter-spacing:.12em; color:var(--text3); margin-bottom:10px; }
-        .wg-overall-bar-wrap { height:8px; background:rgba(255,255,255,.06); border-radius:4px; overflow:hidden; margin-bottom:8px; }
-        .wg-overall-bar-fill { height:100%; background:linear-gradient(90deg,#6c63ff,#00d2ff); border-radius:4px; transition:width .8s cubic-bezier(.34,1.56,.64,1); }
-        .wg-overall-pct { font-family:var(--mono); font-size:0.78rem; color:var(--text3); font-weight:700; }
-        .wg-goals-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-bottom:28px; }
-        .wg-goal-card { background:var(--card); border:1px solid var(--border2); border-radius:12px; padding:18px; display:flex; flex-direction:column; gap:12px; transition:border-color .2s; animation:fadeInUp .3s ease both; }
-        .wg-goal-card:hover { border-color:rgba(255,255,255,.12); }
-        .wg-goal-top { display:flex; align-items:center; gap:10px; }
-        .wg-goal-icon { font-size:1.4rem; flex-shrink:0; }
-        .wg-goal-info { flex:1; }
-        .wg-goal-name { font-family:var(--mono); font-size:0.75rem; font-weight:900; letter-spacing:.1em; color:var(--text3); }
-        .wg-goal-nums { font-family:var(--head); font-size:1.3rem; font-weight:900; color:var(--text); }
-        .wg-goal-nums span { font-size:0.85rem; font-weight:600; color:var(--text3); }
-        .wg-goal-bar-wrap { height:6px; background:rgba(255,255,255,.06); border-radius:3px; overflow:hidden; }
-        .wg-goal-bar-fill { height:100%; border-radius:3px; transition:width .8s cubic-bezier(.34,1.56,.64,1); }
-        .wg-goal-pct { font-family:var(--mono); font-size:0.7rem; color:var(--text3); font-weight:700; }
-        .wg-goal-card.complete { border-color:rgba(57,211,83,.3); }
-        .wg-goal-card.complete .wg-goal-bar-fill { background:#39d353 !important; }
-        .wg-goal-update-row { display:flex; gap:6px; }
-        .wg-goal-update-row input { font-size:0.85rem; padding:5px 8px; }
-        .wg-goal-add-btn { font-family:var(--mono); font-size:0.7rem; font-weight:700; letter-spacing:.06em; padding:5px 10px; border-radius:5px; border:1px solid var(--border2); background:rgba(255,255,255,.04); color:var(--text3); cursor:pointer; white-space:nowrap; transition:all .15s; flex-shrink:0; }
-        .wg-goal-add-btn:hover { border-color:rgba(255,255,255,.2); color:var(--text2); }
-        .wg-section-title { font-family:var(--mono); font-size:0.72rem; font-weight:900; letter-spacing:.14em; color:var(--text3); margin-bottom:12px; }
-        .wg-history-grid { display:flex; gap:8px; flex-wrap:wrap; }
-        .wg-history-week { background:var(--card); border:1px solid var(--border2); border-radius:8px; padding:10px 14px; font-family:var(--mono); font-size:0.72rem; color:var(--text3); min-width:120px; }
-        .wg-history-week.perfect { border-color:rgba(57,211,83,.3); background:rgba(57,211,83,.04); }
-        .wg-history-week-label { font-weight:700; letter-spacing:.06em; margin-bottom:4px; }
-        .wg-history-week-pct { font-size:1.1rem; font-weight:900; color:var(--text); }
-        .wg-history-week.perfect .wg-history-week-pct { color:#39d353; }
 
         /* ═══ PAGE TRANSITIONS ═══ */
         /* ═══════════════════════════════════════════════════════════════
@@ -7470,7 +7433,6 @@
             <button class="nav-tab" onclick="switchTab('flashcards',this)"><i class="fas fa-clone"></i> FLASHCARDS</button>
             <button class="nav-tab" onclick="switchTab('course-planner',this)"><i class="fas fa-book-open"></i> COURSE PLANNER</button>
             <button class="nav-tab" onclick="switchTab('project-portfolio',this)"><i class="fas fa-folder-open"></i> PROJECT PORTFOLIO</button>
-            <button class="nav-tab" onclick="switchTab('weekly-goals',this)"><i class="fas fa-bullseye"></i> GAMIFICATION</button>
             <button class="nav-tab" onclick="switchTab('journal',this)"><i class="fas fa-book"></i> FIELD NOTES</button>
             <button class="nav-tab" onclick="switchTab('analytics',this)"><i class="fas fa-chart-bar"></i> ANALYTICS</button>
         </div>
@@ -8911,71 +8873,6 @@
             </div>
         </div>
 
-        <!-- ═══════════════════════════════════════════════════════════════
-        <div class="panel" id="panel-weekly-goals">
-            <div class="wg-header-bar">
-                <div>
-                    <div class="wg-title"><i class="fas fa-bullseye"></i> WEEKLY GOALS</div>
-                    <div class="wg-subtitle" id="wg-week-range">Loading week...</div>
-                </div>
-                <div style="display:flex;gap:10px;align-items:center">
-                    <div class="wg-streak-badge" id="wg-streak-badge">🔥 0 WEEK STREAK</div>
-                    <button class="btn btn-ghost btn-sm" onclick="wgEditTargets()"><i class="fas fa-sliders-h"></i> SET TARGETS</button>
-                </div>
-            </div>
-
-            <!-- Overall progress -->
-            <div class="wg-overall-card" id="wg-overall-card">
-                <div class="wg-overall-label">WEEKLY PROGRESS</div>
-                <div class="wg-overall-bar-wrap">
-                    <div class="wg-overall-bar-fill" id="wg-overall-fill" style="width:0%"></div>
-                </div>
-                <div class="wg-overall-pct" id="wg-overall-pct">0% complete</div>
-            </div>
-
-            <!-- Goals grid -->
-            <div class="wg-goals-grid" id="wg-goals-grid">
-                <!-- Populated by JS -->
-            </div>
-
-            <!-- Past weeks -->
-            <div class="wg-history-section">
-                <div class="wg-section-title">PAST WEEKS</div>
-                <div class="wg-history-grid" id="wg-history-grid"></div>
-            </div>
-        </div>
-
-        <!-- WEEKLY GOALS TARGET MODAL -->
-        <div id="wg-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:20px">
-            <div class="pf-modal-box" style="max-width:420px">
-                <div class="pf-modal-header">
-                    <div class="pf-modal-title">SET WEEKLY TARGETS</div>
-                    <button onclick="wgCloseModal()" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:1.2rem">✕</button>
-                </div>
-                <div class="pf-modal-body">
-                    <div class="pf-field">
-                        <label>📚 STUDY HOURS TARGET</label>
-                        <input type="number" id="wg-t-study" min="0" max="168" placeholder="e.g. 20">
-                    </div>
-                    <div class="pf-field">
-                        <label>🧩 LEETCODE PROBLEMS TARGET</label>
-                        <input type="number" id="wg-t-lc" min="0" max="500" placeholder="e.g. 15">
-                    </div>
-                    <div class="pf-field">
-                        <label>✅ TASKS COMPLETED TARGET</label>
-                        <input type="number" id="wg-t-tasks" min="0" max="500" placeholder="e.g. 30">
-                    </div>
-                    <div class="pf-field">
-                        <label>🍅 POMODOROS TARGET</label>
-                        <input type="number" id="wg-t-pomos" min="0" max="500" placeholder="e.g. 40">
-                    </div>
-                </div>
-                <div class="pf-modal-footer">
-                    <button class="btn btn-ghost btn-sm" onclick="wgCloseModal()">CANCEL</button>
-                    <button class="btn btn-primary" onclick="wgSaveTargets()"><i class="fas fa-save"></i> SAVE TARGETS</button>
-                </div>
-            </div>
-        </div>
 
         <!-- ═══════════════════════════════════════════════════════════════
 
@@ -9646,8 +9543,8 @@
         }
 
         // CANONICAL tab order: Deep Work=1, Focus Impulse=2, AI Coach=3, Habits=4, Weekly Planner=5, Monthly Planner=6, Dev Tools=7, Field Notes=8, Help=9
-        const _POST_OB_TAB_ORDER = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'flashcards', 'course-planner', 'project-portfolio', 'weekly-goals', 'journal', 'analytics'];
-        const _DEFAULT_TAB_ORDER = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'flashcards', 'course-planner', 'project-portfolio', 'weekly-goals', 'journal', 'analytics'];
+        const _POST_OB_TAB_ORDER = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'flashcards', 'course-planner', 'project-portfolio', 'journal', 'analytics'];
+        const _DEFAULT_TAB_ORDER = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'flashcards', 'course-planner', 'project-portfolio', 'journal', 'analytics'];
 
         // Wipe any stale saved order so the canonical order always wins
         try { localStorage.removeItem('tab_order_custom'); } catch (e) { }
@@ -10710,7 +10607,57 @@
 
         function addJournal() { let t = document.getElementById('journal-input').value.trim(); if (!t) return; let tag = document.getElementById('journal-tag').value; S.journal.unshift({ id: Date.now(), text: t, tag, date: todayKey, time: new Date().toLocaleTimeString() }); document.getElementById('journal-input').value = ''; save(); renderJournal(); addXP(5); markOb('write_note'); }
         function deleteJournalEntry(id) { S.journal = S.journal.filter(j => j.id != id); save(); renderJournal(); }
-        function renderJournal() { let tl = { win: '🟢 WIN', blocker: '🔴 BLOCKER', insight: '🔵 INSIGHT' }; let jl = document.getElementById('journal-list'); if (jl) jl.innerHTML = S.journal.length ? S.journal.slice(0, 10).map(j => `<div class="journal-entry"><div class="journal-header"><div class="journal-meta">${j.date} ${j.time} | ${tl[j.tag] || j.tag}</div><button class="journal-delete" onclick="deleteJournalEntry(${j.id})">🗑</button></div><div style="font-size: 0.96rem;font-weight:500">${escHtml(j.text)}</div></div>`).join('') : '<div class="empty-state" style="text-align:center;padding:20px 10px"><div style="font-size: 1.8rem;margin-bottom:8px">📓</div><div style="font-weight:700;margin-bottom:4px">No field notes yet</div><div style="font-size: 0.9rem;color:var(--text3)">Log wins, blockers, and insights here</div></div>'; }
+        function renderJournal() {
+            let tl = { win: '🟢 WIN', blocker: '🔴 BLOCKER', insight: '🔵 INSIGHT' };
+            let jl = document.getElementById('journal-list');
+            if (!jl) return;
+            if (!S.journal.length) {
+                jl.innerHTML = '<div class="empty-state" style="text-align:center;padding:20px 10px"><div style="font-size: 1.8rem;margin-bottom:8px">📓</div><div style="font-weight:700;margin-bottom:4px">No field notes yet</div><div style="font-size: 0.9rem;color:var(--text3)">Log wins, blockers, and insights here</div></div>';
+                return;
+            }
+            jl.innerHTML = S.journal.slice(0, 10).map(j => `
+                <div class="journal-entry ${j._editing ? 'journal-editing' : ''}" id="jentry-${j.id}">
+                    <div class="journal-header">
+                        <div class="journal-meta">${j.date} ${j.time} | ${tl[j.tag] || j.tag}</div>
+                        <div style="display:flex;gap:2px">
+                            <button class="journal-edit" title="Edit note" onclick="startEditJournal(${j.id})">✏️</button>
+                            <button class="journal-delete" onclick="deleteJournalEntry(${j.id})">🗑</button>
+                        </div>
+                    </div>
+                    ${j._editing
+                        ? `<textarea id="jedit-${j.id}" style="width:100%;margin-top:6px;font-size:0.93rem;padding:7px 9px;border-radius:6px;border:1px solid rgba(126,207,255,.3);background:var(--bg);color:var(--text);resize:vertical;font-family:var(--body);line-height:1.55;outline:none;box-sizing:border-box" rows="3">${escHtml(j.text)}</textarea>
+                          <div style="display:flex;gap:6px;margin-top:6px">
+                            <button class="btn btn-primary btn-sm" onclick="saveEditJournal(${j.id})" style="font-size:0.7rem;padding:4px 10px"><i class="fas fa-check"></i> SAVE</button>
+                            <button class="btn btn-ghost btn-sm" onclick="cancelEditJournal(${j.id})" style="font-size:0.7rem;padding:4px 10px">CANCEL</button>
+                          </div>`
+                        : `<div style="font-size: 0.96rem;font-weight:500">${escHtml(j.text)}</div>`
+                    }
+                </div>`).join('');
+        }
+
+        function startEditJournal(id) {
+            S.journal.forEach(j => { j._editing = (j.id === id); });
+            renderJournal();
+            const ta = document.getElementById('jedit-' + id);
+            if (ta) { ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); }
+        }
+
+        function cancelEditJournal(id) {
+            S.journal.forEach(j => { delete j._editing; });
+            renderJournal();
+        }
+
+        function saveEditJournal(id) {
+            const ta = document.getElementById('jedit-' + id);
+            if (!ta) return;
+            const newText = ta.value.trim();
+            if (!newText) return;
+            const entry = S.journal.find(j => j.id === id);
+            if (entry) { entry.text = newText; delete entry._editing; }
+            save();
+            renderJournal();
+            showToast('✏️ Note updated');
+        }
 
         function addWin() { let v = document.getElementById('win-input')?.value.trim(); if (!v) return; S.wins.unshift({ id: Date.now(), text: v, date: todayKey }); const _wi = document.getElementById('win-input'); if (_wi) _wi.value = ''; save(); renderWins(); showToast('🏆 +10 XP'); addXP(10); }
         function deleteWin(id) { S.wins = S.wins.filter(w => w.id != id); save(); renderWins(); }
@@ -12234,11 +12181,10 @@
             if (!inInput) {
                 if (e.code === 'Space') { e.preventDefault(); let tp = document.getElementById('panel-timer'); if (tp && tp.classList.contains('active')) toggleMain(); else toggleMini(); }
                 if (e.key === '?') showShortcuts();
-                const tabs = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'flashcards', 'course-planner', 'project-portfolio', 'weekly-goals', 'journal', 'analytics'];
+                const tabs = ['planner', 'timer', 'ai-coach', 'habits', 'weekly-planner', 'monthly-planner', 'devtools', 'flashcards', 'course-planner', 'project-portfolio', 'journal', 'analytics'];
                 let num = parseInt(e.key); if (e.key === '0') num = 10; if (num >= 1 && num <= 10) { let tabEl = document.querySelectorAll('.nav-tab')[num - 1]; switchTab(tabs[num - 1], tabEl); }
                 if (e.altKey && e.key === '1') { e.preventDefault(); let tabEl = document.querySelectorAll('.nav-tab')[10]; switchTab(tabs[10], tabEl); }
                 if (e.altKey && e.key === '2') { e.preventDefault(); let tabEl = document.querySelectorAll('.nav-tab')[11]; switchTab(tabs[11], tabEl); }
-                if (e.altKey && e.key === '3') { e.preventDefault(); let tabEl = document.querySelectorAll('.nav-tab')[12]; switchTab(tabs[12], tabEl); }
             }
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runCode(); }
             if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); let ti = document.getElementById('task-input'); if (ti) { ti.focus(); } }
@@ -16341,219 +16287,6 @@ RESPONSE FORMAT:
 
         document.addEventListener('DOMContentLoaded', pfRender);
     })();
-         WEEKLY GOALS JS
-    ═══════════════════════════════════════════════════════════════ -->
-    <script>
-    (function() {
-        const WG_KEY = 'weekly_goals';
-
-        const WG_METRICS = [
-            { id:'study', name:'STUDY HOURS', icon:'📚', color:'#7ecfff', unit:'h' },
-            { id:'leetcode', name:'LEETCODE PROBLEMS', icon:'🧩', color:'#e8c97a', unit:'' },
-            { id:'tasks', name:'TASKS COMPLETED', icon:'✅', color:'#39d353', unit:'' },
-            { id:'pomodoros', name:'POMODOROS', icon:'🍅', color:'#e06c6c', unit:'' },
-        ];
-
-        function wgGetWeekKey(date) {
-            // Get Monday of the week
-            const d = new Date(date);
-            const day = d.getDay();
-            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-            const mon = new Date(d.setDate(diff));
-            return mon.toISOString().slice(0,10);
-        }
-
-        function wgLoad() { try { return JSON.parse(localStorage.getItem(WG_KEY)) || {}; } catch { return {}; } }
-        function wgSave(d) { localStorage.setItem(WG_KEY, JSON.stringify(d)); }
-
-        function wgGetCurrentWeek() {
-            const d = wgLoad();
-            const weekKey = wgGetWeekKey(new Date());
-            if (!d.weeks) d.weeks = {};
-            if (!d.weeks[weekKey]) d.weeks[weekKey] = { actuals:{study:0,leetcode:0,tasks:0,pomodoros:0} };
-            return { weekKey, week: d.weeks[weekKey], targets: d.targets || {study:20,leetcode:15,tasks:30,pomodoros:40} };
-        }
-
-        window.wgIncrementPomodoro = function() {
-            const d = wgLoad();
-            const weekKey = wgGetWeekKey(new Date());
-            if (!d.weeks) d.weeks = {};
-            if (!d.weeks[weekKey]) d.weeks[weekKey] = { actuals:{study:0,leetcode:0,tasks:0,pomodoros:0} };
-            d.weeks[weekKey].actuals.pomodoros = (d.weeks[weekKey].actuals.pomodoros || 0) + 1;
-            wgSave(d);
-            wgRender();
-        };
-
-        window.wgAddActual = function(metricId) {
-            const input = document.getElementById(`wg-add-${metricId}`);
-            if (!input) return;
-            const val = parseFloat(input.value) || 0;
-            if (val === 0) return;
-            const d = wgLoad();
-            const weekKey = wgGetWeekKey(new Date());
-            if (!d.weeks) d.weeks = {};
-            if (!d.weeks[weekKey]) d.weeks[weekKey] = { actuals:{study:0,leetcode:0,tasks:0,pomodoros:0} };
-            d.weeks[weekKey].actuals[metricId] = Math.max(0, (d.weeks[weekKey].actuals[metricId] || 0) + val);
-            wgSave(d);
-            input.value = '';
-            wgRender();
-            if (typeof showToast === 'function') showToast(`✅ ${val > 0 ? '+' : ''}${val} added!`);
-        };
-
-        window.wgEditTargets = function() {
-            const m = document.getElementById('wg-modal');
-            if (!m) return;
-            m.style.display = 'flex';
-            const { targets } = wgGetCurrentWeek();
-            document.getElementById('wg-t-study').value = targets.study || '';
-            document.getElementById('wg-t-lc').value = targets.leetcode || '';
-            document.getElementById('wg-t-tasks').value = targets.tasks || '';
-            document.getElementById('wg-t-pomos').value = targets.pomodoros || '';
-        };
-
-        window.wgCloseModal = function() {
-            const m = document.getElementById('wg-modal');
-            if (m) m.style.display = 'none';
-        };
-
-        window.wgSaveTargets = function() {
-            const d = wgLoad();
-            d.targets = {
-                study: parseFloat(document.getElementById('wg-t-study')?.value) || 0,
-                leetcode: parseInt(document.getElementById('wg-t-lc')?.value) || 0,
-                tasks: parseInt(document.getElementById('wg-t-tasks')?.value) || 0,
-                pomodoros: parseInt(document.getElementById('wg-t-pomos')?.value) || 0,
-            };
-            wgSave(d);
-            wgCloseModal();
-            wgRender();
-            if (typeof showToast === 'function') showToast('🎯 Weekly targets saved!');
-        };
-
-        function wgCalcStreak(allWeeks, targets) {
-            let streak = 0;
-            const today = new Date();
-            // Start from 1 week ago and go backwards
-            for (let i = 1; i <= 52; i++) {
-                const d = new Date(today);
-                d.setDate(d.getDate() - i * 7);
-                const wk = wgGetWeekKey(d);
-                const week = allWeeks[wk];
-                if (!week) break;
-                const actuals = week.actuals || {};
-                const allMet = WG_METRICS.every(m => {
-                    const t = targets[m.id] || 0;
-                    return t === 0 || (actuals[m.id] || 0) >= t;
-                });
-                if (!allMet) break;
-                streak++;
-            }
-            return streak;
-        }
-
-        window.wgRender = function() {
-            const d = wgLoad();
-            const { weekKey, week, targets } = wgGetCurrentWeek();
-
-            // Week range label
-            const mon = new Date(weekKey);
-            const sun = new Date(weekKey); sun.setDate(sun.getDate() + 6);
-            const fmt = (d) => d.toLocaleDateString(undefined, {month:'short', day:'numeric'});
-            const rangeEl = document.getElementById('wg-week-range');
-            if (rangeEl) rangeEl.textContent = `Week of ${fmt(mon)} — ${fmt(sun)}`;
-
-            // Streak
-            const streak = wgCalcStreak(d.weeks || {}, targets);
-            const streakEl = document.getElementById('wg-streak-badge');
-            if (streakEl) streakEl.textContent = `🔥 ${streak} WEEK STREAK`;
-
-            // Overall progress
-            let totalPct = 0, countedMetrics = 0;
-            WG_METRICS.forEach(m => {
-                const t = targets[m.id] || 0;
-                if (t > 0) {
-                    totalPct += Math.min(1, (week.actuals?.[m.id] || 0) / t);
-                    countedMetrics++;
-                }
-            });
-            const overallPct = countedMetrics ? Math.round((totalPct/countedMetrics)*100) : 0;
-            const overallFill = document.getElementById('wg-overall-fill');
-            if (overallFill) overallFill.style.width = overallPct + '%';
-            const overallPctEl = document.getElementById('wg-overall-pct');
-            if (overallPctEl) overallPctEl.textContent = `${overallPct}% complete`;
-
-            // Goals grid
-            const grid = document.getElementById('wg-goals-grid');
-            if (grid) {
-                grid.innerHTML = WG_METRICS.map((m, i) => {
-                    const target = targets[m.id] || 0;
-                    const actual = week.actuals?.[m.id] || 0;
-                    const pct = target > 0 ? Math.min(100, Math.round((actual/target)*100)) : 0;
-                    const complete = target > 0 && actual >= target;
-                    return `<div class="wg-goal-card ${complete?'complete':''}" style="animation-delay:${i*0.07}s">
-                        <div class="wg-goal-top">
-                            <div class="wg-goal-icon">${m.icon}</div>
-                            <div class="wg-goal-info">
-                                <div class="wg-goal-name">${m.name}</div>
-                                <div class="wg-goal-nums">${actual}${m.unit} <span>/ ${target}${m.unit} target</span></div>
-                            </div>
-                            ${complete ? '<span style="font-size:1.2rem">🏆</span>' : ''}
-                        </div>
-                        <div class="wg-goal-bar-wrap">
-                            <div class="wg-goal-bar-fill" style="width:${pct}%;background:${m.color}"></div>
-                        </div>
-                        <div class="wg-goal-pct">${target > 0 ? pct+'% complete' : 'No target set'}</div>
-                        <div class="wg-goal-update-row">
-                            <input type="number" id="wg-add-${m.id}" placeholder="Add progress..." step="${m.id==='study'?0.5:1}" min="0" 
-                                onkeydown="if(event.key==='Enter')wgAddActual('${m.id}')" style="flex:1">
-                            <button class="wg-goal-add-btn" onclick="wgAddActual('${m.id}')">+ ADD</button>
-                        </div>
-                    </div>`;
-                }).join('');
-            }
-
-            // History
-            const histGrid = document.getElementById('wg-history-grid');
-            if (histGrid && d.weeks) {
-                const weekKeys = Object.keys(d.weeks).filter(k => k !== weekKey).sort().reverse().slice(0,8);
-                if (!weekKeys.length) {
-                    histGrid.innerHTML = '<div style="font-family:var(--mono);font-size:0.78rem;color:var(--text3)">No past weeks yet.</div>';
-                } else {
-                    histGrid.innerHTML = weekKeys.map(wk => {
-                        const pastWeek = d.weeks[wk];
-                        const actuals = pastWeek.actuals || {};
-                        let tp = 0, tc = 0;
-                        WG_METRICS.forEach(m => {
-                            const t = targets[m.id] || 0;
-                            if (t > 0) { tp += Math.min(1, (actuals[m.id]||0)/t); tc++; }
-                        });
-                        const pct = tc ? Math.round((tp/tc)*100) : 0;
-                        const perfect = pct >= 100;
-                        const mon2 = new Date(wk);
-                        const sun2 = new Date(wk); sun2.setDate(sun2.getDate()+6);
-                        return `<div class="wg-history-week ${perfect?'perfect':''}">
-                            <div class="wg-history-week-label">${fmt(mon2)} – ${fmt(sun2)}</div>
-                            <div class="wg-history-week-pct">${pct}% ${perfect?'🏆':''}</div>
-                        </div>`;
-                    }).join('');
-                }
-            }
-        };
-
-        // Expose wgRender globally so pomodoro can call it
-        window.wgRender = window.wgRender;
-
-        // Patch switchTab
-        const _wgOrig = window.switchTab;
-        window.switchTab = function(id, el) {
-            if (typeof _wgOrig === 'function') _wgOrig(id, el);
-            if (id === 'weekly-goals') wgRender();
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            wgRender();
-        });
-    })();
     </script>
 
     <!-- ═══════════════════════════════════════════════════════════════
@@ -16908,8 +16641,8 @@ RESPONSE FORMAT:
     })();
     </script>
 
-</body>
-</html        /* ═══════════════════════════════════════════════════════════════
+    <style>
+        /* ═══════════════════════════════════════════════════════════════
            COURSE PLANNER
         ═══════════════════════════════════════════════════════════════ */
         #panel-course-planner { padding-bottom: 48px; }
@@ -17286,6 +17019,7 @@ RESPONSE FORMAT:
         .cp-field input:focus, .cp-field select:focus, .cp-field textarea:focus { border-color: rgba(255,255,255,.18); }
         .cp-field textarea { min-height: 70px; resize: vertical; line-height: 1.5; }
         .cp-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    </style>
 
-
->
+</body>
+</html>
