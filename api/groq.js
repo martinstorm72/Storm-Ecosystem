@@ -1,21 +1,36 @@
-import { kv } from '@vercel/kv';
-
 const DAILY_LIMIT = 10;
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-// Get today's date key in UTC (resets at midnight UTC)
 function getTodayKey(userId) {
-  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  const today = new Date().toISOString().slice(0, 10);
   return `groq_rl:${userId}:${today}`;
 }
 
+// Upstash Redis REST helpers — uses REDIS_URL env var injected by Vercel
+async function redisGet(key) {
+  const url = `${process.env.REDIS_URL}/get/${encodeURIComponent(key)}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.result; // null or string value
+}
+
+async function redisSet(key, value, exSeconds) {
+  const url = `${process.env.REDIS_URL}/set/${encodeURIComponent(key)}/${value}/ex/${exSeconds}`;
+  await fetch(url);
+}
+
 export default async function handler(req, res) {
-  // Only allow POST
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // CORS — allow your Vercel domain and localhost for dev
   const origin = req.headers.origin || '';
   const allowed = [
     'https://storm-ecosystem.vercel.app',
@@ -28,14 +43,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  // ── Auth: require a valid Supabase JWT ──────────────────────────────────────
-  // The dashboard sends the Supabase access token in Authorization: Bearer <token>
-  // We decode the JWT payload (no signature check needed — we just need the user id
-  // for rate limiting; Supabase already validates the session on the client side).
+  // ── Auth ────────────────────────────────────────────────────────────────────
   const authHeader = req.headers.authorization || '';
   if (!authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ error: 'Missing authorization token.' });
@@ -47,22 +55,21 @@ export default async function handler(req, res) {
     const payload = JSON.parse(
       Buffer.from(token.split('.')[1], 'base64url').toString('utf8')
     );
-    userId = payload.sub; // Supabase user UUID
+    userId = payload.sub;
     if (!userId) throw new Error('No sub claim');
   } catch {
     return res.status(401).json({ error: 'Invalid authorization token.' });
   }
 
-  // ── Rate limiting via Vercel KV ─────────────────────────────────────────────
+  // ── Rate limiting via Upstash Redis ─────────────────────────────────────────
   const kvKey = getTodayKey(userId);
   let usageCount = 0;
 
   try {
-    const stored = await kv.get(kvKey);
+    const stored = await redisGet(kvKey);
     usageCount = stored ? parseInt(stored, 10) : 0;
   } catch (e) {
-    // KV read failed — fail open (don't block the user, just skip rate limiting)
-    console.error('KV read error:', e);
+    // Redis read failed — fail open
   }
 
   if (usageCount >= DAILY_LIMIT) {
@@ -70,19 +77,16 @@ export default async function handler(req, res) {
       error: `Daily limit reached. You have used ${DAILY_LIMIT}/${DAILY_LIMIT} AI messages today. Resets at midnight UTC.`,
       used: usageCount,
       limit: DAILY_LIMIT,
-      resetsAt: 'midnight UTC',
     });
   }
 
-  // ── Proxy to Groq ───────────────────────────────────────────────────────────
-  const { model, messages, temperature, max_tokens, stream } = req.body;
+  // ── Proxy to Groq ────────────────────────────────────────────────────────────
+  const { model, messages, temperature, max_tokens } = req.body;
 
-  // Validate required fields
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'messages array is required.' });
   }
 
-  // Whitelist allowed models
   const ALLOWED_MODELS = [
     'llama-3.3-70b-versatile',
     'llama-3.1-8b-instant',
@@ -106,7 +110,7 @@ export default async function handler(req, res) {
         messages,
         temperature: typeof temperature === 'number' ? temperature : 0.68,
         max_tokens: typeof max_tokens === 'number' ? Math.min(max_tokens, 2048) : 1024,
-        stream: false, // always non-streaming from the proxy
+        stream: false,
       }),
     });
   } catch (e) {
@@ -121,20 +125,17 @@ export default async function handler(req, res) {
 
   const data = await groqRes.json();
 
-  // ── Increment usage count after a successful response ───────────────────────
+  // ── Increment usage count ────────────────────────────────────────────────────
   try {
     const newCount = usageCount + 1;
-    // Set with TTL of 48h (so stale keys auto-expire even if the date logic misfires)
-    await kv.set(kvKey, newCount, { ex: 172800 });
-    // Attach usage info to response
+    await redisSet(kvKey, newCount, 172800); // 48h TTL
     data._usage = {
       used: newCount,
       limit: DAILY_LIMIT,
       remaining: DAILY_LIMIT - newCount,
     };
   } catch (e) {
-    console.error('KV write error:', e);
-    // Don't fail the request if KV write fails
+    // Don't fail the request if Redis write fails
   }
 
   return res.status(200).json(data);
